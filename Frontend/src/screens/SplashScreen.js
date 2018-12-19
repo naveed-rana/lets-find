@@ -15,13 +15,3 @@ export default class SplashScreen extends Component {
   }
 }
 
-
-var styles = StyleSheet.create({
-    // imageContainer: {
-    //   flex: 1,
-    //   alignItems: 'stretch'
-    // },
-    // image: {
-    //   flex: 1
-    // }
-  });
