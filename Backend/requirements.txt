@@ -1,0 +1,5 @@
+flask
+mysqlclient
+pafy
+youtube-dl
+mysql-connector-python
