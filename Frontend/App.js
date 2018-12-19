@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { View} from 'react-native';
 import SplashScreen from './src/screens/SplashScreen';
 import Home from './src/screens/HomeScreen';
+import Login from './src/screens/login'
 
 export default class App extends Component {
  
@@ -27,8 +28,9 @@ export default class App extends Component {
 
           <SplashScreen />
           :
-          <Home/>
-          } 
+
+          <Login />
+            }
       </View>
     );
   }

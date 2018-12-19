@@ -15,7 +15,3 @@ export default class SplashScreen extends Component {
   }
 }
 
-
-var styles = StyleSheet.create({
-
-  });
