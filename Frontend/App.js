@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import { View} from 'react-native';
 import SplashScreen from './src/screens/SplashScreen';
 import Home from './src/screens/HomeScreen';
-import Login from './src/screens/login'
+import Login from './src/screens/login';
+import {Content} from 'native-base';
 
 export default class App extends Component {
  
@@ -23,7 +24,7 @@ export default class App extends Component {
   render() {
     const {SplashScreens} = this.state;
     return (
-      <View>    
+      <Content>    
          {SplashScreens ?
 
           <SplashScreen />
@@ -31,7 +32,7 @@ export default class App extends Component {
 
           <Login />
             }
-      </View>
+      </Content>
     );
   }
 }

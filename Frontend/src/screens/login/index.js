@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { Container, Header, Content, Item, Input } from 'native-base';
+import { Container, Header, Content, Item, Input,Form } from 'native-base';
 export default class RoundedTextboxExample extends Component {
   render() {
     return (
       <Container>
         <Header />
-        <View>
-          <Item style={{marginTop: 215}} rounded>
-            <Input placeholder='Rounded Textbox'/>
-          </Item>
-        </View>
+        <Content>
+                    <Form>
+                        <Item>
+                            <Input placeholder="Username" />
+                        </Item>
+                        <Item last>
+                            <Input placeholder="Password" />
+                        </Item>
+                    </Form>
+        </Content>            
       </Container>
     );
   }
