@@ -3,7 +3,7 @@ import { View} from 'react-native';
 import SplashScreen from './src/screens/SplashScreen';
 import Home from './src/screens/HomeScreen';
 import Login from './src/screens/login';
-import {Content} from 'native-base';
+import {Content, Container} from 'native-base';
 
 export default class App extends Component {
  
@@ -33,7 +33,10 @@ export default class App extends Component {
       //     <Login />
       //       }
       // </Content>
-      <Login />
+      <Container>
+        <Login />
+      </Container>
+      
 
     );
   }
