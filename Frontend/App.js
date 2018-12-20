@@ -24,15 +24,17 @@ export default class App extends Component {
   render() {
     const {SplashScreens} = this.state;
     return (
-      <Content>    
-         {SplashScreens ?
+      // <Content>    
+      //    {SplashScreens ?
 
-          <SplashScreen />
-          :
+      //     <SplashScreen />
+      //     :
 
-          <Login />
-            }
-      </Content>
+      //     <Login />
+      //       }
+      // </Content>
+      <Login />
+
     );
   }
 }
