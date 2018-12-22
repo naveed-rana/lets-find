@@ -19,17 +19,32 @@ export const styles = StyleSheet.create({
   searchIcon: {
     color: "white"
   },
-  addButton: {
-    marginTop: 100
+
+  addIconView: {
+    borderRadius: 100,
+    justifyContent:center
   },
-  addButton: {
+  addNewButton: {
     backgroundColor: "#05CE1D",
-    color: "white",
-    marginLeft: 20,
-    justifyContent: "space-around"
-    // position: "absolute"
+    alignItems: "center",
+    width: 60,
+
+    // color: "#05CE1D",
+    position: "absolute",
+    bottom: 10,
+    justifyContent: "center",
+    height: 60,
+    borderRadius: 100
   },
-  addIcon: {
-    //   padding: 5,
-  }
+  cardContainer: {
+    marginHorizontal: 10
+},
+cardInnerContainer: {
+    flexDirection: 'row',
+},
+cardHeader: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+},
 });
