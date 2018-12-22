@@ -1,60 +1,55 @@
 import React, { Component } from 'react';
-import { StyleSheet,Dimensions ,ImageBackground,Image} from 'react-native';
-import { Container, Text, Content, Item, Input,Form,Icon, View,Button } from 'native-base';
-export default class RoundedTextboxExample extends Component {
+import { StyleSheet, ImageBackground, Image } from 'react-native';
+import {  Text, Content, Item, Input, Form, Icon, View, Button } from 'native-base';
+
+
+export default class LoginScreen extends Component {
   render() {
     return (
 
-        <ImageBackground source={require('../../media/bg_3.png')} style={{width: '100%', height: '100%'}}>
-        <Content contentContainerStyle={styles.loginContainer}>  
-         
-         <View style={styles.viewStyle}>
-         <Image source={require('../../media/main_logo.png')} /> 
-         <Text style={styles.inputStyle}>Find Your Missing Person</Text> 
-         </View>
+      <ImageBackground source={require('../../media/bg_3.png')} style={{ width: '100%', height: '100%' }}>
+        <Content contentContainerStyle={styles.loginContainer}>
 
-         <View style={styles.viewDirection}>
+          <View style={styles.viewStyle}>
+            <Image source={require('../../media/main_logo.png')} />
+            <Text style={styles.inputStyle}>Find Your Missing Person</Text>
+          </View>
 
-         <Text style={styles.loginStyle}>Login</Text>    
-         <Text style={styles.barStyle}>|</Text>
-         <Text style={styles.signUpStyle}>Signup</Text> 
-         </View>
-         
-         <Form style={styles.formStyle}>
+          <View style={styles.viewDirection}>
 
-         <Item style={styles.itemStyle} rounded>
-            <Icon active name='search' />
-            <Input placeholderTextColor='#fff' style={styles.inputStyle} placeholder='Email'/>
-          </Item>
+            <Text style={styles.loginStyle}>Login</Text>
+            <Text style={styles.barStyle}>|</Text>
+            <Text style={styles.signUpStyle}>Signup</Text>
+          </View>
 
-          <Item style={styles.itemStyle} rounded>
-            <Icon active name='swap' />
-            <Input placeholderTextColor='#fff' style={styles.inputStyle} placeholder='Password'/>
-          </Item>
+          <Form style={styles.formStyle}>
 
-           
-           <Text style={styles.forgetStyle}>Forgot Password?</Text>
-           
-           <Button full rounded style={{marginVertical:20,backgroundColor:'white'}}>
-            <Text style={{color:'black',fontWeight:'bold'}}>LOGIN</Text>
-          </Button>
-         </Form>
+            <Item style={styles.itemStyle} rounded>
+              <Icon active name='mail' />
+              <Input placeholderTextColor='#fff' style={styles.inputStyle} placeholder='Email' />
+            </Item>
+
+            <Item style={styles.itemStyle} rounded>
+              <Icon active name='eye' />
+              <Input placeholderTextColor='#fff' style={styles.inputStyle} placeholder='Password' />
+            </Item>
 
 
-         <View style={styles.viewAccount}>
-          <Text style={styles.loginStyle}>Don't have an Account?</Text>    
-          <Text style={styles.loginStyle}> Signup</Text> 
-        </View>
+            <Text style={styles.forgetStyle}>Forgot Password?</Text>
+            <Button full rounded style={{ marginVertical: 20, backgroundColor: 'white' }}>
+              <Text style={{ color: 'black', fontWeight: 'bold' }}>LOGIN</Text>
+            </Button>
 
-        <View style={styles.viewAccount}>
+          </Form>
 
-          <Text style={styles.loginStyle}>-----------</Text>    
-          <Text style={styles.loginStyle}> Or </Text>
-          <Text style={styles.loginStyle}>------------</Text> 
-         </View>
 
-        </Content> 
-      </ImageBackground>            
+          <View style={styles.viewAccount}>
+            <Text style={styles.loginStyle}>Don't have an Account?</Text>
+            <Text style={styles.loginStyle}> Signup</Text>
+          </View>
+
+        </Content>
+      </ImageBackground>
 
     );
   }
@@ -62,56 +57,58 @@ export default class RoundedTextboxExample extends Component {
 
 
 const styles = StyleSheet.create({
-  loginContainer:{
+  loginContainer: {
     justifyContent: 'center',
     flex: 1,
   },
-  inputStyle:{
-    color:'#fff'
+  inputStyle: {
+    color: '#fff'
   },
-  itemStyle:{
-   marginVertical:8,
-  //  marginHorizontal:10,
+  itemStyle: {
+    marginVertical: 8,
+    //  marginHorizontal:10,
   },
-  formStyle:{
-    marginHorizontal:20
+  formStyle: {
+    marginHorizontal: 20
   },
-  viewStyle:{
-   alignItems: 'center',
-   paddingBottom: 10,
+  viewStyle: {
+    alignItems: 'center',
+    paddingBottom: 10,
   },
-  viewDirection:{
-    flexDirection:'row',
-    alignItems:'center',
-    justifyContent:'center',
-    marginVertical:20
+  viewDirection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 20
   },
   viewAccount:
   {
-    flexDirection:'row',
-    alignItems:'center',
-    justifyContent:'center',
-    
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+
   },
 
-  barStyle:{fontSize:30,
-    color:'white',
-    paddingHorizontal:15}
+  barStyle: {
+    fontSize: 30,
+    color: 'white',
+    paddingHorizontal: 15
+  }
   ,
-  signUpStyle:{
-    color:'#90a578',
-    fontSize:18
+  signUpStyle: {
+    color: '#90a578',
+    fontSize: 18
   },
-  loginStyle:{
-    fontSize:19,
-    color:'white'
+  loginStyle: {
+    fontSize: 19,
+    color: 'white'
   },
-  forgetStyle:{
-    textAlign:'right',
-    color:'white'
+  forgetStyle: {
+    textAlign: 'right',
+    color: 'white'
   },
 
 
-  
+
 
 })
