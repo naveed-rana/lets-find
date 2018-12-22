@@ -9,7 +9,7 @@ export default class SignUpScreen extends Component {
           <Content style={styles.wrapper}>
                 <View style={styles.topcontent}>
                     <Icon type='AntDesign' name='close' style={styles.topCross} />
-                    <Text style={styles.topText}> Edit Profile </Text>
+                    <Text style={styles.topText}> Show Profile </Text>
                     <Text style={styles.topsave}> Save </Text>
                 </View>
           </Content>
