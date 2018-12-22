@@ -7,7 +7,6 @@ export default class SplashScreen extends Component {
     return (
       <View >
         <Image
-          
           source={require('../media/splashScreen.png')}
         />
       </View>
@@ -15,7 +14,3 @@ export default class SplashScreen extends Component {
   }
 }
 
-
-var styles = StyleSheet.create({
-
-  });
