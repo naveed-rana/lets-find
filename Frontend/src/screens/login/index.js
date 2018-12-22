@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, ImageBackground, Image } from 'react-native';
+import {  ImageBackground, Image } from 'react-native';
 import {  Text, Content, Item, Input, Form, Icon, View, Button } from 'native-base';
 
+import styles from './style';
 
 export default class LoginScreen extends Component {
   render() {
@@ -25,12 +26,12 @@ export default class LoginScreen extends Component {
           <Form style={styles.formStyle}>
 
             <Item style={styles.itemStyle} rounded>
-              <Icon active name='mail' />
+              <Icon style={styles.inputStyle} active name='mail' />
               <Input placeholderTextColor='#fff' style={styles.inputStyle} placeholder='Email' />
             </Item>
 
             <Item style={styles.itemStyle} rounded>
-              <Icon active name='eye' />
+              <Icon style={styles.inputStyle} active name='eye' />
               <Input placeholderTextColor='#fff' style={styles.inputStyle} placeholder='Password' />
             </Item>
 
@@ -56,59 +57,3 @@ export default class LoginScreen extends Component {
 }
 
 
-const styles = StyleSheet.create({
-  loginContainer: {
-    justifyContent: 'center',
-    flex: 1,
-  },
-  inputStyle: {
-    color: '#fff'
-  },
-  itemStyle: {
-    marginVertical: 8,
-    //  marginHorizontal:10,
-  },
-  formStyle: {
-    marginHorizontal: 20
-  },
-  viewStyle: {
-    alignItems: 'center',
-    paddingBottom: 10,
-  },
-  viewDirection: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: 20
-  },
-  viewAccount:
-  {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-
-  },
-
-  barStyle: {
-    fontSize: 30,
-    color: 'white',
-    paddingHorizontal: 15
-  }
-  ,
-  signUpStyle: {
-    color: '#90a578',
-    fontSize: 18
-  },
-  loginStyle: {
-    fontSize: 19,
-    color: 'white'
-  },
-  forgetStyle: {
-    textAlign: 'right',
-    color: 'white'
-  },
-
-
-
-
-})
