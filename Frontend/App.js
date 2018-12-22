@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import { View} from 'react-native';
 import SplashScreen from './src/screens/SplashScreen';
 import Home from './src/screens/HomeScreen';
+import AddForm from './src/screens/AddForm';
 
 export default class App extends Component {
  
@@ -21,15 +21,8 @@ export default class App extends Component {
 
   render() {
     const {SplashScreens} = this.state;
-    return (
-      <View>    
-         {SplashScreens ?
-
-          <SplashScreen />
-          :
-          <Home/>
-          } 
-      </View>
+    return (  
+         <AddForm />
     );
   }
 }
