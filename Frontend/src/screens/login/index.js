@@ -3,7 +3,7 @@ import {  ImageBackground, Image } from 'react-native';
 import {  Text, Content, Item, Input, Form, Icon, View, Button } from 'native-base';
 
 import styles from './style';
-
+ 
 export default class LoginScreen extends Component {
   render() {
     return (
