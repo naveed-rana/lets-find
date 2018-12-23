@@ -29,7 +29,7 @@ export default class AddForm extends Component {
 
           <View style={{ alignItems: 'center' }}>
             <View style={styles.topImagecircle}>
-              <Thumbnail style={styles.topImageStyle} source={require('../media/Top-image.png')} />
+              <Thumbnail style={styles.topImageStyle} source={require('../../media/Top-image.png')} />
             </View>
 
             <View style={styles.btnViewStyle}>
@@ -64,7 +64,7 @@ export default class AddForm extends Component {
           </View>
           <Text style={styles.uploadTextStyle}>Upload Photo</Text>
           <View style={styles.bottomStyle}>
-            <Thumbnail style={styles.bottomImageStyle} source={require('../media/upload-photo.png')} />
+            <Thumbnail style={styles.bottomImageStyle} source={require('../../media/upload-photo.png')} />
             <Button full rounded success>
               <Text>Submit & Post</Text>
             </Button>
