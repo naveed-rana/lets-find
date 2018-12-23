@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { Container} from 'native-base';
 import HomeScreen from './src/screens/Home'
 
-
 export default class App extends Component {
 
   constructor(props) {
