@@ -21,7 +21,7 @@ export default class ShowProfile extends Component {
 
                 <Content style={styles.bodyContent}>
                     <View style={styles.profileHead}>
-                        <Image source={require('./Image.png')} style={styles.profileImage} />
+                        <Image source={require('../../media/show-profile.png')} style={styles.profileImage} />
                         <View style={styles.mrgTop}>
                             <Text style={styles.total}> 131 </Text>
                             <Text style={styles.history}> Posts </Text>
