@@ -1,12 +1,7 @@
 
 import React, { Component } from 'react';
-import { View } from 'react-native';
-import SplashScreen from './src/screens/SplashScreen';
-import Home from './src/screens/HomeScreen';
-import Login from './src/screens/Edit-Profile';
 import ShowProfile from './src/screens/ShowProfile';
-import { Content, Container } from 'native-base';
-
+import { Container } from 'native-base';
 
 export default class App extends Component {
 
