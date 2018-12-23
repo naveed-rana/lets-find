@@ -6,7 +6,7 @@ import Home from './src/screens/HomeScreen';
 import Login from './src/screens/signup';
 import {Content, Container} from 'native-base';
 import HomeScreen from './src/screens/Home'
-
+ 
 
 export default class App extends Component {
 
