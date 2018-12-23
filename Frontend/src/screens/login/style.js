@@ -10,7 +10,6 @@ export default styles = StyleSheet.create({
     },
     itemStyle: {
       marginVertical: 8,
-      //  marginHorizontal:10,
     },
     formStyle: {
       marginHorizontal: 20
