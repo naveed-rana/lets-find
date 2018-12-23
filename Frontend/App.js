@@ -36,17 +36,12 @@ export default class App extends Component {
       //     <Login />
       //       }
       // </Content>
+
       <Container>
-<<<<<<< HEAD
-        <Login /> 
-      </Container>
-    )
-=======
         {/* <Login /> */}
         <ShowProfile />
       </Container>
-
->>>>>>> show-profile
+    )
 
   }
 }
