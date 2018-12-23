@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import SplashScreen from './src/screens/SplashScreen';
 import Home from './src/screens/HomeScreen';
-import AddForm from './src/screens/AddForm';
+import PersonalDetail from './src/screens/PersonalDetail';
 
 export default class App extends Component {
  
@@ -22,7 +22,7 @@ export default class App extends Component {
   render() {
     const {SplashScreens} = this.state;
     return (  
-         <AddForm />
+         <PersonalDetail />
     );
   }
 }
