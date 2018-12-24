@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ImageBackground, StyleSheet, Image, StatusBar } from "react-native";
+import { ImageBackground, StyleSheet, Image, StatusBar ,TouchableOpacity } from "react-native";
 import {
   View,
   Text,
@@ -12,7 +12,7 @@ import {
   Body,
   Button
 } from "native-base";
-import {styles} from './style';
+import { styles } from './style';
 
 export default class componentName extends Component {
   constructor(props) {
@@ -46,13 +46,13 @@ export default class componentName extends Component {
           </View>
         </ImageBackground>
         {/* {/ Plus Button /} */}
-        <Content>
+        {/* <Content>
           <Button
             style={{
               backgroundColor: "#05CE1D",
               borderRadius: 100,
               height: 50,
-              width: 50
+              width: 50,
             }}
           >
             <Icon
@@ -62,7 +62,11 @@ export default class componentName extends Component {
               color="white"
             />
           </Button>
-        </Content>
+        </Content> */}
+        <TouchableOpacity style={styles.addNewButton}>
+            <Icon type="AntDesign" name="plus"style={{ fontSize: 20,color:"#fff" }} color="white" />
+        </TouchableOpacity>
+        {/* PLus Button Ends*/}
         <View style={styles.cardContainer}>
           <Card>
             <CardItem>

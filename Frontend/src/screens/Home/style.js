@@ -14,16 +14,23 @@ export const styles = StyleSheet.create({
   searchIcon: {
     color: "white"
   },
+  // addIconView: {
+  //   flex: 1,
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   // height:500
+  // },
   addNewButton: {
     backgroundColor: "#05CE1D",
     alignItems: "center",
-    width: 60,
-    // color: "#05CE1D",
+    width: 50,
+    alignSelf:'center',
     position: "absolute",
-    bottom: 10,
+    bottom: 5,
     justifyContent: "center",
-    height: 60,
-    borderRadius: 100
+    height: 50,
+    borderRadius: 100,
+    zIndex:1
   },
   cardContainer: {
     marginHorizontal: 10
@@ -71,7 +78,8 @@ export const styles = StyleSheet.create({
     borderRadius: 50
   },
   cardContainer: {
-    marginHorizontal: 10
+    marginHorizontal: 10,
+    zIndex:-1
   },
   cardInnerContainer: {
     flexDirection: "row"
