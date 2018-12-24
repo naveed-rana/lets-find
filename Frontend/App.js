@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Container} from 'native-base';
-import HomeScreen from './src/screens/SplashScreen/SplashScreen'
+import Setup from './src/navigation-setup/Setup';
 
 export default class App extends Component {
 
@@ -23,7 +23,7 @@ export default class App extends Component {
     return (
 
       <Container>
-        <HomeScreen />
+        <Setup />
       </Container>
     )
 
