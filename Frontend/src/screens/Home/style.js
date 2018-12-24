@@ -9,10 +9,12 @@ export const styles = StyleSheet.create({
     backgroundColor: "rgba(5, 205, 29, 0.5)",
     justifyContent: "space-between",
     flexDirection: "row",
-    aspectRatio: 1.8
+    aspectRatio: 1.8,
+    textAlign:"center"
   },
   searchIcon: {
-    color: "white"
+    color: "white",
+    fontSize:35
   },
   // addIconView: {
   //   flex: 1,
@@ -30,7 +32,12 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     height: 50,
     borderRadius: 100,
-    zIndex:1
+    shadowOffset: { width: 10, height: 10 },  
+    shadowColor: '#05CE1D',  
+    shadowOpacity: 1,  
+    elevation: 3,  
+    zIndex:999,
+    shadowRadius:15
   },
   cardContainer: {
     marginHorizontal: 10
@@ -103,5 +110,15 @@ export const styles = StyleSheet.create({
     color: "#0366d6",
     fontSize: 12,
     paddingTop: 2
+  },
+  headerCenterText:{
+    alignSelf:"center",
+    color:"#fff",
+    position:"absolute",
+    paddingHorizontal:70,
+    fontSize:20,
+    flexWrap:"wrap",
+    width:"100%",
+    textAlign:"center"
   }
 });
