@@ -14,7 +14,9 @@ export default class SignUpScreen extends Component {
                     />
                 </View>
                 <View style={styles.topcontent}>
-                    <Icon type='AntDesign' name='close' style={styles.topCross} />
+                    <Icon 
+                    onPress={() => this.props.navigation.navigate('Profile')}
+                    type='AntDesign' name='close' style={styles.topCross} />
                     <Text style={styles.topText}> Edit Profile </Text>
                     <Text style={styles.topsave}> Save </Text>
                 </View>

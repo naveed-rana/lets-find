@@ -33,11 +33,13 @@ export default class componentName extends Component {
         >
           <View style={styles.header}>
             <Button transparent>
-              <Icon name="menu" style={styles.searchIcon} />
+              <Icon
+              name="menu" style={styles.searchIcon} />
             </Button>
 
             <Button transparent>
               <Icon
+                onPress={() => this.props.navigation.navigate('Search')}
                 type="EvilIcons"
                 active
                 name="search"

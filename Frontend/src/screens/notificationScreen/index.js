@@ -13,7 +13,9 @@ export default class notificationScreen extends Component {
                     />
                 </View>
                 <View style={styles.header}>
-                    <Icon type="AntDesign" name="arrowleft" style={{ color: "#fff",  }} />
+                    <Icon 
+                     onPress={() => this.props.navigation.navigate('Home')}
+                    type="AntDesign" name="arrowleft" style={{ color: "#fff",  }} />
                     <Text style={{ color: "#fff" }}>Notifications</Text>
                     <Text></Text>
                 </View>
