@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import { Container} from 'native-base';
-import HomeScreen from './src/screens/Home'
- 
- 
+import Setup from './src/navigation-setup/Setup';
+
 export default class App extends Component {
 
   constructor(props) {
@@ -24,7 +23,7 @@ export default class App extends Component {
     return (
 
       <Container>
-        <HomeScreen />
+        <Setup />
       </Container>
     )
 

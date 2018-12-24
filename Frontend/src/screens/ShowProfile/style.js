@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Row } from 'native-base';
+
 
 export default styles = StyleSheet.create({
   topcontent: {
@@ -58,6 +58,8 @@ export default styles = StyleSheet.create({
   },
   description_prag: {
     color: "gray",
+    fontFamily: "Raleway-Regular",
+
   },
 
   contactUs: {

@@ -62,7 +62,10 @@ export default class ShowProfile extends Component {
                         </View>
 
                         <View>
-                            <Button full style={styles.editBtn}>
+                            <Button full 
+                            style={styles.editBtn} 
+                            onPress={() => this.props.navigation.navigate('ProfileEdit')}
+                            >
                                 <Text>Edit Profile</Text>
                             </Button>
                         </View>

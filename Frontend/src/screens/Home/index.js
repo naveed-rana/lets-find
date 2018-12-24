@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ImageBackground, StyleSheet, Image, StatusBar } from "react-native";
+import { ImageBackground,ScrollView, Image, StatusBar ,TouchableOpacity } from "react-native";
 import {
   View,
   Text,
@@ -10,9 +10,10 @@ import {
   Card,
   CardItem,
   Body,
-  Button
+  Button,
+  Container
 } from "native-base";
-import {styles} from './style';
+import { styles } from './style';
 
 export default class componentName extends Component {
   constructor(props) {
@@ -22,21 +23,23 @@ export default class componentName extends Component {
 
   render() {
     return (
-      <Content>
+      <Container>
         <View>
           <StatusBar backgroundColor="#05CE1D" barStyle="light-content" />
         </View>
         <ImageBackground
-          source={require("../../media/bg_3.png")}
+          source={require("../../media/sham.jpg")}
           style={{ aspectRatio: 1.8 }}
         >
           <View style={styles.header}>
             <Button transparent>
-              <Icon name="menu" style={styles.searchIcon} />
+              <Icon
+              name="menu" style={styles.searchIcon} />
             </Button>
 
             <Button transparent>
               <Icon
+                onPress={() => this.props.navigation.navigate('Search')}
                 type="EvilIcons"
                 active
                 name="search"
@@ -46,13 +49,13 @@ export default class componentName extends Component {
           </View>
         </ImageBackground>
         {/* {/ Plus Button /} */}
-        <Content>
+        {/* <Content>
           <Button
             style={{
               backgroundColor: "#05CE1D",
               borderRadius: 100,
               height: 50,
-              width: 50
+              width: 50,
             }}
           >
             <Icon
@@ -62,7 +65,12 @@ export default class componentName extends Component {
               color="white"
             />
           </Button>
-        </Content>
+        </Content> */}
+        <TouchableOpacity style={styles.addNewButton}>
+            <Icon type="AntDesign" name="plus"style={{ fontSize: 20,color:"#fff" }} color="white" />
+        </TouchableOpacity>
+        {/* PLus Button Ends*/}
+        <ScrollView>
         <View style={styles.cardContainer}>
           <Card>
             <CardItem>
@@ -264,9 +272,10 @@ export default class componentName extends Component {
             </CardItem>
           </Card>
         </View>
+        </ScrollView>
 
         {/* {/ end card 2 /} */}
-      </Content>
+      </Container>
     );
   }
 }

@@ -46,7 +46,7 @@ export default styles = StyleSheet.create({
         width: '49%',
     },
     firsNameStyle:{
-
+        flex: 1, flexWrap: 'wrap',width: "100%"
     },
     label:{
         marginLeft:7,
