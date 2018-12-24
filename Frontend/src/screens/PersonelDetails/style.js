@@ -1,6 +1,8 @@
 export default styles = {
     btnBorder:{
-      borderRadius:5
+      borderRadius:5,
+      paddingLeft:15,
+      paddingRight:15
     },
     descripionText:{
       fontSize:14
@@ -23,12 +25,14 @@ export default styles = {
     },
     PersonalDetailView:{ 
       flexDirection: 'row', 
-      width: '100%' 
+      width: '100%' ,
+      marginBottom:5
     },
     missingPersonTitle:{ 
-      textAlign: 'right', 
+      textAlign: 'left', 
       fontSize: 17,
-      fontWeight:'bold' 
+      fontWeight:'bold' ,
+      marginBottom:10
     },
     topDetails:{ 
       paddingHorizontal: 5, 

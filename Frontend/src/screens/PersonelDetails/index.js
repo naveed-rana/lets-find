@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Col, Row, Grid } from "react-native-easy-grid";
-import { StatusBar, Image } from 'react-native'
+import { StatusBar, Image } from 'react-native';
+import Communications from 'react-native-communications';
 import {
   View,
   Text,
@@ -30,10 +31,10 @@ export default class PersonalDetail extends Component {
         
         <Header style={{backgroundColor:'#05ce1d'}}>
         <StatusBar
-     backgroundColor="#05ce1d"
-     barStyle="light-content"
-   />
-          <Left><Icon name='menu' /></Left>
+          backgroundColor="#05ce1d"
+          barStyle="light-content"
+        />
+          <Left><Icon type="AntDesign" name="arrowleft" style={{ color: "#fff",  }} /></Left>
           <Body>       
             <Title>Abdul Missing Person</Title>
           </Body>
@@ -131,14 +132,14 @@ export default class PersonalDetail extends Component {
 
                 <View style={{ flexDirection: 'row', marginTop: 10 }}>
                   <Left>
-                    <Button style={styles.btnBorder} iconLeft success>
-                      <Icon name='map' />
-                      <Text uppercase={false}>Call poster</Text>
+                    <Button style={styles.btnBorder} iconLeft success onPress={() => Communications.phonecall('0123456789', true)}>
+                      <Icon type="FontAwesome" name='phone' />
+                      <Text uppercase={true} style={{fontSize:16}} >Call</Text>
                     </Button>
                   </Left>
-                  <Button style={styles.btnBorder} iconLeft success>
-                    <Icon name='map' />
-                    <Text uppercase={false}>Sms poster</Text>
+                  <Button style={styles.btnBorder} iconLeft success onPress={() => Communications.text('0123456789')}>
+                    <Icon name='sms' type="MaterialIcons" />
+                    <Text uppercase={true} style={{fontSize:16}} >SMS</Text>
                   </Button>
                 </View>
 
