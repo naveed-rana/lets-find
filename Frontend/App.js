@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Container} from 'native-base';
-import HomeScreen from './src/screens/notificationScreen'
+import HomeScreen from './src/screens/PersonelDetails'
 
 export default class App extends Component {
 
