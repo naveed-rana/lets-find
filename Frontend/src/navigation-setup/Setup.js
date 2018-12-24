@@ -11,11 +11,19 @@ import HomeScreen from "../screens/Home";
 import LoginScreen from '../screens/login';
 import ProfileScreen from '../screens/ShowProfile';
 import PersonelDetailScreen from '../screens/PersonelDetails';
+import SignUpScreen from '../screens/signup';
+import EditProfile from '../screens/Edit-Profile';
+import NotificationScreen from '../screens/notificationScreen';
+import SearchScreen from '../screens/searchScreen';
+import AddPersons from '../screens/AddForm';
 
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
   Login: LoginScreen,
+  SignUp: SignUpScreen,
+  AddPerson: AddPersons,
+  PersonDetail:PersonelDetailScreen
 },
 {
   headerMode: 'none',
@@ -23,8 +31,8 @@ const HomeStack = createStackNavigator({
 );
 
 const ProfileStack = createStackNavigator({
-  Settings: ProfileScreen,
-  Details: PersonelDetailScreen,
+  Profile: ProfileScreen,
+  ProfileEdit: EditProfile,
 },
 {
   headerMode: 'none',
@@ -32,8 +40,7 @@ const ProfileStack = createStackNavigator({
 );
 
 const SearchStack = createStackNavigator({
-  Settings: ProfileScreen,
-  Details: PersonelDetailScreen,
+  Search:SearchScreen
 },
 {
   headerMode: 'none',
@@ -41,8 +48,7 @@ const SearchStack = createStackNavigator({
 );
 
 const NotificationsStack = createStackNavigator({
-  Settings: ProfileScreen,
-  Details: PersonelDetailScreen,
+  Notifications: NotificationScreen
 },
 {
   headerMode: 'none',
