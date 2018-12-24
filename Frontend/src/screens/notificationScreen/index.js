@@ -21,7 +21,7 @@ export default class notificationScreen extends Component {
                     <List>
                         <ListItem>
                             <Left>
-                                <Text style={styles.font_testing} >Simon Mignolet</Text>
+                                <Text>Simon Mignolet</Text>
                             </Left>
                             <Right>
                                 <Icon name="arrow-forward" />
