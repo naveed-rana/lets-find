@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
-import { Row } from 'native-base';
-import { Fonts } from '../../utils/Fonts';
+
+
 export default styles = StyleSheet.create({
   topcontent: {
     backgroundColor: "#05CE1D",

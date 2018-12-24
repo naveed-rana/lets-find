@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ImageBackground, StyleSheet, Image, StatusBar ,TouchableOpacity } from "react-native";
+import { ImageBackground,ScrollView, Image, StatusBar ,TouchableOpacity } from "react-native";
 import {
   View,
   Text,
@@ -10,7 +10,8 @@ import {
   Card,
   CardItem,
   Body,
-  Button
+  Button,
+  Container
 } from "native-base";
 import { styles } from './style';
 
@@ -22,12 +23,12 @@ export default class componentName extends Component {
 
   render() {
     return (
-      <Content>
+      <Container>
         <View>
           <StatusBar backgroundColor="#05CE1D" barStyle="light-content" />
         </View>
         <ImageBackground
-          source={require("../../media/bg_3.png")}
+          source={require("../../media/sham.jpg")}
           style={{ aspectRatio: 1.8 }}
         >
           <View style={styles.header}>
@@ -67,6 +68,7 @@ export default class componentName extends Component {
             <Icon type="AntDesign" name="plus"style={{ fontSize: 20,color:"#fff" }} color="white" />
         </TouchableOpacity>
         {/* PLus Button Ends*/}
+        <ScrollView>
         <View style={styles.cardContainer}>
           <Card>
             <CardItem>
@@ -268,9 +270,10 @@ export default class componentName extends Component {
             </CardItem>
           </Card>
         </View>
+        </ScrollView>
 
         {/* {/ end card 2 /} */}
-      </Content>
+      </Container>
     );
   }
 }

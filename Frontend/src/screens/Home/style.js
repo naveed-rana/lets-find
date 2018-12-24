@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
   header: {
     // height: 175,
     // alignItems: "flex-start",
-    backgroundColor: "rgba(5, 205, 29, 0.1)",
+    backgroundColor: "rgba(5, 205, 29, 0.5)",
     justifyContent: "space-between",
     flexDirection: "row",
     aspectRatio: 1.8
@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
     width: 50,
     alignSelf:'center',
     position: "absolute",
-    bottom: 5,
+    bottom: -5,
     justifyContent: "center",
     height: 50,
     borderRadius: 100,
