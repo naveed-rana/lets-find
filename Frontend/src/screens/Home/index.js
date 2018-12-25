@@ -134,7 +134,7 @@ export default class componentName extends Component {
 
                             <Icon
                               style={{ marginTop: -5 }}
-                              type="Entypo"
+                              type="Entypo" 
                               name="dots-three-horizontal"
                             />
                           </View>
