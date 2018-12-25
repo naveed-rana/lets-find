@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ImageBackground,ScrollView, Image, StatusBar ,TouchableOpacity } from "react-native";
+import { ImageBackground, ScrollView, Image, StatusBar, TouchableOpacity } from "react-native";
 import {
   View,
   Text,
@@ -15,10 +15,20 @@ import {
 } from "native-base";
 import { styles } from './style';
 
+import fakeArray from '../../Redux/fakeArray';
+
 export default class componentName extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      name: 'Asif',
+      fakeArray: fakeArray,
+    };
+
+
+
+    console.log('#####################################');
+    console.log('Fake Array: ' + this.state.fakeArray[0].name);
   }
 
   render() {
@@ -34,7 +44,7 @@ export default class componentName extends Component {
           <View style={styles.header}>
             <Button transparent>
               <Icon
-              name="menu" style={styles.searchIcon} />
+                name="menu" style={styles.searchIcon} />
             </Button>
 
             <Button transparent>
@@ -67,211 +77,220 @@ export default class componentName extends Component {
           </Button>
         </Content> */}
         <TouchableOpacity style={styles.addNewButton}>
-            <Icon type="AntDesign" name="plus"style={{ fontSize: 20,color:"#fff" }} color="white" />
+          <Icon type="AntDesign" name="plus" style={{ fontSize: 20, color: "#fff" }} color="white" />
         </TouchableOpacity>
         {/* PLus Button Ends*/}
         <ScrollView>
-        <View style={styles.cardContainer}>
-          <Card>
-            <CardItem>
-              <Body>
-                <View style={styles.cardInnerContainer}>
-                  <View>
-                    <Image
-                      style={styles.filterImage}
-                      source={require("../../media/sham.jpg")}
-                    />
-                  </View>
 
-                  <View style={styles.textContainer}>
-                    <View style={styles.cardHeader}>
-                      <Text>Isra Adil</Text>
+          {this.state.fakeArray.map((data, index) => {
+            return (
 
-                      <Text style={styles.statusText}>Missing</Text>
-                    </View>
+              <View style={styles.cardContainer}>
 
+
+                <Card>
+                  <CardItem>
+                    <Body>
+                      <View style={styles.cardInnerContainer}>
+                        <View>
+                          <Image
+                            style={styles.filterImage}
+                            source={require("../../media/sham.jpg")}
+                          />
+                        </View>
+
+                        <View style={styles.textContainer}>
+                          <View style={styles.cardHeader}>
+                            <Text>{data.name}</Text>
+
+                            <Text style={styles.statusText}>{data.type}</Text>
+                          </View>
+
+                          <View>
+                            <Text style={styles.nameText}>Posted By {data.post_By}</Text>
+                          </View>
+
+                          <View style={{ flexDirection: "row", paddingTop: 5 }}>
+                            <Icon
+                              style={{ marginLeft: -5 }}
+                              type="EvilIcons"
+                              name="location"
+                            />
+                            <Text style={{ fontSize: 13 }}>{data.location}</Text>
+                          </View>
+
+                          <View style={styles.cardHeader}>
+                            <Text style={styles.readMore}>Read More</Text>
+
+                            <Icon
+                              style={{ marginTop: -5 }}
+                              type="Feather"
+                              name="more-horizontal"
+                            />
+                          </View>
+                        </View>
+                      </View>
+                    </Body>
+                  </CardItem>
+                </Card>
+              </View>
+            )
+          }
+          )}
+
+          {/* {/ start card 2 /} */}
+
+          {/* <View style={styles.cardContainer}>
+            <Card>
+              <CardItem listItemPadding={0}>
+                <Body>
+                  <View style={styles.cardInnerContainer}>
                     <View>
-                      <Text style={styles.nameText}>Posted By Naveed</Text>
+                      <Image
+                        style={styles.filterImage}
+                        source={require("../../media/sham.jpg")}
+                      />
                     </View>
 
-                    <View style={{ flexDirection: "row", paddingTop: 5 }}>
-                      <Icon
-                        style={{ marginLeft: -5 }}
-                        type="EvilIcons"
-                        name="location"
-                      />
-                      <Text style={{ fontSize: 13 }}>Faisalabad</Text>
-                    </View>
+                    <View style={styles.textContainer}>
+                      <View style={styles.cardHeader}>
+                        <Text>Isra ali</Text>
 
-                    <View style={styles.cardHeader}>
-                      <Text style={styles.readMore}>Read More</Text>
+                        <Text style={styles.statusText}>Missing</Text>
+                      </View>
 
-                      <Icon
-                        style={{ marginTop: -5 }}
-                        type="Feather"
-                        name="more-horizontal"
-                      />
+                      <View>
+                        <Text style={styles.nameText}>Posted By Naveed</Text>
+                      </View>
+
+                      <View style={{ flexDirection: "row", paddingTop: 5 }}>
+                        <Icon
+                          style={{ marginLeft: -5 }}
+                          type="EvilIcons"
+                          name="location"
+                        />
+                        <Text style={{ fontSize: 13 }}>Faisalabad</Text>
+                      </View>
+
+                      <View style={styles.cardHeader}>
+                        <Text style={styles.readMore}>Read More</Text>
+
+                        <Icon
+                          style={{ marginTop: -5 }}
+                          type="Feather"
+                          name="more-horizontal"
+                        />
+                      </View>
                     </View>
                   </View>
-                </View>
-              </Body>
-            </CardItem>
-          </Card>
-        </View>
+                </Body>
+              </CardItem>
+            </Card>
+          </View> */}
 
-        {/* {/ start card 2 /} */}
-
-        <View style={styles.cardContainer}>
-          <Card>
-            <CardItem listItemPadding={0}>
-              <Body>
-                <View style={styles.cardInnerContainer}>
-                  <View>
-                    <Image
-                      style={styles.filterImage}
-                      source={require("../../media/sham.jpg")}
-                    />
-                  </View>
-
-                  <View style={styles.textContainer}>
-                    <View style={styles.cardHeader}>
-                      <Text>Isra Adil</Text>
-
-                      <Text style={styles.statusText}>Missing</Text>
-                    </View>
-
-                    <View>
-                      <Text style={styles.nameText}>Posted By Naveed</Text>
-                    </View>
-
-                    <View style={{ flexDirection: "row", paddingTop: 5 }}>
-                      <Icon
-                        style={{ marginLeft: -5 }}
-                        type="EvilIcons"
-                        name="location"
-                      />
-                      <Text style={{ fontSize: 13 }}>Faisalabad</Text>
-                    </View>
-
-                    <View style={styles.cardHeader}>
-                      <Text style={styles.readMore}>Read More</Text>
-
-                      <Icon
-                        style={{ marginTop: -5 }}
-                        type="Feather"
-                        name="more-horizontal"
-                      />
-                    </View>
-                  </View>
-                </View>
-              </Body>
-            </CardItem>
-          </Card>
-        </View>
-
-        {/* {/ end card 2 /}
+          {/* {/ end card 2 /}
 
         {/ start card 2 /} */}
 
-        <View style={styles.cardContainer}>
-          <Card>
-            <CardItem>
-              <Body>
-                <View style={styles.cardInnerContainer}>
-                  <View>
-                    <Image
-                      style={styles.filterImage}
-                      source={require("../../media/sham.jpg")}
-                    />
-                  </View>
-
-                  <View style={styles.textContainer}>
-                    <View style={styles.cardHeader}>
-                      <Text>Isra Adil</Text>
-
-                      <Text style={styles.statusText}>Missing</Text>
-                    </View>
-
+          {/* <View style={styles.cardContainer}>
+            <Card>
+              <CardItem>
+                <Body>
+                  <View style={styles.cardInnerContainer}>
                     <View>
-                      <Text style={styles.nameText}>Posted By Naveed</Text>
+                      <Image
+                        style={styles.filterImage}
+                        source={require("../../media/sham.jpg")}
+                      />
                     </View>
 
-                    <View style={{ flexDirection: "row", paddingTop: 5 }}>
-                      <Icon
-                        style={{ marginLeft: -5 }}
-                        type="EvilIcons"
-                        name="location"
-                      />
-                      <Text style={{ fontSize: 13 }}>Faisalabad</Text>
-                    </View>
+                    <View style={styles.textContainer}>
+                      <View style={styles.cardHeader}>
+                        <Text>Isra Adil</Text>
 
-                    <View style={styles.cardHeader}>
-                      <Text style={styles.readMore}>Read More</Text>
+                        <Text style={styles.statusText}>Missing</Text>
+                      </View>
 
-                      <Icon
-                        style={{ marginTop: -5 }}
-                        type="Feather"
-                        name="more-horizontal"
-                      />
+                      <View>
+                        <Text style={styles.nameText}>Posted By Naveed</Text>
+                      </View>
+
+                      <View style={{ flexDirection: "row", paddingTop: 5 }}>
+                        <Icon
+                          style={{ marginLeft: -5 }}
+                          type="EvilIcons"
+                          name="location"
+                        />
+                        <Text style={{ fontSize: 13 }}>Faisalabad</Text>
+                      </View>
+
+                      <View style={styles.cardHeader}>
+                        <Text style={styles.readMore}>Read More</Text>
+
+                        <Icon
+                          style={{ marginTop: -5 }}
+                          type="Feather"
+                          name="more-horizontal"
+                        />
+                      </View>
                     </View>
                   </View>
-                </View>
-              </Body>
-            </CardItem>
-          </Card>
-        </View>
+                </Body>
+              </CardItem>
+            </Card>
+          </View> */}
 
-        {/* {/ end card 2 /}
+          {/* {/ end card 2 /}
 
         {/ start card 2 /} */}
 
-        <View style={styles.cardContainer}>
-          <Card>
-            <CardItem>
-              <Body>
-                <View style={styles.cardInnerContainer}>
-                  <View>
-                    <Image
-                      style={styles.filterImage}
-                      source={require("../../media/sham.jpg")}
-                    />
-                  </View>
-
-                  <View style={styles.textContainer}>
-                    <View style={styles.cardHeader}>
-                      <Text>Isra Adil</Text>
-
-                      <Text style={styles.statusText}>Missing</Text>
-                    </View>
-
+          {/* <View style={styles.cardContainer}>
+            <Card>
+              <CardItem>
+                <Body>
+                  <View style={styles.cardInnerContainer}>
                     <View>
-                      <Text style={styles.nameText}>Posted By Naveed</Text>
+                      <Image
+                        style={styles.filterImage}
+                        source={require("../../media/sham.jpg")}
+                      />
                     </View>
 
-                    <View style={{ flexDirection: "row", paddingTop: 5 }}>
-                      <Icon
-                        style={{ marginLeft: -5 }}
-                        type="EvilIcons"
-                        name="location"
-                      />
-                      <Text style={{ fontSize: 13 }}>Faisalabad</Text>
-                    </View>
+                    <View style={styles.textContainer}>
+                      <View style={styles.cardHeader}>
+                        <Text>Isra Adil</Text>
 
-                    <View style={styles.cardHeader}>
-                      <Text style={styles.readMore}>Read More</Text>
+                        <Text style={styles.statusText}>Missing</Text>
+                      </View>
 
-                      <Icon
-                        style={{ marginTop: -5 }}
-                        type="Feather"
-                        name="more-horizontal"
-                      />
+                      <View>
+                        <Text style={styles.nameText}>Posted By Naveed</Text>
+                      </View>
+
+                      <View style={{ flexDirection: "row", paddingTop: 5 }}>
+                        <Icon
+                          style={{ marginLeft: -5 }}
+                          type="EvilIcons"
+                          name="location"
+                        />
+                        <Text style={{ fontSize: 13 }}>Faisalabad</Text>
+                      </View>
+
+                      <View style={styles.cardHeader}>
+                        <Text style={styles.readMore}>Read More</Text>
+
+                        <Icon
+                          style={{ marginTop: -5 }}
+                          type="Feather"
+                          name="more-horizontal"
+                        />
+                      </View>
                     </View>
                   </View>
-                </View>
-              </Body>
-            </CardItem>
-          </Card>
-        </View>
+                </Body>
+              </CardItem>
+            </Card>
+          </View> */}
         </ScrollView>
 
         {/* {/ end card 2 /} */}
