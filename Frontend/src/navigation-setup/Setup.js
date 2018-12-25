@@ -88,7 +88,7 @@ export default createAppContainer(createBottomTabNavigator(
       activeTintColor: '#05CE1D',
       inactiveTintColor: 'gray',
       style:{
-        borderTopColor: "transparent",
+        borderTopColor: "grey",
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
         shadowOpacity: 0.8,
