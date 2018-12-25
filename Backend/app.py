@@ -16,10 +16,25 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 
 
-#server route
+#server route working
 @app.route('/')
 def index():
     return "Lets find server, up and running"
+
+
+#RegisterUser Working
+@app.route('/registeruser', methods=['POST'])
+def registerUser():
+    userRegister = "not-success"
+    user = {}
+    data = request.get_json(silent=True)
+    data = data["user"]
+    for key in data:
+        user[key] = data[key]
+    print(user)
+    task = mongo.db.tbl_users.insert(user)
+    userRegister = "success"
+    return userRegister
 
 if __name__ == "__main__":
     app.run(port='8080', debug=True)
