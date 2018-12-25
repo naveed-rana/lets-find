@@ -40,7 +40,8 @@ export default (styles = {
   inputStyle: {
     backgroundColor: "#eff4fb",
     paddingLeft: 10,
-    marginBottom: 8
+    marginBottom: 8,
+    paddingRight: 20
   },
   topImagecircle: {
     marginTop: 20,
@@ -53,16 +54,32 @@ export default (styles = {
   header: {
     backgroundColor: "#05CE1D",
     paddingVertical: 12,
-    paddingHorizontal: 10
+    paddingHorizontal: 8,
+    justifyContent: "flex-start",
+    flexDirection: "row"
+    
+  },
+  heading: {
+    color: "white",
+    marginLeft: 30,
+    marginTop: 5
   },
   tab: {
     fontWeight: "bold",
     height: "100%",
     alignSelf: 'center',
-    paddingTop: 7
+    paddingTop: 7,
+    width: "100%",
+    textAlign: "center",
   },
   picItem: {
     borderBottom: "1px solid gray",
     borderRadius: 5
+  },
+  tabBtn: {
+    width: "90%",
+    alignItems: 'center',
+    borderRadius: 10,
+   
   }
 });
