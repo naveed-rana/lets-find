@@ -6,7 +6,7 @@ export default styles = StyleSheet.create({
         backgroundColor: '#05CE1D',
         paddingTop: 20,
         paddingBottom: 10,
-        height:120,
+        height:'auto',
         borderBottomWidth:1,
         borderColor:"grey"
     },
@@ -27,8 +27,10 @@ export default styles = StyleSheet.create({
     filterContainer: {
         marginLeft: 15,
         marginTop: 10,
-        flexDirection: 'row',
-        flex: 1
+        backgroundColor:"transparent",
+        borderWidth:0
+        // flexDirection: 'row',
+        // flex: 1
     },
     filterImage: {
         width: 90,
@@ -60,5 +62,15 @@ export default styles = StyleSheet.create({
         color: '#0366d6',
         fontSize: 12,
         paddingTop: 2
+    },
+    filtersContainer:{
+        borderTopWidth:2,
+        borderColor:"#fff",
+        marginTop:10,
+        marginHorizontal:15,
+    },
+    selectBoxesContainer:{
+        flexDirection: 'row',
+        justifyContent: "space-between",
     }
 })
