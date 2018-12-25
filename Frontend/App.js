@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Container} from 'native-base';
 import Setup from './src/navigation-setup/Setup';
-import SignUp from './src/screens/login'
+
 
 export default class App extends Component {
 
