@@ -5,7 +5,8 @@ export default styles = StyleSheet.create({
     searchContainer: {
         backgroundColor: '#05CE1D',
         paddingTop: 20,
-        paddingBottom: 10
+        paddingBottom: 10,
+        height:120
     },
     searchInput: {
         color: '#f5f5f5',

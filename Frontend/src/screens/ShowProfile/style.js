@@ -5,7 +5,7 @@ export default styles = StyleSheet.create({
   topcontent: {
     backgroundColor: "#05CE1D",
     flexDirection: "row",
-    padding: 6,
+    padding: 12,
     justifyContent: "space-between"
   },
   privacyText: {
@@ -15,13 +15,16 @@ export default styles = StyleSheet.create({
   },
   topText: {
     color: '#fff',
-
+    fontSize:20
   },
   topCross: {
-    color: '#fff'
+    color: '#fff',
+    fontSize:45,
+    marginTop:-2
   },
   topsave: {
-    color: "#fff"
+    color: "#fff",
+    fontSize:18
   },
 
   bodyContent: {

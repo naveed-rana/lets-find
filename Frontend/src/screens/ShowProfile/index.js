@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { ImageBackground, Image, StatusBar } from 'react-native';
-import { Text, Content, Item, Input, Form, Icon, View, Button, CheckBox } from 'native-base';
+import { ImageBackground, Image, StatusBar,ScrollView } from 'react-native';
+import { Text, Content, Item, Input, Form, Icon, View, Button, CheckBox , Container} from 'native-base';
 import styles from './style';
 
 export default class ShowProfile extends Component {
     render() {
         return (
-            <Content style={styles.wrapper}>
+            <Container style={styles.wrapper}>
                 <View>
                     <StatusBar
                         backgroundColor="#05CE1D"
@@ -18,7 +18,7 @@ export default class ShowProfile extends Component {
                     <Text style={styles.topText}> @abaid </Text>
                     <Text style={styles.topsave}> More </Text>
                 </View>
-
+                <ScrollView>
                 <Content style={styles.bodyContent}>
                     <View style={styles.profileHead}>
                         <Image source={require('../../media/show-profile.png')} style={styles.profileImage} />
@@ -72,7 +72,8 @@ export default class ShowProfile extends Component {
                     </Content>
 
                 </Content>
-            </Content>
+                </ScrollView>
+            </Container>
 
         );
     }

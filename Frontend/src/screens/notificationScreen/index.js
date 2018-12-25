@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StatusBar } from 'react-native';
+import { StatusBar,ScrollView } from 'react-native';
 import { Container, Header, Content, List, ListItem, Text, Left, Right, Icon , View} from 'native-base';
 import styles from './style';
 export default class notificationScreen extends Component {
@@ -16,9 +16,10 @@ export default class notificationScreen extends Component {
                     <Icon 
                      onPress={() => this.props.navigation.navigate('Home')}
                     type="AntDesign" name="arrowleft" style={{ color: "#fff",  }} />
-                    <Text style={{ color: "#fff" }}>Notifications</Text>
+                    <Text style={{ color: "#fff",fontSize:22 }}>Notifications</Text>
                     <Text></Text>
                 </View>
+                <ScrollView>
                 <Content>
                     <List>
                         <ListItem>
@@ -45,8 +46,89 @@ export default class notificationScreen extends Component {
                                 <Icon name="arrow-forward" />
                             </Right>
                         </ListItem>
+                        <ListItem>
+                            <Left>
+                                <Text>Dejan Lovren</Text>
+                            </Left>
+                            <Right>
+                                <Icon name="arrow-forward" />
+                            </Right>
+                        </ListItem>
+                        <ListItem>
+                            <Left>
+                                <Text>Dejan Lovren</Text>
+                            </Left>
+                            <Right>
+                                <Icon name="arrow-forward" />
+                            </Right>
+                        </ListItem>
+                        <ListItem>
+                            <Left>
+                                <Text>Dejan Lovren</Text>
+                            </Left>
+                            <Right>
+                                <Icon name="arrow-forward" />
+                            </Right>
+                        </ListItem>
+                        <ListItem>
+                            <Left>
+                                <Text>Dejan Lovren</Text>
+                            </Left>
+                            <Right>
+                                <Icon name="arrow-forward" />
+                            </Right>
+                        </ListItem>
+                        <ListItem>
+                            <Left>
+                                <Text>Dejan Lovren</Text>
+                            </Left>
+                            <Right>
+                                <Icon name="arrow-forward" />
+                            </Right>
+                        </ListItem>
+                        <ListItem>
+                            <Left>
+                                <Text>Dejan Lovren</Text>
+                            </Left>
+                            <Right>
+                                <Icon name="arrow-forward" />
+                            </Right>
+                        </ListItem>
+                        <ListItem>
+                            <Left>
+                                <Text>Dejan Lovren</Text>
+                            </Left>
+                            <Right>
+                                <Icon name="arrow-forward" />
+                            </Right>
+                        </ListItem>
+                        <ListItem>
+                            <Left>
+                                <Text>Dejan Lovren</Text>
+                            </Left>
+                            <Right>
+                                <Icon name="arrow-forward" />
+                            </Right>
+                        </ListItem>
+                        <ListItem>
+                            <Left>
+                                <Text>Dejan Lovren</Text>
+                            </Left>
+                            <Right>
+                                <Icon name="arrow-forward" />
+                            </Right>
+                        </ListItem>
+                        <ListItem>
+                            <Left>
+                                <Text>Dejan Lovren</Text>
+                            </Left>
+                            <Right>
+                                <Icon name="arrow-forward" />
+                            </Right>
+                        </ListItem>
                     </List>
                 </Content>
+                </ScrollView>
             </Container>
         );
     }

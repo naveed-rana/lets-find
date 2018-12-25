@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { ImageBackground, Image, StatusBar } from 'react-native';
-import { Text, Content, Item, Input, Form, Icon, View, Button, Label , Textarea} from 'native-base';
+import { ImageBackground, Image, StatusBar,ScrollView } from 'react-native';
+import { Text, Content, Item, Input, Form, Icon, View, Button, Label , Textarea,Container} from 'native-base';
 import styles from './style';
 
 export default class SignUpScreen extends Component {
     render() {
         return (
-            <Content style={styles.wrapper}>
+            <Container style={styles.wrapper}>
                 <View>
                     <StatusBar
                         backgroundColor="#05CE1D"
@@ -20,6 +20,7 @@ export default class SignUpScreen extends Component {
                     <Text style={styles.topText}> Edit Profile </Text>
                     <Text style={styles.topsave}> Save </Text>
                 </View>
+            <ScrollView>
                 <View style={styles.profileImageContainer}>
                     <Image source={require('../../media/Edit-profile-top-image.png')} />
                 </View>
@@ -52,7 +53,8 @@ export default class SignUpScreen extends Component {
                         <Text style={{ color: '#fff', fontWeight: 'bold' }}>Save & Update</Text>
                     </Button>
                 </Form>
-            </Content>
+                </ScrollView>
+            </Container>
 
         );
     }
