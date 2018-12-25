@@ -15,6 +15,7 @@ import {
 } from "native-base";
 import { styles } from './style';
 import SideBar from '../Sidebar';
+import showPopupMenu from 'react-native-popup-menu'
 export default class componentName extends Component {
   constructor(props) {
     super(props);
@@ -26,6 +27,24 @@ export default class componentName extends Component {
   openDrawer() {
     this._drawer._root.open()
   };
+  // popup menu 3 dots
+  refMoreButton = el => this.moreButton = el
+
+    showMore = () => {
+        showPopupMenu(
+          [
+            { id:'edit', label:'Quick Edit' },
+            { id:'delete', label:'Trash' },
+            { id:'follow', label:'Follow' }
+          ],
+          this.handleMoreItemSelect,
+          this.moreButton
+        );
+    }
+
+    handleMoreItemSelect = (item) => {
+        alert('Pressed: ' + item.label)
+    }
   render() {
     const shadowStyle={
        shadowOpacity:1,
@@ -121,6 +140,7 @@ export default class componentName extends Component {
                     <View style={styles.cardHeader}>
                       <Text style={styles.readMore} onPress={() => this.props.navigation.navigate('PersonDetail')}>Read More</Text>
                       <Icon
+                        onPress={this.showMore}
                         style={{ marginTop: -5 }}
                         type="Entypo"
                         name="dots-three-horizontal"

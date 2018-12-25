@@ -20,20 +20,12 @@ export default class LoginScreen extends Component {
       email: "asif",
       password: ""
     };
-    this.inputHandler = this.inputHandler.bind(this);
-    this.onSubmit = this.onSubmit.bind(this)
+    
   }
 
-  inputHandler =  event => {
-    console.log('====================================');
-    console.log(event);
-    console.log('====================================');
-    // this.setState({
-    //   [event.target.name]: event.target.value
-    // });
-  };
 
-  onSubmit(){
+
+  onSubmit=()=>{
     console.log('====================================');
     console.log("Asif"+this.state.email);
     console.log("Asif"+this.state.password);

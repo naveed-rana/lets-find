@@ -6,7 +6,9 @@ export default styles = StyleSheet.create({
         backgroundColor: '#05CE1D',
         paddingTop: 20,
         paddingBottom: 10,
-        height:120
+        height:120,
+        borderBottomWidth:1,
+        borderColor:"grey"
     },
     searchInput: {
         color: '#f5f5f5',

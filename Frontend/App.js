@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Container} from 'native-base';
 import Setup from './src/navigation-setup/Setup';
 
+
 export default class App extends Component {
 
   constructor(props) {
