@@ -26,9 +26,10 @@ export const styles = StyleSheet.create({
     backgroundColor: "#05CE1D",
     alignItems: "center",
     width: 50,
-    alignSelf:'center',
+    // alignSelf:'center',
     position: "absolute",
-    bottom: -5,
+    bottom: 5,
+    right: 10,
     justifyContent: "center",
     height: 50,
     borderRadius: 100,
@@ -37,7 +38,8 @@ export const styles = StyleSheet.create({
     shadowOpacity: 1,  
     elevation: 3,  
     zIndex:999,
-    shadowRadius:15
+    shadowRadius:15,
+    
   },
   cardContainer: {
     marginHorizontal: 10

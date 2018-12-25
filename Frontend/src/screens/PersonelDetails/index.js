@@ -26,19 +26,24 @@ import styles from './style';
 export default class PersonalDetail extends Component {
 
   render() {
+    const { navigation } = this.props;
+    const data = navigation.getParam('data', 'NO-Data');
+
     return (
       <Container>
-        
-        <Header style={{backgroundColor:'#05ce1d'}}>
-        <StatusBar
-          backgroundColor="#05ce1d"
-          barStyle="light-content"
-        />
-          <Left><Icon type="AntDesign" name="arrowleft" style={{ color: "#fff",  }} /></Left>
-          <Body>       
-            <Title>Abdul Missing Person</Title>
+
+        <Header style={{ backgroundColor: '#05ce1d' }}>
+          <StatusBar
+            backgroundColor="#05ce1d"
+            barStyle="light-content"
+          />
+          <Left><Icon type="AntDesign" name="arrowleft" style={{ color: "#fff", }}
+            onPress={() => navigation.goBack()}
+          /></Left>
+          <Body>
+            <Title>{data.name + ' ' + data.status} Person</Title>
           </Body>
-          
+
         </Header>
         <Content>
           <Grid>
@@ -50,14 +55,14 @@ export default class PersonalDetail extends Component {
               </Col>
               <Col>
                 <View style={styles.topDetails}>
-                  <Text style={styles.missingPersonTitle}>Abdul Manan</Text>
+                  <Text style={styles.missingPersonTitle}>{data.name}</Text>
 
                   <View style={styles.PersonalDetailView}>
                     <Left>
                       <Text style={styles.topLeftAbout}>Post by</Text>
                     </Left>
                     <Right>
-                      <Text style={styles.topLeftAboutDetail}>Naveed</Text>
+                      <Text style={styles.topLeftAboutDetail}>{data.post_By}</Text>
                     </Right>
                   </View>
                   <View style={styles.PersonalDetailView}>
@@ -65,7 +70,7 @@ export default class PersonalDetail extends Component {
                       <Text style={styles.topLeftAbout}>Age</Text>
                     </Left>
                     <Right>
-                      <Text style={styles.topLeftAboutDetail}>17</Text>
+                      <Text style={styles.topLeftAboutDetail}>{data.age}</Text>
                     </Right>
                   </View>
                   <View style={styles.PersonalDetailView}>
@@ -73,7 +78,7 @@ export default class PersonalDetail extends Component {
                       <Text style={styles.topLeftAbout}>Gender</Text>
                     </Left>
                     <Right>
-                      <Text style={styles.topLeftAboutDetail}>Male</Text>
+                      <Text style={styles.topLeftAboutDetail}>{data.gender}</Text>
                     </Right>
                   </View>
                   <View style={styles.PersonalDetailView}>
@@ -81,7 +86,7 @@ export default class PersonalDetail extends Component {
                       <Text style={styles.topLeftAbout}>Status</Text>
                     </Left>
                     <Right>
-                      <Text style={styles.topLeftAboutDetail}>Missing</Text>
+                      <Text style={styles.topLeftAboutDetail}>{data.status}</Text>
                     </Right>
                   </View>
                   <View style={styles.PersonalDetailView}>
@@ -89,7 +94,7 @@ export default class PersonalDetail extends Component {
                       <Text style={styles.topLeftAbout}>Disability</Text>
                     </Left>
                     <Right>
-                      <Text style={styles.topLeftAboutDetail}>Mental</Text>
+                      <Text style={styles.topLeftAboutDetail}>{data.disability}</Text>
                     </Right>
                   </View>
                 </View>
@@ -101,15 +106,13 @@ export default class PersonalDetail extends Component {
                 <Card>
                   <CardItem>
                     <Body>
-                      <Text style={styles.descripionText}>
-                        Lorem Ipsum is also known as: Greeked text, blind text, placeholder text, dummy content, filler text, lipsum, and mock-content.
-                    </Text>
+                      <Text style={styles.descripionText}>{data.description}</Text>
                     </Body>
                   </CardItem>
                 </Card>
 
 
-                <View style={{ flexDirection: 'row', marginVertical:10 }}>
+                <View style={{ flexDirection: 'row', marginVertical: 10 }}>
                   <Left>
                     <Text style={styles.ShortLocataionText}>Location</Text>
                   </Left>
@@ -123,23 +126,21 @@ export default class PersonalDetail extends Component {
                 <Card>
                   <CardItem>
                     <Body>
-                      <Text style={styles.descripionText}>
-                        Lorem Ipsum is also known as: Greeked text, blind text, placeholder text, dummy content, filler text, lipsum, and mock-content.
-                    </Text>
+                      <Text style={styles.descripionText}>{data.location}</Text>
                     </Body>
                   </CardItem>
                 </Card>
 
                 <View style={{ flexDirection: 'row', marginTop: 10 }}>
                   <Left>
-                    <Button style={styles.btnBorder} iconLeft success onPress={() => Communications.phonecall('0123456789', true)}>
+                    <Button style={styles.btnBorder} iconLeft success onPress={() => Communications.phonecall(`${data.mobile}`, true)}>
                       <Icon type="FontAwesome" name='phone' />
-                      <Text uppercase={true} style={{fontSize:16}} >Call</Text>
+                      <Text uppercase={true} style={{ fontSize: 16 }} >Call</Text>
                     </Button>
                   </Left>
-                  <Button style={styles.btnBorder} iconLeft success onPress={() => Communications.text('0123456789')}>
+                  <Button style={styles.btnBorder} iconLeft success onPress={() => Communications.text(`${data.mobile}`)}>
                     <Icon name='sms' type="MaterialIcons" />
-                    <Text uppercase={true} style={{fontSize:16}} >SMS</Text>
+                    <Text uppercase={true} style={{ fontSize: 16 }} >SMS</Text>
                   </Button>
                 </View>
 

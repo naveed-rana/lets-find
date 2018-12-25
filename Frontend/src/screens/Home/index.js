@@ -20,6 +20,7 @@ import showPopupMenu from 'react-native-popup-menu'
 import fakeArray from '../../Redux/fakeArray';
 
 
+
 export default class componentName extends Component {
   constructor(props) {
     super(props);
@@ -88,7 +89,7 @@ export default class componentName extends Component {
           </ImageBackground>
         </View>
 
-        <TouchableOpacity style={styles.addNewButton}>
+        <TouchableOpacity style={styles.addNewButton} onPress={() => this.props.navigation.navigate('AddPerson')} >
           <Icon type="AntDesign" name="plus" style={{ fontSize: 20, color: "#fff" }} color="white" />
         </TouchableOpacity>
         {/* PLus Button Ends*/}
@@ -113,7 +114,7 @@ export default class componentName extends Component {
                           <View style={styles.cardHeader}>
                             <Text>{data.name}</Text>
 
-                            <Text style={styles.statusText}>{data.type}</Text>
+                            <Text style={styles.statusText}>{data.status}</Text>
                           </View>
 
                           <View>
@@ -130,11 +131,25 @@ export default class componentName extends Component {
                           </View>
 
                           <View style={styles.cardHeader}>
-                            <Text style={styles.readMore}>Read More</Text>
+                            <Text style={styles.readMore} onPress={() => this.props.navigation.navigate('PersonDetail', {
+                              data: {
+                                id: data.id,
+                                name: data.name,
+                                status: data.status,
+                                post_By: data.post_By,
+                                age: data.age,
+                                gender: data.gender,
+                                disability: data.disability,
+                                description: data.description,
+                                location: data.location,
+                                mobile: data.mobile,
+                              }
+                            }
+                            )}>Read More</Text>
 
                             <Icon
                               style={{ marginTop: -5 }}
-                              type="Entypo" 
+                              type="Entypo"
                               name="dots-three-horizontal"
                             />
                           </View>
