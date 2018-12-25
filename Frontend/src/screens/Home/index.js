@@ -17,11 +17,13 @@ import { styles } from './style';
 import SideBar from '../Sidebar';
 import showPopupMenu from 'react-native-popup-menu'
 
+import fakeArray from '../../Redux/fakeArray';
+
+
 export default class componentName extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: 'Asif',
       fakeArray: fakeArray,
     };
 
@@ -132,8 +134,8 @@ export default class componentName extends Component {
 
                             <Icon
                               style={{ marginTop: -5 }}
-                              type="Feather"
-                              name="more-horizontal"
+                              type="Entypo"
+                              name="dots-three-horizontal"
                             />
                           </View>
                         </View>
