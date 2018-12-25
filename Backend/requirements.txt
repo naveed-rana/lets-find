@@ -1,5 +1,3 @@
 flask
-mysqlclient
-pafy
-youtube-dl
-mysql-connector-python
+pymongo-3.7.2
+flask-pymongo-2.2.0
