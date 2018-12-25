@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
     width: 50,
     // alignSelf:'center',
     position: "absolute",
-    bottom: 5,
+    bottom: 10,
     right: 10,
     justifyContent: "center",
     height: 50,
@@ -121,6 +121,7 @@ export const styles = StyleSheet.create({
     fontSize:20,
     flexWrap:"wrap",
     width:"100%",
-    textAlign:"center"
+    textAlign:"center",
+    // textTransform: 'uppercase'
   }
 });

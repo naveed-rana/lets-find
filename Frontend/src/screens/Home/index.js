@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ImageBackground, ScrollView, Image, StatusBar, TouchableOpacity, Drawer } from "react-native";
+import { ImageBackground, ScrollView, Image, StatusBar, TouchableOpacity,Share } from "react-native";
 import {
   View,
   Text,
@@ -15,7 +15,13 @@ import {
 } from "native-base";
 import { styles } from './style';
 import SideBar from '../Sidebar';
-import showPopupMenu from 'react-native-popup-menu'
+
+// import Share from 'react-native-share';
+// const shareOptions = {
+//   title: 'Share via',
+//   url: 'some share url',
+//   social: Share.Social.WHATSAPP
+// };
 
 import fakeArray from '../../Redux/fakeArray';
 
@@ -97,7 +103,7 @@ export default class componentName extends Component {
 
           {this.state.fakeArray.map((data, index) => {
             return (
-              <View style={styles.cardContainer}>
+              <View key={index} style={styles.cardContainer}>
 
                 <Card>
                   <CardItem>
@@ -148,9 +154,16 @@ export default class componentName extends Component {
                             )}>Read More</Text>
 
                             <Icon
-                              style={{ marginTop: -5 }}
-                              type="Entypo"
-                              name="dots-three-horizontal"
+                            onPress={()=>{
+                              Share.share({
+                                message: `*Missing Person Alert* \n Name: *${data.name}* \n Age: *${data.age}* \n Gender: *${data.gender}* \n Disability: *${data.disability}* \n Location: *${data.location}* \n Contact No.: *${data.mobile}*`,
+                                url:'http://img.gemejo.com/product/8c/099/cf53b3a6008136ef0882197d5f5.jpg',
+                                title: 'Wow, did you see that?'
+                              })
+                            }}
+                              style={{ marginTop: -5,fontSize:25,color:'gray'}}
+                              type="AntDesign"
+                              name="sharealt"
                             />
                           </View>
                         </View>
