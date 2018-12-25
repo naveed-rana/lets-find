@@ -1,12 +1,16 @@
 from flask import Flask, render_template, redirect, request, url_for, jsonify, session, json, session
 from flask_pymongo import PyMongo
-
+from flask_cors import CORS, cross_origin
 from bson.json_util import dumps
 from bson import json_util, ObjectId
 
 #Flask App Structure
 app = Flask(__name__, static_folder="./dist", template_folder="./")
 app.config.from_object(__name__)
+
+#Cors Setup
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 #Database connection
 app.config['MONGO_DBNAME'] = 'letsfind'
@@ -24,20 +28,26 @@ def index():
 
 #RegisterUser Working
 @app.route('/registeruser', methods=['POST'])
+@cross_origin()
 def registerUser():
     userRegister = "not-success"
     user = {}
-    data = request.get_json(silent=True)
-    data = data["user"]
-    for key in data:
-        user[key] = data[key]
-    print(user)
-    task = mongo.db.tbl_users.insert(user)
-    userRegister = "success"
-    return userRegister
+    try:
+        data = request.get_json(silent=True)
+        data = data["user"]
+        for key in data:
+            user[key] = data[key]
+        task = mongo.db.tbl_users.insert(user)
+        print(task)
+        userRegister = "success"
+        return userRegister
+    except Exception, e:
+        print str(e)
+        return userRegister
 
 #LoginUser
 @app.route('/loginuser', methods=['POST'])
+@cross_origin()
 def loginUser():
     userAuth = 'notsuccess'
     login = {}
@@ -62,6 +72,7 @@ def loginUser():
 
 #UserValidate
 @app.route('/logginUserData', methods=['GET'])
+@cross_origin()
 def loggedinUser():
     data = session
     dataUid = session['userKey']
@@ -75,6 +86,7 @@ def loggedinUser():
     }
     return jsonify(userVal)
 
+
 #LoginUser
 @app.route('/logoutUser', methods=['POST'])
 def logoutUser():
@@ -82,6 +94,27 @@ def logoutUser():
     logout = request.get_json(silent=True)
     session.clear()
     return 'Sucesfully logout'
+
+
+#AddFormData
+@app.route('/registerMissingPerson', methods=['POST'])
+@cross_origin()
+def registerMissingReq():
+    status = "not-success"
+    missingPerson = {}
+    try:
+        data = request.get_json(silent=True)
+        data = data["missingperson"]
+        for key in data:
+            missingPerson[key] = data[key]
+        task = mongo.db.missing_persons.insert(missingPerson)
+        print(task)
+        status = "success"
+        return status
+    except Exception, e:
+        print str(e)
+        return status
+
 
 if __name__ == "__main__":
     app.run(port='8080', debug=True)
