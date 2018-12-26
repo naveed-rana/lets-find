@@ -19,7 +19,9 @@ import {
   Picker
 } from "native-base";
 import ImagePicker from 'react-native-image-picker';
-import uploadimageIcon from "../../media/upload-photo.png"
+import uploadimageIcon from "../../media/upload-photo.png";
+import { connect } from 'react-redux';
+import { addPerson } from '../../redux/actions/missingPersonAction';
 
 import styles from "./style";
 
@@ -28,13 +30,13 @@ import styles from "./style";
 const options = {
   title: 'Select Option',
   storageOptions: {
-  skipBackup: true,
-  path: 'images',
-  
-  },
-  };
+    skipBackup: true,
+    path: 'images',
 
-export default class AddForm extends Component {
+  },
+};
+
+class AddForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -50,25 +52,25 @@ export default class AddForm extends Component {
   }
 
 
-uploadImage=()=>{
-  ImagePicker.showImagePicker(options, (response) => {
-    console.log('Response = ', response);
-  
-    if (response.didCancel) {
-      console.log('User cancelled image picker');
-    } else if (response.error) {
-      console.log('ImagePicker Error: ', response.error);
-    } else if (response.customButton) {
-      console.log('User tapped custom button: ', response.customButton);
-    } else {
-      const source = { uri: response.uri };
+  uploadImage = () => {
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
 
-      this.setState({
-        image: source,
-      });
-    }
-  });
-}
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      } else {
+        const source = { uri: response.uri };
+
+        this.setState({
+          image: source,
+        });
+      }
+    });
+  }
 
   onValueChange(value) {
     this.setState({
@@ -98,6 +100,19 @@ uploadImage=()=>{
 
   onSubmit = () => {
 
+    const data = {
+      name: this.state.name,
+      gender: this.state.gender,
+      disability: this.state.disability,
+      location: this.state.location,
+      description: this.state.description,
+      status: "Missing",
+      age: this.state.age,
+      image: "sham.jpg",
+    }
+
+    console.log('Object of Person: ', data);
+    this.props.addPerson(data);
   };
 
   render() {
@@ -165,11 +180,11 @@ uploadImage=()=>{
                   onValueChange={this.onValueChange.bind(this)}
                 >
                   <Picker.Item
-                  style={{color: "white"}}
+                    style={{ color: "white" }}
                     label="Select an age group"
                     value="Select an age group"
                   />
-                  <Picker.Item  label="1 to 5" value="1 to 5" />
+                  <Picker.Item label="1 to 5" value="1 to 5" />
                   <Picker.Item label="6 to 10" value="6 to 10" />
                   <Picker.Item label="11 to 15" value="11 to 15" />
                   <Picker.Item label="16 to 20" value="16 to 20" />
@@ -212,14 +227,14 @@ uploadImage=()=>{
                   selectedValue={this.state.disability}
                   onValueChange={this.DisabilityHandler.bind(this)}
                 >
-                  <Picker.Item label="Select a Disability if any" value="Select a Disability if any"/>
-                  <Picker.Item label="Mentally Disable" value="1 to 5" />
-                  <Picker.Item label="Hearing Loss and Deafness" value="6 to 10" />
-                  <Picker.Item label="Memory Loss" value="11 to 15" />
-                  <Picker.Item label="Speech and Language Disorder" value="16 to 20" />
-                  <Picker.Item label="Vision Loss and Blindness" value="21 to 25" />
-                  <Picker.Item label="Any Physical Disability" value="30 to Greater" />
-                  <Picker.Item label="Others" value="26 to 30" />
+                  <Picker.Item label="Select a Disability if any" value="Select a Disability if any" />
+                  <Picker.Item label="Mentally Disable" value="Mentally Disable" />
+                  <Picker.Item label="Hearing Loss and Deafness" value="Hearing Loss and Deafness" />
+                  <Picker.Item label="Memory Loss" value="Memory Loss" />
+                  <Picker.Item label="Speech and Language Disorder" value="Speech and Language Disorder" />
+                  <Picker.Item label="Vision Loss and Blindness" value="Vision Loss and Blindness" />
+                  <Picker.Item label="Any Physical Disability" value="Any Physical Disability" />
+                  <Picker.Item label="Others" value="Others" />
                 </Picker>
               </Item>
 
@@ -247,9 +262,9 @@ uploadImage=()=>{
               </Item>
             </View>
           </View>
-          <Text  style={styles.uploadTextStyle} onPress={this.uploadImage}>Upload Photo</Text>
+          <Text style={styles.uploadTextStyle} onPress={this.uploadImage}>Upload Photo</Text>
           <View style={styles.bottomStyle} >
-            <Thumbnail 
+            <Thumbnail
               style={styles.bottomImageStyle}
               source={this.state.image}
             />
@@ -262,3 +277,5 @@ uploadImage=()=>{
     );
   }
 }
+
+export default connect(null, { addPerson })(AddForm);
