@@ -8,9 +8,23 @@ export default class componentName extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            show:false
+            show:false,
+            selectedStatus:'',
+            selectedDisability:'',
+            selectedGender:'',
+            selectedAgeGroup:'',
+            location:''
         };
     }
+    onSubmit = () => {
+        console.log("====================================");
+        console.log(this.state.selectedStatus);
+        console.log(this.state.selectedDisability);
+        console.log(this.state.selectedGender);
+        console.log(this.state.selectedAgeGroup);
+        console.log(this.state.location);
+        console.log("====================================");
+      };
     onStatusChange(value: string) {
         this.setState({
             selectedStatus: value
@@ -128,7 +142,12 @@ export default class componentName extends Component {
                             </View>
                             <View>
                             <Item>
-                                <Input placeholder='Location' style={{color:"#fff"}} placeholderTextColor="#fff"/>
+                                <Input placeholder='Location' style={{color:"#fff"}} placeholderTextColor="#fff" 
+                                onChangeText={event => {
+                                        this.setState({
+                                        location: event
+                                        });
+                                    }}/>
                                 <Icon active name='map-marked' type="FontAwesome5" style={{color:"#fff"}} />
                             </Item>
                             </View>
