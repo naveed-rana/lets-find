@@ -10,11 +10,11 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     flexDirection: "row",
     aspectRatio: 1.8,
-    textAlign:"center"
+    textAlign: "center"
   },
   searchIcon: {
     color: "white",
-    fontSize:35
+    fontSize: 35
   },
   // addIconView: {
   //   flex: 1,
@@ -33,13 +33,12 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     height: 50,
     borderRadius: 100,
-    shadowOffset: { width: 10, height: 10 },  
-    shadowColor: '#05CE1D',  
-    shadowOpacity: 1,  
-    elevation: 3,  
-    zIndex:999,
-    shadowRadius:15,
-    
+    shadowOffset: { width: 10, height: 10 },
+    shadowColor: "#05CE1D",
+    shadowOpacity: 1,
+    elevation: 3,
+    zIndex: 999,
+    shadowRadius: 15
   },
   cardContainer: {
     marginHorizontal: 10
@@ -88,7 +87,7 @@ export const styles = StyleSheet.create({
   },
   cardContainer: {
     marginHorizontal: 10,
-    zIndex:-1
+    zIndex: -1
   },
   cardInnerContainer: {
     flexDirection: "row"
@@ -113,15 +112,32 @@ export const styles = StyleSheet.create({
     fontSize: 12,
     paddingTop: 2
   },
-  headerCenterText:{
-    alignSelf:"center",
-    color:"#fff",
-    position:"absolute",
-    paddingHorizontal:70,
-    fontSize:20,
-    flexWrap:"wrap",
-    width:"100%",
-    textAlign:"center",
+  headerCenterText: {
+    alignSelf: "center",
+    color: "#fff",
+    position: "absolute",
+    paddingHorizontal: 70,
+    fontSize: 20,
+    flexWrap: "wrap",
+    width: "100%",
+    textAlign: "center"
     // textTransform: 'uppercase'
+  },
+  headerCardContainer: {
+    marginTop: 0,
+    marginLeft: 0,
+    marginRight: 0,
+    marginBottom: 5,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 1,
+    borderTopWidth: 0,
+    borderLeftWidth: 0,
+    borderRightWidth: 0
+  },
+  headerCardItem: {
+    paddingLeft: 0,
+    paddingTop: 0,
+    paddingRight: 0,
+    paddingBottom: 0
   }
 });
