@@ -20,6 +20,7 @@ import {
 } from "native-base";
 import ImagePicker from 'react-native-image-picker';
 import uploadimageIcon from "../../media/upload-photo.png"
+import axios from 'axios';
 
 import styles from "./style";
 
@@ -62,7 +63,7 @@ uploadImage=()=>{
       console.log('User tapped custom button: ', response.customButton);
     } else {
       const source = { uri: response.uri };
-
+      
       this.setState({
         image: source,
       });
@@ -98,6 +99,32 @@ uploadImage=()=>{
 
   onSubmit = () => {
 
+    const data = new FormData();
+        data.append('image', {
+            uri: this.state.image.uri,
+            type: 'image/jpeg',
+            name: `${this.state.name}_${new Date().getTime()}.jpg`,
+        });
+       
+        data.append('name',`${this.state.name}`);
+        data.append('gender',`${this.state.gender}`);
+        data.append('disability',`${this.state.disability}`);
+        data.append('location',`${this.state.location}`);
+        data.append('description',`${this.state.description}`);
+        data.append('status',`${this.state.status}`);
+        data.append('age',`${this.state.age}`);
+
+        axios.post('http://10.123.68.166:2020/registerMissingPerson', data, {
+            headers: {
+
+                'Content-Type': 'multipart/form-data',
+            },
+        })
+            .then(res => {
+                console.log("The Response", res.data);;
+            }).catch(err => {
+                console.log("ERROR", err)
+            });
   };
 
   render() {
