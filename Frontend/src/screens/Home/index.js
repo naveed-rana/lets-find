@@ -24,7 +24,7 @@ import {
 import { styles } from './style';
 import SideBar from '../Sidebar';
 import { connect } from 'react-redux';
-import fakeArray from '../../redux/fakeArray';
+// import fakeArray from '../../redux/fakeArray';
 
 Drawer.defaultProps.styles.mainOverlay.elevation = 0;
 

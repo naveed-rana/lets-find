@@ -1,4 +1,4 @@
-import { ADD_TODO } from '../../actions/missingPersonAction';
+import { ADD_PERSON } from '../../actions/missingPersonAction';
 
 import intialArray from '../../fakeArray';
 
@@ -9,13 +9,13 @@ const INITIAL_STATE = {
 function AddReducer(state = INITIAL_STATE, action) {
     switch (action.type) {
 
-        case ADD_TODO:
+        case ADD_PERSON:
             {
-                var list = state.todoList;
+                var list = state.homeStories;
                 var newList = list.concat([action.payload]);
                 return {
                     ...state,
-                    todoList: newList
+                    homeStories: newList
                 }
             }
 
