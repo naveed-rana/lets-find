@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Col, Row, Grid } from "react-native-easy-grid";
-import { StatusBar, Image } from 'react-native';
+import { StatusBar, Image,Share } from 'react-native';
 import Communications from 'react-native-communications';
 import {
   View,
@@ -143,7 +143,24 @@ export default class PersonalDetail extends Component {
                     <Text uppercase={true} style={{ fontSize: 16 }} >SMS</Text>
                   </Button>
                 </View>
-
+                <View>
+                <Button
+                style={{borderRadius: 5,marginTop:15}}
+                full success onPress={()=>{
+                              Share.share({
+                                message: `*Missing Person Alert* \n Name: *${data.name}* \n Age: *${data.age}* \n Gender: *${data.gender}* \n Disability: *${data.disability}* \n Location: *${data.location}* \n Contact No.: *${data.mobile}*`,
+                                url:'http://img.gemejo.com/product/8c/099/cf53b3a6008136ef0882197d5f5.jpg',
+                                title: 'Wow, did you see that?'
+                              })
+                            }}>
+                <Icon 
+                style={{ color:'white',}}
+                type="AntDesign"
+                name="sharealt"
+                            />
+                    <Text uppercase={true} style={{ fontSize: 16 }} >share</Text>
+                  </Button>
+                </View>
               </View>
             </Row>
           </Grid>
