@@ -21,7 +21,6 @@ import {
 import ImagePicker from 'react-native-image-picker';
 import uploadimageIcon from "../../media/upload-photo.png"
 
-
 import styles from "./style";
 
 
@@ -63,10 +62,7 @@ uploadImage=()=>{
       console.log('User tapped custom button: ', response.customButton);
     } else {
       const source = { uri: response.uri };
-  
-      // You can also display the image using data:
-      // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-  
+
       this.setState({
         image: source,
       });
@@ -101,13 +97,7 @@ uploadImage=()=>{
   };
 
   onSubmit = () => {
-    console.log("====================================");
-    console.log(this.state.name);
-    console.log(this.state.gender);
-    console.log(this.state.age);
-    console.log(this.state.description);
-    console.log(this.state.location);
-    console.log("====================================");
+
   };
 
   render() {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Container } from "native-base";
 // import Setup from './src/navigation-setup/Setup';
-import Setup from "./src/screens/AddForm";
+import Setup from "./src/navigation-setup/Setup";
 import { PermissionsAndroid } from "react-native";
 
 export default class App extends Component {
