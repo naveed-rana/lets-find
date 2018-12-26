@@ -12,7 +12,7 @@ export function getHomeStories() {
   
         Axios.get(EndPoint+'/homeStories')
         .then((res)=>{
-            console.log(res);
+            console.log(res.data);
             
         })
         .catch((err)=>{
