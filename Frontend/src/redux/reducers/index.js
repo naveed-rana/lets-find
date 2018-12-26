@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import TodoReducers from './TodoReducers';
+import TodoReducers from './MissingPerson';
 
 const rootReducer = combineReducers({
         TodoApp:TodoReducers,

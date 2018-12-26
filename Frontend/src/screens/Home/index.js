@@ -23,7 +23,7 @@ import SideBar from '../Sidebar';
 //   social: Share.Social.WHATSAPP
 // };
 
-import fakeArray from '../../Redux/fakeArray';
+import fakeArray from '../../redux/fakeArray';
 
 
 

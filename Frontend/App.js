@@ -4,6 +4,10 @@ import { Container } from "native-base";
 import Setup from "./src/navigation-setup/Setup";
 import { PermissionsAndroid } from "react-native";
 
+//redux 
+import { Provider } from 'react-redux';
+import store from './src/redux/store';
+
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -36,9 +40,11 @@ export default class App extends Component {
   render() {
     const { SplashScreens } = this.state;
     return (
+      <Provider store={store}>
       <Container>
         <Setup />
       </Container>
+      </Provider>
     );
   }
 }
