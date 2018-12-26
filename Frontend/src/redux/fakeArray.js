@@ -1,17 +1,5 @@
 export default fakeArray = [
-    {
-        id: '1',
-        image: '',
-        status: 'Missing',
-        name: 'Naveed Rana',
-        age: 'teen',
-        gender: 'male',
-        location: 'Faisalabad',
-        description: 'Lorem Ipsum is also known as: Greeked text, blind text, placeholder text, dummy content, filler text, lipsum, and mock-content.',
-        disability: 'mental',
-        mobile: '+92 303 4766669',
-        post_By: 'Asif'
-    },
+
     {
         id: '2',
         image: '',

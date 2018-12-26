@@ -1,7 +1,9 @@
 import { ADD_TODO } from '../../actions/missingPersonAction';
 
+import intialArray from '../../fakeArray';
+
 const INITIAL_STATE = {
-    homeStories:[]
+    homeStories:intialArray
 };
 
 function AddReducer(state = INITIAL_STATE, action) {

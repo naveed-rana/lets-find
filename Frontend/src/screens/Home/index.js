@@ -15,6 +15,7 @@ import {
 } from "native-base";
 import { styles } from './style';
 import SideBar from '../Sidebar';
+import { connect } from 'react-redux';
 
 // import Share from 'react-native-share';
 // const shareOptions = {
@@ -27,16 +28,38 @@ import fakeArray from '../../redux/fakeArray';
 
 
 
-export default class componentName extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fakeArray: fakeArray,
+      fakeArray: [ {
+        id: '1',
+        image: '',
+        status: 'Missing',
+        name: 'Naveed Rana',
+        age: 'teen',
+        gender: 'male',
+        location: 'Faisalabad',
+        description: 'Lorem Ipsum is also known as: Greeked text, blind text, placeholder text, dummy content, filler text, lipsum, and mock-content.',
+        disability: 'mental',
+        mobile: '+92 303 4766669',
+        post_By: 'Asif'
+    }],
     };
 
     console.log('#####################################');
     console.log('Fake Array: ' + this.state.fakeArray[0].name);
   }
+
+  
+  componentDidMount() {
+    this.setState({fakeArray:this.props.missingPersons})
+  }
+  
+
+  
+  
+
   closeDrawer() {
     this._drawer._root.close()
   };
@@ -184,4 +207,10 @@ export default class componentName extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return{
+    missingPersons:state.misingPersons
+  }
+}
 
+export default connect(mapStateToProps, null)(Home);
