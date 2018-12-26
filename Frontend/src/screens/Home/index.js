@@ -23,13 +23,6 @@ import {
 import { styles } from './style';
 import SideBar from '../Sidebar';
 import { connect } from 'react-redux';
-// import Share from 'react-native-share';
-// const shareOptions = {
-//   title: 'Share via',
-//   url: 'some share url',
-//   social: Share.Social.WHATSAPP
-// };
-
 import fakeArray from '../../redux/fakeArray';
 
 
@@ -54,7 +47,7 @@ class Home extends Component {
     };
 
     console.log("#####################################");
-    console.log("Fake Array: " + this.state.fakeArray[0].name);
+    // console.log("Fake Array: " + this.state.fakeArray[0].name);
   }
 
   
@@ -86,6 +79,8 @@ class Home extends Component {
       this.moreButton
     );
   };
+
+
 
   handleMoreItemSelect = item => {
     alert("Pressed: " + item.label);
@@ -205,7 +200,7 @@ class Home extends Component {
                             </Text>
 
                             <Icon
-                              onPress={() => {
+                              onPress={()=>{
                                 Share.share({
                                   message: `*Missing Person Alert* \n Name: *${
                                     data.name
@@ -244,9 +239,10 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
+  
   return{
-    missingPersons:state.misingPersons
+    missingPersons:state.misingPersons.homeStories
   }
 }
 

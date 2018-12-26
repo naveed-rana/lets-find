@@ -1,10 +1,27 @@
-export const ADD_TODO = 'ADD_TODO';
+import Axios from "axios";
+import EndPoint from '../../../endpoint/';
+export const GETLATESTSTORIES = 'GetStories';
 
-//Call Reducer
 
-export function addToDo(data) {
-    return {
-        type: ADD_TODO,
-        payload: data
-    }
+// fetch all todos from indexedDB in the form of array
+
+export function getHomeStories() {
+  return (dispatch) => {
+  
+        Axios.get(EndPoint+'/homeStories')
+        .then((res)=>{
+            console.log(res);
+            
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+
+  };
 }
+
+
+// dispatch({
+//     type: GETLATESTSTORIES,
+//     payload: todos,
+//   });
