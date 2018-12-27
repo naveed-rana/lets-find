@@ -20,19 +20,19 @@ import AddPersons from '../screens/AddForm';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
-  Login: LoginScreen,
-  SignUp: SignUpScreen,
-  AddPerson: AddPersons,
-  PersonDetail:PersonelDetailScreen
+  PersonDetail:PersonelDetailScreen,
+  Profile: ProfileScreen,
+  ProfileEdit: EditProfile,
 },
 {
   headerMode: 'none',
 }
 );
 
-const ProfileStack = createStackNavigator({
-  Profile: ProfileScreen,
-  ProfileEdit: EditProfile,
+const AddStack = createStackNavigator({
+  AddPerson: AddPersons,
+  Login: LoginScreen,
+  SignUp: SignUpScreen,
 },
 {
   headerMode: 'none',
@@ -60,7 +60,7 @@ export default createAppContainer(createBottomTabNavigator(
     Home: HomeStack,
     Notifications: NotificationsStack,
     Search:SearchStack,
-    Profile:ProfileStack
+    LetsAdd:AddStack
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
@@ -76,8 +76,8 @@ export default createAppContainer(createBottomTabNavigator(
         else if (routeName === 'Search') {
           iconName = `search`;
         }
-        else if (routeName === 'Profile') {
-          iconName = `contact`;
+        else if (routeName === 'LetsAdd') {
+          iconName = `ios-person-add`;
         }
         focused ? clr = '#05CE1D': clr = "gray"; 
         return <Icon style={{color:`${clr}`}}  type="Ionicons" name={iconName} size={horizontal ? 20 : 25} color={tintColor} />;
