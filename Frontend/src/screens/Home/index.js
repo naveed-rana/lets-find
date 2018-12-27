@@ -18,13 +18,15 @@ import {
   CardItem,
   Body,
   Button,
-  Container
+  Container,
+  Drawer
 } from "native-base";
 import { styles } from './style';
 import SideBar from '../Sidebar';
 import { connect } from 'react-redux';
-import fakeArray from '../../redux/fakeArray';
+// import fakeArray from '../../redux/fakeArray';
 
+Drawer.defaultProps.styles.mainOverlay.elevation = 0;
 
 
 class Home extends Component {
@@ -54,17 +56,12 @@ class Home extends Component {
   componentDidMount() {
     this.setState({fakeArray:this.props.missingPersons})
   }
-  
-
-  
-  
-
-  closeDrawer() {
-    this._drawer._root.close();
-  }
-  openDrawer() {
-    this._drawer._root.open();
-  }
+  closeDrawer = () => {
+    this.drawer._root.close()
+  };
+  openDrawer = () => {
+    this.drawer._root.open()
+  };
   // popup menu 3 dots
   refMoreButton = el => (this.moreButton = el);
 
@@ -91,6 +88,10 @@ class Home extends Component {
       shadowRadius: 15
     };
     return (
+      <Drawer
+        ref={(ref) => { this.drawer = ref; }}
+        content={<SideBar navigator={this.navigator} />}
+        onClose={() => this.closeDrawer()} >
       <Container>
         <View>
           <StatusBar backgroundColor="#05CE1D" barStyle="light-content" />
@@ -104,7 +105,7 @@ class Home extends Component {
                 style={{ width: "100%", shadowOpacity: 1 }}
               >
                 <View style={styles.header}>
-                  <Button transparent>
+                  <Button transparent onPress={()=>this.openDrawer()}>
                     <Icon name="menu" style={styles.searchIcon} />
                   </Button>
                   <Button transparent>
@@ -235,6 +236,7 @@ class Home extends Component {
           })}
         </ScrollView>
       </Container>
+      </Drawer>
     );
   }
 }
