@@ -27,31 +27,31 @@ export default class Sidebar extends Component {
           <ListItem icon style={styles.barLinkContainer}>
             <Left>
               <Button style={{ backgroundColor: "#05CE1D" }}>
-                <Icon active name="home" type="AntDesign"/>
+                <Icon active name="user" type="AntDesign"/>
               </Button>
             </Left>
             <Body style={{borderBottomWidth:0,marginLeft:15}}>
-              <Text style={{fontSize:15}}>Home</Text>
+              <Text style={{fontSize:15}}>My Profile</Text>
             </Body>
           </ListItem>
           <ListItem icon style={styles.barLinkContainer}>
             <Left>
               <Button style={{ backgroundColor: "#05CE1D" }}>
-                <Icon active name="home" type="AntDesign"/>
+                <Icon active name="dashboard" type="MaterialIcons"/>
               </Button>
             </Left>
             <Body style={{borderBottomWidth:0,marginLeft:15}}>
-              <Text style={{fontSize:15}}>Home</Text>
+              <Text style={{fontSize:15}}>My Posts</Text>
             </Body>
           </ListItem>
           <ListItem icon style={styles.barLinkContainer}>
             <Left>
               <Button style={{ backgroundColor: "#05CE1D" }}>
-                <Icon active name="home" type="AntDesign"/>
+                <Icon active name="suitcase" type="FontAwesome"/>
               </Button>
             </Left>
             <Body style={{borderBottomWidth:0,marginLeft:15}}>
-              <Text style={{fontSize:15}}>Home</Text>
+              <Text style={{fontSize:15}}>Resolved Cases</Text>
             </Body>
           </ListItem>
           <Text style={{borderTopWidth:1,height:0,borderColor:"#bfbfbf"}} ></Text>
@@ -99,5 +99,5 @@ export default class Sidebar extends Component {
         </Content>
       </Content>
     );
-  }
+  } 
 }

@@ -113,15 +113,18 @@ class AddForm extends Component {
 
     console.log('Object of Person: ', data);
     this.props.addPerson(data);
+    this.props.navigation.navigate('Home');
   };
 
   render() {
+    const { navigation } = this.props;
     return (
       <Container>
         <StatusBar backgroundColor="#05CE5D" barStyle="light-content" />
         <View>
           <View style={styles.header}>
             <Icon
+            onPress={() => navigation.goBack()}
               style={{ fontSize: 30, color: "white" }}
               type="MaterialCommunityIcons"
               name="keyboard-backspace"

@@ -1,0 +1,72 @@
+#serverTesting
+....................................
+// axios.get('http://10.123.68.166:2020/')
+    //   .then(function (response) {
+    //     console.log(response.data);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+....................................
+
+
+
+#registeruser_request
+........................................
+let data = {"user":{
+      name:"naveed",
+      pass:'pass',
+      age:'3243',
+    }}
+axios.post('http://127.0.0.1:8080/registeruser',data).then((data)=>{
+      console.log(data);  
+    })
+...........................................
+
+#AddFormData
+..........................................
+let data = {"missingperson":{
+      name:"Asif",
+      status:'missing',
+      age:'3243',
+    }}
+
+    axios.post('http://127.0.0.1:8080/registerMissingPerson',data).then((data)=>{
+      console.log(data);
+    })
+..........................................
+#registerMissingPerson
+...........................................
+onSubmit = () => {
+
+    const data = new FormData();
+        data.append('image', {
+            uri: this.state.image.uri,
+            type: 'image/jpeg',
+            name: `${this.state.name}_${new Date().getTime()}.jpg`,
+        });
+       
+        data.append('name',`${this.state.name}`);
+        data.append('gender',`${this.state.gender}`);
+        data.append('disability',`${this.state.disability}`);
+        data.append('location',`${this.state.location}`);
+        data.append('description',`${this.state.description}`);
+        data.append('status',`${this.state.status}`);
+        data.append('age',`${this.state.age}`);
+
+        axios.post('http://10.123.68.166:2020/registerMissingPerson', data, {
+            headers: {
+
+                'Content-Type': 'multipart/form-data',
+            },
+        })
+            .then(res => {
+                console.log("The Response", res.data);;
+            }).catch(err => {
+                console.log("ERROR", err)
+            });
+  };
+
+..........................................
+
+
