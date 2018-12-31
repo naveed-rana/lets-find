@@ -31,7 +31,7 @@ export default class Sidebar extends Component {
               </Button>
             </Left>
             <Body style={{borderBottomWidth:0,marginLeft:15}}>
-              <Text style={{fontSize:15}}>Home</Text>
+              <Text style={{fontSize:15}}>Profile</Text>
             </Body>
           </ListItem>
           <ListItem icon style={styles.barLinkContainer}>
@@ -41,7 +41,7 @@ export default class Sidebar extends Component {
               </Button>
             </Left>
             <Body style={{borderBottomWidth:0,marginLeft:15}}>
-              <Text style={{fontSize:15}}>Home</Text>
+              <Text style={{fontSize:15}}>My Posts</Text>
             </Body>
           </ListItem>
           <ListItem icon style={styles.barLinkContainer}>
@@ -51,7 +51,7 @@ export default class Sidebar extends Component {
               </Button>
             </Left>
             <Body style={{borderBottomWidth:0,marginLeft:15}}>
-              <Text style={{fontSize:15}}>Home</Text>
+              <Text style={{fontSize:15}}>Resolved Cases</Text>
             </Body>
           </ListItem>
           <Text style={{borderTopWidth:1,height:0,borderColor:"#bfbfbf"}} ></Text>
@@ -99,5 +99,5 @@ export default class Sidebar extends Component {
         </Content>
       </Content>
     );
-  }
+  } 
 }
