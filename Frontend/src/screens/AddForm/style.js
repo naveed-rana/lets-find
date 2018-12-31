@@ -1,21 +1,32 @@
 export default (styles = {
   inputTextSize: {
-    fontSize: 15
+    fontSize: 15,
+    borderRadius: 10
   },
   bottomImageStyle: {
     width: 147,
     height: 143,
-    marginBottom: 20
+    marginBottom: 20,
+    
   },
+  bottomFullImg: {
+    width: "100%",
+    height: 200,
+    borderRadius: 4,
+    
+
+  },
+
   bottomStyle: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    alignItems: "center"
+    // paddingHorizontal: 20,
+    // paddingVertical: 10,
+    alignItems: "center",
   },
   uploadTextStyle: {
     textAlign: "left",
     fontSize: 14,
-    marginLeft: 50
+    marginVertical: 10,
+    alignSelf: "center"
   },
   txtareaStyle: {
     width: "100%",
@@ -24,24 +35,55 @@ export default (styles = {
   inputViewStyle: {
     paddingHorizontal: 20,
     paddingVertical: 10,
-    alignItems: "center"
+    alignItems: "center",
+    flex: 1,
+    padding: 30,
+    backgroundColor: "#f5fcff"
   },
+
+  imageInputStyle: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    alignItems: "center",
+    flex: 1,
+    padding: 30,
+    width: "100%",
+    justifyContent: "center",
+    alignSelf: "center",
+    backgroundColor: "#f5fcff",
+    height: 220,
+    borderWidth: 0,
+    shadowOffset: { height: 0, width: 0 },
+    shadowOpacity: 0,
+    elevation: 0
+  },
+
   btnViewStyle: {
     paddingHorizontal: 20,
     paddingVertical: 30,
     flex: 1,
-    flexDirection: "row",
-
+    flexDirection: "row"
   },
   topImageStyle: {
     width: 100,
     height: 100
   },
   inputStyle: {
-    backgroundColor: "#eff4fb",
+    backgroundColor: "transparent",
     paddingLeft: 10,
-    marginBottom: 8,
-    paddingRight: 20
+    marginBottom: 2,
+    borderTopWidth: 1,
+    borderBottomWith: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderRadius: 4,
+    paddingRight: 20,
+    borderColor: "#dadce0",
+    paddingTop: 5,
+    opacity: 1,
+    width: "100%",
+    alignSelf: "center",
+    height: 50
   },
   topImagecircle: {
     marginTop: 20,
@@ -57,7 +99,6 @@ export default (styles = {
     paddingHorizontal: 8,
     justifyContent: "flex-start",
     flexDirection: "row"
-    
   },
   heading: {
     color: "white",
@@ -67,10 +108,10 @@ export default (styles = {
   tab: {
     fontWeight: "bold",
     height: "100%",
-    alignSelf: 'center',
+    alignSelf: "center",
     paddingTop: 7,
     width: "100%",
-    textAlign: "center",
+    textAlign: "center"
   },
   picItem: {
     borderBottom: "1px solid gray",
@@ -78,8 +119,13 @@ export default (styles = {
   },
   tabBtn: {
     width: "90%",
-    alignItems: 'center',
-    borderRadius: 10,
-   
+    alignItems: "center",
+    borderRadius: 10
+  },
+  submitBtn: {
+    alignSelf: "center",
+    borderRadius: 4,
+    width: "70%",
+    justifyContent: "center"
   }
 });
