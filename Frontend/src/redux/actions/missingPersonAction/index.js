@@ -28,7 +28,7 @@ export function getHomeStories() {
 //Call Reducer
 
 export function addPerson(data) {
-    console.log('add person action file: ', data);
+    console.log('from Action: ', data);
     return {
         type: ADD_PERSON,
         payload: data

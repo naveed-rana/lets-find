@@ -134,7 +134,7 @@ class AddForm extends Component {
         duration: 3000
       });
     } else {
-      console.log("Object of Person: ", data);
+      console.log("From react Component: ", data);
       this.props.addPerson(data);
       // this.props.navigation.navigate("Home");
       Toast.show({
