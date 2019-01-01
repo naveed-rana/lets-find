@@ -6,21 +6,18 @@ export default (styles = {
   bottomImageStyle: {
     width: 147,
     height: 143,
-    marginBottom: 20,
-    
+    marginBottom: 20
   },
   bottomFullImg: {
     width: "100%",
     height: 200,
-    borderRadius: 4,
-    
-
+    borderRadius: 4
   },
 
   bottomStyle: {
     // paddingHorizontal: 20,
     // paddingVertical: 10,
-    alignItems: "center",
+    alignItems: "center"
   },
   uploadTextStyle: {
     textAlign: "left",
@@ -111,7 +108,17 @@ export default (styles = {
     alignSelf: "center",
     paddingTop: 7,
     width: "100%",
-    textAlign: "center"
+    textAlign: "center",
+    
+  },
+  tabwithClr: {
+    fontWeight: "bold",
+    height: "100%",
+    alignSelf: "center",
+    paddingTop: 7,
+    width: "100%",
+    textAlign: "center",
+    color: "white"
   },
   picItem: {
     borderBottom: "1px solid gray",
@@ -120,12 +127,22 @@ export default (styles = {
   tabBtn: {
     width: "90%",
     alignItems: "center",
-    borderRadius: 10
+    borderRadius: 10,
+    color: "#05CE1D"
   },
+  tabBtnColored: {
+    width: "90%",
+    alignItems: "center",
+    borderRadius: 10,
+    backgroundColor: "#05CE1D",
+    color: "white"
+  },
+
   submitBtn: {
     alignSelf: "center",
     borderRadius: 4,
     width: "70%",
-    justifyContent: "center"
+    justifyContent: "center",
+    backgroundColor: '#05CE1D'
   }
 });

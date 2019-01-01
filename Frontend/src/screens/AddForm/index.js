@@ -17,13 +17,13 @@ import {
   Title,
   Body,
   Picker,
-  Label
+  Label,
+  Toast
 } from "native-base";
 import ImagePicker from "react-native-image-picker";
 import uploadimageIcon from "../../media/upload-photo.png";
 import { connect } from "react-redux";
 import { addPerson } from "../../redux/actions/missingPersonAction";
-
 import styles from "./style";
 import FloatingLabelInput from "./floatingLabelInput";
 
@@ -44,10 +44,12 @@ class AddForm extends Component {
       disability: "",
       location: "",
       description: "",
-      status: true,
+      status: "Missing",
       age: "",
       image: uploadimageIcon,
-      value: ""
+      value: "",
+      MistabBtnCls: styles.tabBtnColored,
+      FndtabBtnCls: styles.tabBtn
     };
   }
 
@@ -89,14 +91,6 @@ class AddForm extends Component {
     });
   }
 
-  hadleStatus = () => {
-    this.setState(preState => {
-      return {
-        status: !preState.status
-      };
-    });
-  };
-
   onSubmit = () => {
     const data = {
       name: this.state.name,
@@ -104,14 +98,51 @@ class AddForm extends Component {
       disability: this.state.disability,
       location: this.state.location,
       description: this.state.description,
-      status: "Missing",
+      status: this.state.status,
       age: this.state.age,
-      image: "sham.jpg"
+      image: this.state.image
     };
 
-    console.log("Object of Person: ", data);
-    this.props.addPerson(data);
-    this.props.navigation.navigate('Home');
+    if (this.state.age == "" || this.state.age == "Select an age group") {
+      Toast.show({
+        text: "Select an age group",
+        type: "warning",
+        duration: 3000
+      });
+    } else if (this.state.gender == "" || this.state.gender == "Gender") {
+      Toast.show({
+        text: "Select Gender",
+        type: "warning",
+        duration: 3000
+      });
+    } else if (this.state.disability == "Select a Disability if any") {
+      Toast.show({
+        text: "Select a Disability",
+        type: "warning",
+        duration: 3000
+      });
+    } else if (this.state.location == "") {
+      Toast.show({
+        text: "Select the Location",
+        type: "warning",
+        duration: 3000
+      });
+    } else if (this.state.image == uploadimageIcon) {
+      Toast.show({
+        text: "Image is mendatory",
+        type: "warning",
+        duration: 3000
+      });
+    } else {
+      console.log("Object of Person: ", data);
+      this.props.addPerson(data);
+      // this.props.navigation.navigate("Home");
+      Toast.show({
+        text: "Successfully Uploaded",
+        type: "success",
+        duration: 3000
+      });
+    }
   };
 
   render() {
@@ -122,7 +153,7 @@ class AddForm extends Component {
         <View>
           <View style={styles.header}>
             <Icon
-            onPress={() => navigation.goBack()}
+              onPress={() => navigation.goBack()}
               style={{ fontSize: 30, color: "white" }}
               type="MaterialCommunityIcons"
               name="keyboard-backspace"
@@ -136,24 +167,47 @@ class AddForm extends Component {
           <View style={styles.btnViewStyle}>
             <Left>
               <Button
-                bordered={!this.state.status}
+                bordered
                 success
-                style={styles.tabBtn}
+                style={this.state.MistabBtnCls}
+                onPress={() =>
+                  this.setState({
+                    status: "Missing",
+                    MistabBtnCls: styles.tabBtnColored,
+                    FndtabBtnCls: styles.tabBtn
+                  })
+                }
               >
-                <Text style={styles.tab} onPress={this.hadleStatus}>
-                  Missing
-                </Text>
+              {this.state.MistabBtnCls == styles.tabBtn?
+                <Text style={styles.tab}>Missing</Text>
+                :
+                <Text style={styles.tabwithClr}>Missing</Text>
+
+              }
               </Button>
             </Left>
             <Right>
               <Button
-                bordered={this.state.status}
+                bordered
+                onPress={() =>
+                  this.setState({
+                    status: "Found",
+                    FndtabBtnCls: styles.tabBtnColored,
+                    MistabBtnCls: styles.tabBtn
+                  })
+                }
                 success
-                style={styles.tabBtn}
+                style={this.state.FndtabBtnCls}
               >
-                <Text style={styles.tab} onPress={this.hadleStatus}>
-                  Found
-                </Text>
+
+
+              {this.state.FndtabBtnCls == styles.tabBtn?
+                <Text style={styles.tab}>Found</Text>
+                :
+                <Text style={styles.tabwithClr}>Found</Text>
+
+              }
+
               </Button>
             </Right>
           </View>
@@ -241,6 +295,7 @@ class AddForm extends Component {
                   value="Any Physical Disability"
                 />
                 <Picker.Item label="Others" value="Others" />
+                <Picker.Item label="Not Disabled" value="Not Disabled" />
               </Picker>
             </Item>
           </View>
