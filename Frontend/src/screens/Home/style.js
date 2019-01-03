@@ -139,5 +139,28 @@ export const styles = StyleSheet.create({
     paddingTop: 0,
     paddingRight: 0,
     paddingBottom: 0
+  },
+  modalClose: {
+    position: "absolute",
+    right: 0,
+    padding: 20,
+    color: "white"
+   
+    
+
+  },
+  modalOverlay: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: "rgba(0,0,0,0.4)"
+  },
+  modalImage: {
+    width: "100%",
+    alignSelf: "center",
+    height: 300,
+    justifyContent:"center"
   }
 });
