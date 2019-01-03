@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { Image, StatusBar, ScrollView, TouchableOpacity } from 'react-native';
 import { View, Text, Content, Item, Input, Icon, Card, CardItem, Body, Container, Picker, Form, Button } from 'native-base';
+import ImagePicker from "react-native-image-picker";
 import styles from './style';
 
 import { connect } from 'react-redux';
 
-
+const options = {
+    title: "Select Option",
+    storageOptions: {
+      skipBackup: true,
+      path: "images"
+    }
+  };
 class SearchScreen extends Component {
     constructor(props) {
         super(props);
@@ -32,7 +39,25 @@ class SearchScreen extends Component {
             }],
         };
     }
-
+    uploadImage = () => {
+        ImagePicker.showImagePicker(options, response => {
+          console.log("Response = ", response);
+    
+          if (response.didCancel) {
+            console.log("User cancelled image picker");
+          } else if (response.error) {
+            console.log("ImagePicker Error: ", response.error);
+          } else if (response.customButton) {
+            console.log("User tapped custom button: ", response.customButton);
+          } else {
+            const source = { uri: response.uri };
+    
+            this.setState({
+              image: source
+            });
+          }
+        });
+      };
     componentDidMount() {
         this.setState({ fakeArray: this.props.missingPersons })
     }
@@ -91,7 +116,9 @@ class SearchScreen extends Component {
                     <Item style={styles.itemStyle} >
                         <View style={styles.searchInput}>
                             <Input placeholder='Search' />
-                            <Icon style={styles.camIcon} type="Entypo" name="camera" />
+                            <TouchableOpacity style={styles.cameraIconBtn} onPress={this.uploadImage}>
+                                <Icon style={styles.camIcon} type="Entypo" name="camera" />
+                            </TouchableOpacity>
                         </View>
                     </Item>
                     <TouchableOpacity style={styles.filterContainer} onPress={this.toggleFilter}>
