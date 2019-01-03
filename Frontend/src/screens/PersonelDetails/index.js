@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Col, Row, Grid } from "react-native-easy-grid";
-import { StatusBar, Image, Share } from "react-native";
+import { StatusBar, Image, Share, Modal, TouchableOpacity } from "react-native";
 import Communications from "react-native-communications";
 import {
   View,
@@ -24,6 +24,13 @@ import {
 import styles from "./style";
 
 export default class PersonalDetail extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalVisible: false
+
+    };
+  }
   render() {
     const { navigation } = this.props;
     const data = navigation.getParam("data", "NO-Data");
@@ -45,12 +52,44 @@ export default class PersonalDetail extends Component {
           </Body>
         </Header>
         <Content>
-          <View style={styles.imagePadding}>
-            <Image
-              style={styles.imageStyle}
-              source={require("../../media/sham.jpg")}
-            />
+          <View>
+            <Modal
+              visible={this.state.modalVisible}
+              transparent={true}
+              animationType="slide"
+              // transparent={false}
+              onRequestClose={() => {
+                this.modalVisible(false);
+              }}
+            >
+              <View style={styles.modalOverlay}>
+                <Icon
+                  style={styles.modalClose}
+                  type="AntDesign"
+                  name="close"
+                  onPress={() => this.setState({ modalVisible: false })}
+                />
+                <View style={{ flex: 1, justifyContent: "center" }}>
+                  <Image
+                    style={styles.modalImage}
+                    source={require("../../media/sham.jpg")}
+                  />
+                </View>
+              </View>
+            </Modal>
+            <TouchableOpacity
+              onPress={() => this.setState({ modalVisible: true })}
+            >
+              <View style={styles.imagePadding}>
+                <Image
+                  style={styles.imageStyle}
+                  source={require("../../media/sham.jpg")}
+                />
+              </View>
+            </TouchableOpacity>
           </View>
+
+
 
           <View style={styles.topDetails}>
             <View style={styles.PersonalDetailView}>
@@ -140,8 +179,6 @@ export default class PersonalDetail extends Component {
                 marginVertical: 10
               }}
             /> */}
-
-          
 
           <View style={styles.PersonalDetailView}>
             <Left>

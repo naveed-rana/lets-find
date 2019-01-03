@@ -14,7 +14,7 @@ export default (styles = {
   },
   ShortLocataionText: {
     fontSize: 15,
-    
+
     color: "#05ce1d"
   },
   bottomStyleView: {
@@ -33,8 +33,7 @@ export default (styles = {
   PersonalDetailView: {
     flexDirection: "row",
     width: "100%",
-    marginBottom: 5,
-    
+    marginBottom: 5
   },
   missingPersonTitle: {
     textAlign: "left",
@@ -44,7 +43,7 @@ export default (styles = {
   },
   topDetails: {
     paddingHorizontal: 10,
-    paddingVertical: 20,
+    paddingVertical: 20
   },
   imageStyle: {
     // borderRadius:5 ,
@@ -60,5 +59,25 @@ export default (styles = {
     height: 190,
     width: "100%",
     backgroundColor: "red"
+  },
+  modalClose: {
+    position: "absolute",
+    right: 0,
+    padding: 20,
+    color: "white"
+  },
+  modalOverlay: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: "rgba(0,0,0,.9)"
+  },
+  modalImage: {
+    width: "100%",
+    alignSelf: "center",
+    height: 300,
+    justifyContent: "center"
   }
 });
