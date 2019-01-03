@@ -52,7 +52,17 @@ class Home extends Component {
     // console.log("Fake Array: " + this.state.fakeArray[0].name);
   }
 
-  
+  componentWillReceiveProps(newProp){
+    console.log('====================================');
+    console.log(newProp);
+    console.log('====================================');
+    this.setState({
+      fakeArray: newProp
+    })
+
+
+
+  }
   componentDidMount() {
     this.setState({fakeArray:this.props.missingPersons})
   }
@@ -143,7 +153,7 @@ class Home extends Component {
             return (
               <View key={index} style={styles.cardContainer}>
                 <Card>
-                  <CardItem>
+                  <CardItem >
                     <Body>
                       <View style={styles.cardInnerContainer}>
                         <View>
@@ -152,8 +162,22 @@ class Home extends Component {
                             source={require("../../media/sham.jpg")}
                           />
                         </View>
-
                         <View style={styles.textContainer}>
+                        <TouchableOpacity style={{width: "100%"}} onPress={() =>
+                                this.props.navigation.navigate("PersonDetail", {
+                                  data: {
+                                    id: data.id,
+                                    name: data.name,
+                                    status: data.status,
+                                    post_By: data.post_By,
+                                    age: data.age,
+                                    gender: data.gender,
+                                    disability: data.disability,
+                                    description: data.description,
+                                    location: data.location,
+                                    mobile: data.mobile
+                                  }
+                                })}>
                           <View style={styles.cardHeader}>
                             <Text>{data.name}</Text>
 
@@ -220,12 +244,15 @@ class Home extends Component {
                               style={{
                                 marginTop: -5,
                                 fontSize: 25,
-                                color: "gray"
+                                color: "gray",
+                                paddingHorizontal: 20,
+                                paddingTop: 15,
                               }}
                               type="AntDesign"
                               name="sharealt"
                             />
                           </View>
+                        </TouchableOpacity>
                         </View>
                       </View>
                     </Body>
@@ -242,7 +269,9 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => {
-  
+  console.log('====================================');
+  console.log("from show data props"+state.misingPersons);
+  console.log('====================================');
   return{
     missingPersons:state.misingPersons.homeStories
   }

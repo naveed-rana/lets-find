@@ -31,7 +31,7 @@ export function addPerson(data) {
     console.log('from Action: ', data);
     return {
         type: ADD_PERSON,
-        payload: data
+        data: data
     }
 }
 

@@ -7,7 +7,7 @@ import {
   createAppContainer,
 } from 'react-navigation';
 
-import HomeScreen from "../screens/PersonelDetails";
+import HomeScreen from "../screens/Home";
 import LoginScreen from '../screens/login';
 import ProfileScreen from '../screens/ShowProfile';
 import PersonelDetailScreen from '../screens/PersonelDetails';

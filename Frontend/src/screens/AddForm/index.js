@@ -136,7 +136,7 @@ class AddForm extends Component {
     } else {
       console.log("From react Component: ", data);
       this.props.addPerson(data);
-      // this.props.navigation.navigate("Home");
+      this.props.navigation.navigate("Home");
       Toast.show({
         text: "Successfully Uploaded",
         type: "success",

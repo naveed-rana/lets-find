@@ -105,7 +105,7 @@ export const styles = StyleSheet.create({
   },
   textContainer: {
     flex: 1,
-    marginLeft: 10
+    marginLeft: 10,
   },
   readMore: {
     color: "#0366d6",

@@ -10,15 +10,15 @@ console.log("Reducer: for all  ", INITIAL_STATE.homeStories);
 function AddReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case ADD_PERSON: {
-      // var list = state.homeStories;
-      // console.log('Reducer: before ', state.homeStories)
-      // var homeStories = state.homeStories.concat([action.payload])
+      console.log("====================================");
+      console.log("from reducer add" + action.data);
+      console.log("====================================");
 
-      console.log("Reducer: Middle ", [action.payload]);
-
+      var oldStories = state.homeStories;
+      var newStories = oldStories.concat([action.data]);
       return {
         ...state,
-        homeStories: state.homeStories.concat([action.payload])
+        homeStories: newStories
       };
     }
 
