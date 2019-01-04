@@ -20,7 +20,8 @@ import {
   Body,
   Button,
   Container,
-  Drawer
+  Drawer,
+  Spinner
 } from "native-base";
 import ImageViewer from "react-native-image-zoom-viewer";
 
@@ -52,7 +53,8 @@ class Home extends Component {
           post_By: "Asif"
         }
       ],
-      modalVisible: false
+      modalVisible: false,
+      loader: true
     };
 
     console.log("#####################################");
@@ -69,6 +71,9 @@ class Home extends Component {
   }
   componentDidMount() {
     this.setState({ fakeArray: this.props.missingPersons });
+    setTimeout(() => {
+      this.setState({ loader: false });
+    }, 3000);
   }
   closeDrawer = () => {
     this.drawer._root.close();
@@ -94,6 +99,8 @@ class Home extends Component {
   handleMoreItemSelect = item => {
     alert("Pressed: " + item.label);
   };
+
+  // For loader temporary
 
   render() {
     const shadowStyle = {
@@ -142,116 +149,76 @@ class Home extends Component {
             </CardItem>
           </Card>
 
-          <TouchableOpacity
-            style={styles.addNewButton}
-            onPress={() => this.props.navigation.navigate("AddPerson")}
-          >
-            <Icon
-              type="AntDesign"
-              name="plus"
-              style={{ fontSize: 20, color: "#fff" }}
-              color="white"
-            />
-          </TouchableOpacity>
-          {/* PLus Button Ends*/}
-          <ScrollView>
-            {this.state.fakeArray.map((data, index) => {
-              return (
-                <View key={index} style={styles.cardContainer}>
-                  <Card>
-                    <CardItem>
-                      <Body>
-                        <View style={styles.cardInnerContainer}>
-                          <View>
-                            <Modal
-                              visible={this.state.modalVisible}
-                              transparent={true}
-                              animationType="slide"
-                              // transparent={false}
-                              onRequestClose={() => {
-                                this.modalVisible(false);
-                              }}
-                            >
-                              <View style={styles.modalOverlay}>
-                                <Icon
-                                  style={styles.modalClose}
-                                  type="AntDesign"
-                                  name="close"
+          {this.state.loader ? (
+            <Spinner color="#05CE1D" style={{ marginTop: 100 }} />
+          ) : (
+            <View>
+              <TouchableOpacity
+                style={styles.addNewButton}
+                onPress={() => this.props.navigation.navigate("AddPerson")}
+              >
+                <Icon
+                  type="AntDesign"
+                  name="plus"
+                  style={{ fontSize: 20, color: "#fff" }}
+                  color="white"
+                />
+              </TouchableOpacity>
+              {/* PLus Button Ends*/}
+              <ScrollView>
+                {this.state.fakeArray.map((data, index) => {
+                  return (
+                    <View key={index} style={styles.cardContainer}>
+                      <Card>
+                        <CardItem>
+                          <Body>
+                            <View style={styles.cardInnerContainer}>
+                              <View>
+                                <Modal
+                                  visible={this.state.modalVisible}
+                                  transparent={true}
+                                  animationType="slide"
+                                  // transparent={false}
+                                  onRequestClose={() => {
+                                    this.modalVisible(false);
+                                  }}
+                                >
+                                  <View style={styles.modalOverlay}>
+                                    <Icon
+                                      style={styles.modalClose}
+                                      type="AntDesign"
+                                      name="close"
+                                      onPress={() =>
+                                        this.setState({ modalVisible: false })
+                                      }
+                                    />
+                                    <View
+                                      style={{
+                                        flex: 1,
+                                        justifyContent: "center"
+                                      }}
+                                    >
+                                      <Image
+                                        style={styles.modalImage}
+                                        source={require("../../media/sham.jpg")}
+                                      />
+                                    </View>
+                                  </View>
+                                </Modal>
+                                <TouchableOpacity
                                   onPress={() =>
-                                    this.setState({ modalVisible: false })
+                                    this.setState({ modalVisible: true })
                                   }
-                                />
-                                <View
-                                  style={{ flex: 1, justifyContent: "center" }}
                                 >
                                   <Image
-                                    style={styles.modalImage}
+                                    style={styles.filterImage}
                                     source={require("../../media/sham.jpg")}
                                   />
-                                </View>
+                                </TouchableOpacity>
                               </View>
-                            </Modal>
-                            <TouchableOpacity
-                              onPress={() =>
-                                this.setState({ modalVisible: true })
-                              }
-                            >
-                              <Image
-                                style={styles.filterImage}
-                                source={require("../../media/sham.jpg")}
-                              />
-                            </TouchableOpacity>
-                          </View>
-                          <View style={styles.textContainer}>
-                            <TouchableOpacity
-                              style={{ width: "100%" }}
-                              onPress={() =>
-                                this.props.navigation.navigate("PersonDetail", {
-                                  data: {
-                                    id: data.id,
-                                    name: data.name,
-                                    status: data.status,
-                                    post_By: data.post_By,
-                                    age: data.age,
-                                    gender: data.gender,
-                                    disability: data.disability,
-                                    description: data.description,
-                                    location: data.location,
-                                    mobile: data.mobile
-                                  }
-                                })
-                              }
-                            >
-                              <View style={styles.cardHeader}>
-                                <Text>{data.name}</Text>
-
-                                <Text style={styles.statusText}>
-                                  {data.status}
-                                </Text>
-                              </View>
-
-                              <View>
-                                <Text style={styles.nameText}>
-                                  Posted By {data.post_By}
-                                </Text>
-                              </View>
-
-                              <View
-                                style={{ flexDirection: "row", paddingTop: 5 }}
-                              >
-                                <Icon
-                                  style={{ marginLeft: -5 }}
-                                  type="EvilIcons"
-                                  name="location"
-                                />
-                                <Text style={{ fontSize: 13 }}>
-                                  {data.location}
-                                </Text>
-                              </View>
-
-                              <View style={styles.cardHeader}>
-                                <Text
-                                  style={styles.readMore}
+                              <View style={styles.textContainer}>
+                                <TouchableOpacity
+                                  style={{ width: "100%" }}
                                   onPress={() =>
                                     this.props.navigation.navigate(
                                       "PersonDetail",
@@ -272,47 +239,104 @@ class Home extends Component {
                                     )
                                   }
                                 >
-                                  Read More
-                                </Text>
+                                  <View style={styles.cardHeader}>
+                                    <Text>{data.name}</Text>
 
-                                <Icon
-                                  onPress={() => {
-                                    Share.share({
-                                      message: `*Missing Person Alert* \n Name: *${
-                                        data.name
-                                      }* \n Age: *${data.age}* \n Gender: *${
-                                        data.gender
-                                      }* \n Disability: *${
-                                        data.disability
-                                      }* \n Location: *${
-                                        data.location
-                                      }* \n Contact No.: *${data.mobile}*`,
-                                      url:
-                                        "http://img.gemejo.com/product/8c/099/cf53b3a6008136ef0882197d5f5.jpg",
-                                      title: "Wow, did you see that?"
-                                    });
-                                  }}
-                                  style={{
-                                    marginTop: -5,
-                                    fontSize: 25,
-                                    color: "gray",
-                                    paddingHorizontal: 20,
-                                    paddingTop: 15
-                                  }}
-                                  type="AntDesign"
-                                  name="sharealt"
-                                />
+                                    <Text style={styles.statusText}>
+                                      {data.status}
+                                    </Text>
+                                  </View>
+
+                                  <View>
+                                    <Text style={styles.nameText}>
+                                      Posted By {data.post_By}
+                                    </Text>
+                                  </View>
+
+                                  <View
+                                    style={{
+                                      flexDirection: "row",
+                                      paddingTop: 5
+                                    }}
+                                  >
+                                    <Icon
+                                      style={{ marginLeft: -5 }}
+                                      type="EvilIcons"
+                                      name="location"
+                                    />
+                                    <Text style={{ fontSize: 13 }}>
+                                      {data.location}
+                                    </Text>
+                                  </View>
+
+                                  <View style={styles.cardHeader}>
+                                    <Text
+                                      style={styles.readMore}
+                                      onPress={() =>
+                                        this.props.navigation.navigate(
+                                          "PersonDetail",
+                                          {
+                                            data: {
+                                              id: data.id,
+                                              name: data.name,
+                                              status: data.status,
+                                              post_By: data.post_By,
+                                              age: data.age,
+                                              gender: data.gender,
+                                              disability: data.disability,
+                                              description: data.description,
+                                              location: data.location,
+                                              mobile: data.mobile
+                                            }
+                                          }
+                                        )
+                                      }
+                                    >
+                                      Read More
+                                    </Text>
+
+                                    <Icon
+                                      onPress={() => {
+                                        Share.share({
+                                          message: `*Missing Person Alert* \n Name: *${
+                                            data.name
+                                          }* \n Age: *${
+                                            data.age
+                                          }* \n Gender: *${
+                                            data.gender
+                                          }* \n Disability: *${
+                                            data.disability
+                                          }* \n Location: *${
+                                            data.location
+                                          }* \n Contact No.: *${data.mobile}*`,
+                                          url:
+                                            "http://img.gemejo.com/product/8c/099/cf53b3a6008136ef0882197d5f5.jpg",
+                                          title: "Wow, did you see that?"
+                                        });
+                                      }}
+                                      style={{
+                                        marginTop: -5,
+                                        fontSize: 25,
+                                        color: "gray",
+                                        paddingHorizontal: 20,
+                                        paddingTop: 15
+                                      }}
+                                      type="AntDesign"
+                                      name="sharealt"
+                                    />
+                                  </View>
+                                </TouchableOpacity>
                               </View>
-                            </TouchableOpacity>
-                          </View>
-                        </View>
-                      </Body>
-                    </CardItem>
-                  </Card>
-                </View>
-              );
-            })}
-          </ScrollView>
+                            </View>
+                          </Body>
+                        </CardItem>
+                      </Card>
+                    </View>
+                  );
+                })}
+              </ScrollView>
+            </View>
+          )}
         </Container>
       </Drawer>
     );
