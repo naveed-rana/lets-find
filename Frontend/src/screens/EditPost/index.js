@@ -25,7 +25,7 @@ import uploadimageIcon from "../../media/upload-photo.png";
 import { connect } from "react-redux";
 import { addPerson } from "../../redux/actions/missingPersonAction";
 import styles from "./style";
-import FloatingLabelInput from "./floatingLabelInput";
+import FloatingLabelInput from "../AddForm/floatingLabelInput";
 
 
 const options = {
@@ -49,7 +49,7 @@ class EditPost extends Component {
       age: "",
       image: uploadimageIcon,
       value: "",
-      MistabBtnCls: styles.tabBtnColored,
+      MistabBtnCls: styles.tabBtn,
       FndtabBtnCls: styles.tabBtn
     };
   }
@@ -145,11 +145,47 @@ class EditPost extends Component {
       });
     }
   };
+  data = this.props.navigation.getParam("data", "NO-Data");
+
+componentDidMount(){
+  this.setState({
+    name: this.data.name,
+    gender: this.data.gender,
+    disability: this.data.disability,
+    location: this.data.location,
+    description: this.data.description,
+    status: this.data.status,
+    age: this.data.age,
+    
+    
+  })
+  if(this.data.status == "Missing"){
+    this.setState({
+      MistabBtnCls: styles.tabBtnColored
+    })
+  }else{
+    this.setState({
+      FndtabBtnCls: styles.tabBtnColored
+    })
+  }
+}
+
+
+
+// data: {
+//   name: data.name,
+//   status: data.status,
+//   age: data.age,
+//   gender: data.gender,
+//   disability: data.disability,
+//   description: data.description,
+//   location: data.location
+// }
+
 
   render() {
-    const data = navigation.getParam("data", "NO-Data");
+    const{navigation} = this.props
 
-    const { navigation } = this.props;
     return (
       <Container>
         <StatusBar backgroundColor="#05CE5D" barStyle="light-content" />
@@ -162,7 +198,7 @@ class EditPost extends Component {
               name="keyboard-backspace"
             />
             <Text />
-            <Text style={styles.heading}>Report a Person</Text>
+            <Text style={styles.heading}>Modify a Post</Text>
             <Text> </Text>
           </View>
         </View>
@@ -340,7 +376,7 @@ class EditPost extends Component {
           </Button>
           <View style={styles.inputViewStyle}>
             <Button style={styles.submitBtn} success onPress={this.onSubmit}>
-              <Text>Submit & Post</Text>
+              <Text>Update & Post</Text>
             </Button>
           </View>
         </Content>

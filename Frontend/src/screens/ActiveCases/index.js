@@ -4,7 +4,8 @@ import {
   StatusBar,
   ScrollView,
   TouchableOpacity,
-  Modal
+  Modal,
+  Share
 } from "react-native";
 import {
   View,
@@ -142,7 +143,6 @@ class SearchScreen extends Component {
           <Body>
             <Title>Active Posts</Title>
           </Body>
-         
         </Header>
 
         <ScrollView>
@@ -194,42 +194,57 @@ class SearchScreen extends Component {
                         </View>
 
                         <View style={styles.textContainer}>
-                          <View style={styles.cardHeader}>
-                            <Text>{data.name}</Text>
-
-                            <Text style={styles.statusText}>{data.status}</Text>
-                          </View>
-
-                          <View
-                            style={{
-                              flexDirection: "row",
-                              paddingTop: 2
-                            }}
+                          <TouchableOpacity
+                            style={{ width: "100%" }}
+                            onPress={() =>
+                              navigation.navigate("EditPost", {
+                                data: {
+                                  name: data.name,
+                                  status: data.status,
+                                  age: data.age,
+                                  gender: data.gender,
+                                  disability: data.disability,
+                                  description: data.description,
+                                  location: data.location
+                                }
+                              })
+                            }
                           >
-                            <Icon
-                              style={{ marginLeft: -5 }}
-                              type="EvilIcons"
-                              name="location"
-                            />
-                            <Text style={{ fontSize: 13 }}>
-                              {data.location}
-                            </Text>
-                          </View>
+                            <View style={styles.cardHeader}>
+                              <Text>{data.name}</Text>
 
-                          <View style={styles.cardHeader}>
-                            <View style={{ flexDirection: "row" }}>
+                              <Text style={styles.statusText}>
+                                {data.status}
+                              </Text>
+                            </View>
+
+                            <View
+                              style={{
+                                flexDirection: "row",
+                                paddingTop: 2
+                              }}
+                            >
                               <Icon
-                                style={{ fontSize: 20 }}
-                                type="AntDesign"
-                                name="edit"
+                                style={{ marginLeft: -5 }}
+                                type="EvilIcons"
+                                name="location"
                               />
-                              <Text
-                                style={styles.readMore}
-                                onPress={() =>
-                                  
-                                  navigation.navigate(
-                                    "EditPost",
-                                    {
+                              <Text style={{ fontSize: 13 }}>
+                                {data.location}
+                              </Text>
+                            </View>
+
+                            <View style={styles.cardHeader}>
+                              <View style={{ flexDirection: "row" }}>
+                                <Icon
+                                  style={{ fontSize: 20 }}
+                                  type="AntDesign"
+                                  name="edit"
+                                />
+                                <Text
+                                  style={styles.readMore}
+                                  onPress={() =>
+                                    navigation.navigate("EditPost", {
                                       data: {
                                         name: data.name,
                                         status: data.status,
@@ -237,42 +252,42 @@ class SearchScreen extends Component {
                                         gender: data.gender,
                                         disability: data.disability,
                                         description: data.description,
-                                        location: data.location,
+                                        location: data.location
                                       }
-                                    }
-                                  )
-                                }
-                              >
-                                Edit
-                              </Text>
-                            </View>
+                                    })
+                                  }
+                                >
+                                  Edit
+                                </Text>
+                              </View>
 
-                            <Icon
-                              onPress={() => {
-                                Share.share({
-                                  message: `*Missing Person Alert* \n Name: *${
-                                    data.name
-                                  }* \n Age: *${data.age}* \n Gender: *${
-                                    data.gender
-                                  }* \n Disability: *${
-                                    data.disability
-                                  }* \n Location: *${
-                                    data.location
-                                  }* \n Contact No.: *${data.mobile}*`,
-                                  url:
-                                    "http://img.gemejo.com/product/8c/099/cf53b3a6008136ef0882197d5f5.jpg",
-                                  title: "Wow, did you see that?"
-                                });
-                              }}
-                              style={{
-                                marginTop: -5,
-                                fontSize: 25,
-                                color: "gray"
-                              }}
-                              type="AntDesign"
-                              name="sharealt"
-                            />
-                          </View>
+                              <Icon
+                                onPress={() => {
+                                  Share.share({
+                                    message: `*Missing Person Alert* \n Name: *${
+                                      data.name
+                                    }* \n Age: *${data.age}* \n Gender: *${
+                                      data.gender
+                                    }* \n Disability: *${
+                                      data.disability
+                                    }* \n Location: *${
+                                      data.location
+                                    }* \n Contact No.: *${data.mobile}*`,
+                                    url:
+                                      "http://img.gemejo.com/product/8c/099/cf53b3a6008136ef0882197d5f5.jpg",
+                                    title: "Wow, did you see that?"
+                                  });
+                                }}
+                                style={{
+                                  marginTop: -5,
+                                  fontSize: 25,
+                                  color: "gray"
+                                }}
+                                type="AntDesign"
+                                name="sharealt"
+                              />
+                            </View>
+                          </TouchableOpacity>
                         </View>
                       </View>
                     </Body>
@@ -281,65 +296,7 @@ class SearchScreen extends Component {
               </View>
             );
           })}
-
-          {/* <View style={styles.cardContainer}>
-                        <Card>
-                            <CardItem>
-                                <Body>
-                                    <View style={styles.cardInnerContainer}>
-
-                                        <View>
-                                            <Image style={styles.filterImage} source={require('../../media/sham.jpg')} />
-                                        </View>
-
-                                        <View style={styles.textContainer}>
-                                            <View style={styles.cardHeader}>
-                                                <Text >
-                                                    Isra Adil
-                                            </Text>
-
-                                                <Text style={styles.statusText}>
-                                                    *Missing*
-                                             </Text>
-                                            </View>
-
-                                            <View>
-                                                <Text style={styles.nameText}>
-                                                    Posted By Naveed
-                                       </Text>
-                                            </View>
-
-                                            <View style={{ flexDirection: 'row', paddingTop: 5 }}>
-
-                                                <Icon style={{ marginLeft: -5 }} type="EvilIcons" name="location" />
-                                                <Text style={{ fontSize: 13 }}>
-                                                    Faisalabad
-                                            </Text>
-
-                                            </View>
-
-                                            <View style={styles.cardHeader}>
-                                                <Text style={styles.readMore}>
-                                                    Read More
-                                            </Text>
-                                                <Icon
-                                                    style={{ marginTop: -5 }}
-                                                    type="Entypo"
-                                                    name="dots-three-horizontal"
-                                                />
-                                            </View>
-
-                                        </View>
-
-                                    </View>
-                                </Body>
-                            </CardItem>
-
-                        </Card>
-                    </View> */}
         </ScrollView>
-
-        {/* end card 2 */}
       </Container>
     );
   }

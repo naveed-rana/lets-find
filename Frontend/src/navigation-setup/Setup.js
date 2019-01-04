@@ -18,6 +18,8 @@ import NotificationScreen from '../screens/notificationScreen';
 import SearchScreen from '../screens/searchScreen';
 import AddPersons from '../screens/AddForm';
 import DrawerScreen from '../screens/Sidebar';
+import EditPostScreen from '../screens/EditPost';
+import ActiveCasesScreen from '../screens/ActiveCases';
 
 
 const HomeStack = createStackNavigator({
@@ -25,6 +27,8 @@ const HomeStack = createStackNavigator({
   PersonDetail:PersonelDetailScreen,
   Profile: ProfileScreen,
   ProfileEdit: EditProfile,
+  EditPost:EditPostScreen,
+  ActiveCases:ActiveCasesScreen,
 },
 {
   headerMode: 'none',

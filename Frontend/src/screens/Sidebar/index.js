@@ -43,7 +43,7 @@ export default class Sidebar extends Component {
               </Button>
             </Left>
             <Body style={{borderBottomWidth:0,marginLeft:15, backgroundColor: "green"}} >
-              <Text onPress={()=>this.props.navigation.navigate("Home")} style={{fontSize:15, backgroundColor: "red"}}>My Posts</Text>
+              <Text onPress={()=>this.props.navigation.navigate("ActiveCases")} style={{fontSize:15, backgroundColor: "red"}}>My Posts</Text>
             </Body>
           </ListItem>
           <ListItem icon style={styles.barLinkContainer}>
