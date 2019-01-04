@@ -36,14 +36,14 @@ export default class Sidebar extends Component {
               <Text style={{fontSize:15}}>My Profile</Text>
             </Body>
           </ListItem>
-          <ListItem icon style={styles.barLinkContainer}>
+          <ListItem icon style={styles.barLinkContainer} onPress={()=>this.props.navigation.navigate("ActiveCases")}>
             <Left>
               <Button style={{ backgroundColor: "#05CE1D" }}>
                 <Icon active name="dashboard" type="MaterialIcons"/>
               </Button>
             </Left>
-            <Body style={{borderBottomWidth:0,marginLeft:15, backgroundColor: "green"}} >
-              <Text onPress={()=>this.props.navigation.navigate("ActiveCases")} style={{fontSize:15, backgroundColor: "red"}}>My Posts</Text>
+            <Body style={{borderBottomWidth:0,marginLeft:15}} >
+              <Text style={{fontSize:15}}>Active Posts</Text>
             </Body>
           </ListItem>
           <ListItem icon style={styles.barLinkContainer}>

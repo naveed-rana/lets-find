@@ -153,9 +153,7 @@ console.log('====================================');
             </CardItem>
           </Card>
 
-          {this.state.loader ? (
-            <Spinner color="#05CE1D" style={{ marginTop: 100 }} />
-          ) : (
+          
             <View>
               <TouchableOpacity
                 style={styles.addNewButton}
@@ -318,13 +316,7 @@ console.log('====================================');
                                           title: "Wow, did you see that?"
                                         });
                                       }}
-                                      style={{
-                                        marginTop: -5,
-                                        fontSize: 25,
-                                        color: "gray",
-                                        paddingHorizontal: 20,
-                                        paddingTop: 15
-                                      }}
+                                      style={styles.shareIcon}
                                       type="AntDesign"
                                       name="sharealt"
                                     />
@@ -340,7 +332,7 @@ console.log('====================================');
                 })}
               </ScrollView>
             </View>
-          )}
+          
         </Container>
       // </Drawer>
     );
