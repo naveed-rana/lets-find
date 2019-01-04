@@ -69,9 +69,6 @@ class Home extends Component {
   }
   componentDidMount() {
     this.setState({ fakeArray: this.props.missingPersons });
-    setTimeout(() => {
-      this.setState({ loader: false });
-    }, 3000);
   }
   closeDrawer = () => {
     this.props.navigation.closeDrawer();
@@ -155,17 +152,7 @@ console.log('====================================');
 
           
             <View>
-              <TouchableOpacity
-                style={styles.addNewButton}
-                onPress={() => this.props.navigation.navigate("AddPerson")}
-              >
-                <Icon
-                  type="AntDesign"
-                  name="plus"
-                  style={{ fontSize: 20, color: "#fff" }}
-                  color="white"
-                />
-              </TouchableOpacity>
+              
               {/* PLus Button Ends*/}
               <ScrollView>
                 {this.state.fakeArray.map((data, index) => {
@@ -332,6 +319,17 @@ console.log('====================================');
                 })}
               </ScrollView>
             </View>
+              <TouchableOpacity
+                style={styles.addNewButton}
+                onPress={() => this.props.navigation.navigate("AddPerson")}
+              >
+                <Icon
+                  type="AntDesign"
+                  name="plus"
+                  style={{ fontSize: 20, color: "#fff" }}
+                  color="white"
+                />
+              </TouchableOpacity>
           
         </Container>
       // </Drawer>
