@@ -103,46 +103,49 @@ class AddForm extends Component {
       image: this.state.image
     };
 
-    if (this.state.age == "" || this.state.age == "Select an age group") {
-      Toast.show({
-        text: "Select an age group",
-        type: "warning",
-        duration: 3000
-      });
-    } else if (this.state.gender == "" || this.state.gender == "Gender") {
-      Toast.show({
-        text: "Select Gender",
-        type: "warning",
-        duration: 3000
-      });
-    } else if (this.state.disability == "Select a Disability if any") {
-      Toast.show({
-        text: "Select a Disability",
-        type: "warning",
-        duration: 3000
-      });
-    } else if (this.state.location == "") {
-      Toast.show({
-        text: "Select the Location",
-        type: "warning",
-        duration: 3000
-      });
-    } else if (this.state.image == uploadimageIcon) {
-      Toast.show({
-        text: "Image is mendatory",
-        type: "warning",
-        duration: 3000
-      });
-    } else {
-      console.log("From react Component: ", data);
-      this.props.addPerson(data);
-      this.props.navigation.navigate("Home");
-      Toast.show({
-        text: "Successfully Uploaded",
-        type: "success",
-        duration: 3000
-      });
-    }
+    // if (this.state.age == "" || this.state.age == "Select an age group") {
+    //   Toast.show({
+    //     text: "Select an age group",
+    //     type: "warning",
+    //     duration: 3000
+    //   });
+    // } else if (this.state.gender == "" || this.state.gender == "Gender") {
+    //   Toast.show({
+    //     text: "Select Gender",
+    //     type: "warning",
+    //     duration: 3000
+    //   });
+    // } else if (this.state.disability == "Select a Disability if any") {
+    //   Toast.show({
+    //     text: "Select a Disability",
+    //     type: "warning",
+    //     duration: 3000
+    //   });
+    // } else if (this.state.location == "") {
+    //   Toast.show({
+    //     text: "Select the Location",
+    //     type: "warning",
+    //     duration: 3000
+    //   });
+    // } else if (this.state.image == uploadimageIcon) {
+    //   Toast.show({
+    //     text: "Image is mendatory",
+    //     type: "warning",
+    //     duration: 3000
+    //   });
+    // } else {
+    //   console.log("From react Component: ", data);
+    //   this.props.addPerson(data);
+    //   this.props.navigation.navigate("Home");
+    //   Toast.show({
+    //     text: "Successfully Uploaded",
+    //     type: "success",
+    //     duration: 3000
+    //   });
+    // }
+    
+    this.props.addPerson(data);
+    
   };
 
   render() {

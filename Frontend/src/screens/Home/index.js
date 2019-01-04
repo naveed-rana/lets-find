@@ -23,7 +23,6 @@ import {
   Drawer,
   Spinner
 } from "native-base";
-import ImageViewer from "react-native-image-zoom-viewer";
 
 import { styles } from "./style";
 import SideBar from "../Sidebar";
@@ -76,10 +75,10 @@ class Home extends Component {
     }, 3000);
   }
   closeDrawer = () => {
-    this.drawer._root.close();
+    this.props.navigation.closeDrawer();
   };
   openDrawer = () => {
-    this.drawer._root.open();
+    this.props.navigation.openDrawer();
   };
   // popup menu 3 dots
   refMoreButton = el => (this.moreButton = el);
@@ -114,13 +113,13 @@ console.log('====================================');
       shadowRadius: 15
     };
     return (
-      <Drawer
-        ref={ref => {
-          this.drawer = ref;
-        }}
-        content={<SideBar navigator={this.navigator} />}
-        onClose={() => this.closeDrawer()}
-      >
+      // <Drawer
+      //   ref={ref => {
+      //     this.drawer = ref;
+      //   }}
+      //   content={<SideBar navigator={this.navigator} />}
+      //   onClose={() => this.closeDrawer()}
+      // >
         <Container>
           <View>
             <StatusBar backgroundColor="#05CE1D" barStyle="light-content" />
@@ -344,21 +343,18 @@ console.log('====================================');
             </View>
           )}
         </Container>
-      </Drawer>
+      // </Drawer>
     );
   }
 }
 
 const mapStateToProps = state => {
-  console.log("====================================");
-  console.log("from show data props" + state.misingPersons);
+  console.log("=================mapStateToProps===================");
+  console.log(state.misingPersons.homeStories);
   console.log("====================================");
   return {
     missingPersons: state.misingPersons.homeStories
   };
 };
 
-export default connect(
-  mapStateToProps,
-  null
-)(Home);
+export default connect( mapStateToProps,null)(Home);

@@ -5,6 +5,7 @@ import {
   createBottomTabNavigator,
   createStackNavigator,
   createAppContainer,
+  createDrawerNavigator
 } from 'react-navigation';
 
 import HomeScreen from "../screens/Home";
@@ -16,11 +17,11 @@ import EditProfile from '../screens/Edit-Profile';
 import NotificationScreen from '../screens/notificationScreen';
 import SearchScreen from '../screens/searchScreen';
 import AddPersons from '../screens/AddForm';
-import SideBAr from '../screens/Sidebar';
+import DrawerScreen from '../screens/Sidebar';
 
 
 const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+  Homes: HomeScreen,
   PersonDetail:PersonelDetailScreen,
   Profile: ProfileScreen,
   ProfileEdit: EditProfile,
@@ -33,8 +34,7 @@ const HomeStack = createStackNavigator({
 const AddStack = createStackNavigator({
   AddPerson: AddPersons,
   Login: LoginScreen,
-  SignUp: SignUpScreen,
-  SideBAr: SideBAr
+  SignUp: SignUpScreen
 },
 {
   headerMode: 'none',
@@ -57,7 +57,7 @@ const NotificationsStack = createStackNavigator({
 }
 );
 
-export default createAppContainer(createBottomTabNavigator(
+ const TabsScreens = createBottomTabNavigator(
   {
     Home: HomeStack,
     Notifications: NotificationsStack,
@@ -99,12 +99,14 @@ export default createAppContainer(createBottomTabNavigator(
       }
     },
   }
-));
+);
 
-// const MyDrawerNavigator = createDrawerNavigator({
-//   Tabs: {
-//     screen: TabsScreens,
-//   }
-// });
+const MyDrawerNavigator = createDrawerNavigator({
+  Tabs: {
+    screen: TabsScreens,
+  }
+}, {
+  contentComponent: props => <DrawerScreen {...props} />
+});
 
-// export default createAppContainer(MyDrawerNavigator)
+export default createAppContainer(MyDrawerNavigator)

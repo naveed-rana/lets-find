@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Image, StatusBar, ScrollView, TouchableOpacity, Modal } from 'react-native';
 import { View, Text, Content, Item, Input, Icon, Card, CardItem, Body, Container, Picker, Form, Button } from 'native-base';
 import ImagePicker from "react-native-image-picker";
-import ImageViewer from "react-native-image-zoom-viewer";
 import styles from './style';
 
 import { connect } from 'react-redux';

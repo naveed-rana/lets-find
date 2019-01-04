@@ -5,6 +5,8 @@ import {
 } from 'react-native';
 import { Container, Header, Content, List, ListItem, Icon, Left, Body, Right, Switch,Button } from 'native-base';
 import { styles } from './style';
+
+
 export default class Sidebar extends Component {
   render() {
     return (

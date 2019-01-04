@@ -27,7 +27,6 @@ import {
 
 } from "native-base";
 import ImagePicker from "react-native-image-picker";
-import ImageViewer from "react-native-image-zoom-viewer";
 import styles from "./style";
 
 import { connect } from "react-redux";
