@@ -51,6 +51,7 @@ export default styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
+        paddingTop: 5,
     },
     statusText: {
         color: '#05CE1D',
@@ -65,7 +66,10 @@ export default styles = StyleSheet.create({
     readMore: {
         color: '#0366d6',
         fontSize: 12,
-        paddingTop: 2
+        // paddingTop: 6,
+        paddingLeft: 10,
+        fontSize: 14,
+        fontWeight: 'bold',
     },
     filtersContainer:{
         borderTopWidth:2,

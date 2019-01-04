@@ -23,11 +23,9 @@ import {
   Header,
   Left,
   Right,
-  Title,
-
+  Title
 } from "native-base";
 import ImagePicker from "react-native-image-picker";
-import ImageViewer from "react-native-image-zoom-viewer";
 import styles from "./style";
 
 import { connect } from "react-redux";
@@ -43,7 +41,6 @@ class SearchScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      show: false,
       selectedStatus: "",
       selectedDisability: "",
       selectedGender: "",
@@ -121,151 +118,33 @@ class SearchScreen extends Component {
       selectedAgeGroup: value
     });
   }
-  toggleFilter = () => {
-    const { show } = this.state;
-    this.setState(preState => {
-      return {
-        show: !preState.show
-      };
-    });
-  };
+
   render() {
     const { navigation } = this.props;
     return (
       <Container>
-
         {/* <View style={styles.searchContainer}> */}
 
-        <Header style={{backgroundColor: "#05CE1D"}}>
-        <View>
-          <StatusBar backgroundColor="#05CE1D" barStyle="light-content" />
-        </View>
+        <Header style={{ backgroundColor: "#05CE1D" }}>
+          <View>
+            <StatusBar backgroundColor="#05CE1D" barStyle="light-content" />
+          </View>
           <Left>
             <Button transparent>
-            <Icon
-              type="AntDesign"
-              name="arrowleft"
-              style={{ color: "#fff" }}
-              onPress={() => navigation.goBack()}
-            />
+              <Icon
+                type="AntDesign"
+                name="arrowleft"
+                style={{ color: "#fff" }}
+                onPress={() => navigation.goBack()}
+              />
             </Button>
           </Left>
           <Body>
-            <Title>Your Posts</Title>
+            <Title>Active Posts</Title>
           </Body>
-          <Right>
-            <Button transparent>
-              <Icon name='menu' />
-            </Button>
-          </Right>
+         
         </Header>
-          
-          <TouchableOpacity
-            style={styles.filterContainer}
-            onPress={this.toggleFilter}
-          >
-            <Image source={require("../../media/Filters.png")} />
-          </TouchableOpacity>
-          {this.state.show ? (
-            <View style={styles.filtersContainer}>
-              <Form>
-                <View style={styles.selectBoxesContainer}>
-                  <Item picker>
-                    <Picker
-                      mode="dropdown"
-                      iosIcon={
-                        <Icon
-                          name="ios-arrow-down-outline"
-                          style={{ color: "#fff" }}
-                        />
-                      }
-                      style={{ width: "49%", color: "#fff" }}
-                      placeholderIconColor="#fff"
-                      selectedValue={this.state.selectedStatus}
-                      onValueChange={this.onStatusChange.bind(this)}
-                    >
-                      <Picker.Item label="Status" value="null_value" />
-                      <Picker.Item label="Missing" value="missing" />
-                      <Picker.Item label="Find" value="find" />
-                      <Picker.Item label="Found" value="found" />
-                    </Picker>
-                  </Item>
-                  <Item picker>
-                    <Picker
-                      mode="dropdown"
-                      iosIcon={<Icon name="ios-arrow-down-outline" />}
-                      style={{ width: "49%", color: "#fff" }}
-                      placeholderIconColor="#fff"
-                      selectedValue={this.state.selectedDisability}
-                      onValueChange={this.onDisabilityChange.bind(this)}
-                    >
-                      <Picker.Item label="Disability" value="null_value" />
-                      <Picker.Item label="Yes" value="yes" />
-                      <Picker.Item label="No" value="no" />
-                    </Picker>
-                  </Item>
-                </View>
-                <View style={styles.selectBoxesContainer}>
-                  <Item picker>
-                    <Picker
-                      mode="dropdown"
-                      iosIcon={
-                        <Icon
-                          name="ios-arrow-down-outline"
-                          style={{ color: "#fff" }}
-                        />
-                      }
-                      style={{ width: "49%", color: "#fff" }}
-                      placeholderIconColor="#fff"
-                      selectedValue={this.state.selectedGender}
-                      onValueChange={this.onGenderChange.bind(this)}
-                    >
-                      <Picker.Item label="Gender" value="null_value" />
-                      <Picker.Item label="Male" value="missing" />
-                      <Picker.Item label="Female" value="find" />
-                    </Picker>
-                  </Item>
-                  <Item picker>
-                    <Picker
-                      mode="dropdown"
-                      iosIcon={<Icon name="ios-arrow-down-outline" />}
-                      style={{ width: "49%", color: "#fff" }}
-                      placeholderIconColor="#fff"
-                      selectedValue={this.state.selectedAgeGroup}
-                      onValueChange={this.onAgeGroupChange.bind(this)}
-                    >
-                      <Picker.Item label="Age Group" value="null_value" />
-                      <Picker.Item label="1-5" value="yes" />
-                      <Picker.Item label="5-6" value="no" />
-                    </Picker>
-                  </Item>
-                </View>
-                <View>
-                  <Item>
-                    <Input
-                      placeholder="Location"
-                      style={{ color: "#fff" }}
-                      placeholderTextColor="#fff"
-                      onChangeText={event => {
-                        this.setState({
-                          location: event
-                        });
-                      }}
-                    />
-                    <Icon
-                      active
-                      name="map-marked"
-                      type="FontAwesome5"
-                      style={{ color: "#fff" }}
-                    />
-                  </Item>
-                </View>
-              </Form>
-            </View>
-          ) : (
-            <View />
-          )}
-        {/* </View> */}
+
         <ScrollView>
           {this.state.fakeArray.map((data, index) => {
             return (
@@ -279,7 +158,6 @@ class SearchScreen extends Component {
                             visible={this.state.modalVisible}
                             transparent={true}
                             animationType="slide"
-                            // transparent={false}
                             onRequestClose={() => {
                               this.modalVisible(false);
                             }}
@@ -322,13 +200,12 @@ class SearchScreen extends Component {
                             <Text style={styles.statusText}>{data.status}</Text>
                           </View>
 
-                          <View>
-                            <Text style={styles.nameText}>
-                              Posted By {data.post_By}
-                            </Text>
-                          </View>
-
-                          <View style={{ flexDirection: "row", paddingTop: 5 }}>
+                          <View
+                            style={{
+                              flexDirection: "row",
+                              paddingTop: 2
+                            }}
+                          >
                             <Icon
                               style={{ marginLeft: -5 }}
                               type="EvilIcons"
@@ -340,27 +217,35 @@ class SearchScreen extends Component {
                           </View>
 
                           <View style={styles.cardHeader}>
-                            <Text
-                              style={styles.readMore}
-                              onPress={() =>
-                                this.props.navigation.navigate("PersonDetail", {
-                                  data: {
-                                    id: data.id,
-                                    name: data.name,
-                                    status: data.status,
-                                    post_By: data.post_By,
-                                    age: data.age,
-                                    gender: data.gender,
-                                    disability: data.disability,
-                                    description: data.description,
-                                    location: data.location,
-                                    mobile: data.mobile
-                                  }
-                                })
-                              }
-                            >
-                              Read More
-                            </Text>
+                            <View style={{ flexDirection: "row" }}>
+                              <Icon
+                                style={{ fontSize: 20 }}
+                                type="AntDesign"
+                                name="edit"
+                              />
+                              <Text
+                                style={styles.readMore}
+                                onPress={() =>
+                                  
+                                  navigation.navigate(
+                                    "EditPost",
+                                    {
+                                      data: {
+                                        name: data.name,
+                                        status: data.status,
+                                        age: data.age,
+                                        gender: data.gender,
+                                        disability: data.disability,
+                                        description: data.description,
+                                        location: data.location,
+                                      }
+                                    }
+                                  )
+                                }
+                              >
+                                Edit
+                              </Text>
+                            </View>
 
                             <Icon
                               onPress={() => {

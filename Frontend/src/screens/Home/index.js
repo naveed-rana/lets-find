@@ -23,13 +23,11 @@ import {
   Drawer,
   Spinner
 } from "native-base";
-import ImageViewer from "react-native-image-zoom-viewer";
 
 import { styles } from "./style";
 import SideBar from "../Sidebar";
 import { connect } from "react-redux";
 // import fakeArray from '../../redux/fakeArray';
-import image from "../../media/sham.jpg";
 
 Drawer.defaultProps.styles.mainOverlay.elevation = 0;
 

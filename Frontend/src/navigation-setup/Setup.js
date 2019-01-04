@@ -17,6 +17,9 @@ import NotificationScreen from '../screens/notificationScreen';
 import SearchScreen from '../screens/searchScreen';
 import AddPersons from '../screens/AddForm';
 import SideBAr from '../screens/Sidebar';
+import EditPost from '../screens/EditPost';
+import ActiveCase from '../screens/ActiveCases';
+
 
 
 const HomeStack = createStackNavigator({
@@ -34,7 +37,9 @@ const AddStack = createStackNavigator({
   AddPerson: AddPersons,
   Login: LoginScreen,
   SignUp: SignUpScreen,
-  SideBAr: SideBAr
+  SideBAr: SideBAr,
+  EditPost:EditPost,
+  ActiveCase: ActiveCase,
 },
 {
   headerMode: 'none',
