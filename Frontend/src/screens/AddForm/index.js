@@ -143,9 +143,12 @@ class AddForm extends Component {
     //     duration: 3000
     //   });
     // }
-    
+
     this.props.addPerson(data);
-    
+  };
+
+  openDrawer = () => {
+    this.props.navigation.openDrawer();
   };
 
   render() {
@@ -153,19 +156,28 @@ class AddForm extends Component {
     return (
       <Container>
         <StatusBar backgroundColor="#05CE5D" barStyle="light-content" />
-        <View>
-          <View style={styles.header}>
-            <Icon
+        <View style={styles.header}>
+        <Icon
               onPress={() => navigation.goBack()}
-              style={{ fontSize: 30, color: "white" }}
+              style={styles.headerIcon}
               type="MaterialCommunityIcons"
               name="keyboard-backspace"
             />
+          
+          <Text style={styles.heading}>Report a Person</Text>
+            <Icon name="menu" style={styles.headerIcon} onPress={() => this.openDrawer()} />
+        </View>
+
+        {/* <View>
+          <View style={styles.header}>
+            
             <Text />
             <Text style={styles.heading}>Report a Person</Text>
-            <Text> </Text>
+            <Button transparent onPress={() => this.openDrawer()}>
+              <Icon name="menu" style={styles.searchIcon} />
+            </Button>
           </View>
-        </View>
+        </View> */}
         <Content>
           <View style={styles.btnViewStyle}>
             <Left>
@@ -181,12 +193,11 @@ class AddForm extends Component {
                   })
                 }
               >
-              {this.state.MistabBtnCls == styles.tabBtn?
-                <Text style={styles.tab}>Missing</Text>
-                :
-                <Text style={styles.tabwithClr}>Missing</Text>
-
-              }
+                {this.state.MistabBtnCls == styles.tabBtn ? (
+                  <Text style={styles.tab}>Missing</Text>
+                ) : (
+                  <Text style={styles.tabwithClr}>Missing</Text>
+                )}
               </Button>
             </Left>
             <Right>
@@ -202,15 +213,11 @@ class AddForm extends Component {
                 success
                 style={this.state.FndtabBtnCls}
               >
-
-
-              {this.state.FndtabBtnCls == styles.tabBtn?
-                <Text style={styles.tab}>Found</Text>
-                :
-                <Text style={styles.tabwithClr}>Found</Text>
-
-              }
-
+                {this.state.FndtabBtnCls == styles.tabBtn ? (
+                  <Text style={styles.tab}>Found</Text>
+                ) : (
+                  <Text style={styles.tabwithClr}>Found</Text>
+                )}
               </Button>
             </Right>
           </View>

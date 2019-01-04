@@ -129,9 +129,9 @@ console.log('====================================');
                   style={{ width: "100%", shadowOpacity: 1 }}
                 >
                   <View style={styles.header}>
-                    <Button transparent onPress={() => this.openDrawer()}>
-                      <Icon name="menu" style={styles.searchIcon} />
-                    </Button>
+                      <Button transparent onPress={() => this.openDrawer()}>
+                        <Icon name="menu" style={styles.searchIcon} />
+                      </Button>
                     <Button transparent>
                       <Icon
                         onPress={() => this.props.navigation.navigate("Search")}

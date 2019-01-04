@@ -93,13 +93,12 @@ export default (styles = {
   header: {
     backgroundColor: "#05CE1D",
     paddingVertical: 12,
-    paddingHorizontal: 8,
-    justifyContent: "flex-start",
+    paddingHorizontal: 15,
+    justifyContent: "space-between",
     flexDirection: "row"
   },
   heading: {
     color: "white",
-    marginLeft: 30,
     marginTop: 5
   },
   tab: {
@@ -108,8 +107,7 @@ export default (styles = {
     alignSelf: "center",
     paddingTop: 7,
     width: "100%",
-    textAlign: "center",
-    
+    textAlign: "center"
   },
   tabwithClr: {
     fontWeight: "bold",
@@ -143,6 +141,7 @@ export default (styles = {
     borderRadius: 4,
     width: "70%",
     justifyContent: "center",
-    backgroundColor: '#05CE1D'
-  }
+    backgroundColor: "#05CE1D"
+  },
+  headerIcon: { fontSize: 30, color: "white" }
 });
