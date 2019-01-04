@@ -10,16 +10,37 @@ console.log("Reducer: for all  ", INITIAL_STATE.homeStories);
 function AddReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case ADD_PERSON: {
+      console.log("================from redu====================");
+      console.log(action.data);
       console.log("====================================");
-      console.log("from reducer add" + action.data);
+      var oldStories = [];
+      oldStories = state.homeStories;
+      oldStories.push(action.data);
+      console.log("=============newstories=======================");
+      console.log(oldStories);
       console.log("====================================");
+     
+     
+     
+      const newState = Object.assign({}, state, { homeStories: {
+        id: '2',
+        image: '',
+        status: 'Found',
+        name: 'Haseeba',
+        age: 'teen',
+        gender: 'female',
+        location: 'Lahore',
+        description: 'xyz',
+        disability: 'mental',
+        mobile: '+92 306 7134632',
+        post_By: 'Fayyaz'
+    }});
+      console.log('New state:', newState);
+      return newState;
 
-      var oldStories = state.homeStories;
-      var newStories = oldStories.concat([action.data]);
-      return {
-        ...state,
-        homeStories: newStories
-      };
+
+        
+      
     }
 
     default:

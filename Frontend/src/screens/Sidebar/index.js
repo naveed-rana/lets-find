@@ -40,8 +40,8 @@ export default class Sidebar extends Component {
                 <Icon active name="dashboard" type="MaterialIcons"/>
               </Button>
             </Left>
-            <Body style={{borderBottomWidth:0,marginLeft:15}}>
-              <Text style={{fontSize:15}}>My Posts</Text>
+            <Body style={{borderBottomWidth:0,marginLeft:15, backgroundColor: "green"}} >
+              <Text onPress={()=>this.props.navigation.navigate("Home")} style={{fontSize:15, backgroundColor: "red"}}>My Posts</Text>
             </Body>
           </ListItem>
           <ListItem icon style={styles.barLinkContainer}>

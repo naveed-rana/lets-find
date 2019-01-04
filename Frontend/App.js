@@ -3,7 +3,7 @@ import MainApp from './src/MainApp';
 import { Root } from "native-base";
 import store from './src/redux/store';
 import { Provider } from 'react-redux';
-import Add from './src/screens/PersonelDetails'
+import Add from './src/screens/userposts'
 
 
 export default class App extends Component {

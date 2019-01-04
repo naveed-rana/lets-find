@@ -16,6 +16,7 @@ import EditProfile from '../screens/Edit-Profile';
 import NotificationScreen from '../screens/notificationScreen';
 import SearchScreen from '../screens/searchScreen';
 import AddPersons from '../screens/AddForm';
+import SideBAr from '../screens/Sidebar';
 
 
 const HomeStack = createStackNavigator({
@@ -33,6 +34,7 @@ const AddStack = createStackNavigator({
   AddPerson: AddPersons,
   Login: LoginScreen,
   SignUp: SignUpScreen,
+  SideBAr: SideBAr
 },
 {
   headerMode: 'none',

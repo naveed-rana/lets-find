@@ -103,6 +103,12 @@ class Home extends Component {
   // For loader temporary
 
   render() {
+
+
+console.log('====================================');
+console.log("from render");
+console.log('====================================');
+
     const shadowStyle = {
       shadowOpacity: 1,
       shadowRadius: 15
