@@ -28,7 +28,6 @@ export default class PersonalDetail extends Component {
     super(props);
     this.state = {
       modalVisible: false
-
     };
   }
   render() {
@@ -88,8 +87,6 @@ export default class PersonalDetail extends Component {
               </View>
             </TouchableOpacity>
           </View>
-
-
 
           <View style={styles.topDetails}>
             <View style={styles.PersonalDetailView}>
@@ -156,7 +153,7 @@ export default class PersonalDetail extends Component {
               <Left>
                 <Text style={styles.ShortLocataionText}>Location</Text>
               </Left>
-              <Button full rounded iconLeft success>
+              <Button full rounded iconLeft success style={{backgroundColor: "#05CE1D"}}>
                 <Icon name="map" />
                 <Text uppercase={false}>Look at the map</Text>
               </Button>
@@ -169,9 +166,8 @@ export default class PersonalDetail extends Component {
                 </Body>
               </CardItem>
             </Card>
-          </View>
 
-          {/* <View
+            {/* <View
               style={{
                 borderBottomColor: "black",
                 borderBottomWidth: 2,
@@ -179,79 +175,89 @@ export default class PersonalDetail extends Component {
                 marginVertical: 10
               }}
             /> */}
+            <View>
+              <Text style={styles.postedByText}>Posted By</Text>
+            </View>
 
-          <View style={styles.PersonalDetailView}>
-            <Left>
-              <Text style={styles.topLeftAbout}>Name</Text>
-            </Left>
-            <Right>
-              <Text style={styles.topLeftAboutDetail}>{data.disability}</Text>
-            </Right>
-          </View>
-          <View style={styles.PersonalDetailView}>
-            <Left>
-              <Text style={styles.topLeftAbout}>Contect</Text>
-            </Left>
-            <Right>
-              <Text style={styles.topLeftAboutDetail}>{data.disability}</Text>
-            </Right>
-          </View>
+            <View style={styles.PersonalDetailView}>
+              <Left>
+                <Text style={styles.topLeftAbout}>Name</Text>
+              </Left>
+              <Right>
+                <Text style={styles.topLeftAboutDetail}>{data.post_By}</Text>
+              </Right>
+            </View>
+            <View style={styles.PersonalDetailView}>
+              <Left>
+                <Text style={styles.topLeftAbout}>Contect</Text>
+              </Left>
+              <Right>
+                <Text style={styles.topLeftAboutDetail}>{data.mobile}</Text>
+              </Right>
+            </View>
 
-          <View style={{ flexDirection: "row", marginTop: 10 }}>
-            <Left>
+            <View style={{ flexDirection: "row", marginTop: 10 }}>
+              <Left>
+                <Button
+                  style={styles.btnBorder}
+                  iconLeft
+                  success
+                  onPress={() =>
+                    Communications.phonecall(`${data.mobile}`, true)
+                  }
+                >
+                  <Icon type="FontAwesome" name="phone" />
+                  <Text uppercase={true} style={{ fontSize: 16 }}>
+                    Call
+                  </Text>
+                </Button>
+              </Left>
               <Button
                 style={styles.btnBorder}
                 iconLeft
                 success
-                onPress={() => Communications.phonecall(`${data.mobile}`, true)}
+                onPress={() => Communications.text(`${data.mobile}`)}
               >
-                <Icon type="FontAwesome" name="phone" />
+                <Icon name="sms" type="MaterialIcons" />
                 <Text uppercase={true} style={{ fontSize: 16 }}>
-                  Call
+                  SMS
                 </Text>
               </Button>
-            </Left>
-            <Button
-              style={styles.btnBorder}
-              iconLeft
-              success
-              onPress={() => Communications.text(`${data.mobile}`)}
-            >
-              <Icon name="sms" type="MaterialIcons" />
-              <Text uppercase={true} style={{ fontSize: 16 }}>
-                SMS
-              </Text>
-            </Button>
-          </View>
-          <View>
-            <Button
-              style={{ borderRadius: 5, marginTop: 15 }}
-              full
-              success
-              onPress={() => {
-                Share.share({
-                  message: `*Missing Person Alert* \n Name: *${
-                    data.name
-                  }* \n Age: *${data.age}* \n Gender: *${
-                    data.gender
-                  }* \n Disability: *${data.disability}* \n Location: *${
-                    data.location
-                  }* \n Contact No.: *${data.mobile}*`,
-                  url:
-                    "http://img.gemejo.com/product/8c/099/cf53b3a6008136ef0882197d5f5.jpg",
-                  title: "Wow, did you see that?"
-                });
-              }}
-            >
-              <Icon
-                style={{ color: "white" }}
-                type="AntDesign"
-                name="sharealt"
-              />
-              <Text uppercase={true} style={{ fontSize: 16 }}>
-                share
-              </Text>
-            </Button>
+            </View>
+            <View>
+              <Button
+                style={{
+                  borderRadius: 5,
+                  marginTop: 15,
+                  backgroundColor: "#05CE1D"
+                }}
+                full
+                success
+                onPress={() => {
+                  Share.share({
+                    message: `*Missing Person Alert* \n Name: *${
+                      data.name
+                    }* \n Age: *${data.age}* \n Gender: *${
+                      data.gender
+                    }* \n Disability: *${data.disability}* \n Location: *${
+                      data.location
+                    }* \n Contact No.: *${data.mobile}*`,
+                    url:
+                      "http://img.gemejo.com/product/8c/099/cf53b3a6008136ef0882197d5f5.jpg",
+                    title: "Wow, did you see that?"
+                  });
+                }}
+              >
+                <Icon
+                  style={{ color: "white" }}
+                  type="AntDesign"
+                  name="sharealt"
+                />
+                <Text uppercase={true} style={{ fontSize: 16 }}>
+                  share
+                </Text>
+              </Button>
+            </View>
           </View>
         </Content>
       </Container>

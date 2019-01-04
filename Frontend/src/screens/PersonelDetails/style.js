@@ -1,13 +1,11 @@
-import { Dimensions } from "react-native";
-const dimensions = Dimensions.get("window");
-const imageHeight = Math.round((dimensions.width * 9) / 16);
-const imageWidth = dimensions.width;
+
 
 export default (styles = {
   btnBorder: {
     borderRadius: 5,
     paddingLeft: 15,
-    paddingRight: 15
+    paddingRight: 15,
+    backgroundColor: "#05CE1D"
   },
   descripionText: {
     fontSize: 14
@@ -79,5 +77,11 @@ export default (styles = {
     alignSelf: "center",
     height: 300,
     justifyContent: "center"
+  },
+  postedByText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    alignSelf: 'center',
+    paddingVertical: 20
   }
 });
