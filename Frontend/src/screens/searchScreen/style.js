@@ -24,6 +24,10 @@ export default styles = StyleSheet.create({
     itemStyle: {
         borderColor: 'transparent'
     },
+    itemStyle1: {
+        borderColor: 'transparent',
+        marginTop:5
+    },
     filterContainer: {
         marginLeft: 15,
         marginTop: 10,
@@ -76,5 +80,26 @@ export default styles = StyleSheet.create({
     ,
     cameraIconBtn: {
         backgroundColor:"transparent"
-    }
+    },
+    modalClose: {
+        position: "absolute",
+        right: 0,
+        padding: 20,
+        color: "white"
+    
+      },
+      modalOverlay: {
+        position: "absolute",
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: "rgba(0,0,0,0.4)"
+      },
+      modalImage: {
+        width: "100%",
+        alignSelf: "center",
+        height: 300,
+        justifyContent:"center"
+      }
 })
