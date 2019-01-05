@@ -162,5 +162,13 @@ export const styles = StyleSheet.create({
     alignSelf: "center",
     height: 300,
     justifyContent:"center"
+  },
+  shareIcon:{
+    marginTop: -5,
+    fontSize: 25,
+    color: "gray",
+    paddingLeft: 15,
+    paddingTop: 15,
+
   }
 });

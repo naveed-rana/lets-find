@@ -69,9 +69,6 @@ class Home extends Component {
   }
   componentDidMount() {
     this.setState({ fakeArray: this.props.missingPersons });
-    setTimeout(() => {
-      this.setState({ loader: false });
-    }, 3000);
   }
   closeDrawer = () => {
     this.props.navigation.closeDrawer();
@@ -132,9 +129,9 @@ console.log('====================================');
                   style={{ width: "100%", shadowOpacity: 1 }}
                 >
                   <View style={styles.header}>
-                    <Button transparent onPress={() => this.openDrawer()}>
-                      <Icon name="menu" style={styles.searchIcon} />
-                    </Button>
+                      <Button transparent onPress={() => this.openDrawer()}>
+                        <Icon name="menu" style={styles.searchIcon} />
+                      </Button>
                     <Button transparent>
                       <Icon
                         onPress={() => this.props.navigation.navigate("Search")}
@@ -153,21 +150,9 @@ console.log('====================================');
             </CardItem>
           </Card>
 
-          {this.state.loader ? (
-            <Spinner color="#05CE1D" style={{ marginTop: 100 }} />
-          ) : (
+          
             <View>
-              <TouchableOpacity
-                style={styles.addNewButton}
-                onPress={() => this.props.navigation.navigate("AddPerson")}
-              >
-                <Icon
-                  type="AntDesign"
-                  name="plus"
-                  style={{ fontSize: 20, color: "#fff" }}
-                  color="white"
-                />
-              </TouchableOpacity>
+              
               {/* PLus Button Ends*/}
               <ScrollView>
                 {this.state.fakeArray.map((data, index) => {
@@ -318,13 +303,7 @@ console.log('====================================');
                                           title: "Wow, did you see that?"
                                         });
                                       }}
-                                      style={{
-                                        marginTop: -5,
-                                        fontSize: 25,
-                                        color: "gray",
-                                        paddingHorizontal: 20,
-                                        paddingTop: 15
-                                      }}
+                                      style={styles.shareIcon}
                                       type="AntDesign"
                                       name="sharealt"
                                     />
@@ -340,7 +319,18 @@ console.log('====================================');
                 })}
               </ScrollView>
             </View>
-          )}
+              <TouchableOpacity
+                style={styles.addNewButton}
+                onPress={() => this.props.navigation.navigate("AddPerson")}
+              >
+                <Icon
+                  type="AntDesign"
+                  name="plus"
+                  style={{ fontSize: 20, color: "#fff" }}
+                  color="white"
+                />
+              </TouchableOpacity>
+          
         </Container>
       // </Drawer>
     );

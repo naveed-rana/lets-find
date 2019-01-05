@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { View, StatusBar, TextInput, Animated } from "react-native";
-import styles from "./style";
 
 const inputInitCls = {
   height: 50,
@@ -62,7 +61,7 @@ export default class FloatingLabelInput extends Component {
       }),
       fontSize: this._animatedIsFocused.interpolate({
         inputRange: [0, 1],
-        outputRange: [16, 14]
+        outputRange: [15, 14]
       }),
       color: this._animatedIsFocused.interpolate({
         inputRange: [0, 1],

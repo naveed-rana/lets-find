@@ -1,4 +1,3 @@
-import {Dimensions} from 'react-native'
 
 
 export default (styles = {
@@ -14,7 +13,7 @@ export default (styles = {
   ShortLocataionText: {
     fontSize: 15,
 
-    color: "gray"
+    color: "#05ce1d"
   },
   bottomStyleView: {
     paddingVertical: 20,
@@ -27,7 +26,7 @@ export default (styles = {
   },
   topLeftAbout: {
     fontSize: 15,
-    color: "gray"
+    color: "#05ce1d"
   },
   PersonalDetailView: {
     flexDirection: "row",
@@ -41,24 +40,29 @@ export default (styles = {
     marginBottom: 10
   },
   topDetails: {
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-    paddingRight: 10
+    paddingHorizontal: 10,
+    paddingVertical: 20
   },
   imageStyle: {
-    width: 150,
-    height: 150,
-    borderRadius: 5
+    // borderRadius:5 ,
+    // resizeMode : 'contain',
+    // height: imageHeight,
+    // width: imageWidth,
+    height: 300,
+    flex: 1,
+    width: null
   },
   imagePadding: {
-    padding: 20
+    // padding: 20 ,
+    height: 190,
+    width: "100%",
+    backgroundColor: "red"
   },
   modalClose: {
     position: "absolute",
     right: 0,
     padding: 20,
-    color: "white",
-    zIndex: 1
+    color: "white"
   },
   modalOverlay: {
     position: "absolute",
@@ -71,14 +75,13 @@ export default (styles = {
   modalImage: {
     width: "100%",
     alignSelf: "center",
-    justifyContent: "center",
-    maxWidth: Dimensions.get("window").width,
-    // maxHeight: Dimensions.get("window").height
+    height: 300,
+    justifyContent: "center"
   },
   postedByText: {
     fontSize: 16,
     fontWeight: "bold",
-    alignSelf: "center",
+    alignSelf: 'center',
     paddingVertical: 20
   }
 });

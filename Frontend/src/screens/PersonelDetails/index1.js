@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { Col, Row, Grid } from "react-native-easy-grid";
-import { StatusBar, Image,Share, Modal, TouchableOpacity } from 'react-native';
-import Communications from 'react-native-communications';
+import { StatusBar, Image, Share, Modal, TouchableOpacity } from "react-native";
+import Communications from "react-native-communications";
 import {
   View,
   Text,
@@ -19,59 +19,48 @@ import {
   Title,
   Card,
   CardItem
-} from 'native-base';
+} from "native-base";
 
-
-import styles from './style';
-
-
-
-
-
-
+import styles from "./style1";
 
 export default class PersonalDetail extends Component {
-constructor(props) {
+  constructor(props) {
     super(props);
     this.state = {
-        modalVisible: false
+      modalVisible: false
     };
-}
+  }
   render() {
     const { navigation } = this.props;
-    const data = navigation.getParam('data', 'NO-Data');
+    const data = navigation.getParam("data", "NO-Data");
 
-
-    
     return (
       <Container>
-
-        <Header style={{ backgroundColor: '#05ce1d' }}>
-          <StatusBar
-            backgroundColor="#05ce1d"
-            barStyle="light-content"
-          />
-          <Left><Icon type="AntDesign" name="arrowleft" style={{ color: "#fff", }}
-            onPress={() => navigation.goBack()}
-          /></Left>
+        <Header style={{ backgroundColor: "#05ce1d" }}>
+          <StatusBar backgroundColor="#05ce1d" barStyle="light-content" />
+          <Left>
+            <Icon
+              type="AntDesign"
+              name="arrowleft"
+              style={{ color: "#fff" }}
+              onPress={() => navigation.goBack()}
+            />
+          </Left>
           <Body>
-            <Title>{data.name + ' ' + data.status} Person</Title>
+            <Title>{data.name + " " + data.status} Person</Title>
           </Body>
-
         </Header>
         <Content>
-          <Grid>
-            <Row size={50}>
-              <Col>
-              <Modal
+          <View>
+            <Modal
               visible={this.state.modalVisible}
               transparent={true}
               animationType="slide"
               // transparent={false}
               onRequestClose={() => {
                 this.modalVisible(false);
-              }}>
-            
+              }}
+            >
               <View style={styles.modalOverlay}>
                 <Icon
                   style={styles.modalClose}
@@ -90,52 +79,67 @@ constructor(props) {
             <TouchableOpacity
               onPress={() => this.setState({ modalVisible: true })}
             >
-                <View style={styles.imagePadding}>
-                  <Image style={styles.imageStyle} source={require('../../media/personel6.jpg')} />
-                </View>
-                </TouchableOpacity>
-              </Col>
-              <Col>
-                <View style={styles.topDetails}>
-                  <Text style={styles.missingPersonTitle}>{data.name}</Text>
+              <View style={styles.imagePadding}>
+                <Image
+                  style={styles.imageStyle}
+                  source={require("../../media/sham.jpg")}
+                />
+              </View>
+            </TouchableOpacity>
+          </View>
 
-                 
-                  <View style={styles.PersonalDetailView}>
-                    <Left>
-                      <Text style={styles.topLeftAbout}>Age</Text>
-                    </Left>
-                    <Right>
-                      <Text style={styles.topLeftAboutDetail}>{data.age}</Text>
-                    </Right>
-                  </View>
-                  <View style={styles.PersonalDetailView}>
-                    <Left>
-                      <Text style={styles.topLeftAbout}>Gender</Text>
-                    </Left>
-                    <Right>
-                      <Text style={styles.topLeftAboutDetail}>{data.gender}</Text>
-                    </Right>
-                  </View>
-                  <View style={styles.PersonalDetailView}>
-                    <Left>
-                      <Text style={styles.topLeftAbout}>Status</Text>
-                    </Left>
-                    <Right>
-                      <Text style={styles.topLeftAboutDetail}>{data.status}</Text>
-                    </Right>
-                  </View>
-                  <View style={styles.PersonalDetailView}>
-                    <Left>
-                      <Text style={styles.topLeftAbout}>Disability</Text>
-                    </Left>
-                    <Right>
-                      <Text style={styles.topLeftAboutDetail}>{data.disability}</Text>
-                    </Right>
-                  </View>
-                </View>
-              </Col>
-            </Row>
-            <View style={styles.bottomStyleView}>
+          <View style={styles.topDetails}>
+            <View style={styles.PersonalDetailView}>
+              <Left>
+                <Text style={styles.topLeftAbout}>Name</Text>
+              </Left>
+              <Right>
+                <Text style={styles.missingPersonTitle}>{data.name}</Text>
+              </Right>
+            </View>
+            {/* <View style={styles.PersonalDetailView}>
+              <Left>
+                <Text style={styles.topLeftAbout}>Post by</Text>
+              </Left>
+              <Right>
+                <Text style={styles.topLeftAboutDetail}>{data.post_By}</Text>
+              </Right>
+            </View> */}
+            <View style={styles.PersonalDetailView}>
+              <Left>
+                <Text style={styles.topLeftAbout}>Age</Text>
+              </Left>
+              <Right>
+                <Text style={styles.topLeftAboutDetail}>{data.age}</Text>
+              </Right>
+            </View>
+            <View style={styles.PersonalDetailView}>
+              <Left>
+                <Text style={styles.topLeftAbout}>Gender</Text>
+              </Left>
+              <Right>
+                <Text style={styles.topLeftAboutDetail}>{data.gender}</Text>
+              </Right>
+            </View>
+            <View style={styles.PersonalDetailView}>
+              <Left>
+                <Text style={styles.topLeftAbout}>Status</Text>
+              </Left>
+              <Right>
+                <Text style={styles.topLeftAboutDetail}>{data.status}</Text>
+              </Right>
+            </View>
+            <View style={styles.PersonalDetailView}>
+              <Left>
+                <Text style={styles.topLeftAbout}>Disability</Text>
+              </Left>
+              <Right>
+                <Text style={styles.topLeftAboutDetail}>{data.disability}</Text>
+              </Right>
+            </View>
+          </View>
+
+          <View style={styles.bottomStyleView}>
             <Text style={styles.ShortLocataionText}>Short Description</Text>
             <Card>
               <CardItem>
@@ -255,7 +259,6 @@ constructor(props) {
               </Button>
             </View>
           </View>
-          </Grid>
         </Content>
       </Container>
     );
