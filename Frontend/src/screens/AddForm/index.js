@@ -136,7 +136,7 @@ class AddForm extends Component {
     // } else {
     //   console.log("From react Component: ", data);
     //   this.props.addPerson(data);
-    //   this.props.navigation.navigate("Home");
+    //   this.props.navigation.navigate("Homes");
     //   Toast.show({
     //     text: "Successfully Uploaded",
     //     type: "success",
@@ -157,15 +157,19 @@ class AddForm extends Component {
       <Container>
         <StatusBar backgroundColor="#05CE5D" barStyle="light-content" />
         <View style={styles.header}>
-        <Icon
-              onPress={() => navigation.goBack()}
-              style={styles.headerIcon}
-              type="MaterialCommunityIcons"
-              name="keyboard-backspace"
-            />
-          
+          <Icon
+            onPress={() => navigation.goBack()}
+            style={styles.headerIcon}
+            type="MaterialCommunityIcons"
+            name="keyboard-backspace"
+          />
+
           <Text style={styles.heading}>Report a Person</Text>
-            <Icon name="menu" style={styles.headerIcon} onPress={() => this.openDrawer()} />
+          <Icon
+            name="menu"
+            style={styles.headerIcon}
+            onPress={() => this.openDrawer()}
+          />
         </View>
 
         {/* <View>
@@ -230,6 +234,24 @@ class AddForm extends Component {
           </View>
 
           <View style={styles.inputViewStyle}>
+            <FloatingLabelInput
+              label="Location"
+              value={this.state.location}
+              onChangeText={location => this.setState({ location: location })}
+            />
+          </View>
+
+          <View style={styles.inputViewStyle}>
+            <FloatingLabelInput
+              label="Description"
+              value={this.state.description}
+              onChangeText={description =>
+                this.setState({ description: description })
+              }
+            />
+          </View>
+
+          <View style={styles.inputViewStyle}>
             <Item last style={styles.inputStyle}>
               <Picker
                 mode="dropdown"
@@ -242,7 +264,6 @@ class AddForm extends Component {
                 onValueChange={this.onValueChange.bind(this)}
               >
                 <Picker.Item
-                  style={{ color: "white" }}
                   label="Select an age group"
                   value="Select an age group"
                 />
@@ -310,23 +331,6 @@ class AddForm extends Component {
             </Item>
           </View>
 
-          <View style={styles.inputViewStyle}>
-            <FloatingLabelInput
-              label="Location"
-              value={this.state.location}
-              onChangeText={location => this.setState({ location: location })}
-            />
-          </View>
-
-          <View style={styles.inputViewStyle}>
-            <FloatingLabelInput
-              label="Description"
-              value={this.state.description}
-              onChangeText={description =>
-                this.setState({ description: description })
-              }
-            />
-          </View>
           <Button style={styles.imageInputStyle} onPress={this.uploadImage}>
             <View style={{ width: "100%", marginVertical: 20 }}>
               <Text style={styles.uploadTextStyle}>Upload Photo</Text>
@@ -346,7 +350,11 @@ class AddForm extends Component {
             </View>
           </Button>
           <View style={styles.inputViewStyle}>
-            <Button style={styles.submitBtn} success onPress={this.onSubmit}>
+            <Button
+              disabled={true}
+              style={styles.submitBtn}
+              onPress={this.onSubmit}
+            >
               <Text>Submit & Post</Text>
             </Button>
           </View>

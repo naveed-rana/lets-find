@@ -20,7 +20,7 @@ import AddPersons from '../screens/AddForm';
 import DrawerScreen from '../screens/Sidebar';
 import EditPostScreen from '../screens/EditPost';
 import ActiveCasesScreen from '../screens/ActiveCases';
-
+import ResolvedCasedScreen from '../screens/ResolvedCases'
 
 const HomeStack = createStackNavigator({
   Homes: HomeScreen,
@@ -29,6 +29,7 @@ const HomeStack = createStackNavigator({
   ProfileEdit: EditProfile,
   EditPost:EditPostScreen,
   ActiveCases:ActiveCasesScreen,
+  ResolvedCases: ResolvedCasedScreen,
 },
 {
   headerMode: 'none',

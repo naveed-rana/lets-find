@@ -141,7 +141,7 @@ export default (styles = {
     borderRadius: 4,
     width: "70%",
     justifyContent: "center",
-    backgroundColor: "#05CE1D"
+    backgroundColor: "#05CE1D",
   },
   headerIcon: { fontSize: 30, color: "white" }
 });

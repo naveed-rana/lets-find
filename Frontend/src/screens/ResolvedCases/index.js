@@ -90,49 +90,20 @@ class SearchScreen extends Component {
     this.setState({ fakeArray: this.props.missingPersons });
   }
 
-  onSubmit = () => {
-    console.log("====================================");
-    console.log(this.state.selectedStatus);
-    console.log(this.state.selectedDisability);
-    console.log(this.state.selectedGender);
-    console.log(this.state.selectedAgeGroup);
-    console.log(this.state.location);
-    console.log("====================================");
-  };
-  onStatusChange(value) {
-    this.setState({
-      selectedStatus: value
-    });
-  }
-  onDisabilityChange(value) {
-    this.setState({
-      selectedDisability: value
-    });
-  }
-  onGenderChange(value) {
-    this.setState({
-      selectedGender: value
-    });
-  }
-  onAgeGroupChange(value) {
-    this.setState({
-      selectedAgeGroup: value
-    });
-  }
-
   openDrawer = () => {
     this.props.navigation.openDrawer();
   };
+
   render() {
     const { navigation } = this.props;
     return (
       <Container>
         {/* <View style={styles.searchContainer}> */}
 
-          <View>
-            <StatusBar backgroundColor="#05CE1D" barStyle="light-content" />
-          </View>
-          <View style={styles.header}>
+        <View>
+          <StatusBar backgroundColor="#05CE1D" barStyle="light-content" />
+        </View>
+        <View style={styles.header}>
           <Icon
             onPress={() => navigation.goBack()}
             style={styles.headerIcon}
@@ -140,7 +111,7 @@ class SearchScreen extends Component {
             name="keyboard-backspace"
           />
 
-          <Text style={styles.heading}>Active Post</Text>
+          <Text style={styles.heading}>Resolved Cases</Text>
           <Icon
             name="menu"
             style={styles.headerIcon}
@@ -239,11 +210,6 @@ class SearchScreen extends Component {
 
                             <View style={styles.cardHeader}>
                               <View style={{ flexDirection: "row" }}>
-                                <Icon
-                                  style={{ fontSize: 20 }}
-                                  type="AntDesign"
-                                  name="edit"
-                                />
                                 <Text
                                   style={styles.readMore}
                                   onPress={() =>
@@ -260,7 +226,7 @@ class SearchScreen extends Component {
                                     })
                                   }
                                 >
-                                  Edit
+                                  Read More
                                 </Text>
                               </View>
 
