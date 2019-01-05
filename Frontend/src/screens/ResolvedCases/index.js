@@ -171,7 +171,7 @@ class SearchScreen extends Component {
                           <TouchableOpacity
                             style={{ width: "100%" }}
                             onPress={() =>
-                              navigation.navigate("EditPost", {
+                              navigation.navigate("ResolvedCaseDetail", {
                                 data: {
                                   name: data.name,
                                   status: data.status,
@@ -213,7 +213,7 @@ class SearchScreen extends Component {
                                 <Text
                                   style={styles.readMore}
                                   onPress={() =>
-                                    navigation.navigate("EditPost", {
+                                    navigation.navigate("ResolvedCaseDetail", {
                                       data: {
                                         name: data.name,
                                         status: data.status,
