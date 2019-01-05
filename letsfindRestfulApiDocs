@@ -14,8 +14,8 @@
 #registeruser_request
 ........................................
 let data = {"user":{
-      name:"naveed",
-      pass:'pass',
+      email:"naveed",
+      password:'pass',
       age:'3243',
     }}
 axios.post('http://127.0.0.1:8080/registeruser',data).then((data)=>{
@@ -23,17 +23,75 @@ axios.post('http://127.0.0.1:8080/registeruser',data).then((data)=>{
     })
 ...........................................
 
-#AddFormData
-..........................................
-let data = {"missingperson":{
-      name:"Asif",
-      status:'missing',
-      age:'3243',
-    }}
+#loginuser
+...........................................
+let data = {"user":{
+        email:"naveed",
+        password:'pass'
+      }}
 
-    axios.post('http://127.0.0.1:8080/registerMissingPerson',data).then((data)=>{
-      console.log(data);
-    })
+  
+        // axios.post(EndPoint+'/loginuser',data)
+        // .then((res)=>{
+        //     console.log("Res");
+        //     console.log(res.data);
+            
+        // })
+        // .catch((err)=>{
+        //     console.log("err");
+        //     console.log(err);
+        // })
+...........................................
+
+#LogOut user
+...........................................
+// axios.post(EndPoint+'/logoutUser')
+        // .then((res)=>{
+        //     console.log("Res");
+        //     console.log(res.data);
+            
+        // })
+        // .catch((err)=>{
+        //     console.log("err");
+        //     console.log(err);
+        // })
+...........................................
+
+#GetUserData or check Auth
+...........................................
+
+        axios.get(EndPoint+'/logginUserData')
+        .then((res)=>{
+            console.log("Res");
+            console.log(res.data);
+            
+        })
+        .catch((err)=>{
+            console.log("err");
+            console.log(err);
+        })
+...........................................
+
+
+#getHomeStories
+..........................................
+
+export function getHomeStories() {
+  return (dispatch) => {
+  
+        axios.get(EndPoint+'/homeStories')
+        .then((res)=>{
+            console.log("Res");
+            console.log(res.data);
+            
+        })
+        .catch((err)=>{
+            console.log("err");
+            console.log(err);
+        })
+
+  };
+}
 ..........................................
 #registerMissingPerson
 ...........................................

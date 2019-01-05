@@ -1,4 +1,4 @@
-import Axios from "axios";
+import axios from "axios";
 import EndPoint from '../../../endpoint/';
 export const GETLATESTSTORIES = 'GetStories';
 
@@ -9,15 +9,51 @@ export const ADD_PERSON = 'ADD_PERSON';
 
 export function getHomeStories() {
   return (dispatch) => {
-  
-        Axios.get(EndPoint+'/homeStories')
+
+    // axios.post(EndPoint+'/logoutUser')
+    //     .then((res)=>{
+    //         console.log("Res");
+    //         console.log(res.data);
+            
+    //     })
+    //     .catch((err)=>{
+    //         console.log("err");
+    //         console.log(err);
+    //     })
+
+        axios.get(EndPoint+'/logginUserData')
         .then((res)=>{
+            console.log("Res");
             console.log(res.data);
             
         })
         .catch((err)=>{
+            console.log("err");
             console.log(err);
         })
+
+        // let data = {"user":{
+        //     name:"umar",
+        //     pass:'umar'
+        //   }}
+    
+      
+        //     axios.post(EndPoint+'/loginuser',data)
+        //     .then((res)=>{
+        //         console.log("Res");
+        //         console.log(res.data);
+                
+        //     })
+        //     .catch((err)=>{
+        //         console.log("err");
+        //         console.log(err);
+        //     })
+
+
+        
+        
+        
+
 
   };
 }

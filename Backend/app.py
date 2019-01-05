@@ -74,6 +74,26 @@ def registerUser():
         print str(e)
         return userRegister
 
+
+#Update user
+@app.route('/updateuser', methods=['POST'])
+@cross_origin()
+def updateUser():
+    userUpdate = "not-success"
+    user = {}
+    try:
+        data = request.get_json(silent=True)
+        data = data["user"]
+        for key in data:
+            user[key] = data[key]
+        task = mongo.db.tbl_users.insert(user)
+        print(task)
+        userUpdate = "success"
+        return userUpdate
+    except Exception, e:
+        print str(e)
+        return userUpdate
+
 #LoginUser
 @app.route('/loginuser', methods=['POST'])
 @cross_origin()
@@ -81,40 +101,42 @@ def loginUser():
     userAuth = 'notsuccess'
     login = {}
     data = request.get_json(silent=True)
-    data = data["user"]
-    userKey = ''
-    for key in data:
-        if key != "userName":
+    try:
+        data = data["user"]
+        userKey = ''
+        for key in data:
             login[key] =  data[key]          
+        users = mongo.db.tbl_users.find_one(login)
+        print(users)
+        if users: 
             userAuth = 'success'
-            users = mongo.db.tbl_users.find_one(login)
             userKey  = users['_id'] 
-            break
             session['logged_in'] = True 
-        else:
-            userAuth = 'not-success'
-    key = json.loads(json_util.dumps(userKey))
-    userData = json.loads(json_util.dumps(users))
-    session['userKey'] = key['$oid']
-    session['userVal'] = userData
-    return userAuth
+            key = json.loads(json_util.dumps(userKey))
+            userData = json.loads(json_util.dumps(users))
+            print(key['$oid'])
+            session['userKey'] = key['$oid']
+            session['userVal'] = userData
+            print(session['userKey'])
+            return userAuth
+        else:    
+            return userAuth
+    except Exception, e:
+        print str(e)
+        return str(e)
 
 #UserValidate
 @app.route('/logginUserData', methods=['GET'])
 @cross_origin()
 def loggedinUser():
-    data = session
-    dataUid = session['userKey']
-    datareq = data['userVal']
-    print('id', datareq['_id'])
-    userVal = {
-        'email': datareq['email'],
-        'username': datareq['userName'],
-        'joiningdate': datareq['joiningdate'],
-        'uid': dataUid
-    }
-    return jsonify(userVal)
-
+    try:
+        data = session
+        datareq = data['userVal']
+        print('id', datareq['_id'])
+        return jsonify(datareq)
+    except Exception, e:
+        return str(e)
+    
 
 #LoginUser
 @app.route('/logoutUser', methods=['POST'])
