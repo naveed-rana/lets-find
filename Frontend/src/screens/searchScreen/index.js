@@ -132,7 +132,6 @@ class SearchScreen extends Component {
   SearchHandler = () => {
     console.log("=============from searchby image=======================");
     console.log(this.state.image);
-    console.log(this.state.searchName);
 
     console.log("====================================");
     this.setState({
@@ -161,7 +160,8 @@ class SearchScreen extends Component {
       this.state.selectedDisability == "" &&
       this.state.selectedGender == "" &&
       this.state.selectedAgeGroup == "" &&
-      this.state.filterLocation == ""
+      this.state.filterLocation == "" &&
+      this.state.searchName == ""
     ) {
       Toast.show({
         text: "Select atleast one field",
@@ -196,20 +196,6 @@ class SearchScreen extends Component {
         </View>
 
         <View style={styles.searchContainer}>
-          <Item style={styles.itemStyle}>
-            <View style={styles.searchInput}>
-              <Input
-                placeholder="Search By Name"
-                onChangeText={name => this.setState({ searchName: name })}
-              />
-              <TouchableOpacity
-                style={styles.cameraIconBtn}
-                onPress={this.SearchHandler}
-              >
-                <Icon style={styles.camIcon} type="AntDesign" name="search1" />
-              </TouchableOpacity>
-            </View>
-          </Item>
           <Item style={styles.itemStyle1}>
             <TouchableOpacity
               style={styles.searchInput}
@@ -224,7 +210,7 @@ class SearchScreen extends Component {
                 style={styles.cameraIconBtn}
                 onPress={this.SearchHandler}
               >
-                <Icon style={styles.camIcon} type="Entypo" name="camera" />
+                <Icon style={styles.camIcon} type="AntDesign" name="search1" />
               </TouchableOpacity>
             </TouchableOpacity>
           </Item>
@@ -237,6 +223,41 @@ class SearchScreen extends Component {
           {this.state.show ? (
             <View style={styles.filtersContainer}>
               <Form>
+                <View>
+                  <Item>
+                    <Input
+                      placeholder="Search by Name"
+                      style={{ color: "#fff" }}
+                      placeholderTextColor="#fff"
+                      onChangeText={name => this.setState({ searchName: name })}
+                    />
+                    <Icon
+                      active
+                      name="map-marked"
+                      type="FontAwesome5"
+                      style={{ color: "#fff" }}
+                    />
+                  </Item>
+
+                  <Item>
+                    <Input
+                      placeholder="Location"
+                      style={{ color: "#fff" }}
+                      placeholderTextColor="#fff"
+                      onChangeText={loaction => {
+                        this.setState({
+                          filterLocation: loaction
+                        });
+                      }}
+                    />
+                    <Icon
+                      active
+                      name="search-location"
+                      type="FontAwesome5"
+                      style={{ color: "#fff" }}
+                    />
+                  </Item>
+                </View>
                 <View style={styles.selectBoxesContainer}>
                   <Item picker>
                     <Picker
@@ -336,35 +357,15 @@ class SearchScreen extends Component {
                     </Picker>
                   </Item>
                 </View>
-                <View>
-                  <Item>
-                    <Input
-                      placeholder="Location"
-                      style={{ color: "#fff" }}
-                      placeholderTextColor="#fff"
-                      onChangeText={loaction => {
-                        this.setState({
-                          filterLocation: loaction
-                        });
-                      }}
-                    />
-                    <Icon
-                      active
-                      name="map-marked"
-                      type="FontAwesome5"
-                      style={{ color: "#fff" }}
-                    />
-                  </Item>
 
-                  <Button
-                    bordered
-                    success
-                    style={styles.filterBtn}
-                    onPress={this.filterHandler}
-                  >
-                    <Text style={{ color: "white" }}>Search</Text>
-                  </Button>
-                </View>
+                <Button
+                  bordered
+                  success
+                  style={styles.filterBtn}
+                  onPress={this.filterHandler}
+                >
+                  <Text style={{ color: "white" }}>Search</Text>
+                </Button>
               </Form>
             </View>
           ) : (

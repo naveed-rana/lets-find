@@ -74,7 +74,7 @@ class Home extends Component {
     this.props.navigation.closeDrawer();
   };
   openDrawer = () => {
-    this.props.navigation.openDrawer();
+    this.props.navigation.toggleDrawer();
   };
   // popup menu 3 dots
   refMoreButton = el => (this.moreButton = el);

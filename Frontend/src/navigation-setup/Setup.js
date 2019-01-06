@@ -22,6 +22,7 @@ import EditPostScreen from '../screens/EditPost';
 import ActiveCasesScreen from '../screens/ActiveCases';
 import ResolvedCasedScreen from '../screens/ResolvedCases';
 import ResolvedCaseDetailScreen from '../screens/ShowResolvedDetails'
+import { DrawerLayoutAndroid } from 'react-native-gesture-handler';
 
 const HomeStack = createStackNavigator({
   Homes: HomeScreen,
@@ -107,6 +108,8 @@ const NotificationsStack = createStackNavigator({
     },
   }
 );
+
+
 
 const MyDrawerNavigator = createDrawerNavigator({
   Tabs: {

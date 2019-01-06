@@ -5,7 +5,7 @@ const { height, width } = Dimensions.get("window");
 export const styles = StyleSheet.create({
     sidebarWrapper:{
         backgroundColor:"#fff",
-        opacity :1
+        opacity :1,
     },
     sideBarTopPanel:{
         backgroundColor:"#f5f5f5",
