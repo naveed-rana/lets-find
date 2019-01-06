@@ -53,6 +53,7 @@ class AddForm extends Component {
     };
   }
 
+
   uploadImage = () => {
     ImagePicker.showImagePicker(options, response => {
       console.log("Response = ", response);
@@ -364,7 +365,9 @@ class AddForm extends Component {
   }
 }
 
-export default connect(
-  null,
-  { addPerson }
-)(AddForm);
+const mapStateToProps = (state) =>{
+  return {
+    userStatus:state.userReducer.userStatus
+  }
+}
+export default connect(mapStateToProps,{ addPerson })(AddForm);

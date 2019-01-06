@@ -30,22 +30,10 @@ const INITIAL_STATE = {
     post_By: 'Naveed'
 }]
 };
-console.log("Reducer: for all  ", INITIAL_STATE.homeStories);
 
 function AddReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case ADD_PERSON: {
-      console.log("================from redu====================");
-      console.log(action.data);
-      console.log("====================================");
-      var oldStories = [];
-      oldStories = state.homeStories;
-      oldStories.push(action.data);
-      console.log("=============newstories=======================");
-      console.log(oldStories);
-      console.log("====================================");
-     
-     
      
       const newState = Object.assign({}, state, { homeStories: {
         id: '2',

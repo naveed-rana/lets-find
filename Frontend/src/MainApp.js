@@ -4,9 +4,15 @@ import { Container } from "native-base";
 import Setup from "./navigation-setup/Setup";
 import { PermissionsAndroid } from "react-native";
 
+
+
 //redux 
 import { getHomeStories } from './redux/actions/missingPersonAction';
+import { getUser } from './redux/actions/UserActions';
 import { connect } from 'react-redux';
+
+
+
 
 class MainApp extends Component {
   constructor(props) {
@@ -17,8 +23,9 @@ class MainApp extends Component {
   }
 
   componentDidMount() {
-    
-    this.props.getHomeStories();
+
+    // this.props.getHomeStories();
+    // this.props.getUser();
 
     setTimeout(() => {
       this.setState({ SplashScreens: false });
@@ -43,12 +50,11 @@ class MainApp extends Component {
   render() {
     const { SplashScreens } = this.state;
     return (
-      
-        <Container>
-          <Setup />
-        </Container>
+      <Container>
+        <Setup />
+      </Container>
     );
   }
 }
 
-export default connect(null,{getHomeStories})(MainApp)
+export default connect(null,null)(MainApp);

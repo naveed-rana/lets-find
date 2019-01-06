@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { ImageBackground, Image } from "react-native";
+import {connect} from 'react-redux';
+import { ImageBackground, Image,ScrollView } from "react-native";
+
 import {
   Text,
   Content,
@@ -9,37 +11,65 @@ import {
   Icon,
   View,
   Button,
-  CheckBox
+  CheckBox,
+  Spinner
 } from "native-base";
+//import actions
+import {registerUser} from '../../redux/actions/UserActions';
 
 import styles from "./style";
 
-export default class SignUpScreen extends Component {
+class SignUpScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       username: "",
       email: "",
       password: "",
-      cell: ""
+      cell: "",
+      loader:false
     };
   }
 
+  
+
+  componentWillReceiveProps(nextProps) {
+    console.log('nextprops',nextProps);
+    
+    if(nextProps.registerLoader === 'success'){
+    this.props.navigation.navigate("Login");
+    }else{
+      this.setState({loading: false});
+    }
+
+    console.log('full state',this.state);
+    
+    
+}
+
 
   onSubmit=()=>{
-    console.log('====================================');
-    console.log(this.state.username);
-    console.log(this.state.email);
-    console.log(this.state.password);
-    console.log(this.state.cell);
-    console.log('====================================');
+
+   this.setState({loader:true})
+    let data = {"user":{
+      name:this.state.username,
+      email:this.state.email,
+      password:this.state.password,
+      cell:this.state.cell
+  }}
+
+  this.props.registerUser(data);
   }
   render() {
+    const {loader} = this.state;
+   console.log('props from comp',loader);
+   
     return (
       <ImageBackground
         source={require("../../media/bg_3.png")}
         style={{ width: "100%", height: "100%" }}
       >
+        <ScrollView>
         <Content contentContainerStyle={styles.loginContainer}>
           <View style={styles.viewStyle}>
             <Image source={require("../../media/main_logo.png")} />
@@ -47,7 +77,9 @@ export default class SignUpScreen extends Component {
           </View>
 
           <View style={styles.viewDirection}>
-            <Text style={styles.loginStyle}>Login</Text>
+            <Text
+            onPress={() => this.props.navigation.navigate("Login")}
+            style={styles.loginStyle}>Login</Text>
             <Text style={styles.barStyle}>|</Text>
             <Text style={styles.signUpStyle}>Signup</Text>
           </View>
@@ -89,7 +121,7 @@ export default class SignUpScreen extends Component {
 
             <Item style={styles.itemStyle} rounded>
               <Icon
-                type="Feather"
+                type="AntDesign"
                 active
                 name="phone"
                 style={styles.inputStyle}
@@ -106,12 +138,13 @@ export default class SignUpScreen extends Component {
 
             <Item style={styles.itemStyle} rounded>
               <Icon
-                type="Feather"
+                type="MaterialCommunityIcons"
                 active
-                name="lock"
+                name="textbox-password"
                 style={styles.inputStyle}
               />
               <Input
+                secureTextEntry={true}
                 placeholderTextColor="#fff"
                 style={styles.inputStyle}
                 placeholder="Password"
@@ -127,7 +160,16 @@ export default class SignUpScreen extends Component {
                 | Accept Terms and Conditions, Privacy and Policy
               </Text>
             </View>
-
+            
+            {loader ? 
+           <Button
+            full
+            rounded
+            style={{ marginVertical: 20, backgroundColor: "white" }}
+            >
+           <Spinner color='green' />
+          </Button>
+            :
             <Button
               full
               rounded
@@ -136,13 +178,26 @@ export default class SignUpScreen extends Component {
             >
               <Text style={{ color: "black", fontWeight: "bold" }}>SIGNUP</Text>
             </Button>
+            }
           </Form>
 
-          <View style={styles.viewAccount}>
+          <View 
+          onPress={() => this.props.navigation.navigate("Login")}
+          style={styles.viewAccount}>
             <Text style={styles.inputStyle}>Already have an Account?</Text>
           </View>
         </Content>
+        </ScrollView>
       </ImageBackground>
     );
   }
 }
+
+mapStateToProps = (state) => {
+  console.log('register loader state',state.userReducer.registerLoader);
+  return {
+    registerLoader:state.userReducer.registerLoader
+  }
+}
+
+export default connect(mapStateToProps,{registerUser})(SignUpScreen);

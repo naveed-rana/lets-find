@@ -46,9 +46,12 @@ export default class LoginScreen extends Component {
           </View>
 
           <View style={styles.viewDirection}>
-            <Text style={styles.loginStyle}>Login</Text>
+            <Text 
+            style={styles.loginStyle}>Login</Text>
             <Text style={styles.barStyle}>|</Text>
-            <Text style={styles.signUpStyle}>Signup</Text>
+            <Text
+            onPress={() => this.props.navigation.navigate("SignUp")}
+            style={styles.signUpStyle}>Signup</Text>
           </View>
 
           <Form style={styles.formStyle}>
@@ -91,7 +94,9 @@ export default class LoginScreen extends Component {
 
           <View style={styles.viewAccount}>
             <Text style={styles.loginStyle}>Don't have an Account?</Text>
-            <Text style={styles.loginStyle}> Signup</Text>
+            <Text
+            onPress={() => this.props.navigation.navigate("SignUp")}
+             style={styles.loginStyle}> Signup</Text>
           </View>
         </Content>
       </ImageBackground>

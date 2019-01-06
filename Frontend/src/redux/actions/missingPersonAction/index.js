@@ -21,16 +21,16 @@ export function getHomeStories() {
     //         console.log(err);
     //     })
 
-        axios.get(EndPoint+'/logginUserData')
-        .then((res)=>{
-            console.log("Res");
-            console.log(res.data);
+        // axios.get(EndPoint+'/logginUserData')
+        // .then((res)=>{
+        //     console.log("Res");
+        //     console.log(res.data);
             
-        })
-        .catch((err)=>{
-            console.log("err");
-            console.log(err);
-        })
+        // })
+        // .catch((err)=>{
+        //     console.log("err");
+        //     console.log(err);
+        // })
 
         // let data = {"user":{
         //     name:"umar",
