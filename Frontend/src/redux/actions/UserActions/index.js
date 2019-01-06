@@ -77,14 +77,18 @@ export function userLogout() {
 
   // register
 export function registerUser(data) {
-  return {
-    type: USERREGESTER,
-    payload:'success',
-  }
+  console.log('data in action',data);
+   
+  return ({
+                 type: USERREGESTER,
+                 payload:'error',
+                   });
+
     // return (dispatch) => {
 
     //       axios.post(EndPoint+'/registeruser',data)
     //       .then((res)=>{
+    //           console.log('res',res);
               
     //           if (res.data === 'success'){
 

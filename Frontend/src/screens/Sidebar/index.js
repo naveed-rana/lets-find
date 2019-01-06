@@ -59,6 +59,29 @@ class Sidebar extends Component {
               <Text style={{ fontSize: 15 }}>My Profile</Text>
             </Body>
           </ListItem>
+           
+          <ListItem onPress={() => this.props.navigation.navigate("Notifications")} icon style={styles.barLinkContainer}>
+            <Left>
+              <Button style={{ backgroundColor: "#05CE1D" }}>
+                <Icon active name="notifications-outline" type="Ionicons" />
+              </Button>
+            </Left>
+            <Body style={{ borderBottomWidth: 0, marginLeft: 15 }}>
+              <Text style={{ fontSize: 15 }}>Notifications</Text>
+            </Body>
+          </ListItem>
+
+          <ListItem icon style={styles.barLinkContainer} onPress={() => this.props.navigation.navigate("LetsAdd")}>
+            <Left>
+              <Button style={{ backgroundColor: "#05CE1D" }}>
+                <Icon active name="add-user" type="Entypo" />
+              </Button>
+            </Left>
+            <Body style={{ borderBottomWidth: 0, marginLeft: 15 }}>
+              <Text style={{ fontSize: 15 }}>Post Now</Text>
+            </Body>
+          </ListItem>
+
           <ListItem icon style={styles.barLinkContainer} onPress={() => this.props.navigation.navigate("ActiveCases")}>
             <Left>
               <Button style={{ backgroundColor: "#05CE1D" }}>
@@ -93,16 +116,7 @@ class Sidebar extends Component {
               <Text style={{ fontSize: 15 }}>Search</Text>
             </Body>
           </ListItem>
-          <ListItem icon style={styles.barLinkContainer} onPress={() => this.props.navigation.navigate("LetsAdd")}>
-            <Left>
-              <Button style={{ backgroundColor: "#05CE1D" }}>
-                <Icon active name="add-user" type="Entypo" />
-              </Button>
-            </Left>
-            <Body style={{ borderBottomWidth: 0, marginLeft: 15 }}>
-              <Text style={{ fontSize: 15 }}>Post Now</Text>
-            </Body>
-          </ListItem>
+          
           </View>
         
         }

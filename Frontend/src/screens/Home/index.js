@@ -99,11 +99,7 @@ class Home extends Component {
 
   render() {
 
-
-console.log('====================================');
-console.log("from render");
-console.log('====================================');
-
+     const {userStatus} = this.props;
     const shadowStyle = {
       shadowOpacity: 1,
       shadowRadius: 15
@@ -319,6 +315,8 @@ console.log('====================================');
                 })}
               </ScrollView>
             </View>
+              
+              {userStatus ?  
               <TouchableOpacity
                 style={styles.addNewButton}
                 onPress={() => this.props.navigation.navigate("AddPerson")}
@@ -330,6 +328,19 @@ console.log('====================================');
                   color="white"
                 />
               </TouchableOpacity>
+              :
+              <TouchableOpacity
+                style={styles.addNewButton}
+                onPress={() => this.props.navigation.navigate("Login")}
+              >
+                <Icon
+                  type="AntDesign"
+                  name="plus"
+                  style={{ fontSize: 20, color: "#fff" }}
+                  color="white"
+                />
+              </TouchableOpacity>
+              }
           
         </Container>
       // </Drawer>
@@ -337,11 +348,10 @@ console.log('====================================');
   }
 }
 
+
 const mapStateToProps = state => {
-  console.log("=================mapStateToProps===================");
-  console.log(state.misingPersons.homeStories);
-  console.log("====================================");
   return {
+    userStatus:state.userReducer.userStatus,
     missingPersons: state.misingPersons.homeStories
   };
 };

@@ -29,12 +29,11 @@ function userReducer(state = INITIAL_STATE, action) {
     }
 
     case USERREGESTER:{
-      // alert(action.payload);
-      console.log('reducer payload',action.payload);
-      
+      console.log('from reducer',action.payload);
+         
       return {
         ...state,
-        registerLoader:'after action call'
+        registerLoader:'some'
       }
 
     }

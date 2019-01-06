@@ -31,24 +31,25 @@ class SignUpScreen extends Component {
     };
   }
 
-  componentWillMount = () => {
-    this.props.registerUser("sdf");
-    
-  };
   
 
   componentWillReceiveProps(nextProps) {
-    this.setState({loading: false});
+    console.log('nextprops',nextProps);
+    
     if(nextProps.registerLoader === 'success'){
     this.props.navigation.navigate("Login");
+    }else{
+      this.setState({loading: false});
     }
+
+    console.log('full state',this.state);
+    
     
 }
 
 
   onSubmit=()=>{
 
-    this.props.navigation.toggleDrawer();
    this.setState({loader:true})
     let data = {"user":{
       name:this.state.username,
@@ -61,9 +62,8 @@ class SignUpScreen extends Component {
   }
   render() {
     const {loader} = this.state;
-    console.log("from singup render func",this.props.registerLoader);
-    
-
+   console.log('props from comp',loader);
+   
     return (
       <ImageBackground
         source={require("../../media/bg_3.png")}
@@ -121,7 +121,7 @@ class SignUpScreen extends Component {
 
             <Item style={styles.itemStyle} rounded>
               <Icon
-                type="Feather"
+                type="AntDesign"
                 active
                 name="phone"
                 style={styles.inputStyle}
@@ -194,8 +194,7 @@ class SignUpScreen extends Component {
 }
 
 mapStateToProps = (state) => {
-  console.log('map state to props',state.userReducer.registerLoader);
-  
+  console.log('register loader state',state.userReducer.registerLoader);
   return {
     registerLoader:state.userReducer.registerLoader
   }

@@ -20,8 +20,7 @@ import AddPersons from '../screens/AddForm';
 import DrawerScreen from '../screens/Sidebar';
 import EditPostScreen from '../screens/EditPost';
 import ActiveCasesScreen from '../screens/ActiveCases';
-import ResolvedCasedScreen from '../screens/ResolvedCases';
-import ResolvedCaseDetailScreen from '../screens/ShowResolvedDetails'
+import ResolvedCasedScreen from '../screens/ResolvedCases'
 
 const HomeStack = createStackNavigator({
   Homes: HomeScreen,
@@ -31,32 +30,10 @@ const HomeStack = createStackNavigator({
   EditPost:EditPostScreen,
   ActiveCases:ActiveCasesScreen,
   ResolvedCases: ResolvedCasedScreen,
-  ResolvedCaseDetail: ResolvedCaseDetailScreen,
-},
-{
-  headerMode: 'none',
-}
-);
-
-const AddStack = createStackNavigator({
+  SignUp: SignUpScreen,
   AddPerson: AddPersons,
   Login: LoginScreen,
-  SignUp: SignUpScreen
-},
-{
-  headerMode: 'none',
-}
-);
-
-const SearchStack = createStackNavigator({
-  Search:SearchScreen
-},
-{
-  headerMode: 'none',
-}
-);
-
-const NotificationsStack = createStackNavigator({
+  Search:SearchScreen,
   Notifications: NotificationScreen
 },
 {
@@ -64,56 +41,83 @@ const NotificationsStack = createStackNavigator({
 }
 );
 
- const TabsScreens = createBottomTabNavigator(
-  {
-    Home: HomeStack,
-    Notifications: NotificationsStack,
-    Search:SearchStack,
-    LetsAdd:AddStack
-  },
-  {
-    defaultNavigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({ focused, horizontal, tintColor }) => {
-        const { routeName } = navigation.state;
-        let iconName;
-        let clr;
-        if (routeName === 'Home') {
-          iconName = `home`;
-        } else if (routeName === 'Notifications') {
-          iconName = `notifications-outline`;
-        }
-        else if (routeName === 'Search') {
-          iconName = `search`;
-        }
-        else if (routeName === 'LetsAdd') {
-          iconName = `ios-person-add`;
-        }
-        focused ? clr = '#05CE1D': clr = "gray"; 
-        return <Icon style={{color:`${clr}`}}  type="Ionicons" name={iconName} size={horizontal ? 20 : 25} color={tintColor} />;
-      },
-    }),
-    tabBarOptions: {
+// const AddStack = createStackNavigator({
+//   SignUp: SignUpScreen,
+//   AddPerson: AddPersons,
+//   Login: LoginScreen,
+  
+// },
+// {
+//   headerMode: 'none',
+// }
+// );
+
+// const SearchStack = createStackNavigator({
+//   Search:SearchScreen
+// },
+// {
+//   headerMode: 'none',
+// }
+// );
+
+// const NotificationsStack = createStackNavigator({
+//   Notifications: NotificationScreen
+// },
+// {
+//   headerMode: 'none',
+// }
+// );
+
+//  const MyDrawerNavigator = createBottomTabNavigator(
+//   {
+//     Home: HomeStack,
+//     Notifications: NotificationsStack,
+//     Search:SearchStack,
+//     LetsAdd:AddStack
+//   },
+//   {
+//     defaultNavigationOptions: ({ navigation }) => ({
+//       tabBarIcon: ({ focused, horizontal, tintColor }) => {
+//         const { routeName } = navigation.state;
+//         let iconName;
+//         let clr;
+//         if (routeName === 'Home') {
+//           iconName = `home`;
+//         } else if (routeName === 'Notifications') {
+//           iconName = `notifications-outline`;
+//         }
+//         else if (routeName === 'Search') {
+//           iconName = `search`;
+//         }
+//         else if (routeName === 'LetsAdd') {
+//           iconName = `ios-person-add`;
+//         }
+//         focused ? clr = '#05CE1D': clr = "gray"; 
+//         return <Icon style={{color:`${clr}`}}  type="Ionicons" name={iconName} size={horizontal ? 20 : 25} color={tintColor} />;
+//       },
+//     }),
+//     tabBarOptions: {
       
-      activeTintColor: '#05CE1D',
-      inactiveTintColor: 'gray',
-      style:{
-        borderTopColor: "grey",
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.8,
-        shadowRadius: 2,  
-        elevation: 5,
-      }
-    },
-  }
-);
+//       activeTintColor: '#05CE1D',
+//       inactiveTintColor: 'gray',
+//       style:{
+//         borderTopColor: "grey",
+//         shadowColor: '#000',
+//         shadowOffset: { width: 0, height: 1 },
+//         shadowOpacity: 0.8,
+//         shadowRadius: 2,  
+//         elevation: 5,
+//       }
+//     },
+//   }
+// );
 
 const MyDrawerNavigator = createDrawerNavigator({
-  Tabs: {
-    screen: TabsScreens,
-  }
+  HomeStack:HomeStack
 }, {
   contentComponent: props => <DrawerScreen {...props} />
-});
+}
+);
+
 
 export default createAppContainer(MyDrawerNavigator)
