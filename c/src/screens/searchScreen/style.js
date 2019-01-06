@@ -101,5 +101,14 @@ export default styles = StyleSheet.create({
         alignSelf: "center",
         height: 300,
         justifyContent:"center"
+      },
+      filterBtn: {
+          color: "white",
+          borderColor: "white",
+          width: "40%",
+          alignSelf: "center",
+          justifyContent: 'center',
+          marginTop: 20,
+
       }
 })

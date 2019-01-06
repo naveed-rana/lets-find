@@ -3,7 +3,7 @@ import MainApp from './src/MainApp';
 import { Root } from "native-base";
 import store from './src/redux/store';
 import { Provider } from 'react-redux';
-import Add from './src/screens/ResolvedCases'
+import Add from './src/screens/searchScreen'
 
 
 export default class App extends Component {
@@ -12,8 +12,8 @@ export default class App extends Component {
     return (
       <Root>
       <Provider store={store}>
-        <MainApp />
-        {/* <Add /> */}
+        {/* <MainApp /> */}
+        <Add />
         
       </Provider>
       </Root>
