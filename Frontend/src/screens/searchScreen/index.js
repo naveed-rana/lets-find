@@ -171,7 +171,6 @@ class SearchScreen extends Component {
     } else {
       console.log("=============from filer hander=======================");
       console.log(this.state.selectedStatus);
-
       console.log(this.state.selectedDisability);
       console.log(this.state.selectedGender);
       console.log(this.state.selectedAgeGroup);
