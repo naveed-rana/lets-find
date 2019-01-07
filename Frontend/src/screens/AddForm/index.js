@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { StatusBar } from "react-native";
+import axios from 'axios';
 import {
   View,
   Text,
@@ -18,7 +19,9 @@ import {
   Body,
   Picker,
   Label,
-  Toast
+  Toast,
+
+  Spinner
 } from "native-base";
 import ImagePicker from "react-native-image-picker";
 import uploadimageIcon from "../../media/upload-photo.png";
@@ -48,6 +51,7 @@ class AddForm extends Component {
       age: "",
       image: uploadimageIcon,
       value: "",
+      loader:false,
       MistabBtnCls: styles.tabBtnColored,
       FndtabBtnCls: styles.tabBtn
     };
@@ -93,59 +97,100 @@ class AddForm extends Component {
   }
 
   onSubmit = () => {
-    const data = {
-      name: this.state.name,
-      gender: this.state.gender,
-      disability: this.state.disability,
-      location: this.state.location,
-      description: this.state.description,
-      status: this.state.status,
-      age: this.state.age,
-      image: this.state.image
-    };
+    // const data = {
+    //   name: this.state.name,
+    //   gender: this.state.gender,
+    //   disability: this.state.disability,
+    //   location: this.state.location,
+    //   description: this.state.description,
+    //   status: this.state.status,
+    //   age: this.state.age,
+    //   image: this.state.image
+    // };
+    
 
-    // if (this.state.age == "" || this.state.age == "Select an age group") {
-    //   Toast.show({
-    //     text: "Select an age group",
-    //     type: "warning",
-    //     duration: 3000
-    //   });
-    // } else if (this.state.gender == "" || this.state.gender == "Gender") {
-    //   Toast.show({
-    //     text: "Select Gender",
-    //     type: "warning",
-    //     duration: 3000
-    //   });
-    // } else if (this.state.disability == "Select a Disability if any") {
-    //   Toast.show({
-    //     text: "Select a Disability",
-    //     type: "warning",
-    //     duration: 3000
-    //   });
-    // } else if (this.state.location == "") {
-    //   Toast.show({
-    //     text: "Select the Location",
-    //     type: "warning",
-    //     duration: 3000
-    //   });
-    // } else if (this.state.image == uploadimageIcon) {
-    //   Toast.show({
-    //     text: "Image is mendatory",
-    //     type: "warning",
-    //     duration: 3000
-    //   });
-    // } else {
-    //   console.log("From react Component: ", data);
-    //   this.props.addPerson(data);
-    //   this.props.navigation.navigate("Homes");
-    //   Toast.show({
-    //     text: "Successfully Uploaded",
-    //     type: "success",
-    //     duration: 3000
-    //   });
-    // }
+    if (this.state.age == "" || this.state.age == "Select an age group") {
+      Toast.show({
+        text: "Select an age group",
+        type: "warning",
+        duration: 3000
+      });
+    } else if (this.state.gender == "" || this.state.gender == "Gender") {
+      Toast.show({
+        text: "Select Gender",
+        type: "warning",
+        duration: 3000
+      });
+    } else if (this.state.disability == "Select a Disability if any") {
+      Toast.show({
+        text: "Select a Disability",
+        type: "warning",
+        duration: 3000
+      });
+    } else if (this.state.location == "") {
+      Toast.show({
+        text: "Select the Location",
+        type: "warning",
+        duration: 3000
+      });
+    } else if (this.state.image == uploadimageIcon) {
+      Toast.show({
+        text: "Image is mendatory",
+        type: "warning",
+        duration: 3000
+      });
+    } else {
+     
 
-    this.props.addPerson(data);
+      this.setState({loader:true});
+
+      const data = new FormData();
+        data.append('image', {
+            uri: this.state.image.uri,
+            type: 'image/jpeg',
+            name: `${this.state.location}_${this.state.age}_${new Date().getTime()}.jpg`,
+        });
+       
+        data.append('name',`${this.state.name}`);
+        data.append('gender',`${this.state.gender}`);
+        data.append('disability',`${this.state.disability}`);
+        data.append('location',`${this.state.location}`);
+        data.append('description',`${this.state.description}`);
+        data.append('status',`${this.state.status}`);
+        data.append('age',`${this.state.age}`);
+        data.append('post_By','Naveed');
+        data.append('mobile','+923034766669');
+
+        axios.post('http://10.123.69.29:2020/registerMissingPerson', data, {
+            headers: {
+
+                'Content-Type': 'multipart/form-data',
+            },
+        })
+            .then(res => {
+                console.log("The Response", res.data);
+                Toast.show({
+                  text: "Successfully Uploaded",
+                  type: "success",
+                  duration: 3000
+                });
+                this.props.navigation.navigate('Search');
+            }).catch(err => {
+              this.setState({loader:false});
+                console.log("ERROR", err)
+                Toast.show({
+                  text: "Error Occoured",
+                  type: "error",
+                  duration: 3000
+                });
+            });
+
+
+
+      
+    }
+
+    // this.props.addPerson(data);
   };
 
   openDrawer = () => {
@@ -351,13 +396,21 @@ class AddForm extends Component {
             </View>
           </Button>
           <View style={styles.inputViewStyle}>
+           {this.state.loader ?
+           
+           <Button
+           style={styles.submitBtn}
+           onPress={this.onSubmit}
+         >
+            <Spinner color='green' />
+         </Button>
+           :
             <Button
-              disabled={true}
               style={styles.submitBtn}
               onPress={this.onSubmit}
             >
               <Text>Submit & Post</Text>
-            </Button>
+            </Button>}
           </View>
         </Content>
       </Container>

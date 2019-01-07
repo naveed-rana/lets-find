@@ -2,7 +2,7 @@ import { GETUSER,USERLOGOUT,USERREGESTER } from "../../actions/UserActions";
 
 const INITIAL_STATE = {
   user:{},
-  userStatus:false,
+  userStatus:true,
   registerLoader:'intial'
 };
 

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from 'axios';
 import {
   Image,
   StatusBar,
@@ -134,12 +135,49 @@ class SearchScreen extends Component {
     console.log(this.state.image);
 
     console.log("====================================");
-    this.setState({
-      loader: true
-    });
-    setTimeout(() => {
-      this.setState({ loader: false });
-    }, 3000);
+    
+    if (this.state.image !== ''){
+
+    const data = new FormData();
+        data.append('image', {
+            uri: this.state.image.uri,
+            type: 'image/jpeg',
+            name: `${new Date().getTime()}.jpg`,
+        });
+           
+        this.setState({
+          loader: true
+        });
+
+        axios.post('http://10.123.69.29:2020/searchbyimage', data, {
+            headers: {
+
+                'Content-Type': 'multipart/form-data',
+            },
+        })
+            .then(res => {
+                console.log("The Response search by image",res.data.output);
+                
+                this.setState({
+                  loader: false
+                });
+                if (res.data.output !== 'no result') {
+                  if (  res.data.output.length >= 1 ) {
+                    this.setState({
+                      fakeArray: res.data.output
+                    });
+    
+                  }
+                }
+                
+
+            }).catch(err => {
+              this.setState({loader:false});
+                console.log("ERROR", err)
+            });
+
+          }
+
   };
 
   filterHandler = () => {
