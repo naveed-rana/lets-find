@@ -141,7 +141,7 @@ class EditPost extends Component {
      else {
       console.log("From react Component: ", data);
       this.props.modifyPerson(data);
-      this.props.navigation.navigate("ActiveCases");
+      this.props.navigation.navigate("Homes");
       Toast.show({
         text: "Successfully Uploaded",
         type: "success",
