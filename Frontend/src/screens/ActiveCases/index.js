@@ -208,7 +208,8 @@ class SearchScreen extends Component {
                                   gender: data.gender,
                                   disability: data.disability,
                                   description: data.description,
-                                  location: data.location
+                                  location: data.location,
+                                  id: data.id
                                 }
                               })
                             }
@@ -255,7 +256,8 @@ class SearchScreen extends Component {
                                         gender: data.gender,
                                         disability: data.disability,
                                         description: data.description,
-                                        location: data.location
+                                        location: data.location,
+                                        id: data.id,
                                       }
                                     })
                                   }

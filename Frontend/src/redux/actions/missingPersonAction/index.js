@@ -80,7 +80,7 @@ export function modifyPerson(data){
     console.log(data);
     return{
         type: MODIFY_PERSON,
-        data,
+        data: data,
     }
 }
 
