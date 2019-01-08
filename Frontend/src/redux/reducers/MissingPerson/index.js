@@ -35,21 +35,14 @@ function AddReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case ADD_PERSON: {
      
-      const newState = Object.assign({}, state, { homeStories: {
-        id: '2',
-        image: '',
-        status: 'Found',
-        name: 'Haseeba',
-        age: 'teen',
-        gender: 'female',
-        location: 'Lahore',
-        description: 'xyz',
-        disability: 'mental',
-        mobile: '+92 306 7134632',
-        post_By: 'Fayyaz'
-    }});
-      console.log('New state:', newState);
-      return newState;
+      
+    console.log('================from reducer====================');
+    console.log(state.homeStories.concat([action.data]));
+    console.log('====================================');
+      return { 
+        ...state,
+        homeStories: state.homeStories.concat([action.data])
+    }
 
 
         

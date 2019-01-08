@@ -97,107 +97,115 @@ class AddForm extends Component {
   }
 
   onSubmit = () => {
-    // const data = {
-    //   name: this.state.name,
-    //   gender: this.state.gender,
-    //   disability: this.state.disability,
-    //   location: this.state.location,
-    //   description: this.state.description,
-    //   status: this.state.status,
-    //   age: this.state.age,
-    //   image: this.state.image
-    // };
+    const data = {
+      name: this.state.name,
+      gender: this.state.gender,
+      disability: this.state.disability,
+      location: this.state.location,
+      description: this.state.description,
+      status: this.state.status,
+      age: this.state.age,
+      image: this.state.image
+    };
     
 
-    if (this.state.age == "" || this.state.age == "Select an age group") {
-      Toast.show({
-        text: "Select an age group",
-        type: "warning",
-        duration: 3000
-      });
-    } else if (this.state.gender == "" || this.state.gender == "Gender") {
-      Toast.show({
-        text: "Select Gender",
-        type: "warning",
-        duration: 3000
-      });
-    } else if (this.state.disability == "Select a Disability if any") {
-      Toast.show({
-        text: "Select a Disability",
-        type: "warning",
-        duration: 3000
-      });
-    } else if (this.state.location == "") {
-      Toast.show({
-        text: "Select the Location",
-        type: "warning",
-        duration: 3000
-      });
-    } else if (this.state.image == uploadimageIcon) {
-      Toast.show({
-        text: "Image is mendatory",
-        type: "warning",
-        duration: 3000
-      });
-    } else {
+    // if (this.state.age == "" || this.state.age == "Select an age group") {
+    //   Toast.show({
+    //     text: "Select an age group",
+    //     type: "warning",
+    //     duration: 3000
+    //   });
+    // } else if (this.state.gender == "" || this.state.gender == "Gender") {
+    //   Toast.show({
+    //     text: "Select Gender",
+    //     type: "warning",
+    //     duration: 3000
+    //   });
+    // } else if (this.state.disability == "Select a Disability if any") {
+    //   Toast.show({
+    //     text: "Select a Disability",
+    //     type: "warning",
+    //     duration: 3000
+    //   });
+    // } else if (this.state.location == "") {
+    //   Toast.show({
+    //     text: "Select the Location",
+    //     type: "warning",
+    //     duration: 3000
+    //   });
+    // } else if (this.state.image == uploadimageIcon) {
+    //   Toast.show({
+    //     text: "Image is mendatory",
+    //     type: "warning",
+    //     duration: 3000
+    //   });
+    // } else {
      
 
       this.setState({loader:true});
 
-      const data = new FormData();
-        data.append('image', {
-            uri: this.state.image.uri,
-            type: 'image/jpeg',
-            name: `${this.state.location}_${this.state.age}_${new Date().getTime()}.jpg`,
-        });
+      // const data = new FormData();
+      //   data.append('image', {
+      //       uri: this.state.image.uri,
+      //       type: 'image/jpeg',
+      //       name: `${this.state.location}_${this.state.age}_${new Date().getTime()}.jpg`,
+      //   });
        
-        data.append('name',`${this.state.name}`);
-        data.append('gender',`${this.state.gender}`);
-        data.append('disability',`${this.state.disability}`);
-        data.append('location',`${this.state.location}`);
-        data.append('description',`${this.state.description}`);
-        data.append('status',`${this.state.status}`);
-        data.append('age',`${this.state.age}`);
-        data.append('post_By','Naveed');
-        data.append('mobile','+923034766669');
+      //   data.append('name',`${this.state.name}`);
+      //   data.append('gender',`${this.state.gender}`);
+      //   data.append('disability',`${this.state.disability}`);
+      //   data.append('location',`${this.state.location}`);
+      //   data.append('description',`${this.state.description}`);
+      //   data.append('status',`${this.state.status}`);
+      //   data.append('age',`${this.state.age}`);
+      //   data.append('post_By','Naveed');
+      //   data.append('mobile','+923034766669');
 
-        axios.post('http://10.123.69.29:2020/registerMissingPerson', data, {
-            headers: {
+      //   axios.post('http://10.123.69.29:2020/registerMissingPerson', data, {
+      //       headers: {
 
-                'Content-Type': 'multipart/form-data',
-            },
-        })
-            .then(res => {
-                console.log("The Response", res.data);
-                Toast.show({
-                  text: "Successfully Uploaded",
-                  type: "success",
-                  duration: 3000
-                });
-                this.props.navigation.navigate('Search');
-            }).catch(err => {
-              this.setState({loader:false});
-                console.log("ERROR", err)
-                Toast.show({
-                  text: "Error Occoured",
-                  type: "error",
-                  duration: 3000
-                });
-            });
+      //           'Content-Type': 'multipart/form-data',
+      //       },
+      //   })
+      //       .then(res => {
+      //           console.log("The Response", res.data);
+      //           Toast.show({
+      //             text: "Successfully Uploaded",
+      //             type: "success",
+      //             duration: 3000
+      //           });
+      //           this.props.navigation.navigate('Search');
+      //       }).catch(err => {
+      //         this.setState({loader:false});
+      //           console.log("ERROR", err)
+      //           Toast.show({
+      //             text: "Error Occoured",
+      //             type: "error",
+      //             duration: 3000
+      //           });
+      //       });
 
 
 
       
-    }
+    // }
 
-    // this.props.addPerson(data);
+
+
+
+    this.props.addPerson(data);
   };
 
   openDrawer = () => {
     this.props.navigation.openDrawer();
   };
 
+ 
+
   render() {
+    console.log('============from render========================');
+
+
     const { navigation } = this.props;
     return (
       <Container>
@@ -412,6 +420,7 @@ class AddForm extends Component {
               <Text>Submit & Post</Text>
             </Button>}
           </View>
+         
         </Content>
       </Container>
     );
@@ -420,7 +429,8 @@ class AddForm extends Component {
 
 const mapStateToProps = (state) =>{
   return {
-    userStatus:state.userReducer.userStatus
+    userStatus:state.userReducer.userStatus,
+    missingPerson : state.misingPersons.homeStories
   }
 }
 export default connect(mapStateToProps,{ addPerson })(AddForm);

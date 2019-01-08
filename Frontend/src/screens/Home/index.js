@@ -60,11 +60,11 @@ class Home extends Component {
   }
 
   componentWillReceiveProps(newProp) {
-    console.log("====================================");
-    console.log(newProp);
+    console.log("==============from will rec props======================");
+    console.log(newProp.missingPersons);
     console.log("====================================");
     this.setState({
-      fakeArray: newProp
+      fakeArray: newProp.missingPersons
     });
   }
   componentDidMount() {
@@ -147,7 +147,6 @@ class Home extends Component {
           </Card>
 
           
-            <View>
               
               {/* PLus Button Ends*/}
               <ScrollView>
@@ -314,7 +313,6 @@ class Home extends Component {
                   );
                 })}
               </ScrollView>
-            </View>
               
               {userStatus ?  
               <TouchableOpacity
