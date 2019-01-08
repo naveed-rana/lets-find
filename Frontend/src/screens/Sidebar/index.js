@@ -16,9 +16,7 @@ class Sidebar extends Component {
     this.props.userLogout();
     this.props.navigation.closeDrawer();
   }
-  componentDidMount(){
-    this.props.registerUser();
-  }
+ 
 
 
   render() {
@@ -210,4 +208,4 @@ const mapStateToProps = (state) =>{
   }
 }
 
-export default connect(mapStateToProps,{userLogout,registerUser})(Sidebar);
+export default connect(mapStateToProps,{userLogout})(Sidebar);

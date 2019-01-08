@@ -1,9 +1,10 @@
-import { GETUSER,USERLOGOUT,USERREGESTER } from "../../actions/UserActions";
+import { GETUSER,USERLOGOUT,USERREGESTER,USERLOGINERROR,USERLOGIN } from "../../actions/UserActions";
 
 const INITIAL_STATE = {
   user:{},
-  userStatus:true,
-  registerLoader:'intial'
+  userStatus:false,
+  registerLoader:'intial',
+  loginLoader:'USERLOGINERROR'
 };
 
 function userReducer(state = INITIAL_STATE, action) {
@@ -29,14 +30,39 @@ function userReducer(state = INITIAL_STATE, action) {
     }
 
     case USERREGESTER:{
-      console.log('from reducer',action.payload);
          
       return {
         ...state,
-        registerLoader:'some'
+        registerLoader:action.payload
       }
 
     }
+
+    case USERLOGIN :{
+
+      if (action.payload._id){
+        return {
+          ...state,
+          userStatus:true,
+          user:action.payload,
+          loginLoader:'move'
+        }
+       } else {
+        return {
+          ...state,
+          loginLoader:Math.random()
+        };
+       }
+
+    }
+    
+    case USERLOGINERROR:{
+      return {
+        ...state,
+        loginLoader:Math.random()
+      };
+    }
+
 
     default:
       return state;

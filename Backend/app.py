@@ -187,7 +187,7 @@ def loginUser():
             session['userKey'] = key['$oid']
             session['userVal'] = userData
             print(session['userKey'])
-            return userAuth
+            return jsonify(userData)
         else:    
             return userAuth
     except Exception, e:

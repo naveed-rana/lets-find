@@ -34,12 +34,10 @@ class SignUpScreen extends Component {
   
 
   componentWillReceiveProps(nextProps) {
-    console.log('nextprops',nextProps);
     
-    if(nextProps.registerLoader === 'success'){
+    this.setState({loader: false});
+    if(nextProps.registerLoader == 'success'){
     this.props.navigation.navigate("Login");
-    }else{
-      this.setState({loading: false});
     }
 
     console.log('full state',this.state);
@@ -62,7 +60,7 @@ class SignUpScreen extends Component {
   }
   render() {
     const {loader} = this.state;
-   console.log('props from comp',loader);
+  //  console.log('props from comp',loader);
    
     return (
       <ImageBackground

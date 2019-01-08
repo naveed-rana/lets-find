@@ -31,10 +31,11 @@ const INITIAL_STATE = {
       mobile: "+92 306 7134632",
       post_By: "Naveed"
     }
-  ]
+  ] 
 };
 
 function AddReducer(state = INITIAL_STATE, action) {
+
   switch (action.type) {
     case ADD_PERSON: {
       return {
@@ -49,9 +50,7 @@ function AddReducer(state = INITIAL_STATE, action) {
       
       let newList = updateState.filter(item => item.id != id);
       newList.unshift(action.data);
-      console.log("=================newList from reducer===================");
-      console.log(newList);
-      console.log("====================================");
+      
 
       return {
         ...state,

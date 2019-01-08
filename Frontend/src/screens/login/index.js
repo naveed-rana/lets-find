@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import {getStartUserLogin} from '../../redux/actions/UserActions';
 import { ImageBackground, Image } from "react-native";
+import {connect} from 'react-redux';
 import {
   Text,
   Content,
@@ -8,32 +10,50 @@ import {
   Form,
   Icon,
   View,
-  Button
+  Button,
+  Spinner
 } from "native-base";
 
 import styles from "./style";
 
-export default class LoginScreen extends Component {
+class LoginScreen extends Component {
   constructor(Props) {
     super(Props);
     this.state = {
       email: "asif",
-      password: ""
+      password: "",
+      loader:false
     };
     
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log('lets move',nextProps.loginLoader);
+    this.setState({loader: false});
+    if(nextProps.loginLoader == 'move'){
+    this.props.navigation.navigate("AddPerson");
+    }
+    
+}
+
 
 
   onSubmit=()=>{
-    console.log('====================================');
-    console.log("Asif"+this.state.email);
-    console.log("Asif"+this.state.password);
 
-    console.log('====================================');
+    this.setState({loader:true})
+    let data = {"user":{
+      name:this.state.username,
+      email:this.state.email,
+      password:this.state.password,
+      cell:this.state.cell
+  }}
+
+  this.props.getStartUserLogin(data);
+
   }
 
   render() {
+    const {loader} = this.state;
     return (
       <ImageBackground
         source={require("../../media/bg_3.png")}
@@ -71,7 +91,7 @@ export default class LoginScreen extends Component {
               <Input
                 name="password"
                 onChangeText={(event)=>this.setState({password: event})}
-              
+                secureTextEntry={true}
                 placeholderTextColor="#fff"
                 style={styles.inputStyle}
                 placeholder="Password"
@@ -81,6 +101,19 @@ export default class LoginScreen extends Component {
             
 
             <Text style={styles.forgetStyle}>Forgot Password?</Text>
+            
+
+            {loader ? 
+          <Button
+          full
+          rounded
+          type="submit"
+          style={{ marginVertical: 20, backgroundColor: "white" }}
+          onPress={this.onSubmit}
+        >
+         <Spinner color='green' />
+        </Button>
+            :
             <Button
               full
               rounded
@@ -90,6 +123,8 @@ export default class LoginScreen extends Component {
             >
               <Text style={{ color: "black", fontWeight: "bold" }}>LOGIN</Text>
             </Button>
+            }
+
           </Form>
 
           <View style={styles.viewAccount}>
@@ -103,3 +138,12 @@ export default class LoginScreen extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) =>{
+  console.log('state for login loader ',state.userReducer);
+  
+  return{
+    loginLoader:state.userReducer.loginLoader
+  }}
+
+export default connect(mapStateToProps, {getStartUserLogin})(LoginScreen)

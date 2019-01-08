@@ -25,7 +25,7 @@ class MainApp extends Component {
   componentDidMount() {
 
     // this.props.getHomeStories();
-    // this.props.getUser();
+    this.props.getUser();
 
     setTimeout(() => {
       this.setState({ SplashScreens: false });
@@ -57,4 +57,4 @@ class MainApp extends Component {
   }
 }
 
-export default connect(null,null)(MainApp);
+export default connect(null,{getUser})(MainApp);

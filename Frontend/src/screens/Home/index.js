@@ -60,9 +60,9 @@ class Home extends Component {
   }
 
   componentWillReceiveProps(newProp) {
-    console.log("==============from will rec props======================");
-    console.log(newProp.missingPersons);
-    console.log("====================================");
+    // console.log("==============from will rec props======================");
+    // console.log(newProp.missingPersons);
+    // console.log("====================================");
     this.setState({
       fakeArray: newProp.missingPersons
     });
