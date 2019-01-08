@@ -103,7 +103,8 @@ class AddForm extends Component {
       description: this.state.description,
       status: this.state.status,
       age: this.state.age,
-      image: this.state.image
+      image: this.state.image,
+      id: Math.random() + 1
     };
 
     if (this.state.age == "" || this.state.age == "Select an age group") {

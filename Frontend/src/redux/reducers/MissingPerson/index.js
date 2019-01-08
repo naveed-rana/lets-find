@@ -37,27 +37,27 @@ const INITIAL_STATE = {
 function AddReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
     case ADD_PERSON: {
-     
       return {
         ...state,
         homeStories: state.homeStories.concat([action.data])
       };
     }
-    case MODIFY_PERSON:
-    {
+    case MODIFY_PERSON: {
       let updateState = state.homeStories;
       let id = action.data.id;
-      let newList = updateState.filter((item) => item.id != id);
-      console.log('=================newList from reducer===================');
-      console.log();
-      console.log('====================================');
-       newList.unshift(action.data);
+      console.log("id" + id);
+      
+      let newList = updateState.filter(item => item.id != id);
+      newList.unshift(action.data);
+      console.log("=================newList from reducer===================");
+      console.log(newList);
+      console.log("====================================");
 
- return ({
-          ...state,
-          homeStories: newList
-      });
-  }
+      return {
+        ...state,
+        homeStories: newList
+      };
+    }
 
     default:
       return state;
