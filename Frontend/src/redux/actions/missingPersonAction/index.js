@@ -4,6 +4,8 @@ export const GETLATESTSTORIES = 'GetStories';
 
 export const ADD_PERSON = 'ADD_PERSON';
 
+export const MODIFY_PERSON = "MODIFY_PERSON"
+
 
 // fetch all todos from indexedDB in the form of array
 
@@ -68,6 +70,17 @@ export function addPerson(data) {
     return {
         type: ADD_PERSON,
         data: data
+    }
+}
+
+
+
+export function modifyPerson(data){
+    console.log('===================from action=================');
+    console.log(data);
+    return{
+        type: MODIFY_PERSON,
+        data,
     }
 }
 

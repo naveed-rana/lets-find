@@ -23,10 +23,9 @@ import {
 import ImagePicker from "react-native-image-picker";
 import uploadimageIcon from "../../media/upload-photo.png";
 import { connect } from "react-redux";
-import { addPerson } from "../../redux/actions/missingPersonAction";
+import { modifyPerson } from "../../redux/actions/missingPersonAction";
 import styles from "./style";
 import FloatingLabelInput from "../AddForm/floatingLabelInput";
-
 
 const options = {
   title: "Select Option",
@@ -40,6 +39,7 @@ class EditPost extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: "",
       name: "",
       gender: "",
       disability: "",
@@ -50,7 +50,7 @@ class EditPost extends Component {
       image: uploadimageIcon,
       value: "",
       MistabBtnCls: styles.tabBtn,
-      FndtabBtnCls: styles.tabBtn
+      FndtabBtnCls: styles.tabBtn,
     };
   }
 
@@ -76,7 +76,7 @@ class EditPost extends Component {
 
   onValueChange(value) {
     this.setState({
-      age: value
+      age: value,
     });
   }
 
@@ -101,7 +101,9 @@ class EditPost extends Component {
       description: this.state.description,
       status: this.state.status,
       age: this.state.age,
-      image: this.state.image
+      image: this.state.image,
+      id: this.state.id,
+
     };
 
     if (this.state.age == "" || this.state.age == "Select an age group") {
@@ -128,15 +130,17 @@ class EditPost extends Component {
         type: "warning",
         duration: 3000
       });
-    } else if (this.state.image == uploadimageIcon) {
-      Toast.show({
-        text: "Image is mendatory",
-        type: "warning",
-        duration: 3000
-      });
-    } else {
+    }
+    //  else if (this.state.image == uploadimageIcon) {
+    //   Toast.show({
+    //     text: "Image is mendatory",
+    //     type: "warning",
+    //     duration: 3000
+    //   });
+    // }
+     else {
       console.log("From react Component: ", data);
-      this.props.addPerson(data);
+      this.props.modifyPerson(data);
       this.props.navigation.navigate("Home");
       Toast.show({
         text: "Successfully Uploaded",
@@ -147,44 +151,32 @@ class EditPost extends Component {
   };
   data = this.props.navigation.getParam("data", "NO-Data");
 
-componentDidMount(){
-  this.setState({
-    name: this.data.name,
-    gender: this.data.gender,
-    disability: this.data.disability,
-    location: this.data.location,
-    description: this.data.description,
-    status: this.data.status,
-    age: this.data.age,
-    
-    
-  })
-  if(this.data.status == "Missing"){
+  componentDidMount() {
     this.setState({
-      MistabBtnCls: styles.tabBtnColored
-    })
-  }else{
-    this.setState({
-      FndtabBtnCls: styles.tabBtnColored
-    })
+      name: this.data.name,
+      gender: this.data.gender,
+      disability: this.data.disability,
+      location: this.data.location,
+      description: this.data.description,
+      status: this.data.status,
+      age: this.data.age,
+      id: this.data.id,
+    });
+    if (this.data.status == "Missing") {
+      this.setState({
+        MistabBtnCls: styles.tabBtnColored
+      });
+    } else {
+      this.setState({
+        FndtabBtnCls: styles.tabBtnColored
+      });
+    }
   }
-}
 
-
-
-// data: {
-//   name: data.name,
-//   status: data.status,
-//   age: data.age,
-//   gender: data.gender,
-//   disability: data.disability,
-//   description: data.description,
-//   location: data.location
-// }
-
+  
 
   render() {
-    const{navigation} = this.props
+    const { navigation } = this.props;
 
     return (
       <Container>
@@ -217,12 +209,11 @@ componentDidMount(){
                   })
                 }
               >
-              {this.state.MistabBtnCls == styles.tabBtn?
-                <Text style={styles.tab}>Missing</Text>
-                :
-                <Text style={styles.tabwithClr}>Missing</Text>
-
-              }
+                {this.state.MistabBtnCls == styles.tabBtn ? (
+                  <Text style={styles.tab}>Missing</Text>
+                ) : (
+                  <Text style={styles.tabwithClr}>Missing</Text>
+                )}
               </Button>
             </Left>
             <Right>
@@ -238,15 +229,11 @@ componentDidMount(){
                 success
                 style={this.state.FndtabBtnCls}
               >
-
-
-              {this.state.FndtabBtnCls == styles.tabBtn?
-                <Text style={styles.tab}>Found</Text>
-                :
-                <Text style={styles.tabwithClr}>Found</Text>
-
-              }
-
+                {this.state.FndtabBtnCls == styles.tabBtn ? (
+                  <Text style={styles.tab}>Found</Text>
+                ) : (
+                  <Text style={styles.tabwithClr}>Found</Text>
+                )}
               </Button>
             </Right>
           </View>
@@ -255,6 +242,24 @@ componentDidMount(){
               label="Name"
               value={this.state.name}
               onChangeText={name => this.setState({ name: name })}
+            />
+          </View>
+
+          <View style={styles.inputViewStyle}>
+            <FloatingLabelInput
+              label="Location"
+              value={this.state.location}
+              onChangeText={location => this.setState({ location: location })}
+            />
+          </View>
+
+          <View style={styles.inputViewStyle}>
+            <FloatingLabelInput
+              label="Description"
+              value={this.state.description}
+              onChangeText={description =>
+                this.setState({ description: description })
+              }
             />
           </View>
 
@@ -270,11 +275,13 @@ componentDidMount(){
                 selectedValue={this.state.age}
                 onValueChange={this.onValueChange.bind(this)}
               >
+                <Picker.Item label={this.state.age} value={this.state.age} />
                 <Picker.Item
-                  style={{ color: "white" }}
-                  label="Select an age group"
-                  value="Select an age group"
+                style={{ color: "white" }}
+                label="Select an age group"
+                value="Select an age group"
                 />
+
                 <Picker.Item label="1 to 5" value="1 to 5" />
                 <Picker.Item label="6 to 10" value="6 to 10" />
                 <Picker.Item label="11 to 15" value="11 to 15" />
@@ -294,6 +301,11 @@ componentDidMount(){
                 selectedValue={this.state.gender}
                 onValueChange={this.onGenderChange.bind(this)}
               >
+                <Picker.Item
+                  label={this.state.gender}
+                  value={this.state.gender}
+                />
+
                 <Picker.Item label="Gender" value="Gender" />
                 <Picker.Item label="Male" value="Male" />
                 <Picker.Item label="Female" value="Female" />
@@ -308,6 +320,11 @@ componentDidMount(){
                 selectedValue={this.state.disability}
                 onValueChange={this.DisabilityHandler.bind(this)}
               >
+                <Picker.Item
+                  label={this.state.disability}
+                  value={this.state.disability}
+                />
+
                 <Picker.Item
                   label="Select a Disability if any"
                   value="Select a Disability if any"
@@ -339,23 +356,6 @@ componentDidMount(){
             </Item>
           </View>
 
-          <View style={styles.inputViewStyle}>
-            <FloatingLabelInput
-              label="Location"
-              value={this.state.location}
-              onChangeText={location => this.setState({ location: location })}
-            />
-          </View>
-
-          <View style={styles.inputViewStyle}>
-            <FloatingLabelInput
-              label="Description"
-              value={this.state.description}
-              onChangeText={description =>
-                this.setState({ description: description })
-              }
-            />
-          </View>
           <Button style={styles.imageInputStyle} onPress={this.uploadImage}>
             <View style={{ width: "100%", marginVertical: 20 }}>
               <Text style={styles.uploadTextStyle}>Upload Photo</Text>
@@ -387,5 +387,5 @@ componentDidMount(){
 
 export default connect(
   null,
-  { addPerson }
+  { modifyPerson }
 )(EditPost);
