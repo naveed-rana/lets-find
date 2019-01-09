@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StatusBar } from "react-native";
+import { StatusBar, Alert } from "react-native";
 import {
   View,
   Text,
@@ -18,7 +18,9 @@ import {
   Body,
   Picker,
   Label,
-  Toast
+  Toast,
+  ListItem,
+  CheckBox
 } from "native-base";
 import ImagePicker from "react-native-image-picker";
 import uploadimageIcon from "../../media/upload-photo.png";
@@ -51,6 +53,7 @@ class EditPost extends Component {
       value: "",
       MistabBtnCls: styles.tabBtn,
       FndtabBtnCls: styles.tabBtn,
+      resolvedCase: false
     };
   }
 
@@ -76,7 +79,7 @@ class EditPost extends Component {
 
   onValueChange(value) {
     this.setState({
-      age: value,
+      age: value
     });
   }
 
@@ -102,8 +105,7 @@ class EditPost extends Component {
       status: this.state.status,
       age: this.state.age,
       image: this.state.image,
-      id: this.state.id,
-
+      id: this.state.id
     };
 
     if (this.state.age == "" || this.state.age == "Select an age group") {
@@ -138,7 +140,7 @@ class EditPost extends Component {
     //     duration: 3000
     //   });
     // }
-     else {
+    else {
       console.log("From react Component: ", data);
       this.props.modifyPerson(data);
       this.props.navigation.navigate("ActiveCases");
@@ -149,6 +151,38 @@ class EditPost extends Component {
       });
     }
   };
+
+  confirmation = false;
+  resolvedCaseHandler = () => {
+    this.state.resolvedCase
+      ? this.setState({
+          resolvedCase: false
+        })
+      : Alert.alert(
+          this.data.name + "'s Case Resolution",
+          "Are your sure to resolve this case",
+          [
+            {
+              text: "Ask me later",
+              onPress: () => console.log("Ask me later pressed")
+            },
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel"
+            },
+            {
+              text: "OK",
+              onPress: () =>
+                this.setState({
+                  resolvedCase: true
+                })
+            }
+          ],
+          { cancelable: true }
+        );
+  };
+
   data = this.props.navigation.getParam("data", "NO-Data");
 
   componentDidMount() {
@@ -160,7 +194,7 @@ class EditPost extends Component {
       description: this.data.description,
       status: this.data.status,
       age: this.data.age,
-      id: this.data.id,
+      id: this.data.id
     });
     if (this.data.status == "Missing") {
       this.setState({
@@ -172,8 +206,6 @@ class EditPost extends Component {
       });
     }
   }
-
-  
 
   render() {
     const { navigation } = this.props;
@@ -195,6 +227,17 @@ class EditPost extends Component {
           </View>
         </View>
         <Content>
+          <View>
+            <ListItem
+              style={{marginLeft: 0, paddingLeft: 20}}
+              onPress={this.resolvedCaseHandler}
+            >
+              <CheckBox checked={this.state.resolvedCase} color="#05CE1D" />
+              <Body>
+                <Text>Mark this case as resolved</Text>
+              </Body>
+            </ListItem>
+          </View>
           <View style={styles.btnViewStyle}>
             <Left>
               <Button
@@ -277,9 +320,9 @@ class EditPost extends Component {
               >
                 <Picker.Item label={this.state.age} value={this.state.age} />
                 <Picker.Item
-                style={{ color: "white" }}
-                label="Select an age group"
-                value="Select an age group"
+                  style={{ color: "white" }}
+                  label="Select an age group"
+                  value="Select an age group"
                 />
 
                 <Picker.Item label="1 to 5" value="1 to 5" />

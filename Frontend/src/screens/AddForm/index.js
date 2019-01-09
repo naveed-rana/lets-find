@@ -142,7 +142,7 @@ class AddForm extends Component {
     else {
       this.setState({ loader: true });
       this.props.addPerson(data);
-      this.props.navigation.navigate("Homes");
+      this.props.navigation.navigate("ActiveCases");
       Toast.show({
         text: "Successfully Uploaded",
         type: "success",
@@ -416,7 +416,6 @@ class AddForm extends Component {
 const mapStateToProps = state => {
   return {
     userStatus: state.userReducer.userStatus,
-    missingPerson: state.misingPersons.homeStories
   };
 };
 export default connect(
