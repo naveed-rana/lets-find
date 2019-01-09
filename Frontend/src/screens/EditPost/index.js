@@ -140,7 +140,8 @@ class EditPost extends Component {
       description: this.data.description,
       status: this.data.status,
       age: this.data.age,
-      id: this.data.id
+      id: this.data.id,
+      image: this.data.image
     });
     if (this.data.status == "Missing") {
       this.setState({
@@ -191,13 +192,13 @@ class EditPost extends Component {
         duration: 3000
       });
     }
-    //  else if (this.state.image == uploadimageIcon) {
-    //   Toast.show({
-    //     text: "Image is mendatory",
-    //     type: "warning",
-    //     duration: 3000
-    //   });
-    // }
+     else if (this.state.image == uploadimageIcon) {
+      Toast.show({
+        text: "Image is mendatory",
+        type: "warning",
+        duration: 3000
+      });
+    }
     else {
       if(this.state.resolvedCase){
 

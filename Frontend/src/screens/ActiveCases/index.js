@@ -129,10 +129,10 @@ class SearchScreen extends Component {
       <Container>
         {/* <View style={styles.searchContainer}> */}
 
-          <View>
-            <StatusBar backgroundColor="#05CE1D" barStyle="light-content" />
-          </View>
-          <View style={styles.header}>
+        <View>
+          <StatusBar backgroundColor="#05CE1D" barStyle="light-content" />
+        </View>
+        <View style={styles.header}>
           <Icon
             onPress={() => navigation.goBack()}
             style={styles.headerIcon}
@@ -191,7 +191,7 @@ class SearchScreen extends Component {
                           >
                             <Image
                               style={styles.filterImage}
-                              source={require("../../media/sham.jpg")}
+                              source={data.image}
                             />
                           </TouchableOpacity>
                         </View>
@@ -209,7 +209,8 @@ class SearchScreen extends Component {
                                   disability: data.disability,
                                   description: data.description,
                                   location: data.location,
-                                  id: data.id
+                                  id: data.id,
+                                  image: data.image
                                 }
                               })
                             }
@@ -258,6 +259,7 @@ class SearchScreen extends Component {
                                         description: data.description,
                                         location: data.location,
                                         id: data.id,
+                                        image: data.image
                                       }
                                     })
                                   }

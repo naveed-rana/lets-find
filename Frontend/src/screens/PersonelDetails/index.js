@@ -82,7 +82,7 @@ constructor(props) {
                 <View style={{ flex: 1, justifyContent: "center" }}>
                   <Image
                     style={styles.modalImage}
-                    source={require("../../media/sham.jpg")}
+                    source={data.image}
                   />
                 </View>
               </View>
@@ -91,7 +91,7 @@ constructor(props) {
               onPress={() => this.setState({ modalVisible: true })}
             >
                 <View style={styles.imagePadding}>
-                  <Image style={styles.imageStyle} source={require('../../media/personel6.jpg')} />
+                  <Image style={styles.imageStyle} source={data.image} />
                 </View>
                 </TouchableOpacity>
               </Col>

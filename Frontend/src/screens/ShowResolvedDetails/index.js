@@ -83,7 +83,7 @@ export default class PersonalDetail extends Component {
                   <View style={styles.imagePadding}>
                     <Image
                       style={styles.imageStyle}
-                      source={require("../../media/personel6.jpg")}
+                      source={data.image}
                     />
                   </View>
                 </TouchableOpacity>
