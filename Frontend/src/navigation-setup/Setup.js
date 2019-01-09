@@ -21,7 +21,8 @@ import AddPersons from '../screens/AddForm';
 import DrawerScreen from '../screens/Sidebar';
 import EditPostScreen from '../screens/EditPost';
 import ActiveCasesScreen from '../screens/ActiveCases';
-import ResolvedCasedScreen from '../screens/ResolvedCases'
+import ResolvedCasedScreen from '../screens/ResolvedCases';
+import ShowResolvedDetail from '../screens/ShowResolvedDetails'
 
 const HomeStack = createStackNavigator({
   Homes: HomeScreen,
@@ -35,7 +36,8 @@ const HomeStack = createStackNavigator({
   AddPerson: AddPersons,
   Login: LoginScreen,
   Search:SearchScreen,
-  Notifications: NotificationScreen
+  Notifications: NotificationScreen,
+  ResolvedCaseDetail: ShowResolvedDetail,
 },
 {
   headerMode: 'none',

@@ -87,7 +87,7 @@ class SearchScreen extends Component {
     });
   };
   componentDidMount() {
-    this.setState({ fakeArray: this.props.missingPersons });
+    this.setState({ fakeArray: this.props.ResolvedCases });
   }
 
   openDrawer = () => {
@@ -273,7 +273,7 @@ class SearchScreen extends Component {
 
 const mapStateToProps = state => {
   return {
-    missingPersons: state.misingPersons.homeStories
+    ResolvedCases: state.misingPersons.ResolvedCases
   };
 };
 
@@ -281,3 +281,5 @@ export default connect(
   mapStateToProps,
   null
 )(SearchScreen);
+
+// missingPersons

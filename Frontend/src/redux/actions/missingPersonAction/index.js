@@ -5,6 +5,8 @@ export const GETLATESTSTORIES = 'GetStories';
 export const ADD_PERSON = 'ADD_PERSON';
 
 export const MODIFY_PERSON = "MODIFY_PERSON"
+export const RESOLVED_CASES = "RESOLVED_CASES"
+
 
 
 // fetch all todos from indexedDB in the form of array
@@ -76,10 +78,17 @@ export function addPerson(data) {
 
 
 export function modifyPerson(data){
-    console.log('===================from action=================');
     console.log(data);
     return{
         type: MODIFY_PERSON,
+        data: data,
+    }
+}
+export function resolvedCases(data){
+    console.log('===================from action=================');
+    console.log(data);
+    return{
+        type: RESOLVED_CASES,
         data: data,
     }
 }

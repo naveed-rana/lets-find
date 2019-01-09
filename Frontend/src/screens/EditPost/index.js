@@ -28,6 +28,7 @@ import { connect } from "react-redux";
 import { modifyPerson } from "../../redux/actions/missingPersonAction";
 import styles from "./style";
 import FloatingLabelInput from "../AddForm/floatingLabelInput";
+import { resolvedCases } from "../../redux/actions/missingPersonAction";
 
 const options = {
   title: "Select Option",
@@ -95,6 +96,63 @@ class EditPost extends Component {
     });
   }
 
+  
+  confirmation = false;
+  resolvedCaseHandler = () => {
+    this.state.resolvedCase
+      ? this.setState({
+          resolvedCase: false
+        })
+      : Alert.alert(
+          this.data.name + "'s Case Resolution",
+          "Are your sure to resolve this case",
+          [
+            {
+              text: "Ask me later",
+              onPress: () => console.log("Ask me later pressed")
+            },
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel"
+            },
+            {
+              text: "OK",
+              onPress: () =>
+                this.setState({
+                  resolvedCase: true,
+                  status: "Resolved"
+                })
+            }
+          ],
+          { cancelable: true }
+        );
+  };
+
+  data = this.props.navigation.getParam("data", "NO-Data");
+
+  componentDidMount() {
+    this.setState({
+      name: this.data.name,
+      gender: this.data.gender,
+      disability: this.data.disability,
+      location: this.data.location,
+      description: this.data.description,
+      status: this.data.status,
+      age: this.data.age,
+      id: this.data.id
+    });
+    if (this.data.status == "Missing") {
+      this.setState({
+        MistabBtnCls: styles.tabBtnColored
+      });
+    } else {
+      this.setState({
+        FndtabBtnCls: styles.tabBtnColored
+      });
+    }
+  }
+
   onSubmit = () => {
     const data = {
       name: this.state.name,
@@ -141,71 +199,31 @@ class EditPost extends Component {
     //   });
     // }
     else {
-      console.log("From react Component: ", data);
-      this.props.modifyPerson(data);
-      this.props.navigation.navigate("ActiveCases");
-      Toast.show({
-        text: "Successfully Uploaded",
-        type: "success",
-        duration: 3000
-      });
+      if(this.state.resolvedCase){
+
+
+        console.log("From react Component: ", data);
+        this.props.resolvedCases(data);
+        this.props.navigation.navigate("ActiveCases");
+        Toast.show({
+          text: "Successfully Resolve This case",
+          type: "success",
+          duration: 3000
+        });
+      }else{
+        console.log("From react Component: ", data);
+        this.props.modifyPerson(data);
+        this.props.navigation.navigate("ActiveCases");
+        Toast.show({
+          text: "Successfully Updated",
+          type: "success",
+          duration: 3000
+        });
+      }
     }
   };
 
-  confirmation = false;
-  resolvedCaseHandler = () => {
-    this.state.resolvedCase
-      ? this.setState({
-          resolvedCase: false
-        })
-      : Alert.alert(
-          this.data.name + "'s Case Resolution",
-          "Are your sure to resolve this case",
-          [
-            {
-              text: "Ask me later",
-              onPress: () => console.log("Ask me later pressed")
-            },
-            {
-              text: "Cancel",
-              onPress: () => console.log("Cancel Pressed"),
-              style: "cancel"
-            },
-            {
-              text: "OK",
-              onPress: () =>
-                this.setState({
-                  resolvedCase: true
-                })
-            }
-          ],
-          { cancelable: true }
-        );
-  };
 
-  data = this.props.navigation.getParam("data", "NO-Data");
-
-  componentDidMount() {
-    this.setState({
-      name: this.data.name,
-      gender: this.data.gender,
-      disability: this.data.disability,
-      location: this.data.location,
-      description: this.data.description,
-      status: this.data.status,
-      age: this.data.age,
-      id: this.data.id
-    });
-    if (this.data.status == "Missing") {
-      this.setState({
-        MistabBtnCls: styles.tabBtnColored
-      });
-    } else {
-      this.setState({
-        FndtabBtnCls: styles.tabBtnColored
-      });
-    }
-  }
 
   render() {
     const { navigation } = this.props;
@@ -430,5 +448,5 @@ class EditPost extends Component {
 
 export default connect(
   null,
-  { modifyPerson }
+  { modifyPerson, resolvedCases }
 )(EditPost);

@@ -1,5 +1,6 @@
 import { ADD_PERSON } from "../../actions/missingPersonAction";
 import { MODIFY_PERSON } from "../../actions/missingPersonAction";
+import { RESOLVED_CASES } from "../../actions/missingPersonAction";
 
 import homeStories from "../../fakeArray";
 
@@ -33,6 +34,21 @@ const INITIAL_STATE = {
       mobile: "+92 306 7134632",
       post_By: "Naveed"
     }
+  ],
+  ResolvedCases: [
+    {
+      id: "2",  
+      image: "",
+      status: "Resoloved",
+      name: "Haseeba",
+      age: "teen",
+      gender: "female",
+      location: "Lahore",
+      description: "xyz",
+      disability: "mental",
+      mobile: "+92 306 7134632",
+      post_By: "Fayyaz"
+    },
   ]
 };
 
@@ -51,14 +67,30 @@ function AddReducer(state = INITIAL_STATE, action) {
       
       let newList = updateState.filter(item => item.id != id);
       newList.unshift(action.data);
-      console.log("=================newList from reducer===================");
-      console.log(newList);
-      console.log("====================================");
+     
 
       return {
         ...state,
         UserPosts: newList
       };
+    }
+
+    case RESOLVED_CASES:{
+      let updateState = state.UserPosts;
+      let id = action.data.id;
+      console.log("id" + id);
+      
+      let newList = updateState.filter(item => item.id != id);
+      console.log('=============from resolved reducer=======================');
+      console.log(newList);
+      console.log('====================================');
+      
+      return{
+        ...state,
+        UserPosts: newList,
+        ResolvedCases: state.ResolvedCases.concat([action.data])
+
+      }
     }
 
     default:
