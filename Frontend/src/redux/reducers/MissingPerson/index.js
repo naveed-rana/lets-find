@@ -1,12 +1,14 @@
 import { ADD_PERSON } from "../../actions/missingPersonAction";
 import { MODIFY_PERSON } from "../../actions/missingPersonAction";
 
-import intialArray from "../../fakeArray";
+import homeStories from "../../fakeArray";
 
 const INITIAL_STATE = {
-  homeStories: [
+  homeStories: homeStories,
+
+  UserPosts: [
     {
-      id: "2",
+      id: "2",  
       image: "",
       status: "Found",
       name: "Haseeba",
@@ -39,11 +41,11 @@ function AddReducer(state = INITIAL_STATE, action) {
     case ADD_PERSON: {
       return {
         ...state,
-        homeStories: state.homeStories.concat([action.data])
+        UserPosts: state.UserPosts.concat([action.data])
       };
     }
     case MODIFY_PERSON: {
-      let updateState = state.homeStories;
+      let updateState = state.UserPosts;
       let id = action.data.id;
       console.log("id" + id);
       
@@ -55,7 +57,7 @@ function AddReducer(state = INITIAL_STATE, action) {
 
       return {
         ...state,
-        homeStories: newList
+        UserPosts: newList
       };
     }
 

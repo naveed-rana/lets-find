@@ -309,7 +309,7 @@ class SearchScreen extends Component {
 
 const mapStateToProps = state => {
   return {
-    missingPersons: state.misingPersons.homeStories
+    missingPersons: state.misingPersons.UserPosts
   };
 };
 
