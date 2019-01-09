@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import axios from 'axios';
+import axios from "axios";
 import {
   Image,
   StatusBar,
   ScrollView,
   TouchableOpacity,
-  Modal
+  Modal,
+  Share
 } from "react-native";
 import {
   View,
@@ -28,6 +29,7 @@ import ImagePicker from "react-native-image-picker";
 import styles from "./style";
 
 import { connect } from "react-redux";
+import { search } from "../../redux/actions/SearchAction";
 
 const options = {
   title: "Select Option",
@@ -89,7 +91,7 @@ class SearchScreen extends Component {
     });
   };
   componentDidMount() {
-    this.setState({ fakeArray: this.props.missingPersons });
+    this.setState({ fakeArray: this.props.SearchStories });
   }
 
   onSubmit = () => {
@@ -131,53 +133,67 @@ class SearchScreen extends Component {
   };
 
   SearchHandler = () => {
+    const image = this.state.image;
     console.log("=============from searchby image=======================");
-    console.log(this.state.image);
+    console.log(image);
 
     console.log("====================================");
-    
-    if (this.state.image !== ''){
+    if (image == "") {
+      Toast.show({
+        text: "Please Select an image to search",
+        type: "warning",
+        duration: 3000
+      });
+    } else {
+      this.props.search(image);
+      this.setState({
+        loader: true
+      });
+      setTimeout(() => {
+        this.setState({ loader: false });
+      }, 3000);
+    }
 
-    const data = new FormData();
-        data.append('image', {
-            uri: this.state.image.uri,
-            type: 'image/jpeg',
-            name: `${new Date().getTime()}.jpg`,
-        });
-           
-        this.setState({
-          loader: true
-        });
+    // if (this.state.image !== ''){
 
-        axios.post('http://10.123.69.29:2020/searchbyimage', data, {
-            headers: {
+    // const data = new FormData();
+    //     data.append('image', {
+    //         uri: this.state.image.uri,
+    //         type: 'image/jpeg',
+    //         name: `${new Date().getTime()}.jpg`,
+    //     });
 
-                'Content-Type': 'multipart/form-data',
-            },
-        })
-            .then(res => {
-                console.log("The Response search by image",res.data.output);
-                
-                this.setState({
-                  loader: false
-                });
-                if (res.data.output !== 'no result') {
-                  if (  res.data.output.length >= 1 ) {
-                    this.setState({
-                      fakeArray: res.data.output
-                    });
-    
-                  }
-                }
-                
+    //     this.setState({
+    //       loader: true
+    //     });
 
-            }).catch(err => {
-              this.setState({loader:false});
-                console.log("ERROR", err)
-            });
+    //     axios.post('http://10.123.69.29:2020/searchbyimage', data, {
+    //         headers: {
 
-          }
+    //             'Content-Type': 'multipart/form-data',
+    //         },
+    //     })
+    //         .then(res => {
+    //             console.log("The Response search by image",res.data.output);
 
+    //             this.setState({
+    //               loader: false
+    //             });
+    //             if (res.data.output !== 'no result') {
+    //               if (  res.data.output.length >= 1 ) {
+    //                 this.setState({
+    //                   fakeArray: res.data.output
+    //                 });
+
+    //               }
+    //             }
+
+    //         }).catch(err => {
+    //           this.setState({loader:false});
+    //             console.log("ERROR", err)
+    //         });
+
+    //       }
   };
 
   filterHandler = () => {
@@ -207,14 +223,21 @@ class SearchScreen extends Component {
         duration: 3000
       });
     } else {
-      console.log("=============from filer hander=======================");
-      console.log(this.state.selectedStatus);
-      console.log(this.state.selectedDisability);
-      console.log(this.state.selectedGender);
-      console.log(this.state.selectedAgeGroup);
-      console.log(this.state.filterLocation);
-
+      var data = {
+        image: this.state.image,
+        name: this.state.searchName,
+        status: this.state.selectedStatus,
+        disability: this.state.selectedDisability,
+        gender: this.state.selectedGender,
+        age: this.state.selectedAgeGroup,
+        location: this.state.filterLocation
+      };
+      console.log("=============from search comp=======================");
+      console.log(data);
       console.log("====================================");
+
+      this.props.search(data);
+
       // for only loader checking temporarily
       this.setState({
         loader: true
@@ -561,11 +584,11 @@ class SearchScreen extends Component {
 
 const mapStateToProps = state => {
   return {
-    missingPersons: state.misingPersons.homeStories
+    SearchStories: state.SearchReducer.SearchStories
   };
 };
 
 export default connect(
   mapStateToProps,
-  null
+  { search }
 )(SearchScreen);
