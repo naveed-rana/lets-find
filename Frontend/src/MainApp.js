@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Container } from "native-base";
-// import Setup from './src/navigation-setup/Setup';
+import SplashScreen from './screens/SplashScreen/SplashScreen';
 import Setup from "./navigation-setup/Setup";
 import { PermissionsAndroid } from "react-native";
 
@@ -29,7 +29,8 @@ class MainApp extends Component {
 
     setTimeout(() => {
       this.setState({ SplashScreens: false });
-    }, 3000);
+    }, 100);
+
     this.requestPermission();
   }
   async requestPermission() {
@@ -51,7 +52,11 @@ class MainApp extends Component {
     const { SplashScreens } = this.state;
     return (
       <Container>
+        {SplashScreens ?
+        <SplashScreen/>
+        :
         <Setup />
+        }
       </Container>
     );
   }

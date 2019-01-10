@@ -27,7 +27,10 @@ import {
 import ImagePicker from "react-native-image-picker";
 import styles from "./style";
 
+import EndPoint from '../../endpoint';
+
 import { connect } from "react-redux";
+import endpoint from "../../endpoint";
 
 const options = {
   title: "Select Option",
@@ -49,6 +52,7 @@ class SearchScreen extends Component {
       image: "",
       searchName: "",
       loader: false,
+      onlineURL:false,
 
       fakeArray: [
         {
@@ -149,7 +153,7 @@ class SearchScreen extends Component {
           loader: true
         });
 
-        axios.post('http://10.123.69.29:2020/searchbyimage', data, {
+        axios.post(`${EndPoint}/searchbyimage`, data, {
             headers: {
 
                 'Content-Type': 'multipart/form-data',
@@ -164,11 +168,24 @@ class SearchScreen extends Component {
                 if (res.data.output !== 'no result') {
                   if (  res.data.output.length >= 1 ) {
                     this.setState({
-                      fakeArray: res.data.output
+                      fakeArray: res.data.output,
+                      onlineURL:true
                     });
     
                   }
+                  else{
+                    this.setState({
+                      onlineURL:false
+                    });
+                  }
+
+
                 }
+                 else{
+                    this.setState({
+                      onlineURL:false
+                    });
+                  }
                 
 
             }).catch(err => {
@@ -226,6 +243,7 @@ class SearchScreen extends Component {
   };
 
   render() {
+    const {userStatus} = this.props;
     return (
       <Container>
         <View>
@@ -254,7 +272,8 @@ class SearchScreen extends Component {
           <TouchableOpacity
             style={styles.filterContainer}
             onPress={this.toggleFilter}
-          >
+          >  
+             {}
             <Image source={require("../../media/Filters.png")} />
           </TouchableOpacity>
           {this.state.show ? (
@@ -445,10 +464,17 @@ class SearchScreen extends Component {
                                 <View
                                   style={{ flex: 1, justifyContent: "center" }}
                                 >
-                                  <Image
-                                    style={styles.modalImage}
-                                    source={require("../../media/sham.jpg")}
-                                  />
+                                 
+                             {this.state.onlineURL? 
+                              <Image
+             source={{uri:`${endpoint}/data/found/${data.image}`}}
+             />
+             :
+             <Image
+             style={styles.filterImage}
+             source={require("../../media/sham.jpg")}
+           />
+             }
                                 </View>
                               </View>
                             </Modal>
@@ -457,10 +483,18 @@ class SearchScreen extends Component {
                                 this.setState({ modalVisible: true })
                               }
                             >
+
+                             {this.state.onlineURL? 
                               <Image
-                                style={styles.filterImage}
-                                source={require("../../media/sham.jpg")}
-                              />
+             source={{uri:`${endpoint}/data/found/${data.image}`}}
+             />
+             :
+             <Image
+             style={styles.filterImage}
+             source={require("../../media/sham.jpg")}
+           />
+             }
+                             
                             </TouchableOpacity>
                           </View>
 
@@ -554,6 +588,33 @@ class SearchScreen extends Component {
             })}
           </ScrollView>
         )}
+
+
+            {userStatus ?  
+              <TouchableOpacity
+                style={styles.addNewButton}
+                onPress={() => this.props.navigation.navigate("AddPerson")}
+              >
+                <Icon
+                  type="AntDesign"
+                  name="plus"
+                  style={{ fontSize: 20, color: "#fff" }}
+                  color="white"
+                />
+              </TouchableOpacity>
+              :
+              <TouchableOpacity
+                style={styles.addNewButton}
+                onPress={() => this.props.navigation.navigate("Login")}
+              >
+                <Icon
+                  type="AntDesign"
+                  name="plus"
+                  style={{ fontSize: 20, color: "#fff" }}
+                  color="white"
+                />
+              </TouchableOpacity>
+              }
       </Container>
     );
   }
@@ -561,6 +622,7 @@ class SearchScreen extends Component {
 
 const mapStateToProps = state => {
   return {
+    userStatus:state.userReducer.userStatus,
     missingPersons: state.misingPersons.homeStories
   };
 };

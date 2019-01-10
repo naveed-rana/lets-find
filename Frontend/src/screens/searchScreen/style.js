@@ -10,6 +10,24 @@ export default styles = StyleSheet.create({
         borderBottomWidth:1,
         borderColor:"grey"
     },
+    addNewButton: {
+        backgroundColor: "#05CE1D",
+        alignItems: "center",
+        width: 50,
+        // alignSelf:'center',
+        position: "absolute",
+        bottom: 10,
+        right: 10,
+        justifyContent: "center",
+        height: 50,
+        borderRadius: 100,
+        shadowOffset: { width: 10, height: 10 },
+        shadowColor: "#05CE1D",
+        shadowOpacity: 1,
+        elevation: 3,
+        zIndex: 999,
+        shadowRadius: 15
+      },
     searchInput: {
         color: '#f5f5f5',
         backgroundColor: '#fff',
