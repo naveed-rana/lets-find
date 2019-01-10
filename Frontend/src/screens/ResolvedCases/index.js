@@ -87,7 +87,7 @@ class SearchScreen extends Component {
     });
   };
   componentDidMount() {
-    this.setState({ fakeArray: this.props.missingPersons });
+    this.setState({ fakeArray: this.props.ResolvedCases });
   }
 
   openDrawer = () => {
@@ -162,7 +162,7 @@ class SearchScreen extends Component {
                           >
                             <Image
                               style={styles.filterImage}
-                              source={require("../../media/sham.jpg")}
+                              source={data.image}
                             />
                           </TouchableOpacity>
                         </View>
@@ -179,7 +179,8 @@ class SearchScreen extends Component {
                                   gender: data.gender,
                                   disability: data.disability,
                                   description: data.description,
-                                  location: data.location
+                                  location: data.location,
+                                  image: data.image
                                 }
                               })
                             }
@@ -221,7 +222,8 @@ class SearchScreen extends Component {
                                         gender: data.gender,
                                         disability: data.disability,
                                         description: data.description,
-                                        location: data.location
+                                        location: data.location,
+                                        image: data.image
                                       }
                                     })
                                   }
@@ -273,7 +275,7 @@ class SearchScreen extends Component {
 
 const mapStateToProps = state => {
   return {
-    missingPersons: state.misingPersons.homeStories
+    ResolvedCases: state.misingPersons.ResolvedCases
   };
 };
 
@@ -281,3 +283,5 @@ export default connect(
   mapStateToProps,
   null
 )(SearchScreen);
+
+// missingPersons

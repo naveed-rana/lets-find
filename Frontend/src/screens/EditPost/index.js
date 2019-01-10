@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StatusBar } from "react-native";
+import { StatusBar, Alert } from "react-native";
 import {
   View,
   Text,
@@ -18,7 +18,9 @@ import {
   Body,
   Picker,
   Label,
-  Toast
+  Toast,
+  ListItem,
+  CheckBox
 } from "native-base";
 import ImagePicker from "react-native-image-picker";
 import uploadimageIcon from "../../media/upload-photo.png";
@@ -26,6 +28,7 @@ import { connect } from "react-redux";
 import { modifyPerson } from "../../redux/actions/missingPersonAction";
 import styles from "./style";
 import FloatingLabelInput from "../AddForm/floatingLabelInput";
+import { resolvedCases } from "../../redux/actions/missingPersonAction";
 
 const options = {
   title: "Select Option",
@@ -51,6 +54,7 @@ class EditPost extends Component {
       value: "",
       MistabBtnCls: styles.tabBtn,
       FndtabBtnCls: styles.tabBtn,
+      resolvedCase: false
     };
   }
 
@@ -76,7 +80,7 @@ class EditPost extends Component {
 
   onValueChange(value) {
     this.setState({
-      age: value,
+      age: value
     });
   }
 
@@ -92,6 +96,64 @@ class EditPost extends Component {
     });
   }
 
+  
+  confirmation = false;
+  resolvedCaseHandler = () => {
+    this.state.resolvedCase
+      ? this.setState({
+          resolvedCase: false
+        })
+      : Alert.alert(
+          this.data.name + "'s Case Resolution",
+          "Are your sure to resolve this case",
+          [
+            {
+              text: "Ask me later",
+              onPress: () => console.log("Ask me later pressed")
+            },
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel"
+            },
+            {
+              text: "OK",
+              onPress: () =>
+                this.setState({
+                  resolvedCase: true,
+                  status: "Resolved"
+                })
+            }
+          ],
+          { cancelable: true }
+        );
+  };
+
+  data = this.props.navigation.getParam("data", "NO-Data");
+
+  componentDidMount() {
+    this.setState({
+      name: this.data.name,
+      gender: this.data.gender,
+      disability: this.data.disability,
+      location: this.data.location,
+      description: this.data.description,
+      status: this.data.status,
+      age: this.data.age,
+      id: this.data.id,
+      image: this.data.image
+    });
+    if (this.data.status == "Missing") {
+      this.setState({
+        MistabBtnCls: styles.tabBtnColored
+      });
+    } else {
+      this.setState({
+        FndtabBtnCls: styles.tabBtnColored
+      });
+    }
+  }
+
   onSubmit = () => {
     const data = {
       name: this.state.name,
@@ -102,8 +164,7 @@ class EditPost extends Component {
       status: this.state.status,
       age: this.state.age,
       image: this.state.image,
-      id: this.state.id,
-
+      id: this.state.id
     };
 
     if (this.state.age == "" || this.state.age == "Select an age group") {
@@ -131,49 +192,39 @@ class EditPost extends Component {
         duration: 3000
       });
     }
-    //  else if (this.state.image == uploadimageIcon) {
-    //   Toast.show({
-    //     text: "Image is mendatory",
-    //     type: "warning",
-    //     duration: 3000
-    //   });
-    // }
-     else {
-      console.log("From react Component: ", data);
-      this.props.modifyPerson(data);
-      this.props.navigation.navigate("ActiveCases");
+     else if (this.state.image == uploadimageIcon) {
       Toast.show({
-        text: "Successfully Uploaded",
-        type: "success",
+        text: "Image is mendatory",
+        type: "warning",
         duration: 3000
       });
     }
-  };
-  data = this.props.navigation.getParam("data", "NO-Data");
+    else {
+      if(this.state.resolvedCase){
 
-  componentDidMount() {
-    this.setState({
-      name: this.data.name,
-      gender: this.data.gender,
-      disability: this.data.disability,
-      location: this.data.location,
-      description: this.data.description,
-      status: this.data.status,
-      age: this.data.age,
-      id: this.data.id,
-    });
-    if (this.data.status == "Missing") {
-      this.setState({
-        MistabBtnCls: styles.tabBtnColored
-      });
-    } else {
-      this.setState({
-        FndtabBtnCls: styles.tabBtnColored
-      });
+
+        console.log("From react Component: ", data);
+        this.props.resolvedCases(data);
+        this.props.navigation.navigate("ActiveCases");
+        Toast.show({
+          text: "Successfully Resolve This case",
+          type: "success",
+          duration: 3000
+        });
+      }else{
+        console.log("From react Component: ", data);
+        this.props.modifyPerson(data);
+        this.props.navigation.navigate("ActiveCases");
+        Toast.show({
+          text: "Successfully Updated",
+          type: "success",
+          duration: 3000
+        });
+      }
     }
-  }
+  };
 
-  
+
 
   render() {
     const { navigation } = this.props;
@@ -195,6 +246,17 @@ class EditPost extends Component {
           </View>
         </View>
         <Content>
+          <View>
+            <ListItem
+              style={{marginLeft: 0, paddingLeft: 20}}
+              onPress={this.resolvedCaseHandler}
+            >
+              <CheckBox checked={this.state.resolvedCase} color="#05CE1D" />
+              <Body>
+                <Text>Mark this case as resolved</Text>
+              </Body>
+            </ListItem>
+          </View>
           <View style={styles.btnViewStyle}>
             <Left>
               <Button
@@ -277,9 +339,9 @@ class EditPost extends Component {
               >
                 <Picker.Item label={this.state.age} value={this.state.age} />
                 <Picker.Item
-                style={{ color: "white" }}
-                label="Select an age group"
-                value="Select an age group"
+                  style={{ color: "white" }}
+                  label="Select an age group"
+                  value="Select an age group"
                 />
 
                 <Picker.Item label="1 to 5" value="1 to 5" />
@@ -387,5 +449,5 @@ class EditPost extends Component {
 
 export default connect(
   null,
-  { modifyPerson }
+  { modifyPerson, resolvedCases }
 )(EditPost);

@@ -412,7 +412,6 @@ class AddForm extends Component {
 const mapStateToProps = state => {
   return {
     userStatus: state.userReducer.userStatus,
-    missingPerson: state.misingPersons.homeStories
   };
 };
 export default connect(
