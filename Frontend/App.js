@@ -4,6 +4,7 @@ import { Root } from "native-base";
 import store from './src/redux/store';
 import { Provider } from 'react-redux';
 // import Add from './src/screens/signup';
+import Aboutus from './src/screens/AboutUs'
 
 
 export default class App extends Component {
@@ -13,7 +14,7 @@ export default class App extends Component {
       <Root>
       <Provider store={store}>
         <MainApp />
-        {/* <Add/> */}
+        {/* <Aboutus/> */}
       </Provider>
       </Root>
     );
