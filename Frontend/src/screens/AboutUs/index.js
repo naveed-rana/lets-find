@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StatusBar, ImageBackground } from "react-native";
+import { StatusBar, ImageBackground, Image } from "react-native";
 import {
   Container,
   Header,
@@ -10,12 +10,16 @@ import {
   Icon,
   Title,
   View,
-  Text
+  Text,
+  Card,
+  CardItem,
+  Thumbnail,
+  Content
 } from "native-base";
 import { styles } from "./style";
 import { ScrollView } from "react-native-gesture-handler";
 
-export default class HeaderIconExample extends Component {
+export default class AboutUs extends Component {
   openDrawer = () => {
     this.props.navigation.openDrawer();
   };
@@ -39,42 +43,82 @@ export default class HeaderIconExample extends Component {
             onPress={() => this.openDrawer()}
           />
         </View>
-        <ImageBackground
-          source={require("../../media/Aboutus.jpg")}
-          style={{ width: "100%", shadowOpacity: 1 }}
-        >
-          <ScrollView>
-            <View style={styles.aboutusContentView}>
-              <Text style={styles.aboutusContent}>
-                A missing person is a person who has disappeared and whose
-                status as alive or dead cannot be confirmed as his or her
-                location and fate are not known. A person may go missing through
-                a voluntary disappearance, or else due to an accident, crime,
-                death in a location where they cannot be found (such as at sea),
-                or many other reasons. In most parts of the world, a missing
-                person will usually be found quickly. While criminal abductions
-                are some of the most widely reported missing person cases, these
-                account for only 2–5% of missing children in Europe. By
-                contrast, some missing person cases remain unresolved for many
-                years. Laws related to these cases are often complex since, in
-                many jurisdictions, relatives and third parties may not deal
-                with a person's assets until their death is considered proven by
-                law and a formal death certificate issued. The situation,
-                uncertainties, and lack of closure or a funeral resulting when a
-                person goes missing may be extremely painful with long-lasting
-                effects on family and friends. A number of organizations seek to
-                connect, share best practices, and disseminate information and
-                images of missing children to improve the effectiveness of
-                missing children investigations, including the International
-                Centre for Missing & Exploited Children (ICMEC), as well as
-                national centers, including the National Center for Missing &
-                Exploited Children in the US, Missing People in the UK, Child
-                Focus in Belgium, and The Smile of the Child in Greece.
-              </Text>
-              <Text></Text>
+        <View style={styles.cardContainer}>
+          <View style={styles.cardInnerContainer}>
+            <Thumbnail large source={require("../../media/logo.png")} />
+          </View>
+          <View style={styles.AboutApp}>
+            <View>
+              <Text style={styles.aboutappHeading}>Lets Find</Text>
             </View>
-          </ScrollView>
-        </ImageBackground>
+            <View>
+              <Text style={styles.aboutappBody}>
+                Lets Find is plateform where You can find your persons
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View style={styles.contactHeadView}>
+          <View>
+            <Icon
+              style={styles.contectIcon}
+              type="FontAwesome"
+              name="facebook"
+            />
+          </View>
+          <View>
+            <Icon style={styles.contectIcon} type="Entypo" name="twitter" />
+          </View>
+          <View>
+            <Icon
+              style={styles.contectIcon}
+              type="AntDesign"
+              name="googleplus"
+            />
+          </View>
+          <View>
+            <Icon style={styles.contectIcon} type="Entypo" name="skype" />
+          </View>
+        </View>
+
+        <View style={styles.creditsContainer}>
+          <View>
+            <Text>Credits</Text>
+          </View>
+          <View>
+            <Card style={styles.headerCardContainer}>
+              <CardItem style={styles.headerCardItem}>
+                <Body style={{borderRadius: 10}}>
+                  <ImageBackground
+                    source={require("../../media/gradient.jpg")}
+                    style={{ width: "100%", borderRadius: 10 }}
+                  >
+                  <View style={styles.cardBody}>
+                    <View style={styles.cardInnerContainer}>
+                      <Thumbnail
+                        large
+                        source={require("../../media/logo.png")}
+                      />
+                    </View>
+                    <View style={styles.AboutApp}>
+                      <View>
+                        <Text style={styles.devName}>
+                          Muhammad Asif
+                        </Text>
+                      </View>
+                      <View>
+                        <Text style={styles.devDescription}>
+                          For creating UI and in memory app
+                        </Text>
+                      </View>
+                    </View>
+                    </View>
+                  </ImageBackground>
+                </Body>
+              </CardItem>
+            </Card>
+          </View>
+        </View>
       </Container>
     );
   }
