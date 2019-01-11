@@ -16,13 +16,15 @@ export const styles =StyleSheet.create({
       },
       headerIcon: { fontSize: 30, color: "white" },
       aboutusContentView: {
-          backgroundColor: "rgba(175,198,185,.75)",
+        //   backgroundColor: "rgba(175,198,185,.75)",
+          backgroundColor: "rgba(112,150,129, .65)",
+
           paddingHorizontal: 15,
           justifyContent: "space-evenly",
           paddingVertical: 10,
       },
       aboutusContent: {
           color: "white",
-          paddingVertical: 30,
+          paddingVertical: 20,
       }
 });
