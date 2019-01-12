@@ -24,6 +24,7 @@ import ActiveCasesScreen from '../screens/ActiveCases';
 import ResolvedCasedScreen from '../screens/ResolvedCases';
 import ShowResolvedDetail from '../screens/ShowResolvedDetails';
 import AboutusScreen from '../screens/AboutUs'
+import SettingScreen from '../screens/SettingScreen'
 
 const HomeStack = createStackNavigator({
   Homes: HomeScreen,
@@ -39,7 +40,8 @@ const HomeStack = createStackNavigator({
   Search:SearchScreen,
   Notifications: NotificationScreen,
   ResolvedCaseDetail: ShowResolvedDetail,
-  Aboutus: AboutusScreen
+  Aboutus: AboutusScreen,
+  Settings: SettingScreen
 },
 {
   headerMode: 'none',

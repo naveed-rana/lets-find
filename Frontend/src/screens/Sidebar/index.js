@@ -121,7 +121,7 @@ class Sidebar extends Component {
         
         }
           <Text style={{ borderTopWidth: 1, height: 0, borderColor: "#bfbfbf" }} ></Text>
-          <ListItem icon style={styles.barLinkContainer}>
+          <ListItem icon style={styles.barLinkContainer} onPress={() => this.props.navigation.navigate("Settings")}>
             <Left>
               <Button style={{ backgroundColor: "#05CE1D" }}>
                 <Icon active name="setting" type="AntDesign" />

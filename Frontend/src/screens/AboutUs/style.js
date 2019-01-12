@@ -111,7 +111,6 @@ export const styles = StyleSheet.create({
     paddingRight: 0,
     paddingBottom: 0,
     borderRadius: 10,
-    backgroundColor: rgb('#12c2e9', '#c471ed', '#f64f59'),
   },
  
 });
