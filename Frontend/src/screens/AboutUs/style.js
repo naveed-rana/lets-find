@@ -26,6 +26,10 @@ export const styles = StyleSheet.create({
     width: "25%"
     // paddingLeft: 10,
   },
+  creditorsThumbail: {
+    flexDirection: "row",
+    width: "20%"
+  },
 
   filterContainer: {
     marginLeft: 15,
@@ -99,6 +103,7 @@ export const styles = StyleSheet.create({
     borderLeftWidth: 0,
     borderRightWidth: 0,
     borderRadius: 10,
+    elevation: 5,
   },
   headerCardItem: {
     paddingLeft: 0,
@@ -106,6 +111,7 @@ export const styles = StyleSheet.create({
     paddingRight: 0,
     paddingBottom: 0,
     borderRadius: 10,
+    backgroundColor: rgb('#12c2e9', '#c471ed', '#f64f59'),
   },
  
 });

@@ -88,32 +88,39 @@ export default class AboutUs extends Component {
           <View>
             <Card style={styles.headerCardContainer}>
               <CardItem style={styles.headerCardItem}>
-                <Body style={{borderRadius: 10}}>
-                  <ImageBackground
+                <Body style={{ borderRadius: 10 }}>
+                  {/* <ImageBackground 
                     source={require("../../media/gradient.jpg")}
-                    style={{ width: "100%", borderRadius: 10 }}
-                  >
-                  <View style={styles.cardBody}>
-                    <View style={styles.cardInnerContainer}>
-                      <Thumbnail
-                        large
-                        source={require("../../media/logo.png")}
-                      />
-                    </View>
-                    <View style={styles.AboutApp}>
-                      <View>
-                        <Text style={styles.devName}>
-                          Muhammad Asif
-                        </Text>
+                    imageStyle={{ borderRadius: 10}}
+                    style={{
+                      width: "100%",
+                      // borderRightWidth: 5,
+                      // borderTopWidth: 5,
+                      // borderBottomWidth: 5,
+                      // borderRadius: 68,
+                      // borderColor: "#ccc"
+                    }}
+                  > */}
+                    <View style={styles.cardBody}>
+                      <View style={styles.creditorsThumbail}>
+                        <Thumbnail
+                          large
+                          source={require("../../media/Asif.jpg")}
+                          style={{width: 70, height: 70}}
+                        />
                       </View>
-                      <View>
-                        <Text style={styles.devDescription}>
-                          For creating UI and in memory app
-                        </Text>
+                      <View style={styles.AboutApp}>
+                        <View>
+                          <Text style={styles.devName}>Muhammad Asif</Text>
+                        </View>
+                        <View>
+                          <Text style={styles.devDescription}>
+                            For creating UI and in memory app
+                          </Text>
+                        </View>
                       </View>
                     </View>
-                    </View>
-                  </ImageBackground>
+                  {/* </ImageBackground> */}
                 </Body>
               </CardItem>
             </Card>
