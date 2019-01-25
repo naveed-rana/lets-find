@@ -119,7 +119,7 @@ class Sidebar extends Component {
         
         }
           <Text style={{ borderTopWidth: 1, height: 0, borderColor: "#bfbfbf" }} ></Text>
-          <ListItem icon style={styles.barLinkContainer}>
+          <ListItem icon style={styles.barLinkContainer} onPress={() => this.props.navigation.navigate("Settings")}>
             <Left>
               <Button style={{ backgroundColor: "#05CE1D" }}>
                 <Icon active name="setting" type="AntDesign" />
@@ -129,13 +129,13 @@ class Sidebar extends Component {
               <Text style={{ fontSize: 15 }}>Settings</Text>
             </Body>
           </ListItem>
-          <ListItem icon style={styles.barLinkContainer}>
+          <ListItem icon style={styles.barLinkContainer} onPress={() => this.props.navigation.navigate("Aboutus")}>
             <Left>
               <Button style={{ backgroundColor: "#05CE1D" }}>
                 <Icon active name="info" type="AntDesign" />
               </Button>
             </Left>
-            <Body style={{ borderBottomWidth: 0, marginLeft: 15 }}>
+            <Body style={{ borderBottomWidth: 0, marginLeft: 15 }} >
               <Text style={{ fontSize: 15 }}>About</Text>
             </Body>
           </ListItem>
