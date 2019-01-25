@@ -12,15 +12,34 @@ import {registerUser} from '../../redux/actions/UserActions';
 
 class Sidebar extends Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      appColor :'#05CE1D'
+    }
+  }
+  
+  componentWillReceiveProps(newProp) {
+    this.setState({
+      appColor:newProp.clr
+    });
+  }
+  componentDidMount() {
+    this.setState({ appColor:this.props.clr });
+  }
+
+
   logout = () =>{
     this.props.userLogout();
     this.props.navigation.closeDrawer();
   }
- 
+   
+  
 
 
   render() {
           const {userStatus,user} = this.props;
+          const {appColor} = this.state;
           // console.log(userStatus);
           
     return (
@@ -36,7 +55,7 @@ class Sidebar extends Component {
         <Content>
           <ListItem icon style={styles.barLinkContainer} onPress={() => this.props.navigation.navigate("Homes")}>
             <Left>
-              <Button style={{ backgroundColor: "#05CE1D" }}>
+              <Button style={{ backgroundColor:appColor}}>
                 <Icon active name="home" type="AntDesign" />
               </Button>
             </Left>
@@ -49,7 +68,7 @@ class Sidebar extends Component {
           <View> 
           <ListItem onPress={() => this.props.navigation.navigate("Profile")} icon style={styles.barLinkContainer}>
             <Left>
-              <Button style={{ backgroundColor: "#05CE1D" }}>
+              <Button style={{ backgroundColor: appColor }}>
                 <Icon active name="user" type="AntDesign" />
               </Button>
             </Left>
@@ -60,7 +79,7 @@ class Sidebar extends Component {
            
           <ListItem onPress={() => this.props.navigation.navigate("Notifications")} icon style={styles.barLinkContainer}>
             <Left>
-              <Button style={{ backgroundColor: "#05CE1D" }}>
+              <Button style={{ backgroundColor: appColor }}>
                 <Icon active name="notifications-outline" type="Ionicons" />
               </Button>
             </Left>
@@ -71,7 +90,7 @@ class Sidebar extends Component {
 
           <ListItem icon style={styles.barLinkContainer} onPress={() => this.props.navigation.navigate("LetsAdd")}>
             <Left>
-              <Button style={{ backgroundColor: "#05CE1D" }}>
+              <Button style={{ backgroundColor: appColor }}>
                 <Icon active name="add-user" type="Entypo" />
               </Button>
             </Left>
@@ -82,7 +101,7 @@ class Sidebar extends Component {
 
           <ListItem icon style={styles.barLinkContainer} onPress={() => this.props.navigation.navigate("ActiveCases")}>
             <Left>
-              <Button style={{ backgroundColor: "#05CE1D" }}>
+              <Button style={{ backgroundColor: appColor }}>
                 <Icon active name="dashboard" type="MaterialIcons" />
               </Button>
             </Left>
@@ -92,7 +111,7 @@ class Sidebar extends Component {
           </ListItem>
           <ListItem icon style={styles.barLinkContainer} onPress={() => this.props.navigation.navigate("ResolvedCases")}>
             <Left>
-              <Button style={{ backgroundColor: "#05CE1D" }}>
+              <Button style={{ backgroundColor: appColor }}>
                 <Icon active name="suitcase" type="FontAwesome" />
               </Button>
             </Left>
@@ -106,7 +125,7 @@ class Sidebar extends Component {
 
           <ListItem icon style={styles.barLinkContainer} onPress={() => this.props.navigation.navigate("Search")}>
             <Left>
-              <Button style={{ backgroundColor: "#05CE1D" }}>
+              <Button style={{ backgroundColor: appColor }}>
                 <Icon active name="search" type="MaterialIcons" />
               </Button>
             </Left>
@@ -121,7 +140,7 @@ class Sidebar extends Component {
           <Text style={{ borderTopWidth: 1, height: 0, borderColor: "#bfbfbf" }} ></Text>
           <ListItem icon style={styles.barLinkContainer} onPress={() => this.props.navigation.navigate("Settings")}>
             <Left>
-              <Button style={{ backgroundColor: "#05CE1D" }}>
+              <Button style={{ backgroundColor: appColor }}>
                 <Icon active name="setting" type="AntDesign" />
               </Button>
             </Left>
@@ -131,7 +150,7 @@ class Sidebar extends Component {
           </ListItem>
           <ListItem icon style={styles.barLinkContainer} onPress={() => this.props.navigation.navigate("Aboutus")}>
             <Left>
-              <Button style={{ backgroundColor: "#05CE1D" }}>
+              <Button style={{ backgroundColor: appColor }}>
                 <Icon active name="info" type="AntDesign" />
               </Button>
             </Left>
@@ -141,7 +160,7 @@ class Sidebar extends Component {
           </ListItem>
           <ListItem icon style={styles.barLinkContainer}>
             <Left>
-              <Button style={{ backgroundColor: "#05CE1D" }}>
+              <Button style={{ backgroundColor: appColor }}>
                 <Icon active name="feedback" type="MaterialIcons" />
               </Button>
             </Left>
@@ -155,7 +174,7 @@ class Sidebar extends Component {
           {userStatus ? 
           <ListItem onPress={this.logout} icon style={styles.barLinkContainer}>
             <Left>
-              <Button style={{ backgroundColor: "#05CE1D" }}>
+              <Button style={{ backgroundColor: appColor }}>
                 <Icon active name="logout" type="AntDesign" />
               </Button>
             </Left>
@@ -169,7 +188,7 @@ class Sidebar extends Component {
           onPress={() => this.props.navigation.navigate("Login")}
            icon style={styles.barLinkContainer}>
             <Left>
-              <Button style={{ backgroundColor: "#05CE1D" }}>
+              <Button style={{ backgroundColor: appColor }}>
                 <Icon active name="login" type="AntDesign" />
               </Button>
             </Left>
@@ -182,7 +201,7 @@ class Sidebar extends Component {
           onPress={() => this.props.navigation.navigate("SignUp")}
            icon style={styles.barLinkContainer}>
             <Left>
-              <Button style={{ backgroundColor: "#05CE1D" }}>
+              <Button style={{ backgroundColor: appColor }}>
                 <Icon active name="account-plus-outline" type="MaterialCommunityIcons" />
               </Button>
             </Left>
@@ -202,6 +221,7 @@ const mapStateToProps = (state) =>{
   console.log('map state to props',state);
   
   return {
+    clr:state.colorReducer.color,
     userStatus:state.userReducer.userStatus,
     user:state.userReducer.user,
     registerLoader:state.userReducer.registerLoader

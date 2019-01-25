@@ -6,7 +6,8 @@ import {
   StatusBar,
   TouchableOpacity,
   Share,
-  Modal
+  Modal,
+  AsyncStorage
 } from "react-native";
 import {
   View,
@@ -24,6 +25,8 @@ import {
   Spinner
 } from "native-base";
 
+ 
+
 import img from '../../media/a.jpg'
 
 import { styles } from "./style";
@@ -38,6 +41,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      appColor :'#05CE1D',
       fakeArray: [
         {
           id: "1",
@@ -64,22 +68,20 @@ class Home extends Component {
     ],
       loader: true
     };
-
-    console.log("#####################################");
-    // console.log("Fake Array: " + this.state.fakeArray[0].name);
   }
 
   componentWillReceiveProps(newProp) {
-    // console.log("==============from will rec props======================");
-    // console.log(newProp.missingPersons);
-    // console.log("====================================");
     this.setState({
-      fakeArray: newProp.missingPersons
+      fakeArray: newProp.missingPersons,
+      appColor:newProp.clr
     });
   }
   componentDidMount() {
-    this.setState({ fakeArray: this.props.missingPersons });
+    this.setState({ fakeArray: this.props.missingPersons,appColor:this.props.clr });
   }
+
+ 
+
   closeDrawer = () => {
     this.props.navigation.closeDrawer();
   };
@@ -109,12 +111,12 @@ class Home extends Component {
 
   render() {
     const { userStatus } = this.props;
-    const {isImageViewVisible,currentImage} = this.state;
+    const {isImageViewVisible,currentImage,appColor} = this.state;
     return (
    
       <Container>
         <View>
-          <StatusBar backgroundColor="#05CE1D" barStyle="light-content" />
+          <StatusBar backgroundColor={appColor} barStyle="light-content" />
         </View>
 
         <Card style={styles.headerCardContainer}>
@@ -124,7 +126,8 @@ class Home extends Component {
                 source={require("../../media/sham2.jpg")}
                 style={{ width: "100%", shadowOpacity: 1 }}
               >
-                <View style={styles.header}>
+                <View style={[styles.header,{backgroundColor:appColor === 'black' ? "rgba(0,0,0, 0.5)": "rgba(5, 205, 29, 0.5)"}]}>
+
                   <Button transparent onPress={() => this.openDrawer()}>
                     <Icon name="menu" style={styles.searchIcon} />
                   </Button>
@@ -204,7 +207,7 @@ class Home extends Component {
                             <View style={styles.cardHeader}>
                               <Text>{data.name}</Text>
 
-                              <Text style={styles.statusText}>
+                              <Text style={{color:appColor}}>
                                 {data.status}
                               </Text>
                             </View>
@@ -293,7 +296,7 @@ class Home extends Component {
 
         {userStatus ? (
           <TouchableOpacity
-            style={styles.addNewButton}
+            style={[styles.addNewButton,{backgroundColor:appColor,shadowColor:appColor}]}
             onPress={() => this.props.navigation.navigate("AddPerson")}
           >
             <Icon
@@ -305,7 +308,7 @@ class Home extends Component {
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
-            style={styles.addNewButton}
+          style={[styles.addNewButton,{backgroundColor:appColor,shadowColor:appColor}]}
             onPress={() => this.props.navigation.navigate("Login")}
           >
             <Icon
@@ -332,7 +335,8 @@ class Home extends Component {
 const mapStateToProps = state => {
   return {
     userStatus: state.userReducer.userStatus,
-    missingPersons: state.misingPersons.homeStories
+    missingPersons: state.misingPersons.homeStories,
+    clr:state.colorReducer.color
   };
 };
 

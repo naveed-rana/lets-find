@@ -5,10 +5,10 @@ import Setup from "./navigation-setup/Setup";
 import { PermissionsAndroid } from "react-native";
 
 
-
 //redux 
 import { getHomeStories } from './redux/actions/missingPersonAction';
 import { getUser } from './redux/actions/UserActions';
+import { getStartColorFromStorage } from './redux/actions/colorActions';
 import { connect } from 'react-redux';
 
 
@@ -26,7 +26,7 @@ class MainApp extends Component {
 
     // this.props.getHomeStories();
     this.props.getUser();
-
+    this.props.getStartColorFromStorage();
     setTimeout(() => {
       this.setState({ SplashScreens: false });
     }, 100);
@@ -62,4 +62,4 @@ class MainApp extends Component {
   }
 }
 
-export default connect(null,{getUser})(MainApp);
+export default connect(null,{getUser,getStartColorFromStorage})(MainApp);

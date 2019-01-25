@@ -2,11 +2,16 @@ import { StyleSheet, Dimensions } from "react-native";
 import { Left } from "native-base";
 const { height, width } = Dimensions.get("window");
 
+
+
+var appColor = '#05CE1D';
+
+
 export const styles = StyleSheet.create({
+   
   header: {
     // height: 175,
     // alignItems: "flex-start",
-    backgroundColor: "rgba(5, 205, 29, 0.5)",
     justifyContent: "space-between",
     flexDirection: "row",
     aspectRatio: 1.8,
@@ -23,7 +28,6 @@ export const styles = StyleSheet.create({
   //   // height:500
   // },
   addNewButton: {
-    backgroundColor: "#05CE1D",
     alignItems: "center",
     width: 50,
     // alignSelf:'center',
@@ -34,7 +38,6 @@ export const styles = StyleSheet.create({
     height: 50,
     borderRadius: 100,
     shadowOffset: { width: 10, height: 10 },
-    shadowColor: "#05CE1D",
     shadowOpacity: 1,
     elevation: 3,
     zIndex: 999,
@@ -54,11 +57,6 @@ export const styles = StyleSheet.create({
   top_container: {
     flexDirection: "row",
     justifyContent: "space-between"
-  },
-  searchContainer: {
-    backgroundColor: "#05CE1D",
-    paddingTop: 20,
-    paddingBottom: 10
   },
   searchInput: {
     color: "#f5f5f5",
@@ -96,9 +94,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between"
-  },
-  statusText: {
-    color: "#05CE1D"
   },
   nameText: {
     fontSize: 10
