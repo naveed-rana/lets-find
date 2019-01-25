@@ -10,7 +10,7 @@ const INITIAL_STATE = {
   UserPosts: [
     {
       id: "2",  
-      image: "",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIyXov49V0vl3zSQGocwgBiOhf-I_iZqlf04-3FDfWnxNG91D64A",
       status: "Found",
       name: "Haseeba",
       age: "teen",
@@ -23,7 +23,7 @@ const INITIAL_STATE = {
     },
     {
       id: "3",
-      image: "",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwF6KBUnkn-CXS3hSl6h6hcS9x8sdwExNHGLELiyGYQANgR8NWrQ",
       status: "Missing",
       name: "Asif",
       age: "teen",
@@ -34,18 +34,15 @@ const INITIAL_STATE = {
       mobile: "+92 306 7134632",
       post_By: "Naveed"
     }
-<<<<<<< HEAD
-  ] 
-=======
   ],
   ResolvedCases: [
     {
       id: "2",  
-      image: "",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSq1j44rF7Wqqh3pnvybMorUFbdzhBb-tpK6a6gbmGOYyk1Jrklw",
       status: "Resoloved",
-      name: "Haseeba",
+      name: "Ali",
       age: "teen",
-      gender: "female",
+      gender: "male",
       location: "Lahore",
       description: "xyz",
       disability: "mental",
@@ -53,7 +50,6 @@ const INITIAL_STATE = {
       post_By: "Fayyaz"
     },
   ]
->>>>>>> e56fdba366495aa034fa9de7b4adee5f15a22313
 };
 
 function AddReducer(state = INITIAL_STATE, action) {
@@ -72,11 +68,7 @@ function AddReducer(state = INITIAL_STATE, action) {
       
       let newList = updateState.filter(item => item.id != id);
       newList.unshift(action.data);
-<<<<<<< HEAD
-      
-=======
      
->>>>>>> e56fdba366495aa034fa9de7b4adee5f15a22313
 
       return {
         ...state,

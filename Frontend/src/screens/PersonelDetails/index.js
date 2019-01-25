@@ -23,29 +23,32 @@ import {
 
 
 import styles from './style';
-
-
-
-
-
+import ImageView from 'react-native-image-view';
 
 
 export default class PersonalDetail extends Component {
 constructor(props) {
     super(props);
     this.state = {
-        modalVisible: false
+      isImageViewVisible: false,
+      currentImage:[
+        {
+            source: {
+                uri:this.props.navigation.getParam('data', 'NO-Data').image
+            }
+        },
+    ]
     };
 }
   render() {
     const { navigation } = this.props;
+    const {isImageViewVisible,currentImage} = this.state;
     const data = navigation.getParam('data', 'NO-Data');
 
 
     
     return (
       <Container>
-
         <Header style={{ backgroundColor: '#05ce1d' }}>
           <StatusBar
             backgroundColor="#05ce1d"
@@ -63,43 +66,20 @@ constructor(props) {
           <Grid>
             <Row size={50}>
               <Col>
-              <Modal
-              visible={this.state.modalVisible}
-              transparent={true}
-              animationType="slide"
-              // transparent={false}
-              onRequestClose={() => {
-                this.modalVisible(false);
-              }}>
-            
-              <View style={styles.modalOverlay}>
-                <Icon
-                  style={styles.modalClose}
-                  type="AntDesign"
-                  name="close"
-                  onPress={() => this.setState({ modalVisible: false })}
-                />
-                <View style={{ flex: 1, justifyContent: "center" }}>
-                  <Image
-                    style={styles.modalImage}
-                    source={data.image}
-                  />
-                </View>
-              </View>
-            </Modal>
+              
+
+
             <TouchableOpacity
-              onPress={() => this.setState({ modalVisible: true })}
+              onPress={() => this.setState({isImageViewVisible: true })}
             >
                 <View style={styles.imagePadding}>
-                  <Image style={styles.imageStyle} source={data.image} />
+                  <Image style={styles.imageStyle} source={{uri:data.image}} />
                 </View>
                 </TouchableOpacity>
               </Col>
               <Col>
                 <View style={styles.topDetails}>
                   <Text style={styles.missingPersonTitle}>{data.name}</Text>
-
-                 
                   <View style={styles.PersonalDetailView}>
                     <Left>
                       <Text style={styles.topLeftAbout}>Age</Text>
@@ -257,6 +237,13 @@ constructor(props) {
           </View>
           </Grid>
         </Content>
+
+        <ImageView
+          images={currentImage}
+          imageIndex={0}
+          onClose={() => this.setState({isImageViewVisible: false})}
+          isVisible={isImageViewVisible}
+        />
       </Container>
     );
   }

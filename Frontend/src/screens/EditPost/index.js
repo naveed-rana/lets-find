@@ -205,7 +205,7 @@ class EditPost extends Component {
 
         console.log("From react Component: ", data);
         this.props.resolvedCases(data);
-        this.props.navigation.navigate("ActiveCases");
+        this.props.navigation.navigate("ResolvedCases");
         Toast.show({
           text: "Successfully Resolve This case",
           type: "success",
@@ -425,12 +425,12 @@ class EditPost extends Component {
                 {this.state.image == uploadimageIcon ? (
                   <Thumbnail
                     style={styles.bottomImageStyle}
-                    source={this.state.image}
+                    source={{uri:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIyXov49V0vl3zSQGocwgBiOhf-I_iZqlf04-3FDfWnxNG91D64A'}}
                   />
                 ) : (
                   <Thumbnail
                     style={styles.bottomFullImg}
-                    source={this.state.image}
+                    source={{uri:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIyXov49V0vl3zSQGocwgBiOhf-I_iZqlf04-3FDfWnxNG91D64A'}}
                   />
                 )}
               </View>

@@ -51,7 +51,7 @@ class SearchScreen extends Component {
       fakeArray: [
         {
           id: "1",
-          image: "",
+          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIyXov49V0vl3zSQGocwgBiOhf-I_iZqlf04-3FDfWnxNG91D64A",
           status: "Missing",
           name: "Naveed Rana",
           age: "teen",
@@ -162,7 +162,7 @@ class SearchScreen extends Component {
                           >
                             <Image
                               style={styles.filterImage}
-                              source={data.image}
+                              source={{uri:data.image}}
                             />
                           </TouchableOpacity>
                         </View>

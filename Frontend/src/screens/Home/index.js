@@ -24,9 +24,12 @@ import {
   Spinner
 } from "native-base";
 
+import img from '../../media/a.jpg'
+
 import { styles } from "./style";
 import SideBar from "../Sidebar";
 import { connect } from "react-redux";
+import ImageView from 'react-native-image-view';
 // import fakeArray from '../../redux/fakeArray';
 
 Drawer.defaultProps.styles.mainOverlay.elevation = 0;
@@ -38,7 +41,7 @@ class Home extends Component {
       fakeArray: [
         {
           id: "1",
-          image: "",
+          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuWelu5a4sG2AHbTAxpT7w0PXvL_EPDPt1V9g2fRwMNB80OoFNwA",
           status: "Missing",
           name: "Naveed Rana",
           age: "teen",
@@ -51,7 +54,14 @@ class Home extends Component {
           post_By: "Asif"
         }
       ],
-      modalVisible: false,
+      isImageViewVisible: false,
+      currentImage:[
+        {
+            source: {
+                uri: 'https://cdn.pixabay.com/photo/2017/08/17/10/47/paris-2650808_960_720.jpg',
+            },
+        },
+    ],
       loader: true
     };
 
@@ -99,18 +109,9 @@ class Home extends Component {
 
   render() {
     const { userStatus } = this.props;
-    const shadowStyle = {
-      shadowOpacity: 1,
-      shadowRadius: 15
-    };
+    const {isImageViewVisible,currentImage} = this.state;
     return (
-      // <Drawer
-      //   ref={ref => {
-      //     this.drawer = ref;
-      //   }}
-      //   content={<SideBar navigator={this.navigator} />}
-      //   onClose={() => this.closeDrawer()}
-      // >
+   
       <Container>
         <View>
           <StatusBar backgroundColor="#05CE1D" barStyle="light-content" />
@@ -148,6 +149,7 @@ class Home extends Component {
         {/* PLus Button Ends*/}
         <ScrollView>
           {this.state.fakeArray.map((data, index) => {
+            
             return (
               <View key={index} style={styles.cardContainer}>
                 <Card>
@@ -155,45 +157,26 @@ class Home extends Component {
                     <Body>
                       <View style={styles.cardInnerContainer}>
                         <View>
-                          <Modal
-                            visible={this.state.modalVisible}
-                            transparent={true}
-                            animationType="slide"
-                            // transparent={false}
-                            onRequestClose={() => {
-                              this.modalVisible(false);
-                            }}
-                          >
-                            <View style={styles.modalOverlay}>
-                              <Icon
-                                style={styles.modalClose}
-                                type="AntDesign"
-                                name="close"
-                                onPress={() =>
-                                  this.setState({ modalVisible: false })
-                                }
-                              />
-                              <View
-                                style={{
-                                  flex: 1,
-                                  justifyContent: "center"
-                                }}
-                              >
-                                <Image
-                                  style={styles.modalImage}
-                                  source={require("../../media/sham.jpg")}
-                                />
-                              </View>
-                            </View>
-                          </Modal>
+                          
+                          {/* here model  */}
+
                           <TouchableOpacity
                             onPress={() =>
-                              this.setState({ modalVisible: true })
+                              this.setState({ isImageViewVisible: true,
+                                currentImage:
+                                [
+                                  {
+                                  source: {
+                                          uri:data.image,
+                                      },
+                                  },
+                              ]
+                              })
                             }
                           >
                             <Image
                               style={styles.filterImage}
-                              source={require("../../media/sham.jpg")}
+                              source={{uri:data.image}}
                             />
                           </TouchableOpacity>
                         </View>
@@ -333,6 +316,13 @@ class Home extends Component {
             />
           </TouchableOpacity>
         )}
+
+         <ImageView
+          images={currentImage}
+          imageIndex={0}
+          onClose={() => this.setState({isImageViewVisible: false})}
+          isVisible={isImageViewVisible}
+        />
       </Container>
       // </Drawer>
     );
