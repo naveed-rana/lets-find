@@ -30,13 +30,51 @@ class componentName extends Component {
     this.state = {
       nativegreen: true,
       nightblack:false,
+      darkorange:false
     };
   }
 
   
   componentDidMount() {
 
-      this._retrieveData();
+    appColor= this.props.clr;
+
+     switch (appColor) {
+       case '#05CE1D':
+       {
+        this.setState({
+          nativegreen:true,
+          nightblack:false,
+          darkorange:false,
+        })
+        break;
+      }
+      case '#34495e':
+       {
+        this.setState({
+          nightblack:true,
+          nativegreen:false,
+          darkorange:false,
+        })
+        break;
+      }
+
+      case '#f39c12':
+       {
+        this.setState({
+          darkorange:true,
+          nightblack:false,
+          nativegreen:false,
+          
+        })
+        break;
+      }
+         
+       default:
+         break;
+     }
+
+    
 
   }
   
@@ -47,6 +85,7 @@ class componentName extends Component {
       this.setState({
         nativegreen:true,
         nightblack:false,
+        darkorange:false,
       })
     }
     
@@ -54,13 +93,26 @@ class componentName extends Component {
 
   nightBlackApply = () =>{
     if (this.state.nightblack !== true) {
-      this._storeData('black');
+      this._storeData('#34495e');
     this.setState({
       nightblack:true,
       nativegreen:false,
+      darkorange:false,
       
     })
   }
+}
+
+darkOrangeApply =() => {
+  if (this.state.darkorange !== true) {
+    this._storeData('#f39c12');
+  this.setState({
+    darkorange:true,
+    nightblack:false,
+    nativegreen:false,
+    
+  })
+}
 }
 
 _storeData = async (val) => {
@@ -75,35 +127,6 @@ _storeData = async (val) => {
   }
 }
 
-_retrieveData = async () => {
-  try {
-    const value = await AsyncStorage.getItem('color');
-      console.log('data res',value);
-      if (value !== null) {
-        // console.log('valueasdf',value);
-          appColor= value;
-          if ( value === '#05CE1D')
-            {
-              this.setState({
-                nativegreen:true,
-                nightblack:false
-              })
-            }
-          if ( value === 'black')
-            {
-              this.setState({
-                nightblack:true,
-                nativegreen:false,
-              })
-            }
-    }
-   } catch (error) {
-     console.log('err',error);
-     
-     // Error retrieving data
-   }
-}
-
 
 
   openDrawer = () => {
@@ -114,8 +137,8 @@ _retrieveData = async () => {
     return (
       <Container>
 
-        <StatusBar backgroundColor="#05CE5D" barStyle="light-content" />
-        <View style={styles.header}>
+        <StatusBar backgroundColor={appColor} barStyle="light-content" />
+        <View style={[styles.header,{backgroundColor:appColor,}]}>
           <Icon
             onPress={() => this.props.navigation.goBack()}
             style={styles.headerIcon}
@@ -124,11 +147,9 @@ _retrieveData = async () => {
           />
 
           <Text style={styles.heading}>Settings</Text>
-          <Icon
-            name="menu"
-            style={styles.headerIcon}
-            onPress={() => this.openDrawer()}
-          />
+          
+          <Text></Text>
+          
         </View>
 
         <View style={{alignItems:'center',marginTop:10,marginBottom:10}}>
@@ -162,12 +183,12 @@ _retrieveData = async () => {
         <ListItem icon>
           <Left>
             <Button style={
-             {backgroundColor: "black"} }>
+             {backgroundColor: "#34495e"} }>
               <Icon  type="Ionicons" name="ios-color-palette" />
             </Button>
           </Left>
           <Body>
-            <Text>Night theme</Text>
+            <Text>Dark Theme</Text>
           </Body>
           <Right>
             <Switch
@@ -175,7 +196,30 @@ _retrieveData = async () => {
               onValueChange={this.nightBlackApply}
               // onTintColor="#00ff00"
             //   tintColor=
-              trackColor={{false:"lightgray" , true: "black"}}
+              trackColor={{false:"lightgray" , true: "#34495e"}}
+
+            />
+          </Right>
+        </ListItem>
+
+
+        <ListItem icon>
+          <Left>
+            <Button style={
+             {backgroundColor: "#f39c12"} }>
+              <Icon  type="Ionicons" name="ios-color-palette" />
+            </Button>
+          </Left>
+          <Body>
+            <Text>Orange</Text>
+          </Body>
+          <Right>
+            <Switch
+              value={this.state.darkorange}
+              onValueChange={this.darkOrangeApply}
+              // onTintColor="#00ff00"
+            //   tintColor=
+              trackColor={{false:"lightgray" , true: "#f39c12"}}
 
             />
           </Right>
@@ -187,4 +231,12 @@ _retrieveData = async () => {
   }
 }
 
-export default connect(null,{getStartChangeColor})(componentName);
+
+const mapStateToProps = state => {
+  return {
+    clr:state.colorReducer.color
+  };
+};
+
+
+export default connect(mapStateToProps,{getStartChangeColor})(componentName);

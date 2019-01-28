@@ -49,7 +49,9 @@ class Sidebar extends Component {
           {userStatus ? 
           <Text style={{ alignSelf: "center", fontWeight: "bold", marginTop: 5 }} >
           {user.name}</Text>
-          :<Text/>
+          :<Text
+          onPress={() => this.props.navigation.navigate("SignUp")}
+          style={{ alignSelf: "center", marginTop: 5,color:appColor }} >Register Yourself</Text>
           }
         </Content>
         <Content>
@@ -218,7 +220,6 @@ class Sidebar extends Component {
   }
 }
 const mapStateToProps = (state) =>{
-  console.log('map state to props',state);
   
   return {
     clr:state.colorReducer.color,

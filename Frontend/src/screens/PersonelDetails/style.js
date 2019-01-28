@@ -6,7 +6,6 @@ export default (styles = {
     borderRadius: 5,
     paddingLeft: 15,
     paddingRight: 15,
-    backgroundColor: "#05CE1D"
   },
   descripionText: {
     fontSize: 14

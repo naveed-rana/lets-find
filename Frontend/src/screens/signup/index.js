@@ -27,7 +27,8 @@ class SignUpScreen extends Component {
       email: "",
       password: "",
       cell: "",
-      loader:false
+      loader:false,
+      appColor:''
     };
   }
 
@@ -35,7 +36,7 @@ class SignUpScreen extends Component {
 
   componentWillReceiveProps(nextProps) {
     
-    this.setState({loader: false});
+    this.setState({loader: false,appColor:newProp.clr});
     if(nextProps.registerLoader == 'success'){
     this.props.navigation.navigate("Login");
     }
@@ -43,6 +44,11 @@ class SignUpScreen extends Component {
     console.log('full state',this.state);
     
     
+}
+
+
+componentDidMount() {
+  this.setState({appColor:this.props.clr });
 }
 
 
@@ -59,15 +65,19 @@ class SignUpScreen extends Component {
   this.props.registerUser(data);
   }
   render() {
-    const {loader} = this.state;
+    const {loader,appColor} = this.state;
   //  console.log('props from comp',loader);
    
     return (
-      <ImageBackground
-        source={require("../../media/bg_3.png")}
-        style={{ width: "100%", height: "100%" }}
-      >
-        <ScrollView>
+        <ScrollView style={{backgroundColor:appColor}}>
+        <View>
+          <Icon
+            onPress={() => this.props.navigation.goBack()}
+            style={{marginLeft: 5, fontWeight:'bold',color:'white'}}
+            type="MaterialCommunityIcons"
+            name="keyboard-backspace"
+          />
+          </View>
         <Content contentContainerStyle={styles.loginContainer}>
           <View style={styles.viewStyle}>
             <Image source={require("../../media/main_logo.png")} />
@@ -186,15 +196,14 @@ class SignUpScreen extends Component {
           </View>
         </Content>
         </ScrollView>
-      </ImageBackground>
     );
   }
 }
 
 mapStateToProps = (state) => {
-  console.log('register loader state',state.userReducer.registerLoader);
   return {
-    registerLoader:state.userReducer.registerLoader
+    registerLoader:state.userReducer.registerLoader,
+    clr:state.colorReducer.color
   }
 }
 

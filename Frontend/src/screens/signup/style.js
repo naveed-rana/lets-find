@@ -4,7 +4,7 @@ export default styles = StyleSheet.create({
     loginContainer: {
       justifyContent: 'center',
       flex: 1,
-      paddingVertical: 20,
+      paddingBottom: 20,
     },
     inputStyle: {
       color: '#fff'

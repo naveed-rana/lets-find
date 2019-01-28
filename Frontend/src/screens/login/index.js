@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {getStartUserLogin} from '../../redux/actions/UserActions';
-import { ImageBackground, Image } from "react-native";
+import { ImageBackground, Image,ScrollView } from "react-native";
 import {connect} from 'react-redux';
 import {
   Text,
@@ -22,19 +22,24 @@ class LoginScreen extends Component {
     this.state = {
       email: "asif",
       password: "",
-      loader:false
+      loader:false,
+      appColor:''
     };
     
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('lets move',nextProps.loginLoader);
-    this.setState({loader: false});
+    this.setState({loader: false,appColor:newProp.clr});
     if(nextProps.loginLoader == 'move'){
     this.props.navigation.navigate("AddPerson");
     }
     
 }
+
+componentDidMount() {
+  this.setState({appColor:this.props.clr });
+}
+
 
 
 
@@ -53,12 +58,20 @@ class LoginScreen extends Component {
   }
 
   render() {
-    const {loader} = this.state;
+    const {loader,appColor} = this.state;
     return (
-      <ImageBackground
-        source={require("../../media/bg_3.png")}
-        style={{ width: "100%", height: "100%" }}
+      <ScrollView
+      style={{backgroundColor:appColor}}
       >
+         <View>
+          <Icon
+            onPress={() => this.props.navigation.goBack()}
+            style={{marginLeft: 5, fontWeight:'bold',color:'white'}}
+            type="MaterialCommunityIcons"
+            name="keyboard-backspace"
+          />
+          </View>
+
         <Content contentContainerStyle={styles.loginContainer}>
           <View style={styles.viewStyle}>
             <Image source={require("../../media/main_logo.png")} />
@@ -133,17 +146,35 @@ class LoginScreen extends Component {
             onPress={() => this.props.navigation.navigate("SignUp")}
              style={styles.loginStyle}> Signup</Text>
           </View>
+             
+             <Text style={{color:'#fff',textAlign:'center'}}>------------ or ------------</Text>
+             
+          <View style={{flexDirection:'row',justifyContent:'center'}}> 
+          <View  style={styles.socialIconG}>
+            <Icon 
+             style={{alignSelf: 'center',marginTop:10,color:'white'}} 
+            type="Entypo" name="facebook"/>
+            </View>
+            <View  style={styles.socialIconG}>
+            <Icon 
+           style={{alignSelf: 'center',marginTop:9,color:'white',fontSize:30,}} 
+            type="FontAwesome5" name="google-plus-square"/>
+            </View>
+            <View  style={styles.socialIconG}>
+            <Icon  style={{alignSelf: 'center',marginTop:10,color:'white',}}  type="FontAwesome5" name="microsoft"/>
+            </View>
+          </View>
+
         </Content>
-      </ImageBackground>
+      </ScrollView>
     );
   }
 }
 
-const mapStateToProps = (state) =>{
-  console.log('state for login loader ',state.userReducer);
-  
+const mapStateToProps = (state) =>{  
   return{
-    loginLoader:state.userReducer.loginLoader
+    loginLoader:state.userReducer.loginLoader,
+    clr:state.colorReducer.color
   }}
 
 export default connect(mapStateToProps, {getStartUserLogin})(LoginScreen)

@@ -3,15 +3,13 @@ import { StyleSheet } from 'react-native';
 
 export default styles = StyleSheet.create({
     searchContainer: {
-        backgroundColor: '#05CE1D',
-        paddingTop: 20,
+        // paddingTop: 20,
         paddingBottom: 10,
         height:'auto',
         borderBottomWidth:1,
         borderColor:"grey"
     },
     addNewButton: {
-        backgroundColor: "#05CE1D",
         alignItems: "center",
         width: 50,
         // alignSelf:'center',
@@ -22,7 +20,6 @@ export default styles = StyleSheet.create({
         height: 50,
         borderRadius: 100,
         shadowOffset: { width: 10, height: 10 },
-        shadowColor: "#05CE1D",
         shadowOpacity: 1,
         elevation: 3,
         zIndex: 999,
@@ -69,9 +66,6 @@ export default styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
-    },
-    statusText: {
-        color: '#05CE1D',
     },
     nameText: {
         fontSize: 10

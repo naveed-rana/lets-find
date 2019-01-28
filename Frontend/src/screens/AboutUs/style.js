@@ -2,7 +2,6 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   header: {
-    backgroundColor: "#05CE1D",
     paddingVertical: 12,
     paddingHorizontal: 15,
     justifyContent: "space-between",
@@ -61,7 +60,6 @@ export const styles = StyleSheet.create({
   },
   contactHeadView: {
     flexDirection: "row",
-    backgroundColor: "#fe4f61",
     width: "80%",
     alignSelf: "center",
     justifyContent: "space-around",

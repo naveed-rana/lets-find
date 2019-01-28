@@ -50,5 +50,22 @@ export default styles = StyleSheet.create({
       textAlign: 'right',
       color: 'white'
     },
+    socialIcon:{
+      paddingVertical: 15,
+      paddingHorizontal:15,
+      borderColor:'white',borderWidth:2,
+      borderRadius: 60,
+      marginVertical:10,
+      marginHorizontal:10,
+      color:'white'},
+      socialIconG:{
+        width: 60,
+        height: 60,
+        borderRadius: 60 / 2,
+        borderColor:'white',
+        borderWidth:2,
+        marginVertical:10,
+        marginHorizontal:10,
+      }
   
   })

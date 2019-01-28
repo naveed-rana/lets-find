@@ -21,15 +21,16 @@ import {
   CardItem
 } from 'native-base';
 
-
+import {connect} from 'react-redux';
 import styles from './style';
 import ImageView from 'react-native-image-view';
 
 
-export default class PersonalDetail extends Component {
+class PersonalDetail extends Component {
 constructor(props) {
     super(props);
     this.state = {
+      appColor :'green',
       isImageViewVisible: false,
       currentImage:[
         {
@@ -40,18 +41,31 @@ constructor(props) {
     ]
     };
 }
+
+
+
+componentWillReceiveProps(newProp) {
+ this.setState({
+   appColor:newProp.clr
+ });
+}
+
+componentDidMount() {
+ this.setState({ appColor:this.props.clr });
+}
+
   render() {
     const { navigation } = this.props;
-    const {isImageViewVisible,currentImage} = this.state;
+    const {isImageViewVisible,currentImage,appColor} = this.state;
     const data = navigation.getParam('data', 'NO-Data');
-
+   
 
     
     return (
       <Container>
-        <Header style={{ backgroundColor: '#05ce1d' }}>
+        <Header style={{ backgroundColor: appColor }}>
           <StatusBar
-            backgroundColor="#05ce1d"
+            backgroundColor={appColor}
             barStyle="light-content"
           />
           <Left><Icon type="AntDesign" name="arrowleft" style={{ color: "#fff", }}
@@ -129,7 +143,7 @@ constructor(props) {
               <Left>
                 <Text style={styles.ShortLocataionText}>Location</Text>
               </Left>
-              <Button full rounded iconLeft success style={{backgroundColor: "#05CE1D"}}>
+              <Button full rounded iconLeft success style={{backgroundColor:appColor}}>
                 <Icon name="map" />
                 <Text uppercase={false}>Look at the map</Text>
               </Button>
@@ -175,7 +189,7 @@ constructor(props) {
             <View style={{ flexDirection: "row", marginTop: 10 }}>
               <Left>
                 <Button
-                  style={styles.btnBorder}
+                  style={[styles.btnBorder,{backgroundColor: appColor}]}
                   iconLeft
                   success
                   onPress={() =>
@@ -189,7 +203,7 @@ constructor(props) {
                 </Button>
               </Left>
               <Button
-                style={styles.btnBorder}
+                style={[styles.btnBorder,{backgroundColor: appColor}]}
                 iconLeft
                 success
                 onPress={() => Communications.text(`${data.mobile}`)}
@@ -205,7 +219,7 @@ constructor(props) {
                 style={{
                   borderRadius: 5,
                   marginTop: 15,
-                  backgroundColor: "#05CE1D"
+                  backgroundColor: appColor
                 }}
                 full
                 success
@@ -248,3 +262,12 @@ constructor(props) {
     );
   }
 }
+
+const mapStateToProps = (state) =>{
+  
+  return {
+    clr:state.colorReducer.color,
+  }
+}
+
+export default connect(mapStateToProps,null)(PersonalDetail);

@@ -53,7 +53,7 @@ class SearchScreen extends Component {
       searchName: "",
       loader: false,
       onlineURL:false,
-
+      appColor :'#05CE1D',
       fakeArray: [],
       modalVisible: false
     };
@@ -77,8 +77,14 @@ class SearchScreen extends Component {
       }
     });
   };
+ 
+  componentWillReceiveProps(newProp) {
+    this.setState({
+      appColor:newProp.clr
+    });
+  }
   componentDidMount() {
-    // this.setState({ fakeArray: this.props.SearchStories });
+    this.setState({ appColor:this.props.clr });
   }
 
   onSubmit = () => {
@@ -335,13 +341,23 @@ class SearchScreen extends Component {
 
   render() {
     const {userStatus} = this.props;
+    const {appColor} = this.state;
     return (
       <Container>
         <View>
-          <StatusBar backgroundColor="#05CE1D" barStyle="light-content" />
+          <StatusBar backgroundColor={appColor} barStyle="light-content" />
         </View>
 
-        <View style={styles.searchContainer}>
+        <View style={{backgroundColor: appColor,}}>
+          <Icon
+            onPress={() => this.props.navigation.goBack()}
+            style={{marginLeft: 5, fontWeight:'bold',color:'white'}}
+            type="MaterialCommunityIcons"
+            name="keyboard-backspace"
+          />
+          </View>
+
+        <View style={[styles.searchContainer,{backgroundColor: appColor,}]}>
           <Item style={styles.itemStyle1}>
             <TouchableOpacity
               style={styles.searchInput}
@@ -522,7 +538,7 @@ class SearchScreen extends Component {
 
         {this.state.loader ? (
           <View>
-            <Spinner color="#05CE1D" />
+            <Spinner color={appColor} />
           </View>
         ) : (
           <ScrollView>
@@ -602,7 +618,7 @@ class SearchScreen extends Component {
                             <View style={styles.cardHeader}>
                               <Text>{data.name}</Text>
 
-                              <Text style={styles.statusText}>
+                              <Text style={{color:appColor}}>
                                 {data.status}
                               </Text>
                             </View>
@@ -697,7 +713,7 @@ class SearchScreen extends Component {
 
             {userStatus ?  
               <TouchableOpacity
-                style={styles.addNewButton}
+                style={[styles.addNewButton,{backgroundColor: appColor,shadowColor:appColor}]}
                 onPress={() => this.props.navigation.navigate("AddPerson")}
               >
                 <Icon
@@ -709,7 +725,7 @@ class SearchScreen extends Component {
               </TouchableOpacity>
               :
               <TouchableOpacity
-                style={styles.addNewButton}
+              style={[styles.addNewButton,{backgroundColor: appColor,shadowColor:appColor}]}
                 onPress={() => this.props.navigation.navigate("Login")}
               >
                 <Icon
@@ -727,6 +743,7 @@ class SearchScreen extends Component {
 
 const mapStateToProps = state => {
   return {
+    clr:state.colorReducer.color,
     SearchStories: state.SearchReducer.SearchStories
   };
 };

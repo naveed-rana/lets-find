@@ -16,19 +16,39 @@ import {
   Thumbnail,
   Content
 } from "native-base";
+import {connect} from 'react-redux';
 import { styles } from "./style";
-import { ScrollView } from "react-native-gesture-handler";
 
-export default class AboutUs extends Component {
+class AboutUs extends Component {
+
+   constructor(props) {
+     super(props)
+     this.state = {
+      appColor :'green'
+     }
+   }
+
+componentWillReceiveProps(newProp) {
+    this.setState({
+      appColor:newProp.clr
+    });
+  }
+
+  componentDidMount() {
+    this.setState({ appColor:this.props.clr });
+  }
+   
+
   openDrawer = () => {
     this.props.navigation.openDrawer();
   };
 
   render() {
+    const {appColor} = this.state;
     return (
       <Container>
-        <StatusBar backgroundColor="#05CE5D" barStyle="light-content" />
-        <View style={styles.header}>
+        <StatusBar backgroundColor={appColor} barStyle="light-content" />
+        <View style={[styles.header,{backgroundColor: appColor}]}>
           <Icon
             onPress={() => this.props.navigation.goBack()}
             style={styles.headerIcon}
@@ -37,11 +57,9 @@ export default class AboutUs extends Component {
           />
 
           <Text style={styles.heading}>About Us</Text>
-          <Icon
-            name="menu"
-            style={styles.headerIcon}
-            onPress={() => this.openDrawer()}
-          />
+         
+         <Text></Text>
+         
         </View>
         <View style={styles.cardContainer}>
           <View style={styles.cardInnerContainer}>
@@ -58,7 +76,7 @@ export default class AboutUs extends Component {
             </View>
           </View>
         </View>
-        <View style={styles.contactHeadView}>
+        <View style={[styles.contactHeadView,{ backgroundColor: appColor}]}>
           <View>
             <Icon
               style={styles.contectIcon}
@@ -89,18 +107,7 @@ export default class AboutUs extends Component {
             <Card style={styles.headerCardContainer}>
               <CardItem style={styles.headerCardItem}>
                 <Body style={{ borderRadius: 10 }}>
-                  {/* <ImageBackground 
-                    source={require("../../media/gradient.jpg")}
-                    imageStyle={{ borderRadius: 10}}
-                    style={{
-                      width: "100%",
-                      // borderRightWidth: 5,
-                      // borderTopWidth: 5,
-                      // borderBottomWidth: 5,
-                      // borderRadius: 68,
-                      // borderColor: "#ccc"
-                    }}
-                  > */}
+              
                     <View style={styles.cardBody}>
                       <View style={styles.creditorsThumbail}>
                         <Thumbnail
@@ -120,7 +127,6 @@ export default class AboutUs extends Component {
                         </View>
                       </View>
                     </View>
-                  {/* </ImageBackground> */}
                 </Body>
               </CardItem>
             </Card>
@@ -130,3 +136,13 @@ export default class AboutUs extends Component {
     );
   }
 }
+
+
+const mapStateToProps = (state) =>{
+  
+  return {
+    clr:state.colorReducer.color,
+  }
+}
+
+export default connect(mapStateToProps,null)(AboutUs);

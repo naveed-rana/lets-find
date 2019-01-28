@@ -112,6 +112,29 @@ class Home extends Component {
   render() {
     const { userStatus } = this.props;
     const {isImageViewVisible,currentImage,appColor} = this.state;
+     let rgba = '';
+    switch (appColor) {
+      case '#05CE1D':
+      {
+       rgba = 'rgba(5, 205, 29, 0.5)';
+       break;
+     }
+     case '#34495e':
+      {
+        rgba='rgba(52, 73, 94,0.5)';
+       break;
+     }
+
+     case '#f39c12':
+      {
+        rgba='rgba(241, 196, 15,0.5)';
+       break;
+     }
+        
+      default:
+        break;
+    }
+  
     return (
    
       <Container>
@@ -126,7 +149,7 @@ class Home extends Component {
                 source={require("../../media/sham2.jpg")}
                 style={{ width: "100%", shadowOpacity: 1 }}
               >
-                <View style={[styles.header,{backgroundColor:appColor === 'black' ? "rgba(0,0,0, 0.5)": "rgba(5, 205, 29, 0.5)"}]}>
+                <View style={[styles.header,{backgroundColor:rgba}]}>
 
                   <Button transparent onPress={() => this.openDrawer()}>
                     <Icon name="menu" style={styles.searchIcon} />

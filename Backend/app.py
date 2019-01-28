@@ -10,7 +10,7 @@ import os
 import numpy as np
 
 #Flask App Structure
-app = Flask(__name__, static_folder="./uploads", template_folder="./")
+app = Flask(__name__, static_folder="./data", template_folder="./")
 app.config.from_object(__name__)
 
 #Cors Setup
@@ -317,6 +317,53 @@ def searchMissingReq():
             return status
     else:
         return status
+
+
+
+
+#searchbyfilters
+@app.route('/searchbyfilters', methods=['POST'])
+@cross_origin()
+def searchByName():
+    status = "not-success"
+    filters = []
+    try:
+        data = request.get_json(silent=True)
+        data = data["filters"]
+        for key in data:
+            if  data[key] !='':
+             filters.append({
+                            key:data[key]
+                        })
+        print(filters)
+        query = mongo.db.missing_persons.find({"$and":filters})
+        result = []
+        print(query)
+        for missingPerson in query:
+            print(missingPerson)
+            if missingPerson['_id']:
+                result.append({
+                    'id':missingPerson['_id'],
+                    'image':missingPerson['img'],
+                    'name':missingPerson['name'],
+                    'gender':missingPerson['gender'], 
+                    'disability':missingPerson['disability'],
+                    'description':missingPerson['description'],
+                    'status':missingPerson['status'],
+                    'age':missingPerson['age'],
+                    'post_By':missingPerson['post_By'],
+                    'mobile':missingPerson['mobile'],
+                    'location':missingPerson['location'],
+                    'createdat':missingPerson['createdat'],
+                        })
+            else:
+              result.append({"output":'No result found'})
+
+        return jsonify(result)
+    except Exception, e:
+        print str(e)
+        return status
+
 
 
 if __name__ == "__main__":
