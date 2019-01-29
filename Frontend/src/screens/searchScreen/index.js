@@ -30,7 +30,7 @@ import styles from "./style";
 import EndPoint from '../../endpoint';
 import { connect } from "react-redux";
 import { search } from "../../redux/actions/SearchAction";
-
+import ImageView from 'react-native-image-view';
 
 const options = {
   title: "Select Option",
@@ -55,7 +55,14 @@ class SearchScreen extends Component {
       onlineURL:false,
       appColor :'#05CE1D',
       fakeArray: [],
-      modalVisible: false
+      isImageViewVisible: false,
+      currentImage:[
+        {
+            source: {
+                uri: 'https://cdn.pixabay.com/photo/2017/08/17/10/47/paris-2650808_960_720.jpg',
+            },
+        },
+    ]
     };
   }
   uploadImage = () => {
@@ -341,7 +348,7 @@ class SearchScreen extends Component {
 
   render() {
     const {userStatus} = this.props;
-    const {appColor} = this.state;
+    const {isImageViewVisible,currentImage,appColor} = this.state;
     return (
       <Container>
         <View>
@@ -357,7 +364,7 @@ class SearchScreen extends Component {
           />
           </View>
 
-        <View style={[styles.searchContainer,{backgroundColor: appColor,}]}>
+        <View style={[styles.searchContainer,{backgroundColor: appColor}]}>
           <Item style={styles.itemStyle1}>
             <TouchableOpacity
               style={styles.searchInput}
@@ -552,41 +559,19 @@ class SearchScreen extends Component {
                     <Body>
                       <View style={styles.cardInnerContainer}>
                         <View>
-                          <Modal
-                            visible={this.state.modalVisible}
-                            transparent={true}
-                            animationType="slide"
-                            // transparent={false}
-                            onRequestClose={() => {
-                              this.modalVisible(false);
-                            }}
-                          >
-                            <View style={styles.modalOverlay}>
-                              <Icon
-                                style={styles.modalClose}
-                                type="AntDesign"
-                                name="close"
-                                onPress={() =>
-                                  this.setState({ modalVisible: false })
-                                }
-                              />
-                              <View
-                                style={{
-                                  flex: 1,
-                                  justifyContent: "center"
-                                }}
-                              >
-                                <Image
-                                  style={styles.modalImage}
-                                  source={{uri:data.image}}
-                                />
-                              </View>
-                            </View>
-                          </Modal>
                           <TouchableOpacity
-                            onPress={() =>
-                              this.setState({ modalVisible: true })
-                            }
+                          onPress={() =>
+                            this.setState({ isImageViewVisible: true,
+                              currentImage:
+                              [
+                                {
+                                source: {
+                                        uri:data.image,
+                                    },
+                                },
+                            ]
+                            })
+                          }
                           >
                             <Image
                               style={styles.filterImage}
@@ -736,6 +721,13 @@ class SearchScreen extends Component {
                 />
               </TouchableOpacity>
               }
+              
+         <ImageView
+          images={currentImage}
+          imageIndex={0}
+          onClose={() => this.setState({isImageViewVisible: false})}
+          isVisible={isImageViewVisible}
+        />
       </Container>
     );
   }

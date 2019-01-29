@@ -18,7 +18,6 @@ import {
   CheckBox
 } from "native-base";
 import ImagePicker from "react-native-image-picker";
-import uploadimageIcon from "../../media/upload-photo.png";
 import { connect } from "react-redux";
 import { modifyPerson } from "../../redux/actions/missingPersonAction";
 import styles from "./style";
@@ -45,7 +44,7 @@ class EditPost extends Component {
       description: "",
       status: "Missing",
       age: "",
-      image: uploadimageIcon,
+      image:'https://static.thenounproject.com/png/396915-200.png',
       value: "",
       MistabBtnCls: styles.tabBtn,
       FndtabBtnCls: styles.tabBtn,
@@ -65,10 +64,9 @@ class EditPost extends Component {
       } else if (response.customButton) {
         console.log("User tapped custom button: ", response.customButton);
       } else {
-        const source = { uri: response.uri };
 
         this.setState({
-          image: source
+          image: response.uri 
         });
       }
     });
@@ -428,17 +426,12 @@ class EditPost extends Component {
             <View style={{ width: "100%", marginVertical: 20 }}>
               <Text style={styles.uploadTextStyle}>Upload Photo</Text>
               <View style={styles.bottomStyle}>
-                {this.state.image == uploadimageIcon ? (
-                  <Thumbnail
-                    style={styles.bottomImageStyle}
-                    source={{uri:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIyXov49V0vl3zSQGocwgBiOhf-I_iZqlf04-3FDfWnxNG91D64A'}}
-                  />
-                ) : (
+              
                   <Thumbnail
                     style={styles.bottomFullImg}
-                    source={{uri:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIyXov49V0vl3zSQGocwgBiOhf-I_iZqlf04-3FDfWnxNG91D64A'}}
+                    source={{uri:this.state.image}}
                   />
-                )}
+      
               </View>
             </View>
           </Button>
