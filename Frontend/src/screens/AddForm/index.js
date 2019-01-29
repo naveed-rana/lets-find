@@ -12,14 +12,8 @@ import {
   Left,
   Right,
   Item,
-  Input,
-  Textarea,
-  Header,
   Icon,
-  Title,
-  Body,
   Picker,
-  Label,
   Toast,
   Spinner
 } from "native-base";
@@ -78,10 +72,9 @@ class AddForm extends Component {
       } else if (response.customButton) {
         console.log("User tapped custom button: ", response.customButton);
       } else {
-        const source = { uri: response.uri };
 
         this.setState({
-          image: source
+          image: response.uri
         });
       }
     });
@@ -127,7 +120,7 @@ class AddForm extends Component {
   }
 
   onSubmit = () => {
-    const data = {
+    const userDatadata = {
       name: this.state.name,
       gender: this.state.gender,
       disability: this.state.disability,
@@ -192,30 +185,32 @@ class AddForm extends Component {
         data.append('post_By','Naveed');
         data.append('mobile','+923034766669');
 
-        axios.post(`${EndPoint}/registerMissingPerson`, data, {
-            headers: {
+        // axios.post(`${EndPoint}/registerMissingPerson`, data, {
+        //     headers: {
 
-                'Content-Type': 'multipart/form-data',
-            },
-        })
-            .then(res => {
-                console.log("The Response", res.data);
-                Toast.show({
-                  text: "Successfully Uploaded",
-                  type: "success",
-                  duration: 3000
-                });
-                this.props.addPerson(data);
-                this.props.navigation.navigate('Search');
-            }).catch(err => {
-              this.setState({loader:false});
-                console.log("ERROR", err)
-                Toast.show({
-                  text: "Error Occoured",
-                  type: "error",
-                  duration: 3000
-                });
-            });
+        //         'Content-Type': 'multipart/form-data',
+        //     },
+        // })
+        //     .then(res => {
+        //         console.log("The Response", res.data);
+        //         Toast.show({
+        //           text: "Successfully Uploaded",
+        //           type: "success",
+        //           duration: 3000
+        //         });
+        //         this.props.addPerson(userDatadata);
+        //         this.props.navigation.navigate('Search');
+        //     }).catch(err => {
+        //       this.setState({loader:false});
+        //         console.log("ERROR", err)
+        //         Toast.show({
+        //           text: "Error Occoured",
+        //           type: "error",
+        //           duration: 3000
+        //         });
+        //     });
+
+            this.props.addPerson(userDatadata);
     }
   };
 
@@ -414,7 +409,7 @@ class AddForm extends Component {
                 ) : (
                   <Thumbnail
                     style={styles.bottomFullImg}
-                    source={this.state.image}
+                    source={{uri:this.state.image}}
                   />
                 )}
               </View>
