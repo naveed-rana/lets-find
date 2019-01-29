@@ -16,8 +16,10 @@ import {
   Body,
   Container,
 } from "native-base";
+
 import ImagePicker from "react-native-image-picker";
 import styles from "./style";
+import ImageView from 'react-native-image-view';
 
 import { connect } from "react-redux";
 
@@ -38,11 +40,18 @@ class SearchScreen extends Component {
       selectedAgeGroup: "",
       location: "",
       appColor :'green',
-
+      isImageViewVisible: false,
+      currentImage:[
+        {
+            source: {
+                uri: 'https://cdn.pixabay.com/photo/2017/08/17/10/47/paris-2650808_960_720.jpg',
+            },
+        },
+    ],
       fakeArray: [
         {
           id: "1",
-          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIyXov49V0vl3zSQGocwgBiOhf-I_iZqlf04-3FDfWnxNG91D64A",
+          image: "https://cdn.pixabay.com/photo/2017/08/17/10/47/paris-2650808_960_720.jpg",
           status: "Missing",
           name: "Naveed Rana",
           age: "teen",
@@ -96,7 +105,7 @@ componentWillReceiveProps(newProp) {
   render() {
 
     const { navigation } = this.props;
-    const {appColor} = this.state;
+    const {isImageViewVisible,currentImage,appColor} = this.state;
 
     return (
       <Container>
@@ -128,36 +137,18 @@ componentWillReceiveProps(newProp) {
                     <Body>
                       <View style={styles.cardInnerContainer}>
                         <View>
-                          <Modal
-                            visible={this.state.modalVisible}
-                            transparent={true}
-                            animationType="slide"
-                            onRequestClose={() => {
-                              this.modalVisible(false);
-                            }}
-                          >
-                            <View style={styles.modalOverlay}>
-                              <Icon
-                                style={styles.modalClose}
-                                type="AntDesign"
-                                name="close"
-                                onPress={() =>
-                                  this.setState({ modalVisible: false })
-                                }
-                              />
-                              <View
-                                style={{ flex: 1, justifyContent: "center" }}
-                              >
-                                <Image
-                                  style={styles.modalImage}
-                                  source={require("../../media/sham.jpg")}
-                                />
-                              </View>
-                            </View>
-                          </Modal>
                           <TouchableOpacity
                             onPress={() =>
-                              this.setState({ modalVisible: true })
+                              this.setState({ isImageViewVisible: true,
+                                currentImage:
+                                [
+                                  {
+                                  source: {
+                                          uri:data.image,
+                                      },
+                                  },
+                              ]
+                              })
                             }
                           >
                             <Image
@@ -268,6 +259,12 @@ componentWillReceiveProps(newProp) {
             );
           })}
         </ScrollView>
+        <ImageView
+          images={currentImage}
+          imageIndex={0}
+          onClose={() => this.setState({isImageViewVisible: false})}
+          isVisible={isImageViewVisible}
+        />
       </Container>
     );
   }

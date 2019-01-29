@@ -5,32 +5,22 @@ import {
   Image,
   StatusBar,
   TouchableOpacity,
-  Share,
-  Modal,
-  AsyncStorage
+  Share
 } from "react-native";
 import {
   View,
   Text,
-  Content,
-  Item,
-  Input,
   Icon,
   Card,
   CardItem,
   Body,
   Button,
   Container,
-  Drawer,
-  Spinner
+  Drawer
 } from "native-base";
 
- 
-
-import img from '../../media/a.jpg'
 
 import { styles } from "./style";
-import SideBar from "../Sidebar";
 import { connect } from "react-redux";
 import ImageView from 'react-native-image-view';
 // import fakeArray from '../../redux/fakeArray';
@@ -76,36 +66,17 @@ class Home extends Component {
       appColor:newProp.clr
     });
   }
+
   componentDidMount() {
     this.setState({ fakeArray: this.props.missingPersons,appColor:this.props.clr });
   }
 
- 
 
-  closeDrawer = () => {
-    this.props.navigation.closeDrawer();
-  };
   openDrawer = () => {
     this.props.navigation.toggleDrawer();
   };
-  // popup menu 3 dots
-  refMoreButton = el => (this.moreButton = el);
+  
 
-  showMore = () => {
-    showPopupMenu(
-      [
-        { id: "edit", label: "Quick Edit" },
-        { id: "delete", label: "Trash" },
-        { id: "follow", label: "Follow" }
-      ],
-      this.handleMoreItemSelect,
-      this.moreButton
-    );
-  };
-
-  handleMoreItemSelect = item => {
-    alert("Pressed: " + item.label);
-  };
 
   // For loader temporary
 
