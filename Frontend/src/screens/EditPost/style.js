@@ -91,7 +91,7 @@ export default (styles = {
     backgroundColor: "#05ce1d"
   },
   header: {
-    backgroundColor: "#05CE1D",
+  
     paddingVertical: 12,
     paddingHorizontal: 8,
     justifyContent: "flex-start",
@@ -111,6 +111,19 @@ export default (styles = {
     textAlign: "center",
     
   },
+  tabBtnColored: {
+    width: "90%",
+    alignItems: "center",
+    borderRadius: 10,
+    backgroundColor: "#05CE1D",
+    color: "white"
+  },
+  tabBtn: {
+    width: "90%",
+    alignItems: "center",
+    borderRadius: 10,
+    color: "#05CE1D"
+  },
   tabwithClr: {
     fontWeight: "bold",
     height: "100%",
@@ -124,19 +137,8 @@ export default (styles = {
     borderBottom: "1px solid gray",
     borderRadius: 5
   },
-  tabBtn: {
-    width: "90%",
-    alignItems: "center",
-    borderRadius: 10,
-    color: "#05CE1D"
-  },
-  tabBtnColored: {
-    width: "90%",
-    alignItems: "center",
-    borderRadius: 10,
-    backgroundColor: "#05CE1D",
-    color: "white"
-  },
+ 
+  
 
   submitBtn: {
     alignSelf: "center",

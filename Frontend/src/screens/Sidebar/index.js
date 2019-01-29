@@ -90,7 +90,7 @@ class Sidebar extends Component {
             </Body>
           </ListItem>
 
-          <ListItem icon style={styles.barLinkContainer} onPress={() => this.props.navigation.navigate("LetsAdd")}>
+          <ListItem icon style={styles.barLinkContainer} onPress={() => this.props.navigation.navigate("AddPerson")}>
             <Left>
               <Button style={{ backgroundColor: appColor }}>
                 <Icon active name="add-user" type="Entypo" />

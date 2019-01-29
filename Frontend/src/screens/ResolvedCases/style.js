@@ -53,9 +53,6 @@ export default styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingTop: 5,
     },
-    statusText: {
-        color: '#05CE1D',
-    },
     nameText: {
         fontSize: 10
     },
@@ -108,7 +105,6 @@ export default styles = StyleSheet.create({
       },
       headerIcon: { fontSize: 30, color: "white" },
       header: {
-        backgroundColor: "#05CE1D",
         paddingVertical: 12,
         paddingHorizontal: 15,
         justifyContent: "space-between",

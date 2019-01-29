@@ -10,21 +10,11 @@ import {
 import {
   View,
   Text,
-  Content,
-  Item,
-  Input,
   Icon,
   Card,
   CardItem,
   Body,
   Container,
-  Picker,
-  Form,
-  Button,
-  Header,
-  Left,
-  Right,
-  Title
 } from "native-base";
 import ImagePicker from "react-native-image-picker";
 import styles from "./style";
@@ -47,6 +37,7 @@ class SearchScreen extends Component {
       selectedGender: "",
       selectedAgeGroup: "",
       location: "",
+      appColor :'green',
 
       fakeArray: [
         {
@@ -86,24 +77,35 @@ class SearchScreen extends Component {
       }
     });
   };
+
   componentDidMount() {
-    this.setState({ fakeArray: this.props.ResolvedCases });
+    this.setState({ fakeArray: this.props.ResolvedCases,appColor:this.props.clr  });
   }
+
+componentWillReceiveProps(newProp) {
+    this.setState({
+      appColor:newProp.clr
+    });
+  }
+
 
   openDrawer = () => {
     this.props.navigation.openDrawer();
   };
 
   render() {
+
     const { navigation } = this.props;
+    const {appColor} = this.state;
+
     return (
       <Container>
         {/* <View style={styles.searchContainer}> */}
 
         <View>
-          <StatusBar backgroundColor="#05CE1D" barStyle="light-content" />
+          <StatusBar backgroundColor={appColor} barStyle="light-content" />
         </View>
-        <View style={styles.header}>
+        <View style={[styles.header,{backgroundColor:appColor}]}>
           <Icon
             onPress={() => navigation.goBack()}
             style={styles.headerIcon}
@@ -112,11 +114,9 @@ class SearchScreen extends Component {
           />
 
           <Text style={styles.heading}>Resolved Cases</Text>
-          <Icon
-            name="menu"
-            style={styles.headerIcon}
-            onPress={() => this.openDrawer()}
-          />
+          
+          <Text></Text>
+          
         </View>
 
         <ScrollView>
@@ -188,7 +188,7 @@ class SearchScreen extends Component {
                             <View style={styles.cardHeader}>
                               <Text>{data.name}</Text>
 
-                              <Text style={styles.statusText}>
+                              <Text style={{color:appColor}}>
                                 {data.status}
                               </Text>
                             </View>
@@ -275,7 +275,8 @@ class SearchScreen extends Component {
 
 const mapStateToProps = state => {
   return {
-    ResolvedCases: state.misingPersons.ResolvedCases
+    ResolvedCases: state.misingPersons.ResolvedCases,
+    clr:state.colorReducer.color
   };
 };
 

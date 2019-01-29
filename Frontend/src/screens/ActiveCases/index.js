@@ -37,6 +37,7 @@ class SearchScreen extends Component {
       selectedGender: "",
       selectedAgeGroup: "",
       location: "",
+      appColor :'green',
 
       fakeArray: [
         {
@@ -57,6 +58,8 @@ class SearchScreen extends Component {
       modalVisible: false
     };
   }
+
+
   uploadImage = () => {
     ImagePicker.showImagePicker(options, response => {
       console.log("Response = ", response);
@@ -76,9 +79,20 @@ class SearchScreen extends Component {
       }
     });
   };
-  componentDidMount() {
-    this.setState({ fakeArray: this.props.missingPersons });
+
+
+  componentWillReceiveProps(newProp) {
+    this.setState({
+      appColor:newProp.clr
+    });
   }
+
+
+  componentDidMount() {
+
+    this.setState({ fakeArray: this.props.missingPersons,appColor:this.props.clr });
+  }
+
 
   onSubmit = () => {
     console.log("====================================");
@@ -89,21 +103,30 @@ class SearchScreen extends Component {
     console.log(this.state.location);
     console.log("====================================");
   };
+
+
+
   onStatusChange(value) {
     this.setState({
       selectedStatus: value
     });
   }
+
+
   onDisabilityChange(value) {
     this.setState({
       selectedDisability: value
     });
   }
+
+
   onGenderChange(value) {
     this.setState({
       selectedGender: value
     });
   }
+
+
   onAgeGroupChange(value) {
     this.setState({
       selectedAgeGroup: value
@@ -114,15 +137,20 @@ class SearchScreen extends Component {
     this.props.navigation.openDrawer();
   };
   render() {
+
     const { navigation } = this.props;
+    const {appColor} = this.state;
+
     return (
       <Container>
         {/* <View style={styles.searchContainer}> */}
 
         <View>
-          <StatusBar backgroundColor="#05CE1D" barStyle="light-content" />
+          <StatusBar backgroundColor={appColor} barStyle="light-content" />
         </View>
-        <View style={styles.header}>
+
+
+        <View style={[styles.header,{backgroundColor:appColor}]}>
           <Icon
             onPress={() => navigation.goBack()}
             style={styles.headerIcon}
@@ -131,12 +159,11 @@ class SearchScreen extends Component {
           />
 
           <Text style={styles.heading}>Active Post</Text>
-          <Icon
-            name="menu"
-            style={styles.headerIcon}
-            onPress={() => this.openDrawer()}
-          />
+          
+          <Text></Text>
+          
         </View>
+
 
         <ScrollView>
           {this.state.fakeArray.map((data, index) => {
@@ -208,7 +235,7 @@ class SearchScreen extends Component {
                             <View style={styles.cardHeader}>
                               <Text>{data.name}</Text>
 
-                              <Text style={styles.statusText}>
+                              <Text style={{color:appColor}}>
                                 {data.status}
                               </Text>
                             </View>
@@ -301,7 +328,8 @@ class SearchScreen extends Component {
 
 const mapStateToProps = state => {
   return {
-    missingPersons: state.misingPersons.UserPosts
+    missingPersons: state.misingPersons.UserPosts,
+    clr:state.colorReducer.color
   };
 };
 

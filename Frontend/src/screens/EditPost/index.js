@@ -10,14 +10,9 @@ import {
   Left,
   Right,
   Item,
-  Input,
-  Textarea,
-  Header,
   Icon,
-  Title,
   Body,
   Picker,
-  Label,
   Toast,
   ListItem,
   CheckBox
@@ -54,7 +49,8 @@ class EditPost extends Component {
       value: "",
       MistabBtnCls: styles.tabBtn,
       FndtabBtnCls: styles.tabBtn,
-      resolvedCase: false
+      resolvedCase: false,
+      appColor :'green'
     };
   }
 
@@ -131,8 +127,16 @@ class EditPost extends Component {
 
   data = this.props.navigation.getParam("data", "NO-Data");
 
+
+  componentWillReceiveProps(newProp) {
+      this.setState({
+        appColor:newProp.clr
+      });
+    }
+
   componentDidMount() {
     this.setState({
+      appColor:this.props.clr,
       name: this.data.name,
       gender: this.data.gender,
       disability: this.data.disability,
@@ -227,13 +231,15 @@ class EditPost extends Component {
 
 
   render() {
+
+    const {appColor} = this.state;
     const { navigation } = this.props;
 
     return (
       <Container>
-        <StatusBar backgroundColor="#05CE5D" barStyle="light-content" />
+        <StatusBar backgroundColor={appColor} barStyle="light-content" />
         <View>
-          <View style={styles.header}>
+          <View style={[styles.header,{backgroundColor:appColor}]}>
             <Icon
               onPress={() => navigation.goBack()}
               style={{ fontSize: 30, color: "white" }}
@@ -251,7 +257,7 @@ class EditPost extends Component {
               style={{marginLeft: 0, paddingLeft: 20}}
               onPress={this.resolvedCaseHandler}
             >
-              <CheckBox checked={this.state.resolvedCase} color="#05CE1D" />
+              <CheckBox checked={this.state.resolvedCase}/>
               <Body>
                 <Text>Mark this case as resolved</Text>
               </Body>
@@ -437,7 +443,7 @@ class EditPost extends Component {
             </View>
           </Button>
           <View style={styles.inputViewStyle}>
-            <Button style={styles.submitBtn} success onPress={this.onSubmit}>
+            <Button style={[styles.submitBtn,{backgroundColor:appColor}]} success onPress={this.onSubmit}>
               <Text>Update & Post</Text>
             </Button>
           </View>
@@ -447,7 +453,15 @@ class EditPost extends Component {
   }
 }
 
+
+const mapStateToProps = (state) =>{
+  
+  return {
+    clr:state.colorReducer.color
+  }
+}
+
 export default connect(
-  null,
+  mapStateToProps,
   { modifyPerson, resolvedCases }
 )(EditPost);
