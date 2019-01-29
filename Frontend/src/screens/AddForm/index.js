@@ -53,8 +53,8 @@ class AddForm extends Component {
       image: uploadimageIcon,
       value: "",
       loader: false,
-      MistabBtnCls: styles.tabBtnColored,
-      FndtabBtnCls: styles.tabBtn
+      MistabBtnCls: this.tabBtnColored,
+      FndtabBtnCls: this.tabBtn
     };
   }
 
@@ -86,6 +86,27 @@ class AddForm extends Component {
       }
     });
   };
+
+
+  // css classes for status buttons
+
+  clr = this.props.clr
+
+  tabBtn= {
+    width: "90%",
+    alignItems: "center",
+    borderRadius: 10,
+    color: this.clr
+  }
+  
+  tabBtnColored= {
+    width: "90%",
+    alignItems: "center",
+    borderRadius: 10,
+    backgroundColor: this.clr,
+    color: "white"
+  }
+
 
   onValueChange(value) {
     this.setState({
@@ -242,12 +263,12 @@ class AddForm extends Component {
                 onPress={() =>
                   this.setState({
                     status: "Missing",
-                    MistabBtnCls: styles.tabBtnColored,
-                    FndtabBtnCls: styles.tabBtn
+                    MistabBtnCls: this.tabBtnColored,
+                    FndtabBtnCls: this.tabBtn
                   })
                 }
               >
-                {this.state.MistabBtnCls == styles.tabBtn ? (
+                {this.state.MistabBtnCls == this.tabBtn ? (
                   <Text style={styles.tab}>Missing</Text>
                 ) : (
                   <Text style={styles.tabwithClr}>Missing</Text>
@@ -260,14 +281,14 @@ class AddForm extends Component {
                 onPress={() =>
                   this.setState({
                     status: "Found",
-                    FndtabBtnCls: styles.tabBtnColored,
-                    MistabBtnCls: styles.tabBtn
+                    FndtabBtnCls: this.tabBtnColored,
+                    MistabBtnCls: this.tabBtn
                   })
                 }
                 success
                 style={this.state.FndtabBtnCls}
               >
-                {this.state.FndtabBtnCls == styles.tabBtn ? (
+                {this.state.FndtabBtnCls == this.tabBtn ? (
                   <Text style={styles.tab}>Found</Text>
                 ) : (
                   <Text style={styles.tabwithClr}>Found</Text>

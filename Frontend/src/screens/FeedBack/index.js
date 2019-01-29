@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StatusBar, Alert } from "react-native";
+import { StatusBar } from "react-native";
 import {
   View,
   Text,
@@ -10,20 +10,23 @@ import {
   Left,
   Right,
   Item,
+  Input,
+  Textarea,
+  Header,
   Icon,
+  Title,
   Body,
   Picker,
+  Label,
   Toast,
-  ListItem,
-  CheckBox
+  Spinner
 } from "native-base";
 import ImagePicker from "react-native-image-picker";
 import uploadimageIcon from "../../media/upload-photo.png";
 import { connect } from "react-redux";
-import { modifyPerson } from "../../redux/actions/missingPersonAction";
+import { addPerson } from "../../redux/actions/missingPersonAction";
 import styles from "./style";
 import FloatingLabelInput from "../AddForm/floatingLabelInput";
-import { resolvedCases } from "../../redux/actions/missingPersonAction";
 
 const options = {
   title: "Select Option",
@@ -33,11 +36,10 @@ const options = {
   }
 };
 
-class EditPost extends Component {
+class AddForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: "",
       name: "",
       gender: "",
       disability: "",
@@ -47,10 +49,9 @@ class EditPost extends Component {
       age: "",
       image: uploadimageIcon,
       value: "",
-      MistabBtnCls: styles.tabBtn,
-      FndtabBtnCls: styles.tabBtn,
-      resolvedCase: false,
-      appColor :'green'
+      loader: false,
+      MistabBtnCls: styles.tabBtnColored,
+      FndtabBtnCls: styles.tabBtn
     };
   }
 
@@ -92,72 +93,6 @@ class EditPost extends Component {
     });
   }
 
-  
-  confirmation = false;
-  resolvedCaseHandler = () => {
-    this.state.resolvedCase
-      ? this.setState({
-          resolvedCase: false
-        })
-      : Alert.alert(
-          this.data.name + "'s Case Resolution",
-          "Are your sure to resolve this case",
-          [
-            {
-              text: "Ask me later",
-              onPress: () => console.log("Ask me later pressed")
-            },
-            {
-              text: "Cancel",
-              onPress: () => console.log("Cancel Pressed"),
-              style: "cancel"
-            },
-            {
-              text: "OK",
-              onPress: () =>
-                this.setState({
-                  resolvedCase: true,
-                  status: "Resolved"
-                })
-            }
-          ],
-          { cancelable: true }
-        );
-  };
-
-  data = this.props.navigation.getParam("data", "NO-Data");
-
-
-  componentWillReceiveProps(newProp) {
-      this.setState({
-        appColor:newProp.clr
-      });
-    }
-
-  componentDidMount() {
-    this.setState({
-      appColor:this.props.clr,
-      name: this.data.name,
-      gender: this.data.gender,
-      disability: this.data.disability,
-      location: this.data.location,
-      description: this.data.description,
-      status: this.data.status,
-      age: this.data.age,
-      id: this.data.id,
-      image: this.data.image
-    });
-    if (this.data.status == "Missing") {
-      this.setState({
-        MistabBtnCls: this.tabBtnColored
-      });
-    } else {
-      this.setState({
-        FndtabBtnCls: this.tabBtnColored
-      });
-    }
-  }
-
   onSubmit = () => {
     const data = {
       name: this.state.name,
@@ -168,7 +103,7 @@ class EditPost extends Component {
       status: this.state.status,
       age: this.state.age,
       image: this.state.image,
-      id: this.state.id
+      id: Math.random() + 1
     };
 
     if (this.state.age == "" || this.state.age == "Select an age group") {
@@ -195,93 +130,105 @@ class EditPost extends Component {
         type: "warning",
         duration: 3000
       });
-    }
-     else if (this.state.image == uploadimageIcon) {
+    } 
+    // else if (this.state.image == uploadimageIcon) {
+    //   Toast.show({
+    //     text: "Image is mendatory",
+    //     type: "warning",
+    //     duration: 3000
+    //   });
+    // } 
+    else {
+      this.setState({ loader: true });
+      this.props.addPerson(data);
+      this.props.navigation.navigate("ActiveCases");
       Toast.show({
-        text: "Image is mendatory",
-        type: "warning",
+        text: "Successfully Uploaded",
+        type: "success",
         duration: 3000
       });
-    }
-    else {
-      if(this.state.resolvedCase){
 
+      // const data = new FormData();
+      //   data.append('image', {
+      //       uri: this.state.image.uri,
+      //       type: 'image/jpeg',
+      //       name: `${this.state.location}_${this.state.age}_${new Date().getTime()}.jpg`,
+      //   });
 
-        console.log("From react Component: ", data);
-        this.props.resolvedCases(data);
-        this.props.navigation.navigate("ResolvedCases");
-        Toast.show({
-          text: "Successfully Resolve This case",
-          type: "success",
-          duration: 3000
-        });
-      }else{
-        console.log("From react Component: ", data);
-        this.props.modifyPerson(data);
-        this.props.navigation.navigate("ActiveCases");
-        Toast.show({
-          text: "Successfully Updated",
-          type: "success",
-          duration: 3000
-        });
-      }
+      //   data.append('name',`${this.state.name}`);
+      //   data.append('gender',`${this.state.gender}`);
+      //   data.append('disability',`${this.state.disability}`);
+      //   data.append('location',`${this.state.location}`);
+      //   data.append('description',`${this.state.description}`);
+      //   data.append('status',`${this.state.status}`);
+      //   data.append('age',`${this.state.age}`);
+      //   data.append('post_By','Naveed');
+      //   data.append('mobile','+923034766669');
+
+      //   axios.post('http://10.123.69.29:2020/registerMissingPerson', data, {
+      //       headers: {
+
+      //           'Content-Type': 'multipart/form-data',
+      //       },
+      //   })
+      //       .then(res => {
+      //           console.log("The Response", res.data);
+      //           Toast.show({
+      //             text: "Successfully Uploaded",
+      //             type: "success",
+      //             duration: 3000
+      //           });
+      //           this.props.navigation.navigate('Search');
+      //       }).catch(err => {
+      //         this.setState({loader:false});
+      //           console.log("ERROR", err)
+      //           Toast.show({
+      //             text: "Error Occoured",
+      //             type: "error",
+      //             duration: 3000
+      //           });
+      //       });
     }
   };
 
-  // styles for status buttons
-
-  clr = this.props.clr
-
-  tabBtn= {
-    width: "90%",
-    alignItems: "center",
-    borderRadius: 10,
-    color: this.clr
-  }
-  
-  tabBtnColored= {
-    width: "90%",
-    alignItems: "center",
-    borderRadius: 10,
-    backgroundColor: this.clr,
-    color: "white"
-  }
-
-
+  openDrawer = () => {
+    this.props.navigation.openDrawer();
+  };
 
   render() {
+    console.log("============from render========================");
 
-    const {appColor} = this.state;
     const { navigation } = this.props;
-
     return (
       <Container>
-        <StatusBar backgroundColor={appColor} barStyle="light-content" />
-        <View>
-          <View style={[styles.header,{backgroundColor:appColor}]}>
-            <Icon
-              onPress={() => navigation.goBack()}
-              style={{ fontSize: 30, color: "white" }}
-              type="MaterialCommunityIcons"
-              name="keyboard-backspace"
-            />
-            <Text />
-            <Text style={styles.heading}>Modify a Post</Text>
-            <Text> </Text>
-          </View>
+        <StatusBar backgroundColor="#05CE5D" barStyle="light-content" />
+        <View style={styles.header}>
+          <Icon
+            onPress={() => navigation.goBack()}
+            style={styles.headerIcon}
+            type="MaterialCommunityIcons"
+            name="keyboard-backspace"
+          />
+
+          <Text style={styles.heading}>Report a Person</Text>
+          <Icon
+            name="menu"
+            style={styles.headerIcon}
+            onPress={() => this.openDrawer()}
+          />
         </View>
-        <Content>
-          <View>
-            <ListItem
-              style={{marginLeft: 0, paddingLeft: 20}}
-              onPress={this.resolvedCaseHandler}
-            >
-              <CheckBox checked={this.state.resolvedCase}/>
-              <Body>
-                <Text>Mark this case as resolved</Text>
-              </Body>
-            </ListItem>
+
+        {/* <View>
+          <View style={styles.header}>
+            
+            <Text />
+            <Text style={styles.heading}>Report a Person</Text>
+            <Button transparent onPress={() => this.openDrawer()}>
+              <Icon name="menu" style={styles.searchIcon} />
+            </Button>
           </View>
+        </View> */}
+        <Content>
           <View style={styles.btnViewStyle}>
             <Left>
               <Button
@@ -291,15 +238,15 @@ class EditPost extends Component {
                 onPress={() =>
                   this.setState({
                     status: "Missing",
-                    MistabBtnCls: this.tabBtnColored,
-                    FndtabBtnCls: this.tabBtn
+                    MistabBtnCls: styles.tabBtnColored,
+                    FndtabBtnCls: styles.tabBtn
                   })
                 }
               >
-                {this.state.MistabBtnCls == this.tabBtn ? (
-                  <Text style={styles.tab}>Missing</Text>
+                {this.state.MistabBtnCls == styles.tabBtn ? (
+                  <Text style={styles.tab}>Issues</Text>
                 ) : (
-                  <Text style={styles.tabwithClr}>Missing</Text>
+                  <Text style={styles.tabwithClr}>Issues</Text>
                 )}
               </Button>
             </Left>
@@ -309,17 +256,17 @@ class EditPost extends Component {
                 onPress={() =>
                   this.setState({
                     status: "Found",
-                    FndtabBtnCls: this.tabBtnColored,
-                    MistabBtnCls: this.tabBtn
+                    FndtabBtnCls: styles.tabBtnColored,
+                    MistabBtnCls: styles.tabBtn
                   })
                 }
                 success
                 style={this.state.FndtabBtnCls}
               >
-                {this.state.FndtabBtnCls == this.tabBtn ? (
-                  <Text style={styles.tab}>Found</Text>
+                {this.state.FndtabBtnCls == styles.tabBtn ? (
+                  <Text style={styles.tab}>Suggestions</Text>
                 ) : (
-                  <Text style={styles.tabwithClr}>Found</Text>
+                  <Text style={styles.tabwithClr}>Suggestions</Text>
                 )}
               </Button>
             </Right>
@@ -362,13 +309,10 @@ class EditPost extends Component {
                 selectedValue={this.state.age}
                 onValueChange={this.onValueChange.bind(this)}
               >
-                <Picker.Item label={this.state.age} value={this.state.age} />
                 <Picker.Item
-                  style={{ color: "white" }}
                   label="Select an age group"
                   value="Select an age group"
                 />
-
                 <Picker.Item label="1 to 5" value="1 to 5" />
                 <Picker.Item label="6 to 10" value="6 to 10" />
                 <Picker.Item label="11 to 15" value="11 to 15" />
@@ -388,11 +332,6 @@ class EditPost extends Component {
                 selectedValue={this.state.gender}
                 onValueChange={this.onGenderChange.bind(this)}
               >
-                <Picker.Item
-                  label={this.state.gender}
-                  value={this.state.gender}
-                />
-
                 <Picker.Item label="Gender" value="Gender" />
                 <Picker.Item label="Male" value="Male" />
                 <Picker.Item label="Female" value="Female" />
@@ -407,11 +346,6 @@ class EditPost extends Component {
                 selectedValue={this.state.disability}
                 onValueChange={this.DisabilityHandler.bind(this)}
               >
-                <Picker.Item
-                  label={this.state.disability}
-                  value={this.state.disability}
-                />
-
                 <Picker.Item
                   label="Select a Disability if any"
                   value="Select a Disability if any"
@@ -450,21 +384,27 @@ class EditPost extends Component {
                 {this.state.image == uploadimageIcon ? (
                   <Thumbnail
                     style={styles.bottomImageStyle}
-                    source={{uri:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIyXov49V0vl3zSQGocwgBiOhf-I_iZqlf04-3FDfWnxNG91D64A'}}
+                    source={this.state.image}
                   />
                 ) : (
                   <Thumbnail
                     style={styles.bottomFullImg}
-                    source={{uri:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIyXov49V0vl3zSQGocwgBiOhf-I_iZqlf04-3FDfWnxNG91D64A'}}
+                    source={this.state.image}
                   />
                 )}
               </View>
             </View>
           </Button>
           <View style={styles.inputViewStyle}>
-            <Button style={[styles.submitBtn,{backgroundColor:appColor}]} success onPress={this.onSubmit}>
-              <Text>Update & Post</Text>
-            </Button>
+            {this.state.loader ? (
+              <Button style={styles.submitBtn} onPress={this.onSubmit}>
+                <Spinner color="white" />
+              </Button>
+            ) : (
+              <Button style={styles.submitBtn} onPress={this.onSubmit}>
+                <Text>Submit & Post</Text>
+              </Button>
+            )}
           </View>
         </Content>
       </Container>
@@ -472,15 +412,12 @@ class EditPost extends Component {
   }
 }
 
-
-const mapStateToProps = (state) =>{
-  
+const mapStateToProps = state => {
   return {
-    clr:state.colorReducer.color
-  }
-}
-
+    userStatus: state.userReducer.userStatus,
+  };
+};
 export default connect(
   mapStateToProps,
-  { modifyPerson, resolvedCases }
-)(EditPost);
+  { addPerson }
+)(AddForm);

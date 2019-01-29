@@ -2,7 +2,8 @@ import { GETUSER,USERLOGOUT,USERREGESTER,USERLOGINERROR,USERLOGIN } from "../../
 
 const INITIAL_STATE = {
   user:{},
-  userStatus:false,
+  // user managed temporarily
+  userStatus:true,
   registerLoader:'intial',
   loginLoader:'USERLOGINERROR'
 };
