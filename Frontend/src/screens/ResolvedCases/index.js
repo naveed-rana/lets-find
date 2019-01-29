@@ -116,7 +116,7 @@ componentWillReceiveProps(newProp) {
         </View>
         <View style={[styles.header,{backgroundColor:appColor}]}>
           <Icon
-            onPress={() => navigation.goBack()}
+            onPress={() => navigation.navigate('Homes')}
             style={styles.headerIcon}
             type="MaterialCommunityIcons"
             name="keyboard-backspace"

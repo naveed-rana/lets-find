@@ -47,8 +47,8 @@ class EditPost extends Component {
       age: "",
       image: uploadimageIcon,
       value: "",
-      MistabBtnCls: styles.tabBtn,
-      FndtabBtnCls: styles.tabBtn,
+      MistabBtnCls: this.tabBtn,
+      FndtabBtnCls: this.tabBtn,
       resolvedCase: false,
       appColor :'green'
     };
@@ -276,7 +276,7 @@ class EditPost extends Component {
               style={{marginLeft: 0, paddingLeft: 20}}
               onPress={this.resolvedCaseHandler}
             >
-              <CheckBox checked={this.state.resolvedCase}/>
+              <CheckBox checked={this.state.resolvedCase} color={appColor} onPress={this.resolvedCaseHandler}/>
               <Body>
                 <Text>Mark this case as resolved</Text>
               </Body>
