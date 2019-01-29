@@ -10,21 +10,11 @@ import {
 import {
   View,
   Text,
-  Content,
-  Item,
-  Input,
   Icon,
   Card,
   CardItem,
   Body,
   Container,
-  Picker,
-  Form,
-  Button,
-  Header,
-  Left,
-  Right,
-  Title
 } from "native-base";
 import ImagePicker from "react-native-image-picker";
 import styles from "./style";

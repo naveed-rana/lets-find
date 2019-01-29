@@ -42,6 +42,7 @@ class AddForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      appColor:'green',
       name: "",
       gender: "",
       disability: "",
@@ -56,6 +57,15 @@ class AddForm extends Component {
       FndtabBtnCls: styles.tabBtn
     };
   }
+
+  componentDidMount() {
+    this.setState({appColor:this.props.clr });
+  }
+  
+  componentWillReceiveProps(nextProps) {
+    this.setState({appColor:nextProps.clr});
+    
+}
 
   uploadImage = () => {
     ImagePicker.showImagePicker(options, response => {
@@ -193,13 +203,12 @@ class AddForm extends Component {
   };
 
   render() {
-    console.log("============from render========================");
-
+    const {appColor} = this.state;
     const { navigation } = this.props;
     return (
       <Container>
-        <StatusBar backgroundColor="#05CE5D" barStyle="light-content" />
-        <View style={styles.header}>
+        <StatusBar backgroundColor={appColor} barStyle="light-content" />
+        <View style={[styles.header,{ backgroundColor: appColor}]}>
           <Icon
             onPress={() => navigation.goBack()}
             style={styles.headerIcon}
@@ -208,11 +217,9 @@ class AddForm extends Component {
           />
 
           <Text style={styles.heading}>Report a Person</Text>
-          <Icon
-            name="menu"
-            style={styles.headerIcon}
-            onPress={() => this.openDrawer()}
-          />
+         
+         <Text></Text>
+         
         </View>
 
         {/* <View>
@@ -394,11 +401,11 @@ class AddForm extends Component {
           </Button>
           <View style={styles.inputViewStyle}>
             {this.state.loader ? (
-              <Button style={styles.submitBtn} onPress={this.onSubmit}>
+              <Button style={[styles.submitBtn,{ backgroundColor: appColor}]}>
                 <Spinner color="white" />
               </Button>
             ) : (
-              <Button style={styles.submitBtn} onPress={this.onSubmit}>
+              <Button style={[styles.submitBtn,{ backgroundColor: appColor}]} onPress={this.onSubmit}>
                 <Text>Submit & Post</Text>
               </Button>
             )}
@@ -412,6 +419,7 @@ class AddForm extends Component {
 const mapStateToProps = state => {
   return {
     userStatus: state.userReducer.userStatus,
+    clr:state.colorReducer.color
   };
 };
 export default connect(

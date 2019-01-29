@@ -2,7 +2,6 @@ import { StyleSheet} from 'react-native';
 
 export default styles = StyleSheet.create({
     topcontent:{
-        backgroundColor : "#05CE1D",
         flexDirection:"row",
         padding:12,
         justifyContent: "space-between"

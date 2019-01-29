@@ -39,9 +39,7 @@ componentWillReceiveProps(newProp) {
   }
    
 
-  openDrawer = () => {
-    this.props.navigation.openDrawer();
-  };
+
 
   render() {
     const {appColor} = this.state;

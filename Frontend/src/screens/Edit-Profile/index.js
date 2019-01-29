@@ -14,8 +14,10 @@ import {
   Container
 } from "native-base";
 import styles from "./style";
+import {connect} from 'react-redux';
 
-export default class SignUpScreen extends Component {
+
+class SignUpScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,8 +25,19 @@ export default class SignUpScreen extends Component {
       Lname: "",
       cell: "",
       description: "",
-      contry: ""
+      contry: "",
+      appColor :'green'
     };
+  }
+
+  componentWillReceiveProps(newProp) {
+    this.setState({
+      appColor:newProp.clr
+    });
+  }
+
+  componentDidMount() {
+    this.setState({ appColor:this.props.clr });
   }
 
   onSubmit = () => {
@@ -38,12 +51,13 @@ export default class SignUpScreen extends Component {
   };
 
   render() {
+    const {appColor} = this.state;
     return (
       <Container style={styles.wrapper}>
         <View>
-          <StatusBar backgroundColor="#05CE1D" barStyle="light-content" />
+          <StatusBar backgroundColor={appColor} barStyle="light-content" />
         </View>
-        <View style={styles.topcontent}>
+        <View style={[styles.topcontent,{backgroundColor : appColor}]}>
           <Icon
             onPress={() => this.props.navigation.navigate("Profile")}
             type="AntDesign"
@@ -136,7 +150,7 @@ export default class SignUpScreen extends Component {
           style={{
             marginVertical: 10,
             marginHorizontal: 2,
-            backgroundColor: "#05CE1D",
+            backgroundColor:appColor,
             borderRadius: 4
           }}
         >
@@ -150,7 +164,14 @@ export default class SignUpScreen extends Component {
 }
 
 
+const mapStateToProps = (state) =>{
+  
+  return {
+    clr:state.colorReducer.color,
+  }
+}
 
+export default connect(mapStateToProps,null)(SignUpScreen);
 
 
 

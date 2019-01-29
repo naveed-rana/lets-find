@@ -29,7 +29,7 @@ class LoginScreen extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({loader: false,appColor:newProp.clr});
+    this.setState({loader: false,appColor:nextProps.clr});
     if(nextProps.loginLoader == 'move'){
     this.props.navigation.navigate("AddPerson");
     }

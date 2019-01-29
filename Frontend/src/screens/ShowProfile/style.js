@@ -80,7 +80,6 @@ export default styles = StyleSheet.create({
   },
   editBtn: {
     marginTop: 50,
-    backgroundColor: "#05CE1D",
     borderRadius: 5,
   },
 
