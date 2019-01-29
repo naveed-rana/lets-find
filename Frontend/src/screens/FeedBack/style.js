@@ -91,6 +91,7 @@ export default (styles = {
     backgroundColor: "#05ce1d"
   },
   header: {
+    backgroundColor: "#05CE1D",
     paddingVertical: 12,
     paddingHorizontal: 15,
     justifyContent: "space-between",
@@ -101,7 +102,9 @@ export default (styles = {
     marginTop: 5
   },
   tab: {
-    fontWeight: "bold",
+    fontSize: 14,
+    paddingLeft: 8,
+    paddingRight: 8,
     height: "100%",
     alignSelf: "center",
     paddingTop: 7,
@@ -109,6 +112,9 @@ export default (styles = {
     textAlign: "center"
   },
   tabwithClr: {
+    fontSize: 14,
+    paddingLeft: 8,
+    paddingRight: 8,
     fontWeight: "bold",
     height: "100%",
     alignSelf: "center",
@@ -121,12 +127,26 @@ export default (styles = {
     borderBottom: "1px solid gray",
     borderRadius: 5
   },
+  tabBtn: {
+    width: "90%",
+    alignItems: "center",
+    borderRadius: 10,
+    color: "#05CE1D"
+  },
+  tabBtnColored: {
+    width: "90%",
+    alignItems: "center",
+    borderRadius: 10,
+    backgroundColor: "#05CE1D",
+    color: "white"
+  },
 
   submitBtn: {
     alignSelf: "center",
     borderRadius: 4,
     width: "70%",
     justifyContent: "center",
+    backgroundColor: "#05CE1D",
   },
   headerIcon: { fontSize: 30, color: "white" }
 });

@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { StatusBar } from "react-native";
-import EndPoint from '../../endpoint';
-import axios from "axios";
 import {
   View,
   Text,
@@ -12,8 +10,14 @@ import {
   Left,
   Right,
   Item,
+  Input,
+  Textarea,
+  Header,
   Icon,
+  Title,
+  Body,
   Picker,
+  Label,
   Toast,
   Spinner
 } from "native-base";
@@ -22,7 +26,7 @@ import uploadimageIcon from "../../media/upload-photo.png";
 import { connect } from "react-redux";
 import { addPerson } from "../../redux/actions/missingPersonAction";
 import styles from "./style";
-import FloatingLabelInput from "./floatingLabelInput";
+import FloatingLabelInput from "../AddForm/floatingLabelInput";
 
 const options = {
   title: "Select Option",
@@ -36,7 +40,6 @@ class AddForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      appColor:'green',
       name: "",
       gender: "",
       disability: "",
@@ -47,19 +50,10 @@ class AddForm extends Component {
       image: uploadimageIcon,
       value: "",
       loader: false,
-      MistabBtnCls: this.tabBtnColored,
-      FndtabBtnCls: this.tabBtn
+      MistabBtnCls: styles.tabBtnColored,
+      FndtabBtnCls: styles.tabBtn
     };
   }
-
-  componentDidMount() {
-    this.setState({appColor:this.props.clr });
-  }
-  
-  componentWillReceiveProps(nextProps) {
-    this.setState({appColor:nextProps.clr});
-    
-}
 
   uploadImage = () => {
     ImagePicker.showImagePicker(options, response => {
@@ -72,34 +66,14 @@ class AddForm extends Component {
       } else if (response.customButton) {
         console.log("User tapped custom button: ", response.customButton);
       } else {
+        const source = { uri: response.uri };
 
         this.setState({
-          image: response.uri
+          image: source
         });
       }
     });
   };
-
-
-  // css classes for status buttons
-
-  clr = this.props.clr
-
-  tabBtn= {
-    width: "90%",
-    alignItems: "center",
-    borderRadius: 10,
-    color: this.clr
-  }
-  
-  tabBtnColored= {
-    width: "90%",
-    alignItems: "center",
-    borderRadius: 10,
-    backgroundColor: this.clr,
-    color: "white"
-  }
-
 
   onValueChange(value) {
     this.setState({
@@ -120,7 +94,7 @@ class AddForm extends Component {
   }
 
   onSubmit = () => {
-    const userDatadata = {
+    const data = {
       name: this.state.name,
       gender: this.state.gender,
       disability: this.state.disability,
@@ -157,60 +131,63 @@ class AddForm extends Component {
         duration: 3000
       });
     } 
-    else if (this.state.image == uploadimageIcon) {
-      Toast.show({
-        text: "Image is mendatory",
-        type: "warning",
-        duration: 3000
-      });
-    } 
+    // else if (this.state.image == uploadimageIcon) {
+    //   Toast.show({
+    //     text: "Image is mendatory",
+    //     type: "warning",
+    //     duration: 3000
+    //   });
+    // } 
     else {
       this.setState({ loader: true });
-      
+      this.props.addPerson(data);
+      this.props.navigation.navigate("ActiveCases");
+      Toast.show({
+        text: "Successfully Uploaded",
+        type: "success",
+        duration: 3000
+      });
 
-      const data = new FormData();
-        data.append('image', {
-            uri: this.state.image.uri,
-            type: 'image/jpeg',
-            name: `${this.state.location}_${this.state.age}_${new Date().getTime()}.jpg`,
-        });
+      // const data = new FormData();
+      //   data.append('image', {
+      //       uri: this.state.image.uri,
+      //       type: 'image/jpeg',
+      //       name: `${this.state.location}_${this.state.age}_${new Date().getTime()}.jpg`,
+      //   });
 
-        data.append('name',`${this.state.name}`);
-        data.append('gender',`${this.state.gender}`);
-        data.append('disability',`${this.state.disability}`);
-        data.append('location',`${this.state.location}`);
-        data.append('description',`${this.state.description}`);
-        data.append('status',`${this.state.status}`);
-        data.append('age',`${this.state.age}`);
-        data.append('post_By','Naveed');
-        data.append('mobile','+923034766669');
+      //   data.append('name',`${this.state.name}`);
+      //   data.append('gender',`${this.state.gender}`);
+      //   data.append('disability',`${this.state.disability}`);
+      //   data.append('location',`${this.state.location}`);
+      //   data.append('description',`${this.state.description}`);
+      //   data.append('status',`${this.state.status}`);
+      //   data.append('age',`${this.state.age}`);
+      //   data.append('post_By','Naveed');
+      //   data.append('mobile','+923034766669');
 
-        // axios.post(`${EndPoint}/registerMissingPerson`, data, {
-        //     headers: {
+      //   axios.post('http://10.123.69.29:2020/registerMissingPerson', data, {
+      //       headers: {
 
-        //         'Content-Type': 'multipart/form-data',
-        //     },
-        // })
-        //     .then(res => {
-        //         console.log("The Response", res.data);
-        //         Toast.show({
-        //           text: "Successfully Uploaded",
-        //           type: "success",
-        //           duration: 3000
-        //         });
-        //         this.props.addPerson(userDatadata);
-        //         this.props.navigation.navigate('Search');
-        //     }).catch(err => {
-        //       this.setState({loader:false});
-        //         console.log("ERROR", err)
-        //         Toast.show({
-        //           text: "Error Occoured",
-        //           type: "error",
-        //           duration: 3000
-        //         });
-        //     });
-
-            this.props.addPerson(userDatadata);
+      //           'Content-Type': 'multipart/form-data',
+      //       },
+      //   })
+      //       .then(res => {
+      //           console.log("The Response", res.data);
+      //           Toast.show({
+      //             text: "Successfully Uploaded",
+      //             type: "success",
+      //             duration: 3000
+      //           });
+      //           this.props.navigation.navigate('Search');
+      //       }).catch(err => {
+      //         this.setState({loader:false});
+      //           console.log("ERROR", err)
+      //           Toast.show({
+      //             text: "Error Occoured",
+      //             type: "error",
+      //             duration: 3000
+      //           });
+      //       });
     }
   };
 
@@ -219,12 +196,13 @@ class AddForm extends Component {
   };
 
   render() {
-    const {appColor} = this.state;
+    console.log("============from render========================");
+
     const { navigation } = this.props;
     return (
       <Container>
-        <StatusBar backgroundColor={appColor} barStyle="light-content" />
-        <View style={[styles.header,{ backgroundColor: appColor}]}>
+        <StatusBar backgroundColor="#05CE5D" barStyle="light-content" />
+        <View style={styles.header}>
           <Icon
             onPress={() => navigation.goBack()}
             style={styles.headerIcon}
@@ -233,9 +211,11 @@ class AddForm extends Component {
           />
 
           <Text style={styles.heading}>Report a Person</Text>
-         
-         <Text></Text>
-         
+          <Icon
+            name="menu"
+            style={styles.headerIcon}
+            onPress={() => this.openDrawer()}
+          />
         </View>
 
         {/* <View>
@@ -258,15 +238,15 @@ class AddForm extends Component {
                 onPress={() =>
                   this.setState({
                     status: "Missing",
-                    MistabBtnCls: this.tabBtnColored,
-                    FndtabBtnCls: this.tabBtn
+                    MistabBtnCls: styles.tabBtnColored,
+                    FndtabBtnCls: styles.tabBtn
                   })
                 }
               >
-                {this.state.MistabBtnCls == this.tabBtn ? (
-                  <Text style={styles.tab}>Missing</Text>
+                {this.state.MistabBtnCls == styles.tabBtn ? (
+                  <Text style={styles.tab}>Issues</Text>
                 ) : (
-                  <Text style={styles.tabwithClr}>Missing</Text>
+                  <Text style={styles.tabwithClr}>Issues</Text>
                 )}
               </Button>
             </Left>
@@ -276,17 +256,17 @@ class AddForm extends Component {
                 onPress={() =>
                   this.setState({
                     status: "Found",
-                    FndtabBtnCls: this.tabBtnColored,
-                    MistabBtnCls: this.tabBtn
+                    FndtabBtnCls: styles.tabBtnColored,
+                    MistabBtnCls: styles.tabBtn
                   })
                 }
                 success
                 style={this.state.FndtabBtnCls}
               >
-                {this.state.FndtabBtnCls == this.tabBtn ? (
-                  <Text style={styles.tab}>Found</Text>
+                {this.state.FndtabBtnCls == styles.tabBtn ? (
+                  <Text style={styles.tab}>Suggestions</Text>
                 ) : (
-                  <Text style={styles.tabwithClr}>Found</Text>
+                  <Text style={styles.tabwithClr}>Suggestions</Text>
                 )}
               </Button>
             </Right>
@@ -409,7 +389,7 @@ class AddForm extends Component {
                 ) : (
                   <Thumbnail
                     style={styles.bottomFullImg}
-                    source={{uri:this.state.image}}
+                    source={this.state.image}
                   />
                 )}
               </View>
@@ -417,11 +397,11 @@ class AddForm extends Component {
           </Button>
           <View style={styles.inputViewStyle}>
             {this.state.loader ? (
-              <Button style={[styles.submitBtn,{ backgroundColor: appColor}]}>
+              <Button style={styles.submitBtn} onPress={this.onSubmit}>
                 <Spinner color="white" />
               </Button>
             ) : (
-              <Button style={[styles.submitBtn,{ backgroundColor: appColor}]} onPress={this.onSubmit}>
+              <Button style={styles.submitBtn} onPress={this.onSubmit}>
                 <Text>Submit & Post</Text>
               </Button>
             )}
@@ -435,7 +415,6 @@ class AddForm extends Component {
 const mapStateToProps = state => {
   return {
     userStatus: state.userReducer.userStatus,
-    clr:state.colorReducer.color
   };
 };
 export default connect(

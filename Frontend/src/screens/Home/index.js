@@ -60,6 +60,9 @@ class Home extends Component {
     };
   }
 
+
+
+
   componentWillReceiveProps(newProp) {
     this.setState({
       fakeArray: newProp.missingPersons,
@@ -176,6 +179,9 @@ class Home extends Component {
                               source={{uri:data.image}}
                             />
                           </TouchableOpacity>
+
+
+                          
                         </View>
                         <View style={styles.textContainer}>
                           <TouchableOpacity

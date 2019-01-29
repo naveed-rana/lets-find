@@ -46,8 +46,8 @@ class EditPost extends Component {
       age: "",
       image:'https://static.thenounproject.com/png/396915-200.png',
       value: "",
-      MistabBtnCls: styles.tabBtn,
-      FndtabBtnCls: styles.tabBtn,
+      MistabBtnCls: this.tabBtn,
+      FndtabBtnCls: this.tabBtn,
       resolvedCase: false,
       appColor :'green'
     };
@@ -147,11 +147,11 @@ class EditPost extends Component {
     });
     if (this.data.status == "Missing") {
       this.setState({
-        MistabBtnCls: styles.tabBtnColored
+        MistabBtnCls: this.tabBtnColored
       });
     } else {
       this.setState({
-        FndtabBtnCls: styles.tabBtnColored
+        FndtabBtnCls: this.tabBtnColored
       });
     }
   }
@@ -226,6 +226,25 @@ class EditPost extends Component {
     }
   };
 
+  // styles for status buttons
+
+  clr = this.props.clr
+
+  tabBtn= {
+    width: "90%",
+    alignItems: "center",
+    borderRadius: 10,
+    color: this.clr
+  }
+  
+  tabBtnColored= {
+    width: "90%",
+    alignItems: "center",
+    borderRadius: 10,
+    backgroundColor: this.clr,
+    color: "white"
+  }
+
 
 
   render() {
@@ -255,7 +274,7 @@ class EditPost extends Component {
               style={{marginLeft: 0, paddingLeft: 20}}
               onPress={this.resolvedCaseHandler}
             >
-              <CheckBox checked={this.state.resolvedCase}/>
+              <CheckBox checked={this.state.resolvedCase} color={appColor} onPress={this.resolvedCaseHandler}/>
               <Body>
                 <Text>Mark this case as resolved</Text>
               </Body>
@@ -270,12 +289,12 @@ class EditPost extends Component {
                 onPress={() =>
                   this.setState({
                     status: "Missing",
-                    MistabBtnCls: styles.tabBtnColored,
-                    FndtabBtnCls: styles.tabBtn
+                    MistabBtnCls: this.tabBtnColored,
+                    FndtabBtnCls: this.tabBtn
                   })
                 }
               >
-                {this.state.MistabBtnCls == styles.tabBtn ? (
+                {this.state.MistabBtnCls == this.tabBtn ? (
                   <Text style={styles.tab}>Missing</Text>
                 ) : (
                   <Text style={styles.tabwithClr}>Missing</Text>
@@ -288,14 +307,14 @@ class EditPost extends Component {
                 onPress={() =>
                   this.setState({
                     status: "Found",
-                    FndtabBtnCls: styles.tabBtnColored,
-                    MistabBtnCls: styles.tabBtn
+                    FndtabBtnCls: this.tabBtnColored,
+                    MistabBtnCls: this.tabBtn
                   })
                 }
                 success
                 style={this.state.FndtabBtnCls}
               >
-                {this.state.FndtabBtnCls == styles.tabBtn ? (
+                {this.state.FndtabBtnCls == this.tabBtn ? (
                   <Text style={styles.tab}>Found</Text>
                 ) : (
                   <Text style={styles.tabwithClr}>Found</Text>
