@@ -21,22 +21,44 @@ import {
 } from "native-base";
 
 import styles from "./style";
+import ImageView from 'react-native-image-view';
+import {connect} from 'react-redux';
 
-export default class PersonalDetail extends Component {
+class PersonalDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalVisible: false
+      appColor :'green',
+      isImageViewVisible: false,
+      currentImage:[
+        {
+            source: {
+                uri: 'https://cdn.pixabay.com/photo/2017/08/17/10/47/paris-2650808_960_720.jpg',
+            },
+        },
+    ]
     };
   }
+
+  componentWillReceiveProps(newProp) {
+    this.setState({
+      appColor:newProp.clr
+    });
+  }
+
+  componentDidMount() {
+    this.setState({ appColor:this.props.clr });
+  }
+
   render() {
     const { navigation } = this.props;
+    const {isImageViewVisible,currentImage,appColor} = this.state;
     const data = navigation.getParam("data", "NO-Data");
 
     return (
       <Container>
-        <Header style={{ backgroundColor: "#05ce1d" }}>
-          <StatusBar backgroundColor="#05ce1d" barStyle="light-content" />
+        <Header style={{ backgroundColor: appColor }}>
+          <StatusBar backgroundColor={appColor} barStyle="light-content" />
           <Left>
             <Icon
               type="AntDesign"
@@ -46,46 +68,35 @@ export default class PersonalDetail extends Component {
             />
           </Left>
           <Body>
-            <Title>{data.name + " " + data.status} Person</Title>
+            <Title>{data.name + " " + data.status} Person </Title>
           </Body>
         </Header>
         <Content>
           <Grid>
             <Row size={50}>
               <Col>
-                <Modal
-                  visible={this.state.modalVisible}
-                  transparent={true}
-                  animationType="slide"
-                  // transparent={false}
-                  onRequestClose={() => {
-                    this.modalVisible(false);
-                  }}
-                >
-                  <View style={styles.modalOverlay}>
-                    <Icon
-                      style={styles.modalClose}
-                      type="AntDesign"
-                      name="close"
-                      onPress={() => this.setState({ modalVisible: false })}
-                    />
-                    <View style={{ flex: 1, justifyContent: "center" }}>
-                      <Image
-                        style={styles.modalImage}
-                        source={require("../../media/sham.jpg")}
-                      />
-                    </View>
-                  </View>
-                </Modal>
+                
                 <TouchableOpacity
-                  onPress={() => this.setState({ modalVisible: true })}
+                   onPress={() =>
+                    this.setState({ isImageViewVisible: true,
+                      currentImage:
+                      [
+                        {
+                        source: {
+                                uri:data.image,
+                            },
+                        },
+                    ]
+                    })
+                  }
                 >
                   <View style={styles.imagePadding}>
                     <Image
                       style={styles.imageStyle}
-                      source={data.image}
+                      source={{uri:data.image}}
                     />
                   </View>
+
                 </TouchableOpacity>
               </Col>
               <Col>
@@ -154,7 +165,7 @@ export default class PersonalDetail extends Component {
                   rounded
                   iconLeft
                   success
-                  style={{ backgroundColor: "#05CE1D" }}
+                  style={{ backgroundColor: appColor }}
                 >
                   <Icon name="map" />
                   <Text uppercase={false}>Look at the map</Text>
@@ -169,21 +180,13 @@ export default class PersonalDetail extends Component {
                 </CardItem>
               </Card>
 
-              {/* <View
-              style={{
-                borderBottomColor: "black",
-                borderBottomWidth: 2,
-                width:"100%",
-                marginVertical: 10
-              }}
-            /> */}
               
               <View>
                 <Button
                   style={{
                     borderRadius: 5,
                     marginTop: 15,
-                    backgroundColor: "#05CE1D"
+                    backgroundColor:appColor
                   }}
                   full
                   success
@@ -215,7 +218,26 @@ export default class PersonalDetail extends Component {
             </View>
           </Grid>
         </Content>
+
+        <ImageView
+          images={currentImage}
+          imageIndex={0}
+          onClose={() => this.setState({isImageViewVisible: false})}
+          isVisible={isImageViewVisible}
+        />
+
       </Container>
     );
   }
 }
+
+
+
+const mapStateToProps = (state) =>{
+  
+  return {
+    clr:state.colorReducer.color
+  }
+}
+
+export default connect(mapStateToProps,null)(PersonalDetail);
