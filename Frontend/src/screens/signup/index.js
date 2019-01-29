@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import {connect} from 'react-redux';
-import { ImageBackground, Image,ScrollView } from "react-native";
+import { connect } from "react-redux";
+import { ImageBackground, Image, ScrollView } from "react-native";
 
 import {
   Text,
@@ -12,10 +12,11 @@ import {
   View,
   Button,
   CheckBox,
-  Spinner
+  Spinner,
+  Toast
 } from "native-base";
 //import actions
-import {registerUser} from '../../redux/actions/UserActions';
+import { registerUser } from "../../redux/actions/UserActions";
 
 import styles from "./style";
 
@@ -27,57 +28,88 @@ class SignUpScreen extends Component {
       email: "",
       password: "",
       cell: "",
-      loader:false,
-      appColor:''
+      loader: false,
+      appColor: ""
     };
   }
-
-  
+   validateEmail=(email)=> {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
 
   componentWillReceiveProps(nextProps) {
-    
-    this.setState({loader: false,appColor:newProp.clr});
-    if(nextProps.registerLoader == 'success'){
-    this.props.navigation.navigate("Login");
+    this.setState({ loader: false, appColor: newProp.clr });
+    if (nextProps.registerLoader == "success") {
+      this.props.navigation.navigate("Login");
     }
 
-    console.log('full state',this.state);
-    
-    
-}
-
-
-componentDidMount() {
-  this.setState({appColor:this.props.clr });
-}
-
-
-  onSubmit=()=>{
-
-   this.setState({loader:true})
-    let data = {"user":{
-      name:this.state.username,
-      email:this.state.email,
-      password:this.state.password,
-      cell:this.state.cell
-  }}
-
-  this.props.registerUser(data);
+    console.log("full state", this.state);
   }
+
+  componentDidMount() {
+    this.setState({ appColor: this.props.clr });
+  }
+
+  onSubmit = () => {
+    if (this.state.username == "") {
+      Toast.show({
+        text: "Please provide a username",
+        type: "error",
+        duration: 3000
+      });
+    } else if (
+      this.state.email == "" ||
+      !this.validateEmail(this.state.email)
+    ) {
+      Toast.show({
+        text: "Please Provide a valid Email address",
+        type: "error",
+        duration: 3000
+      });
+    } else if (this.state.cell == "") {
+      Toast.show({
+        text: "Please provide your valid Phone Number",
+        type: "error",
+        duration: 3000
+      });
+    } else if (this.state.password == "") {
+      Toast.show({
+        text: "Please Set a Password",
+        type: "error",
+        duration: 3000
+      });
+    } else {
+      this.setState({ loader: true });
+      let data = {
+        user: {
+          name: this.state.username,
+          email: this.state.email,
+          password: this.state.password,
+          cell: this.state.cell
+        }
+      };
+
+      this.props.registerUser(data);
+    }
+  };
   render() {
-    const {loader,appColor} = this.state;
-  //  console.log('props from comp',loader);
-   
+    console.log("===email======");
+    
+    console.log(this.validateEmail("as@gmai"));
+    
+    const { loader, appColor } = this.state;
+    //  console.log('props from comp',loader);
+
     return (
-        <ScrollView style={{backgroundColor:appColor}}>
+      <ScrollView style={{ backgroundColor: appColor }}>
         <View>
           <Icon
             onPress={() => this.props.navigation.goBack()}
-            style={{marginLeft: 5, fontWeight:'bold',color:'white'}}
+            style={{ marginLeft: 5, fontWeight: "bold", color: "white" }}
             type="MaterialCommunityIcons"
             name="keyboard-backspace"
           />
-          </View>
+        </View>
         <Content contentContainerStyle={styles.loginContainer}>
           <View style={styles.viewStyle}>
             <Image source={require("../../media/main_logo.png")} />
@@ -86,8 +118,11 @@ componentDidMount() {
 
           <View style={styles.viewDirection}>
             <Text
-            onPress={() => this.props.navigation.navigate("Login")}
-            style={styles.loginStyle}>Login</Text>
+              onPress={() => this.props.navigation.navigate("Login")}
+              style={styles.loginStyle}
+            >
+              Login
+            </Text>
             <Text style={styles.barStyle}>|</Text>
             <Text style={styles.signUpStyle}>Signup</Text>
           </View>
@@ -101,9 +136,11 @@ componentDidMount() {
                 style={styles.inputStyle}
               />
               <Input
-                onChangeText={event => this.setState({
-                  username: event
-                })}
+                onChangeText={event =>
+                  this.setState({
+                    username: event
+                  })
+                }
                 placeholderTextColor="#fff"
                 style={styles.inputStyle}
                 placeholder="User Name"
@@ -121,9 +158,11 @@ componentDidMount() {
                 placeholderTextColor="#fff"
                 style={styles.inputStyle}
                 placeholder="Email"
-                onChangeText={event => this.setState({
-                  email: event
-                })}
+                onChangeText={event =>
+                  this.setState({
+                    email: event.toLowerCase()
+                  })
+                }
               />
             </Item>
 
@@ -137,10 +176,14 @@ componentDidMount() {
               <Input
                 placeholderTextColor="#fff"
                 style={styles.inputStyle}
+                keyboardType = 'numeric'
                 placeholder="Phone Number"
-                onChangeText={event => this.setState({
-                  cell: event
-                })}
+                onChangeText={event =>
+                  this.setState({
+                    cell: event
+                  })
+                }
+                
               />
             </Item>
 
@@ -156,9 +199,11 @@ componentDidMount() {
                 placeholderTextColor="#fff"
                 style={styles.inputStyle}
                 placeholder="Password"
-                onChangeText={event => this.setState({
-                  password: event
-                })}
+                onChangeText={event =>
+                  this.setState({
+                    password: event
+                  })
+                }
               />
             </Item>
 
@@ -168,43 +213,49 @@ componentDidMount() {
                 | Accept Terms and Conditions, Privacy and Policy
               </Text>
             </View>
-            
-            {loader ? 
-           <Button
-            full
-            rounded
-            style={{ marginVertical: 20, backgroundColor: "white" }}
-            >
-           <Spinner color='green' />
-          </Button>
-            :
-            <Button
-              full
-              rounded
-              style={{ marginVertical: 20, backgroundColor: "white" }}
-              onPress={this.onSubmit}
-            >
-              <Text style={{ color: "black", fontWeight: "bold" }}>SIGNUP</Text>
-            </Button>
-            }
+
+            {loader ? (
+              <Button
+                full
+                rounded
+                style={{ marginVertical: 20, backgroundColor: "white" }}
+              >
+                <Spinner color="green" />
+              </Button>
+            ) : (
+              <Button
+                full
+                rounded
+                style={{ marginVertical: 20, backgroundColor: "white" }}
+                onPress={this.onSubmit}
+              >
+                <Text style={{ color: "black", fontWeight: "bold" }}>
+                  SIGNUP
+                </Text>
+              </Button>
+            )}
           </Form>
 
-          <View 
-          onPress={() => this.props.navigation.navigate("Login")}
-          style={styles.viewAccount}>
+          <View
+            onPress={() => this.props.navigation.navigate("Login")}
+            style={styles.viewAccount}
+          >
             <Text style={styles.inputStyle}>Already have an Account?</Text>
           </View>
         </Content>
-        </ScrollView>
+      </ScrollView>
     );
   }
 }
 
-mapStateToProps = (state) => {
+mapStateToProps = state => {
   return {
-    registerLoader:state.userReducer.registerLoader,
-    clr:state.colorReducer.color
-  }
-}
+    registerLoader: state.userReducer.registerLoader,
+    clr: state.colorReducer.color
+  };
+};
 
-export default connect(mapStateToProps,{registerUser})(SignUpScreen);
+export default connect(
+  mapStateToProps,
+  { registerUser }
+)(SignUpScreen);
