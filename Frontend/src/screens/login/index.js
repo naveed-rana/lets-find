@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {getStartUserLogin} from '../../redux/actions/UserActions';
-import { ImageBackground, Image,ScrollView } from "react-native";
+import { ImageBackground, Image,ScrollView,TouchableOpacity } from "react-native";
+import MicrosoftLogin from '../azure/';
 import {connect} from 'react-redux';
 import {
   Text,
@@ -16,6 +17,7 @@ import {
 
 import styles from "./style";
 
+
 class LoginScreen extends Component {
   constructor(Props) {
     super(Props);
@@ -25,8 +27,13 @@ class LoginScreen extends Component {
       loader:false,
       appColor:''
     };
+
     
   }
+
+
+
+
 
   componentWillReceiveProps(nextProps) {
     this.setState({loader: false,appColor:nextProps.clr});
@@ -39,6 +46,7 @@ class LoginScreen extends Component {
 componentDidMount() {
   this.setState({appColor:this.props.clr });
 }
+
 
 
 
@@ -160,9 +168,11 @@ componentDidMount() {
            style={{alignSelf: 'center',marginTop:9,color:'white',fontSize:30,}} 
             type="FontAwesome5" name="google-plus-square"/>
             </View>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate("azure")}>
             <View  style={styles.socialIconG}>
             <Icon  style={{alignSelf: 'center',marginTop:10,color:'white',}}  type="FontAwesome5" name="microsoft"/>
             </View>
+            </TouchableOpacity>
           </View>
 
         </Content>

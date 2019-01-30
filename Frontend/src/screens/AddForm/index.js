@@ -182,9 +182,9 @@ class AddForm extends Component {
         data.append('description',`${this.state.description}`);
         data.append('status',`${this.state.status}`);
         data.append('age',`${this.state.age}`);
-        data.append('post_By','Naveed');
-        data.append('mobile','+923034766669');
-
+        data.append('post_By',`${this.props.user.name}`);
+        data.append('mobile',`${this.props.user.cell}`);
+        
         // axios.post(`${EndPoint}/registerMissingPerson`, data, {
         //     headers: {
 
@@ -435,7 +435,8 @@ class AddForm extends Component {
 const mapStateToProps = state => {
   return {
     userStatus: state.userReducer.userStatus,
-    clr:state.colorReducer.color
+    clr:state.colorReducer.color,
+    user:state.userReducer.user
   };
 };
 export default connect(

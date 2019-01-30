@@ -260,13 +260,13 @@ def registerMissingReq():
 #     for index in resultsMissing:
 #                     output.append({
 #                             'img':index
-
 #                         })
 # if len(output) >= 1:                        
 #     print(len(output))
 # else:
 #     print(len(output))
 #search route
+
 @app.route('/searchbyimage', methods=['POST'])
 @cross_origin()
 def searchMissingReq():
@@ -279,8 +279,6 @@ def searchMissingReq():
             image.save('current.jpg')
             results = matchImage("current.jpg", "found")
             resultsMissing = matchImage("current.jpg", "found")
-            print(results)
-            print(resultsMissing)
             if type(results) is list:
                 for index in results:
                     output.append({
@@ -317,8 +315,6 @@ def searchMissingReq():
             return status
     else:
         return status
-
-
 
 
 #searchbyfilters
