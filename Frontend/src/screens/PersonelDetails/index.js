@@ -35,7 +35,7 @@ constructor(props) {
       currentImage:[
         {
             source: {
-                uri:this.props.navigation.getParam('data', 'NO-Data').image
+                uri:`${EndPoint}/data/${this.props.navigation.getParam('data', 'NO-Data').status}/${this.props.navigation.getParam('data', 'NO-Data').image}`
             }
         },
     ]
@@ -72,7 +72,7 @@ componentDidMount() {
             onPress={() => navigation.goBack()}
           /></Left>
           <Body>
-            <Title>{data.name + ' ' + data.status} Person</Title>
+            <Title>{data.name}</Title>
           </Body>
 
         </Header>
@@ -87,7 +87,7 @@ componentDidMount() {
               onPress={() => this.setState({isImageViewVisible: true })}
             >
                 <View style={styles.imagePadding}>
-                  <Image style={styles.imageStyle} source={{uri:data.image}} />
+                  <Image style={styles.imageStyle} source={{uri:`${EndPoint}/data/${data.status}/${this.props.navigation.getParam('data', 'NO-Data').image}`}} />
                 </View>
                 </TouchableOpacity>
               </Col>

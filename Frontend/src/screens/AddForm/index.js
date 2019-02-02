@@ -170,7 +170,7 @@ class AddForm extends Component {
 
       const data = new FormData();
         data.append('image', {
-            uri: this.state.image.uri,
+            uri: this.state.image,
             type: 'image/jpeg',
             name: `${this.state.location}_${this.state.age}_${new Date().getTime()}.jpg`,
         });
@@ -184,35 +184,36 @@ class AddForm extends Component {
         data.append('age',`${this.state.age}`);
         data.append('post_By',`${this.props.user.name}`);
         data.append('mobile',`${this.props.user.cell}`);
-        
-        // axios.post(`${EndPoint}/registerMissingPerson`, data, {
-        //     headers: {
 
-        //         'Content-Type': 'multipart/form-data',
-        //     },
-        // })
-        //     .then(res => {
-        //         console.log("The Response", res.data);
-        //         Toast.show({
-        //           text: "Successfully Uploaded",
-        //           type: "success",
-        //           duration: 3000
-        //         });
-        //         this.props.addPerson(userDatadata);
-        //         this.props.navigation.navigate('Search');
-        //     }).catch(err => {
-        //       this.setState({loader:false});
-        //         console.log("ERROR", err)
-        //         Toast.show({
-        //           text: "Error Occoured",
-        //           type: "error",
-        //           duration: 3000
-        //         });
-        //     });
+        axios.post(`${EndPoint}/registerMissingPerson`, data, {
+            headers: {
 
-            this.props.addPerson(userDatadata);
+                'Content-Type': 'multipart/form-data',
+            },
+        })
+            .then(res => {
+                console.log("The Response", res.data);
+                Toast.show({
+                  text: "Successfully Uploaded",
+                  type: "success",
+                  duration: 3000
+                });
+                this.props.addPerson(userDatadata);
+                this.props.navigation.navigate('Search');
+            }).catch(err => {
+              this.setState({loader:false});
+                console.log("ERROR", err)
+                Toast.show({
+                  text: "Error Occoured",
+                  type: "error",
+                  duration: 3000
+                });
+            });
+
     }
   };
+
+  
 
   openDrawer = () => {
     this.props.navigation.openDrawer();
@@ -221,6 +222,7 @@ class AddForm extends Component {
   render() {
     const {appColor} = this.state;
     const { navigation } = this.props;
+    
     return (
       <Container>
         <StatusBar backgroundColor={appColor} barStyle="light-content" />
@@ -295,7 +297,10 @@ class AddForm extends Component {
             <FloatingLabelInput
               label="Name"
               value={this.state.name}
-              onChangeText={name => this.setState({ name: name })}
+              onChangeText={name => this.setState({ name: name.toLowerCase()
+                .split(' ')
+                .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+                .join(' ') })}
             />
           </View>
 
@@ -303,7 +308,10 @@ class AddForm extends Component {
             <FloatingLabelInput
               label="Location"
               value={this.state.location}
-              onChangeText={location => this.setState({ location: location })}
+              onChangeText={location => this.setState({ location: location.toLowerCase()
+                .split(' ')
+                .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+                .join(' ') })}
             />
           </View>
 

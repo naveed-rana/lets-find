@@ -8,6 +8,7 @@ import {
   Share
 } from "react-native";
 import {
+  Spinner,
   View,
   Text,
   Icon,
@@ -16,6 +17,8 @@ import {
   Body,
   Container,
 } from "native-base";
+
+import {getActivePost} from '../../redux/actions/missingPersonAction';
 
 import ImagePicker from "react-native-image-picker";
 import styles from "./style";
@@ -35,6 +38,7 @@ class SearchScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loader:true,
       selectedStatus: "",
       selectedDisability: "",
       selectedGender: "",
@@ -92,28 +96,23 @@ class SearchScreen extends Component {
 
 
   componentWillReceiveProps(newProp) {
+    
     this.setState({
-      appColor:newProp.clr
+      appColor:newProp.clr,
+      fakeArray: newProp.missingPersons,
+      loader:false
     });
   }
 
 
   componentDidMount() {
-
+    this.props.getActivePost(this.props.cell);
     this.setState({ fakeArray: this.props.missingPersons,appColor:this.props.clr });
   }
 
 
   onSubmit = () => {
-    console.log("====================================");
-    console.log(this.state.selectedStatus);
-    console.log(this.state.selectedDisability);
-    console.log(this.state.selectedGender);
-    console.log(this.state.selectedAgeGroup);
-    console.log(this.state.location);
-    console.log("====================================");
   };
-
 
 
   onStatusChange(value) {
@@ -173,8 +172,12 @@ class SearchScreen extends Component {
           <Text></Text>
           
         </View>
-
-
+        {this.state.loader ? 
+        
+        <Spinner style={{marginTop:30}} color={appColor} />
+        
+        :
+        this.state.fakeArray.length >=1?
         <ScrollView>
           {this.state.fakeArray.map((data, index) => {
             return (
@@ -192,7 +195,7 @@ class SearchScreen extends Component {
                                 [
                                   {
                                   source: {
-                                          uri:data.image,
+                                          uri:`${EndPoint}/data/${data.status}/${data.image}`,
                                       },
                                   },
                               ]
@@ -201,7 +204,7 @@ class SearchScreen extends Component {
                           >
                             <Image
                               style={styles.filterImage}
-                              source={{uri:data.image}}
+                              source={{uri:`${EndPoint}/data/${data.status}/${data.image}`}}
                             />
                           </TouchableOpacity>
                         </View>
@@ -314,6 +317,16 @@ class SearchScreen extends Component {
             );
           })}
         </ScrollView>
+        :
+        
+        <Text 
+        onPress={() => this.props.navigation.navigate("AddPerson")} 
+        style={{paddingHorizontal:5,textAlign:'center',fontWeight:'bold',marginTop:30}}
+        >
+        No Case Yet, Please add your case!
+        </Text>
+        
+        }
         <ImageView
           images={currentImage}
           imageIndex={0}
@@ -328,11 +341,14 @@ class SearchScreen extends Component {
 const mapStateToProps = state => {
   return {
     missingPersons: state.misingPersons.UserPosts,
-    clr:state.colorReducer.color
+    clr:state.colorReducer.color,
+    cell:state.userReducer.user.cell,
   };
 };
 
 export default connect(
   mapStateToProps,
-  null
+  {
+    getActivePost
+  }
 )(SearchScreen);

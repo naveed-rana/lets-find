@@ -81,12 +81,12 @@ class ShowProfile extends Component {
                         </View>
 
                         <View>
-                            <Button full 
+                            {/* <Button full 
                             style={[styles.editBtn,{ backgroundColor:appColor,}]} 
                             onPress={() => this.props.navigation.navigate('ProfileEdit')}
                             >
                                 <Text>Edit Profile</Text>
-                            </Button>
+                            </Button> */}
                         </View>
                     </Content>
 

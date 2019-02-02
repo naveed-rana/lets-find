@@ -194,7 +194,7 @@ class EditPost extends Component {
         duration: 3000
       });
     }
-     else if (this.state.image == uploadimageIcon) {
+     else if (this.state.image == 'https://static.thenounproject.com/png/396915-200.png') {
       Toast.show({
         text: "Image is mendatory",
         type: "warning",

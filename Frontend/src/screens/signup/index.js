@@ -38,7 +38,7 @@ class SignUpScreen extends Component {
 }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ loader: false, appColor: newProp.clr });
+    this.setState({ loader: false, appColor: nextProps.clr });
     if (nextProps.registerLoader == "success") {
       this.props.navigation.navigate("Login");
     }
@@ -93,13 +93,12 @@ class SignUpScreen extends Component {
     }
   };
   render() {
+
     console.log("===email======");
-    
     console.log(this.validateEmail("as@gmai"));
     
     const { loader, appColor } = this.state;
     //  console.log('props from comp',loader);
-
     return (
       <ScrollView style={{ backgroundColor: appColor }}>
         <View>
@@ -138,7 +137,10 @@ class SignUpScreen extends Component {
               <Input
                 onChangeText={event =>
                   this.setState({
-                    username: event
+                    username: event.toLowerCase()
+                    .split(' ')
+                    .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+                    .join(' ')
                   })
                 }
                 placeholderTextColor="#fff"

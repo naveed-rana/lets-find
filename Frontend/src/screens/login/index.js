@@ -18,7 +18,6 @@ import {
 
 import styles from "./style";
 
-
 class LoginScreen extends Component {
   constructor(Props) {
     super(Props);
@@ -75,6 +74,9 @@ class LoginScreen extends Component {
       this.props.getStartUserLogin(data);
     }
   };
+
+  
+
 
   render() {
     const { loader, appColor } = this.state;

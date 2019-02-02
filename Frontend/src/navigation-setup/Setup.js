@@ -26,7 +26,7 @@ import ResolvedCasedScreen from '../screens/ResolvedCases';
 import ShowResolvedDetail from '../screens/ShowResolvedDetails';
 import AboutusScreen from '../screens/AboutUs'
 import SettingScreen from '../screens/SettingScreen'
-import LoginWithAzure from '../screens/azure';
+// import LoginWithAzure from '../screens/azure';
 
 
 const HomeStack = createStackNavigator({
@@ -45,7 +45,7 @@ const HomeStack = createStackNavigator({
   ResolvedCaseDetail: ShowResolvedDetail,
   Aboutus: AboutusScreen,
   Settings: SettingScreen,
-  azure:LoginWithAzure
+  // azure:LoginWithAzure
 },
 {
   headerMode: 'none',

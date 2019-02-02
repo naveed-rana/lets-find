@@ -1,3 +1,5 @@
 flask
 pymongo
 flask-pymongo
+flask_cors
+cognitive_face

@@ -23,6 +23,7 @@ import {
 import { styles } from "./style";
 import { connect } from "react-redux";
 import ImageView from 'react-native-image-view';
+import EndPoint from '../../endpoint';
 // import fakeArray from '../../redux/fakeArray';
 
 Drawer.defaultProps.styles.mainOverlay.elevation = 0;
@@ -147,6 +148,12 @@ class Home extends Component {
         </Card>
 
         {/* PLus Button Ends*/}
+        
+        <Text style={{color:appColor,fontWeight:'bold',marginLeft:11}} >Recent Stories</Text>
+        
+        {this.state.fakeArray === 'Nill' ? 
+        <Text style={{textAlign:'center',fontWeight:'bold',marginTop:30}}>No Stories Yet</Text>
+         : 
         <ScrollView>
           {this.state.fakeArray.map((data, index) => {
             
@@ -167,7 +174,7 @@ class Home extends Component {
                                 [
                                   {
                                   source: {
-                                          uri:data.image,
+                                          uri:`${EndPoint}/data/${data.status}/${data.image}`,
                                       },
                                   },
                               ]
@@ -176,7 +183,7 @@ class Home extends Component {
                           >
                             <Image
                               style={styles.filterImage}
-                              source={{uri:data.image}}
+                              source={{uri:`${EndPoint}/data/${data.status}/${data.image}`}}
                             />
                           </TouchableOpacity>
 
@@ -214,7 +221,7 @@ class Home extends Component {
 
                             <View>
                               <Text style={styles.nameText}>
-                                Posted By {data.post_By}
+                              Posted By {data.post_By} @ {data.createdat}
                               </Text>
                             </View>
 
@@ -292,7 +299,7 @@ class Home extends Component {
               </View>
             );
           })}
-        </ScrollView>
+        </ScrollView> }
 
         {userStatus ? (
           <TouchableOpacity

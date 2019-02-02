@@ -1,1 +1,1 @@
-export default EndPoint = 'http://192.168.10.113:2020';
+export default EndPoint = 'http://13.92.240.222';

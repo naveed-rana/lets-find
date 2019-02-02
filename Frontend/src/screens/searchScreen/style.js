@@ -44,11 +44,12 @@ export default styles = StyleSheet.create({
         marginTop:5
     },
     filterContainer: {
+
         marginLeft: 15,
         marginTop: 10,
         backgroundColor:"transparent",
-        borderWidth:0
-        // flexDirection: 'row',
+        borderWidth:0,
+        flexDirection: 'row',
         // flex: 1
     },
     filterImage: {

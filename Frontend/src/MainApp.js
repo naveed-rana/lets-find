@@ -24,12 +24,12 @@ class MainApp extends Component {
 
   componentDidMount() {
 
-    // this.props.getHomeStories();
+    this.props.getHomeStories();
     this.props.getUser();
     this.props.getStartColorFromStorage();
     setTimeout(() => {
       this.setState({ SplashScreens: false });
-    }, 100);
+    }, 1500);
 
     this.requestPermission();
   }
@@ -40,7 +40,7 @@ class MainApp extends Component {
     try {
       const granted = await PermissionsAndroid.requestMultiple(per)
         .then(res => {
-          console.log("Result" + res);
+          console.log("Result" , res);
         })
         .catch(err => console.log(err));
     } catch (err) {
@@ -62,4 +62,4 @@ class MainApp extends Component {
   }
 }
 
-export default connect(null,{getUser,getStartColorFromStorage})(MainApp);
+export default connect(null,{getUser,getStartColorFromStorage,getHomeStories})(MainApp);

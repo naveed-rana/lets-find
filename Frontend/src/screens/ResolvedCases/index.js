@@ -4,7 +4,6 @@ import {
   StatusBar,
   ScrollView,
   TouchableOpacity,
-  Modal,
   Share
 } from "react-native";
 import {
@@ -30,6 +29,7 @@ const options = {
     path: "images"
   }
 };
+
 class SearchScreen extends Component {
   constructor(props) {
     super(props);
@@ -127,7 +127,7 @@ componentWillReceiveProps(newProp) {
           <Text></Text>
           
         </View>
-
+{this.state.fakeArray.length >=1?
         <ScrollView>
           {this.state.fakeArray.map((data, index) => {
             return (
@@ -144,7 +144,7 @@ componentWillReceiveProps(newProp) {
                                 [
                                   {
                                   source: {
-                                          uri:data.image,
+                                          uri:`${EndPoint}/data/${data.status}/${data.image}`,
                                       },
                                   },
                               ]
@@ -153,7 +153,7 @@ componentWillReceiveProps(newProp) {
                           >
                             <Image
                               style={styles.filterImage}
-                              source={{uri:data.image}}
+                              source={{uri:`${EndPoint}/data/${data.status}/${data.image}`}}
                             />
                           </TouchableOpacity>
                         </View>
@@ -259,6 +259,11 @@ componentWillReceiveProps(newProp) {
             );
           })}
         </ScrollView>
+        :
+        
+        <Text style={{textAlign:'center',fontWeight:'bold',marginTop:30}}>No Case Yet!</Text>
+        
+        }
         <ImageView
           images={currentImage}
           imageIndex={0}

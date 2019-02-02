@@ -1,3 +1,5 @@
+
+
 from flask import Flask, render_template, redirect, request, url_for, jsonify, session, json, session
 from flask_pymongo import PyMongo
 from flask_cors import CORS, cross_origin
@@ -5,9 +7,12 @@ from bson.json_util import dumps
 from bson import json_util, ObjectId
 from datetime import date
 import pymongo
-import face_recognition
-import os
-import numpy as np
+# import face_recognition
+import os, shutil
+import cognitive_face as CF
+# import numpy as np
+
+
 
 #Flask App Structure
 app = Flask(__name__, static_folder="./data", template_folder="./")
@@ -24,70 +29,41 @@ mongo = PyMongo(app)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 
-#.....................Ai...................
-# Get encodings of given image
-def encodeFace(IMG_PATH):
-    toMatch = face_recognition.load_image_file(IMG_PATH)
-    results = face_recognition.face_encodings(toMatch)
-    if len(results) != 0:
-        return results[0]
-    else:
-        return None
+#.....................Ai................... 
 
-# Update Encoding files of the given type
-# New image encodings will be added
-def updateEncodings(Etype):
-    oldEncodings = np.array(np.load(Etype + ".npy"))
-    not_found = 0
-    FILE_DIR = "data/" + Etype
-    totalOldEncodings = len(oldEncodings)
-    oldEncodingNames = oldEncodings[:,1]
-    oldEncodings = [a for a in oldEncodings]
-    for imgName in os.listdir(FILE_DIR):
-        if imgName not in oldEncodingNames:
-            toMatch_encodings = encodeFace(os.path.join(FILE_DIR, imgName))
-            if toMatch_encodings is not None:
-                oldEncodings.append([toMatch_encodings, imgName])
-            else:
-                not_found += 1
 
-    np.save(Etype + ".npy", oldEncodings)
-    return {"Old": totalOldEncodings, "new added": len(oldEncodings) - totalOldEncodings, "not found": not_found}     
 
-# Create new encodings file
-# Only require while publishing new application
-def createEncodings(Etype):
-    encodings = []
-    not_found = 0
-    FILE_DIR = "data/" + Etype
-    for imgName in os.listdir(FILE_DIR):
-        toMatch_encodings = encodeFace(os.path.join(FILE_DIR, imgName))
-        if toMatch_encodings is not None:
-            encodings.append([toMatch_encodings, imgName])
-        else:
-            not_found += 1
-    np.save(Etype + ".npy", encodings)  
-    return {"encoded": len(encodings), "not found": not_found}
+# ..................Azure Solution.......
+key = 'aad1c27d4f4248ceb4eb5df31ce8c636'  # Replace with a valid Subscription Key here.
+CF.Key.set(key)
+base_url = 'https://australiaeast.api.cognitive.microsoft.com/face/v1.0'  # Replace with your regional Base URL
+CF.BaseUrl.set(base_url)
 
-# Match given face with the selected encoding file and return results
-# Currently in results, we only return image name of image which is matched with given face
-def matchImage(IMG_PATH, Etype):
-    encodings = np.load(Etype + ".npy")
-    unknown_encodings = encodeFace(IMG_PATH)
-    if unknown_encodings is None:
-        return "No face found"
-    matched_encodings = []
-    for encoding in encodings:
-        result = face_recognition.compare_faces([unknown_encodings], encoding[0])
-        if result[0] == True:
-            matched_encodings.append(encoding[1])
-    return matched_encodings
+def matchFace(imgIds):
+    similarity = CF.face.verify(imgIds[0], imgIds[1])
+    return similarity
 
-# createEncodings('found')
+
+def checkEncoding(Etype, imagePath):
+    matches = []
+    toMatchFace = CF.face.detect(imagePath)
+    toMatch = toMatchFace[0]['faceId']
+    for img in os.listdir("data/" + Etype):
+        imgPath = "data/" + Etype + "/" + img
+        if imgPath != imagePath:
+            nMatch = CF.face.detect(imgPath)[0]['faceId']
+            result = matchFace([toMatch, nMatch])
+            if result['isIdentical'] == True:
+                matches.append(img)
+    return matches
+
+
+def markResolved(Etype, imageName):
+    shutil.move("data/" + Etype + "/" + imageName, "data/resolved/"  + imageName)
+#...................Azure Solution.......
+
 
 #.....................End Ai...............
-
-
 #server route working
 @app.route('/')
 def index():
@@ -120,8 +96,41 @@ def gethomeStories():
             'createdat':missingPerson['createdat'],
         })
      return jsonify({'output':output})
-    except Exception, e:
-     print str(e)
+    except:
+    #  print str(e)
+     return status
+
+
+
+#Get home stories
+@app.route('/activeStories', methods=['GET'])
+@cross_origin()
+def activeStories():
+    status = "not-success"
+    try:
+     cell = request.args.get('data')
+     missing_persons = mongo.db.missing_persons
+     query = missing_persons.find({"mobile":cell})
+     output = []
+     for missingPerson in query:
+        id = json.loads(dumps(missingPerson['_id']))
+        output.append({
+            'id':id,
+            'image':missingPerson['img'],
+            'name':missingPerson['name'],
+            'gender':missingPerson['gender'], 
+            'disability':missingPerson['disability'],
+            'description':missingPerson['description'],
+            'status':missingPerson['status'],
+            'age':missingPerson['age'],
+            'post_By':missingPerson['post_By'],
+            'mobile':missingPerson['mobile'],
+            'location':missingPerson['location'],
+            'createdat':missingPerson['createdat'],
+        })
+     return jsonify({'output':output})
+    except:
+    #  print str(e
      return status
 
 #RegisterUser Working
@@ -139,8 +148,7 @@ def registerUser():
         print(task)
         userRegister = "success"
         return userRegister
-    except Exception, e:
-        print str(e)
+    except:
         return userRegister
 
 
@@ -159,8 +167,7 @@ def updateUser():
         print(task)
         userUpdate = "success"
         return userUpdate
-    except Exception, e:
-        print str(e)
+    except:
         return userUpdate
 
 #LoginUser
@@ -190,9 +197,8 @@ def loginUser():
             return jsonify(userData)
         else:    
             return userAuth
-    except Exception, e:
-        print str(e)
-        return str(e)
+    except:
+        return userAuth
 
 #UserValidate
 @app.route('/logginUserData', methods=['GET'])
@@ -203,8 +209,8 @@ def loggedinUser():
         datareq = data['userVal']
         print('id', datareq['_id'])
         return jsonify(datareq)
-    except Exception, e:
-        return str(e)
+    except:
+        return "error"
     
 
 #LoginUser
@@ -226,11 +232,11 @@ def registerMissingReq():
         try:
             image = request.files["image"]
             if request.form['status'] == 'Found':
-                image.save('data/found/' + image.filename)
-                updateEncodings('found')
+                image.save('data/Found/' + image.filename)
+                # updateEncodings('found')
             else:
-                image.save('data/missings/' + image.filename)
-                updateEncodings('missings')
+                image.save('data/Missing/' + image.filename)
+                # updateEncodings('missings')
             missingPerson['img'] = image.filename
             missingPerson['name'] = request.form['name']
             missingPerson['gender'] = request.form['gender']
@@ -246,27 +252,14 @@ def registerMissingReq():
             print(task)
             status = "success"
             return status
-        except Exception, e:
-            print str(e)
+        except:
             return status
     else:
         return status
 
-# output = []
-# results = matchImage("420.jpg", "found")
-# resultsMissing = matchImage("a.jpeg", "found")
-# print(resultsMissing)
-# if type(results) is list or type(resultsMissing) is list:
-#     for index in resultsMissing:
-#                     output.append({
-#                             'img':index
-#                         })
-# if len(output) >= 1:                        
-#     print(len(output))
-# else:
-#     print(len(output))
-#search route
 
+
+#search route
 @app.route('/searchbyimage', methods=['POST'])
 @cross_origin()
 def searchMissingReq():
@@ -277,8 +270,8 @@ def searchMissingReq():
             output = []
             image = request.files["image"]
             image.save('current.jpg')
-            results = matchImage("current.jpg", "found")
-            resultsMissing = matchImage("current.jpg", "found")
+            results = checkEncoding("Found", "current.jpg")
+            resultsMissing = checkEncoding("Missing", "current.jpg")
             if type(results) is list:
                 for index in results:
                     output.append({
@@ -289,7 +282,6 @@ def searchMissingReq():
                     output.append({
                             'img':index
                         })
-            print(output)
             if len(output) >= 1:        
                 query = mongo.db.missing_persons.find({"$or":output})
                 data = []
@@ -309,12 +301,13 @@ def searchMissingReq():
                     })
                 return jsonify({'output':data})
             else:
-                return 'no result'
-        except Exception, e:
-            print str(e)
+                return  jsonify({'output':[]})
+        except:
             return status
     else:
         return status
+
+
 
 
 #searchbyfilters
@@ -333,34 +326,29 @@ def searchByName():
                         })
         print(filters)
         query = mongo.db.missing_persons.find({"$and":filters})
-        result = []
-        print(query)
+        output = []
         for missingPerson in query:
-            print(missingPerson)
-            if missingPerson['_id']:
-                result.append({
-                    'id':missingPerson['_id'],
-                    'image':missingPerson['img'],
-                    'name':missingPerson['name'],
-                    'gender':missingPerson['gender'], 
-                    'disability':missingPerson['disability'],
-                    'description':missingPerson['description'],
-                    'status':missingPerson['status'],
-                    'age':missingPerson['age'],
-                    'post_By':missingPerson['post_By'],
-                    'mobile':missingPerson['mobile'],
-                    'location':missingPerson['location'],
-                    'createdat':missingPerson['createdat'],
-                        })
-            else:
-              result.append({"output":'No result found'})
-
-        return jsonify(result)
-    except Exception, e:
-        print str(e)
+            id = json.loads(dumps(missingPerson['_id']))
+            output.append({
+                'id':id,
+                'image':missingPerson['img'],
+                'name':missingPerson['name'],
+                'gender':missingPerson['gender'], 
+                'disability':missingPerson['disability'],
+                'description':missingPerson['description'],
+                'status':missingPerson['status'],
+                'age':missingPerson['age'],
+                'post_By':missingPerson['post_By'],
+                'mobile':missingPerson['mobile'],
+                'location':missingPerson['location'],
+                'createdat':missingPerson['createdat'],
+            })
+        return jsonify({'output':output})
+    except:
+        # print str(e)
         return status
 
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0',port='2020', debug=True)
+    app.run(host='0.0.0.0',port='80', debug=True)

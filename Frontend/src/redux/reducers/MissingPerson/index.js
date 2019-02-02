@@ -1,55 +1,15 @@
 import { ADD_PERSON } from "../../actions/missingPersonAction";
 import { MODIFY_PERSON } from "../../actions/missingPersonAction";
-import { RESOLVED_CASES } from "../../actions/missingPersonAction";
+import { RESOLVED_CASES,GETLATESTSTORIESERROR,GETLATESTSTORIES,GETACTIVEPOSTS,GETACTIVEPOSTSERROR } from "../../actions/missingPersonAction";
 
 import homeStories from "../../fakeArray";
 
 const INITIAL_STATE = {
-  homeStories: homeStories,
-
-  UserPosts: [
-    {
-      id: "2",  
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIyXov49V0vl3zSQGocwgBiOhf-I_iZqlf04-3FDfWnxNG91D64A",
-      status: "Found",
-      name: "Haseeba",
-      age: "teen",
-      gender: "female",
-      location: "Lahore",
-      description: "xyz",
-      disability: "mental",
-      mobile: "+92 306 7134632",
-      post_By: "Fayyaz"
-    },
-    {
-      id: "3",
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwF6KBUnkn-CXS3hSl6h6hcS9x8sdwExNHGLELiyGYQANgR8NWrQ",
-      status: "Missing",
-      name: "Asif",
-      age: "teen",
-      gender: "male",
-      location: "Karachi",
-      description: "xyz",
-      disability: "mental",
-      mobile: "+92 306 7134632",
-      post_By: "Naveed"
-    }
-  ],
-  ResolvedCases: [
-    {
-      id: "2",  
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSq1j44rF7Wqqh3pnvybMorUFbdzhBb-tpK6a6gbmGOYyk1Jrklw",
-      status: "Resoloved",
-      name: "Ali",
-      age: "teen",
-      gender: "male",
-      location: "Lahore",
-      description: "xyz",
-      disability: "mental",
-      mobile: "+92 306 7134632",
-      post_By: "Fayyaz"
-    },
-  ]
+  homeStories: "Nill",
+  homeStoriesError:'err',
+  userStoriesError:'err',
+  UserPosts: [],
+  ResolvedCases: []
 };
 
 function AddReducer(state = INITIAL_STATE, action) {
@@ -82,15 +42,39 @@ function AddReducer(state = INITIAL_STATE, action) {
       console.log("id" + id);
       
       let newList = updateState.filter(item => item.id != id);
-      console.log('=============from resolved reducer=======================');
-      console.log(newList);
-      console.log('====================================');
       
       return{
         ...state,
         UserPosts: newList,
         ResolvedCases: state.ResolvedCases.concat([action.data])
 
+      }
+    }
+
+    case GETLATESTSTORIESERROR:{
+      return {
+        ...state,
+        homeStoriesError:action.payload
+      }
+    }
+
+    case GETLATESTSTORIES:{
+      return {
+        ...state,
+        homeStories:action.payload.output
+      }
+    }
+    case GETACTIVEPOSTSERROR:{
+      return {
+        ...state,
+        userStoriesError:action.payload
+      }
+    }
+
+    case GETACTIVEPOSTS:{
+      return {
+        ...state,
+        UserPosts:action.payload.output
       }
     }
 

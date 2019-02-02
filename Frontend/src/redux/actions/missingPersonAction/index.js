@@ -1,12 +1,15 @@
 import axios from "axios";
 import EndPoint from '../../../endpoint/';
 export const GETLATESTSTORIES = 'GetStories';
-
+export const GETLATESTSTORIESERROR = 'GetStoriesERROR';
 export const ADD_PERSON = 'ADD_PERSON';
 
 export const MODIFY_PERSON = "MODIFY_PERSON"
 export const RESOLVED_CASES = "RESOLVED_CASES"
 
+
+export const GETACTIVEPOSTS = "GETACTIVEPOSTS"
+export const GETACTIVEPOSTSERROR = "GETACTIVEPOSTSERROR"
 
 
 // fetch all todos from indexedDB in the form of array
@@ -14,54 +17,53 @@ export const RESOLVED_CASES = "RESOLVED_CASES"
 export function getHomeStories() {
   return (dispatch) => {
 
-    // axios.post(EndPoint+'/logoutUser')
-    //     .then((res)=>{
-    //         console.log("Res");
-    //         console.log(res.data);
-            
-    //     })
-    //     .catch((err)=>{
-    //         console.log("err");
-    //         console.log(err);
-    //     })
-
-        // axios.get(EndPoint+'/logginUserData')
-        // .then((res)=>{
-        //     console.log("Res");
-        //     console.log(res.data);
-            
-        // })
-        // .catch((err)=>{
-        //     console.log("err");
-        //     console.log(err);
-        // })
-
-        // let data = {"user":{
-        //     name:"umar",
-        //     pass:'umar'
-        //   }}
-    
-      
-        //     axios.post(EndPoint+'/loginuser',data)
-        //     .then((res)=>{
-        //         console.log("Res");
-        //         console.log(res.data);
+            axios.get(EndPoint+'/homeStories')
+            .then((res)=>{
                 
-        //     })
-        //     .catch((err)=>{
-        //         console.log("err");
-        //         console.log(err);
-        //     })
-
-
-        
-        
-        
-
+                if (res.data.output[0].id){
+                dispatch({
+                    type:GETLATESTSTORIES,
+                    payload:res.data
+                })
+            }
+            else{
+                dispatch({
+                    type:GETLATESTSTORIESERROR,
+                    payload:new Date()
+                })
+            }
+            })
+            .catch((err)=>{
+                dispatch({
+                    type:GETLATESTSTORIESERROR,
+                    payload:new Date()
+                })
+            })
 
   };
 }
 
+//Get Active Posts
+export function getActivePost(cell) {
+    return (dispatch) => {
+
+              axios.get(EndPoint+'/activeStories',{ params: {data:`${cell}`}})
+              .then((res)=>{
+                  dispatch({
+                      type:GETACTIVEPOSTS,
+                      payload:res.data
+                  })
+              
+              })
+              .catch((err)=>{
+                  console.log(err);
+                  dispatch({
+                      type:GETACTIVEPOSTSERROR,
+                      payload:new Date()
+                  })
+              })
+    };
+  }
 
 
 
