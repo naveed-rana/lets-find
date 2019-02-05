@@ -82,7 +82,7 @@ class LoginScreen extends Component {
     const { loader, appColor } = this.state;
     return (
       <ScrollView style={{ backgroundColor: appColor }}>
-        <View>
+        <View style={{paddingBottom: 0}}>
           <Icon
             onPress={() => this.props.navigation.goBack()}
             style={{ marginLeft: 5, fontWeight: "bold", color: "white" }}
@@ -93,7 +93,7 @@ class LoginScreen extends Component {
 
         <Content contentContainerStyle={styles.loginContainer}>
           <View style={styles.viewStyle}>
-            <Image source={require("../../media/main_logo.png")} />
+            <Image source={require("../../media/main_logo.png")} style={{width: "73%", height: 105, zIndex: 1}} />
             <Text style={styles.inputStyle}>Find Your Missing Person</Text>
           </View>
 

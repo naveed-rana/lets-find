@@ -22,7 +22,7 @@ import { connect } from "react-redux";
 import { styles } from "./style";
 import {getStartChangeColor} from '../../redux/actions/colorActions';
 
-var appColor="#05CE1D";
+var appColor="#34495e";
 
 class componentName extends Component {
   constructor(props) {
@@ -40,7 +40,7 @@ class componentName extends Component {
     appColor= this.props.clr;
 
      switch (appColor) {
-       case '#05CE1D':
+       case '#34495e':
        {
         this.setState({
           nativegreen:true,
@@ -49,7 +49,7 @@ class componentName extends Component {
         })
         break;
       }
-      case '#34495e':
+      case '#05CE1D':
        {
         this.setState({
           nightblack:true,
@@ -81,7 +81,7 @@ class componentName extends Component {
 
   nativeGreenApply = () => {
     if (this.state.nativegreen !== true) {
-      this._storeData('#05CE1D');
+      this._storeData('#34495e');
       this.setState({
         nativegreen:true,
         nightblack:false,
@@ -93,7 +93,7 @@ class componentName extends Component {
 
   nightBlackApply = () =>{
     if (this.state.nightblack !== true) {
-      this._storeData('#34495e');
+      this._storeData('#05CE1D');
     this.setState({
       nightblack:true,
       nativegreen:false,
@@ -161,7 +161,7 @@ _storeData = async (val) => {
         <ListItem icon>
           <Left>
             <Button style={
-             {backgroundColor: "#05CE1D"} }>
+             {backgroundColor: "#34495e"} }>
               <Icon  type="Ionicons" name="ios-color-palette" />
             </Button>
           </Left>
@@ -174,7 +174,7 @@ _storeData = async (val) => {
               onValueChange={this.nativeGreenApply}
             //   onTintColor="#00ff00"
             //   tintColor=
-              trackColor={{false:"lightgray" , true: "#05CE1D"}}
+              trackColor={{false:"lightgray" , true: "#34495e"}}
 
             />
           </Right>
@@ -183,12 +183,12 @@ _storeData = async (val) => {
         <ListItem icon>
           <Left>
             <Button style={
-             {backgroundColor: "#34495e"} }>
+             {backgroundColor: "#05CE1D"} }>
               <Icon  type="Ionicons" name="ios-color-palette" />
             </Button>
           </Left>
           <Body>
-            <Text>Dark Theme</Text>
+            <Text>Light Theme</Text>
           </Body>
           <Right>
             <Switch
@@ -196,7 +196,7 @@ _storeData = async (val) => {
               onValueChange={this.nightBlackApply}
               // onTintColor="#00ff00"
             //   tintColor=
-              trackColor={{false:"lightgray" , true: "#34495e"}}
+              trackColor={{false:"lightgray" , true: "#05CE1D"}}
 
             />
           </Right>

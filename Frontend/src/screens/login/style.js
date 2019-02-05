@@ -16,7 +16,10 @@ export default styles = StyleSheet.create({
     },
     viewStyle: {
       alignItems: 'center',
-      paddingBottom: 10,
+      // paddingBottom: 10,
+      padding: 5,
+      
+      // zIndex: 1,
     },
     viewDirection: {
       flexDirection: 'row',

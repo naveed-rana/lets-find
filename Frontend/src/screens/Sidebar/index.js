@@ -45,13 +45,20 @@ class Sidebar extends Component {
     return (
       <Content style={styles.sidebarWrapper}>
         <Content style={styles.sideBarTopPanel}>
-          <Image source={require("../../media/show-profile.png")} style={{ alignSelf: "center" }} />
           {userStatus ? 
+          <View>
+          <Image source={require("../../media/naveed.jpg")} style={{ width: 70, height: 70, borderRadius: 100,  alignSelf: "center" }} />
           <Text style={{ alignSelf: "center", fontWeight: "bold", marginTop: 5 }} >
           {user.name}</Text>
-          :<Text
+          </View>
+          :
+          <View>
+          <Image source={require("../../media/show-profile.png")} style={{ alignSelf: "center" }} />
+
+          <Text
           onPress={() => this.props.navigation.navigate("SignUp")}
           style={{ alignSelf: "center", marginTop: 5,color:appColor }} >Register Yourself</Text>
+         </View>
           }
         </Content>
         <Content>
