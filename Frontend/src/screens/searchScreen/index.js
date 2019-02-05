@@ -66,6 +66,7 @@ class SearchScreen extends Component {
     };
   }
   uploadImage = () => {
+
     ImagePicker.showImagePicker(options, response => {
       console.log("Response = ", response);
 
@@ -83,6 +84,8 @@ class SearchScreen extends Component {
         });
       }
     });
+
+
   };
  
   componentWillReceiveProps(newProp) {
@@ -95,13 +98,7 @@ class SearchScreen extends Component {
   }
 
   onSubmit = () => {
-    console.log("====================================");
-    console.log(this.state.selectedStatus);
-    console.log(this.state.selectedDisability);
-    console.log(this.state.selectedGender);
-    console.log(this.state.selectedAgeGroup);
-    console.log(this.state.location);
-    console.log("====================================");
+  
   };
   onStatusChange(value) {
     this.setState({
@@ -133,11 +130,8 @@ class SearchScreen extends Component {
   };
 
   SearchHandler = () => {
-    const image = this.state.image;
-    console.log("=============from searchby image=======================");
-    console.log(image);
 
-    console.log("====================================");
+    const image = this.state.image;
     if (image == "") {
       Toast.show({
         text: "Please Select an image to search",
@@ -171,11 +165,19 @@ class SearchScreen extends Component {
           .then(res => {
               console.log("The Response search by image",res.data.output);
               
+              if(res.data.output == "undefind"){
+                this.setState({
+                  fakeArray: [],
+                  loader: false,
+                  postShow:true
+                })
+              }
+              else{
               this.setState({
                 fakeArray: res.data.output,
                 loader: false,
                 postShow:true
-              });
+              });}
                
                 }).catch(err => {
             this.setState({loader:false});
@@ -287,11 +289,12 @@ class SearchScreen extends Component {
                 editable={false}
                 value={this.state.image.uri}
               />
+
               <TouchableOpacity
                 style={styles.cameraIconBtn}
                 onPress={this.SearchHandler}
               >
-                <Icon style={styles.camIcon} type="AntDesign" name="search1" />
+              <Icon style={styles.camIcon} type="Entypo" name="camera" />
               </TouchableOpacity>
             </TouchableOpacity>
           </Item>
@@ -302,7 +305,7 @@ class SearchScreen extends Component {
             
             <Icon style={{color:'white'}} name="text" type="Entypo"/>
             
-            <Text style={{color:'white',fontWeight:'bold'}}>More Search</Text>
+            <Text style={{color:'white',fontWeight:'bold'}}>More Search Options</Text>
             
           </TouchableOpacity>
           {this.state.show ? (

@@ -8,13 +8,14 @@ var credentials = {
 };
 
 export default class azureAuth extends React.Component {
+
 	constructor(props){
 		super(props);
 		this.azureInstance = new AzureInstance(credentials);
 
 		this._onLoginSuccess = this._onLoginSuccess.bind(this);
 	}
-
+	
 	_onLoginSuccess(){
 		this.azureInstance.getUserInfo().then(result => {
 			console.log(result);

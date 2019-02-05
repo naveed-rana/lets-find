@@ -33,6 +33,8 @@ class MainApp extends Component {
 
     this.requestPermission();
   }
+
+
   async requestPermission() {
     let per = [];
     per.push(PermissionsAndroid.PERMISSIONS.CAMERA);
@@ -47,6 +49,8 @@ class MainApp extends Component {
       console.warn(err);
     }
   }
+
+  
 
   render() {
     const { SplashScreens } = this.state;

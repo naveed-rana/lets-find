@@ -124,6 +124,7 @@ class Home extends Component {
                 source={require("../../media/sham2.jpg")}
                 style={{ width: "100%", shadowOpacity: 1 }}
               >
+              
                 <View style={[styles.header,{backgroundColor:rgba}]}>
 
                   <Button transparent onPress={() => this.openDrawer()}>

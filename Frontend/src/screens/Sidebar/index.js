@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {
   Text,
-  Image
+  Image,
 } from 'react-native';
 import {  Content,  ListItem, Icon, Left, Body, Button,View } from 'native-base';
 import { styles } from './style';
@@ -58,7 +58,7 @@ class Sidebar extends Component {
           <ListItem icon style={styles.barLinkContainer} onPress={() => this.props.navigation.navigate("Homes")}>
             <Left>
               <Button style={{ backgroundColor:appColor}}>
-                <Icon active name="home" type="AntDesign" />
+                <Icon onPress={() => this.props.navigation.navigate("Homes")} active name="home" type="AntDesign" />
               </Button>
             </Left>
             <Body style={{ borderBottomWidth: 0, marginLeft: 15 }}>
@@ -71,7 +71,7 @@ class Sidebar extends Component {
           <ListItem onPress={() => this.props.navigation.navigate("Profile")} icon style={styles.barLinkContainer}>
             <Left>
               <Button style={{ backgroundColor: appColor }}>
-                <Icon active name="user" type="AntDesign" />
+                <Icon onPress={() => this.props.navigation.navigate("Profile")} active name="user" type="AntDesign" />
               </Button>
             </Left>
             <Body style={{ borderBottomWidth: 0, marginLeft: 15 }}>
@@ -82,7 +82,7 @@ class Sidebar extends Component {
           <ListItem onPress={() => this.props.navigation.navigate("Notifications")} icon style={styles.barLinkContainer}>
             <Left>
               <Button style={{ backgroundColor: appColor }}>
-                <Icon active name="notifications-outline" type="Ionicons" />
+                <Icon onPress={() => this.props.navigation.navigate("Notifications")} active name="notifications-outline" type="Ionicons" />
               </Button>
             </Left>
             <Body style={{ borderBottomWidth: 0, marginLeft: 15 }}>
@@ -93,7 +93,7 @@ class Sidebar extends Component {
           <ListItem icon style={styles.barLinkContainer} onPress={() => this.props.navigation.navigate("AddPerson")}>
             <Left>
               <Button style={{ backgroundColor: appColor }}>
-                <Icon active name="add-user" type="Entypo" />
+                <Icon onPress={() => this.props.navigation.navigate("AddPerson")} active name="add-user" type="Entypo" />
               </Button>
             </Left>
             <Body style={{ borderBottomWidth: 0, marginLeft: 15 }}>
@@ -104,7 +104,7 @@ class Sidebar extends Component {
           <ListItem icon style={styles.barLinkContainer} onPress={() => this.props.navigation.navigate("ActiveCases")}>
             <Left>
               <Button style={{ backgroundColor: appColor }}>
-                <Icon active name="dashboard" type="MaterialIcons" />
+                <Icon onPress={() => this.props.navigation.navigate("ActiveCases")} active name="dashboard" type="MaterialIcons" />
               </Button>
             </Left>
             <Body style={{ borderBottomWidth: 0, marginLeft: 15 }} >
@@ -114,7 +114,7 @@ class Sidebar extends Component {
           <ListItem icon style={styles.barLinkContainer} onPress={() => this.props.navigation.navigate("ResolvedCases")}>
             <Left>
               <Button style={{ backgroundColor: appColor }}>
-                <Icon active name="suitcase" type="FontAwesome" />
+                <Icon onPress={() => this.props.navigation.navigate("ResolvedCases")} active name="suitcase" type="FontAwesome" />
               </Button>
             </Left>
             <Body style={{ borderBottomWidth: 0, marginLeft: 15 }}>
@@ -128,7 +128,7 @@ class Sidebar extends Component {
           <ListItem icon style={styles.barLinkContainer} onPress={() => this.props.navigation.navigate("Search")}>
             <Left>
               <Button style={{ backgroundColor: appColor }}>
-                <Icon active name="search" type="MaterialIcons" />
+                <Icon onPress={() => this.props.navigation.navigate("Search")} active name="search" type="MaterialIcons" />
               </Button>
             </Left>
             <Body style={{ borderBottomWidth: 0, marginLeft: 15 }} >
@@ -143,7 +143,7 @@ class Sidebar extends Component {
           <ListItem icon style={styles.barLinkContainer} onPress={() => this.props.navigation.navigate("Settings")}>
             <Left>
               <Button style={{ backgroundColor: appColor }}>
-                <Icon active name="setting" type="AntDesign" />
+                <Icon onPress={() => this.props.navigation.navigate("Settings")} active name="setting" type="AntDesign" />
               </Button>
             </Left>
             <Body style={{ borderBottomWidth: 0, marginLeft: 15 }}>
@@ -153,7 +153,7 @@ class Sidebar extends Component {
           <ListItem icon style={styles.barLinkContainer} onPress={() => this.props.navigation.navigate("Aboutus")}>
             <Left>
               <Button style={{ backgroundColor: appColor }}>
-                <Icon active name="info" type="AntDesign" />
+                <Icon onPress={() => this.props.navigation.navigate("Aboutus")} active name="info" type="AntDesign" />
               </Button>
             </Left>
             <Body style={{ borderBottomWidth: 0, marginLeft: 15 }} >
@@ -177,7 +177,7 @@ class Sidebar extends Component {
           <ListItem onPress={this.logout} icon style={styles.barLinkContainer}>
             <Left>
               <Button style={{ backgroundColor: appColor }}>
-                <Icon active name="logout" type="AntDesign" />
+                <Icon onPress={this.logout} active name="logout" type="AntDesign" />
               </Button>
             </Left>
             <Body style={{ borderBottomWidth: 0, marginLeft: 15 }}>
@@ -191,7 +191,7 @@ class Sidebar extends Component {
            icon style={styles.barLinkContainer}>
             <Left>
               <Button style={{ backgroundColor: appColor }}>
-                <Icon active name="login" type="AntDesign" />
+                <Icon  onPress={() => this.props.navigation.navigate("Login")} active name="login" type="AntDesign" />
               </Button>
             </Left>
             <Body style={{ borderBottomWidth: 0, marginLeft: 15 }}>
@@ -204,7 +204,7 @@ class Sidebar extends Component {
            icon style={styles.barLinkContainer}>
             <Left>
               <Button style={{ backgroundColor: appColor }}>
-                <Icon active name="account-plus-outline" type="MaterialCommunityIcons" />
+                <Icon onPress={() => this.props.navigation.navigate("SignUp")} active name="account-plus-outline" type="MaterialCommunityIcons" />
               </Button>
             </Left>
             <Body style={{ borderBottomWidth: 0, marginLeft: 15 }}>

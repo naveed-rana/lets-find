@@ -210,24 +210,12 @@ class AddForm extends Component {
             name="keyboard-backspace"
           />
 
-          <Text style={styles.heading}>Report a Person</Text>
-          <Icon
-            name="menu"
-            style={styles.headerIcon}
-            onPress={() => this.openDrawer()}
-          />
+          <Text style={styles.heading}>FeedBack</Text>
+         
+         <Text></Text>
+         
         </View>
 
-        {/* <View>
-          <View style={styles.header}>
-            
-            <Text />
-            <Text style={styles.heading}>Report a Person</Text>
-            <Button transparent onPress={() => this.openDrawer()}>
-              <Icon name="menu" style={styles.searchIcon} />
-            </Button>
-          </View>
-        </View> */}
         <Content>
           <View style={styles.btnViewStyle}>
             <Left>
@@ -297,89 +285,10 @@ class AddForm extends Component {
             />
           </View>
 
-          <View style={styles.inputViewStyle}>
-            <Item last style={styles.inputStyle}>
-              <Picker
-                mode="dropdown"
-                style={{
-                  borderWidth: 1,
-                  borderWidth: 1,
-                  borderColor: "#dadce0"
-                }}
-                selectedValue={this.state.age}
-                onValueChange={this.onValueChange.bind(this)}
-              >
-                <Picker.Item
-                  label="Select an age group"
-                  value="Select an age group"
-                />
-                <Picker.Item label="1 to 5" value="1 to 5" />
-                <Picker.Item label="6 to 10" value="6 to 10" />
-                <Picker.Item label="11 to 15" value="11 to 15" />
-                <Picker.Item label="16 to 20" value="16 to 20" />
-                <Picker.Item label="21 to 25" value="21 to 25" />
-                <Picker.Item label="26 to 30" value="26 to 30" />
-                <Picker.Item label="30 to Greater" value="30 to Greater" />
-              </Picker>
-            </Item>
-          </View>
-
-          <View style={styles.inputViewStyle}>
-            <Item last style={styles.inputStyle}>
-              <Picker
-                mode="dropdown"
-                style={{ borderRadius: 20, paddingRight: 10 }}
-                selectedValue={this.state.gender}
-                onValueChange={this.onGenderChange.bind(this)}
-              >
-                <Picker.Item label="Gender" value="Gender" />
-                <Picker.Item label="Male" value="Male" />
-                <Picker.Item label="Female" value="Female" />
-              </Picker>
-            </Item>
-          </View>
-          <View style={styles.inputViewStyle}>
-            <Item last style={styles.inputStyle}>
-              <Picker
-                mode="dropdown"
-                style={{ borderRadius: 20, paddingRight: 100 }}
-                selectedValue={this.state.disability}
-                onValueChange={this.DisabilityHandler.bind(this)}
-              >
-                <Picker.Item
-                  label="Select a Disability if any"
-                  value="Select a Disability if any"
-                />
-                <Picker.Item
-                  label="Mentally Disable"
-                  value="Mentally Disable"
-                />
-                <Picker.Item
-                  label="Hearing Loss and Deafness"
-                  value="Hearing Loss and Deafness"
-                />
-                <Picker.Item label="Memory Loss" value="Memory Loss" />
-                <Picker.Item
-                  label="Speech and Language Disorder"
-                  value="Speech and Language Disorder"
-                />
-                <Picker.Item
-                  label="Vision Loss and Blindness"
-                  value="Vision Loss and Blindness"
-                />
-                <Picker.Item
-                  label="Any Physical Disability"
-                  value="Any Physical Disability"
-                />
-                <Picker.Item label="Others" value="Others" />
-                <Picker.Item label="Not Disabled" value="Not Disabled" />
-              </Picker>
-            </Item>
-          </View>
 
           <Button style={styles.imageInputStyle} onPress={this.uploadImage}>
             <View style={{ width: "100%", marginVertical: 20 }}>
-              <Text style={styles.uploadTextStyle}>Upload Photo</Text>
+              <Text style={styles.uploadTextStyle}>Upload ScreenShot</Text>
               <View style={styles.bottomStyle}>
                 {this.state.image == uploadimageIcon ? (
                   <Thumbnail
@@ -402,7 +311,7 @@ class AddForm extends Component {
               </Button>
             ) : (
               <Button style={styles.submitBtn} onPress={this.onSubmit}>
-                <Text>Submit & Post</Text>
+                <Text>Submit</Text>
               </Button>
             )}
           </View>

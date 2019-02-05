@@ -110,17 +110,46 @@ componentWillReceiveProps(newProp) {
                       <View style={styles.creditorsThumbail}>
                         <Thumbnail
                           large
-                          source={require("../../media/Asif.jpg")}
+                          source={require("../../media/naveed.jpg")}
                           style={{width: 70, height: 70}}
                         />
                       </View>
                       <View style={styles.AboutApp}>
                         <View>
-                          <Text style={styles.devName}>Muhammad Asif</Text>
+
+                          <Text style={styles.devName}>Naveed Sarwar</Text>
                         </View>
                         <View>
                           <Text style={styles.devDescription}>
-                            For creating UI and in memory app
+                          Full Stack MERN and Cloud Native Engineer
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                </Body>
+              </CardItem>
+            </Card>
+
+            <Card style={styles.headerCardContainer}>
+              <CardItem style={styles.headerCardItem}>
+                <Body style={{ borderRadius: 10 }}>
+              
+                    <View style={styles.cardBody}>
+                      <View style={styles.creditorsThumbail}>
+                        <Thumbnail
+                          large
+                          source={require("../../media/faizan.jpg")}
+                          style={{width: 70, height: 70}}
+                        />
+                      </View>
+                      <View style={styles.AboutApp}>
+                        <View>
+
+                          <Text style={styles.devName}>Faizan Amin</Text>
+                        </View>
+                        <View>
+                          <Text style={styles.devDescription}>
+                          Data Scientist Solution Experts
                           </Text>
                         </View>
                       </View>
