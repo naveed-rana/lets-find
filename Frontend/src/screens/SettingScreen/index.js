@@ -166,7 +166,7 @@ _storeData = async (val) => {
             </Button>
           </Left>
           <Body>
-            <Text>Native Green</Text>
+            <Text>Native Theme</Text>
           </Body>
           <Right>
             <Switch

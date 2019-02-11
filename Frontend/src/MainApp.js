@@ -50,7 +50,7 @@ class MainApp extends Component {
     }
   }
 
-  
+
 
   render() {
     const { SplashScreens } = this.state;
@@ -66,4 +66,13 @@ class MainApp extends Component {
   }
 }
 
-export default connect(null,{getUser,getStartColorFromStorage,getHomeStories})(MainApp);
+
+const mapStateToProps = (state) => {
+  
+  console.log('state',state);
+
+  return {}
+
+}
+
+export default connect(mapStateToProps,{getUser,getStartColorFromStorage,getHomeStories})(MainApp);

@@ -143,10 +143,10 @@ componentDidMount() {
               <Left>
                 <Text style={styles.ShortLocataionText}>Location</Text>
               </Left>
-              <Button full rounded iconLeft success style={{backgroundColor:appColor}}>
+              {/* <Button full rounded iconLeft success style={{backgroundColor:appColor}}>
                 <Icon name="map" />
                 <Text uppercase={false}>Look at the map</Text>
-              </Button>
+              </Button> */}
             </View>
 
             <Card>

@@ -249,7 +249,13 @@ class SearchScreen extends Component {
                               />
                               <Text style={{ fontSize: 13 }}>
                                 {data.location}
-                              </Text>
+                              </Text> 
+                              
+                              <Icon  style={{fontSize: 14,marginLeft:6,marginTop:1,marginRight:2, }} name="md-time" type="Ionicons"/>
+                              
+                              <Text style={{ fontSize: 12 }}>{data.createdat}</Text>
+                              
+                              
                             </View>
 
                             <View style={styles.cardHeader}>

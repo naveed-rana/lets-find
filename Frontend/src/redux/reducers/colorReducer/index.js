@@ -1,7 +1,7 @@
 import { COLORCHANGE } from "../../actions/colorActions";
 
 const INITIAL_STATE = {
-  color:'#05CE1D'
+  color:'#34495e'
 };
 
 function colorReducer(state = INITIAL_STATE, action) {

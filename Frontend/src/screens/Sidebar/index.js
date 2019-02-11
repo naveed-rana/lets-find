@@ -167,10 +167,11 @@ class Sidebar extends Component {
               <Text style={{ fontSize: 15 }}>About</Text>
             </Body>
           </ListItem>
-          <ListItem icon style={styles.barLinkContainer}>
+          
+          <ListItem onPress={() => this.props.navigation.navigate("Feedback")} icon style={styles.barLinkContainer} >
             <Left>
               <Button style={{ backgroundColor: appColor }}>
-                <Icon active name="feedback" type="MaterialIcons" />
+                <Icon onPress={() => this.props.navigation.navigate("Feedback")} active name="feedback" type="MaterialIcons" />
               </Button>
             </Left>
             <Body style={{ borderBottomWidth: 0, marginLeft: 15 }}>

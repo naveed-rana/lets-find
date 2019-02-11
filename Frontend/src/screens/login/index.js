@@ -93,7 +93,7 @@ class LoginScreen extends Component {
 
         <Content contentContainerStyle={styles.loginContainer}>
           <View style={styles.viewStyle}>
-            <Image source={require("../../media/main_logo.png")} style={{width: "73%", height: 105, zIndex: 1}} />
+            <Image source={require("../../media/main_logo.png")} style={{width: "73%", height: 120, zIndex: 1}} />
             <Text style={styles.inputStyle}>Find Your Missing Person</Text>
           </View>
 

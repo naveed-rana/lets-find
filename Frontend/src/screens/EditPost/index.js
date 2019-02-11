@@ -17,6 +17,7 @@ import {
   ListItem,
   CheckBox
 } from "native-base";
+import EndPoint from '../../endpoint';
 import ImagePicker from "react-native-image-picker";
 import { connect } from "react-redux";
 import { modifyPerson } from "../../redux/actions/missingPersonAction";
@@ -43,6 +44,7 @@ class EditPost extends Component {
       location: "",
       description: "",
       status: "Missing",
+      currentStatus:"",
       age: "",
       image:'https://static.thenounproject.com/png/396915-200.png',
       value: "",
@@ -115,7 +117,7 @@ class EditPost extends Component {
               onPress: () =>
                 this.setState({
                   resolvedCase: true,
-                  status: "Resolved"
+                  status: "resolved"
                 })
             }
           ],
@@ -141,6 +143,7 @@ class EditPost extends Component {
       location: this.data.location,
       description: this.data.description,
       status: this.data.status,
+      currentStatus:this.data.status,
       age: this.data.age,
       id: this.data.id,
       image: this.data.image
@@ -158,6 +161,7 @@ class EditPost extends Component {
 
   onSubmit = () => {
     const data = {
+      email:this.props.user.email,
       name: this.state.name,
       gender: this.state.gender,
       disability: this.state.disability,
@@ -166,7 +170,7 @@ class EditPost extends Component {
       status: this.state.status,
       age: this.state.age,
       image: this.state.image,
-      id: this.state.id
+      currentStatus:this.state.currentStatus
     };
 
     if (this.state.age == "" || this.state.age == "Select an age group") {
@@ -204,15 +208,9 @@ class EditPost extends Component {
     else {
       if(this.state.resolvedCase){
 
-
         console.log("From react Component: ", data);
         this.props.resolvedCases(data);
         this.props.navigation.navigate("ResolvedCases");
-        Toast.show({
-          text: "Successfully Resolve This case",
-          type: "success",
-          duration: 3000
-        });
       }else{
         console.log("From react Component: ", data);
         this.props.modifyPerson(data);
@@ -248,6 +246,8 @@ class EditPost extends Component {
 
 
   render() {
+
+    
 
     const {appColor} = this.state;
     const { navigation } = this.props;
@@ -448,7 +448,7 @@ class EditPost extends Component {
               
                   <Thumbnail
                     style={styles.bottomFullImg}
-                    source={{uri:this.state.image}}
+                    source={{uri:`${EndPoint}/data/${this.data.status}/${this.data.image}`}}
                   />
       
               </View>
@@ -469,7 +469,8 @@ class EditPost extends Component {
 const mapStateToProps = (state) =>{
   
   return {
-    clr:state.colorReducer.color
+    clr:state.colorReducer.color,
+    user:state.userReducer.user
   }
 }
 

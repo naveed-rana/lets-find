@@ -8,8 +8,8 @@ import {
   createDrawerNavigator
 } from 'react-navigation';
 
-// import HomeScreen from "../screens/ActiveCases";
 
+// import HomeScreen from "../screens/ActiveCases";
 import HomeScreen from "../screens/Home";
 import LoginScreen from '../screens/login';
 import ProfileScreen from '../screens/ShowProfile';
@@ -27,6 +27,7 @@ import ShowResolvedDetail from '../screens/ShowResolvedDetails';
 import AboutusScreen from '../screens/AboutUs'
 import SettingScreen from '../screens/SettingScreen'
 import LoginWithAzure from '../screens/azure';
+import Feedback from '../screens/FeedBack';
 
 
 const HomeStack = createStackNavigator({
@@ -45,7 +46,8 @@ const HomeStack = createStackNavigator({
   ResolvedCaseDetail: ShowResolvedDetail,
   Aboutus: AboutusScreen,
   Settings: SettingScreen,
-  azure:LoginWithAzure
+  azure:LoginWithAzure,
+  Feedback:Feedback,
 },
 {
   headerMode: 'none',

@@ -13,9 +13,11 @@ import {
   Card,
   CardItem,
   Body,
+  Spinner,
   Container,
 } from "native-base";
 
+import {getResolvedPost,getHomeStories} from '../../redux/actions/missingPersonAction';
 import ImagePicker from "react-native-image-picker";
 import styles from "./style";
 import ImageView from 'react-native-image-view';
@@ -34,6 +36,7 @@ class SearchScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loader:true,
       selectedStatus: "",
       selectedDisability: "",
       selectedGender: "",
@@ -88,15 +91,26 @@ class SearchScreen extends Component {
   };
 
   componentDidMount() {
+
+    this.props.getResolvedPost(this.props.user.email);
     this.setState({ fakeArray: this.props.ResolvedCases,appColor:this.props.clr  });
+
   }
 
 componentWillReceiveProps(newProp) {
+    
     this.setState({
-      appColor:newProp.clr
+      appColor:newProp.clr,
+      fakeArray: newProp.ResolvedCases,
+      loader:false
     });
   }
-
+  
+  
+  componentWillUnmount() {
+    this.props.getHomeStories();
+  }
+  
 
   openDrawer = () => {
     this.props.navigation.openDrawer();
@@ -127,6 +141,14 @@ componentWillReceiveProps(newProp) {
           <Text></Text>
           
         </View>
+        {this.state.loader ? 
+        
+        
+        <Spinner style={{marginTop:100}} color={appColor} />
+        
+        :
+        
+        <View>
 {this.state.fakeArray.length >=1?
         <ScrollView>
           {this.state.fakeArray.map((data, index) => {
@@ -264,6 +286,9 @@ componentWillReceiveProps(newProp) {
         <Text style={{textAlign:'center',fontWeight:'bold',marginTop:30}}>No Case Yet!</Text>
         
         }
+        </View>}
+
+
         <ImageView
           images={currentImage}
           imageIndex={0}
@@ -278,13 +303,15 @@ componentWillReceiveProps(newProp) {
 const mapStateToProps = state => {
   return {
     ResolvedCases: state.misingPersons.ResolvedCases,
+    user:state.userReducer.user,
+    userResolvedError:state.misingPersons.userResolvedError,
     clr:state.colorReducer.color
   };
 };
 
 export default connect(
   mapStateToProps,
-  null
+  {getResolvedPost,getHomeStories}
 )(SearchScreen);
 
 // missingPersons

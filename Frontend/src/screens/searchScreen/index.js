@@ -163,9 +163,9 @@ class SearchScreen extends Component {
           },
       })
           .then(res => {
+             
               console.log("The Response search by image",res.data.output);
-              
-              if(res.data.output == "undefind"){
+              if(res.data.output == undefined){
                 this.setState({
                   fakeArray: [],
                   loader: false,

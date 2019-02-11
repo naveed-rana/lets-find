@@ -1,4 +1,5 @@
 import axios from "axios";
+import {Toast} from 'native-base';;
 import EndPoint from '../../../endpoint/';
 export const GETLATESTSTORIES = 'GetStories';
 export const GETLATESTSTORIESERROR = 'GetStoriesERROR';
@@ -10,6 +11,9 @@ export const RESOLVED_CASES = "RESOLVED_CASES"
 
 export const GETACTIVEPOSTS = "GETACTIVEPOSTS"
 export const GETACTIVEPOSTSERROR = "GETACTIVEPOSTSERROR"
+
+export const GETRESOLVEDPOSTS = "GETRESOLVEDPOSTS"
+export const GETRESOLVEDSERROR = "GETRESOLVEDSERROR"
 
 
 // fetch all todos from indexedDB in the form of array
@@ -66,6 +70,33 @@ export function getActivePost(cell) {
   }
 
 
+  //Get Active Posts
+export function getResolvedPost(userid) {
+
+    return (dispatch) => {
+
+              axios.get(EndPoint+'/getresolvedCases',{ params: {data:`${userid}`}})
+              .then((res)=>{
+                  console.log("resoleved res",res.data);
+                  
+                  dispatch({
+                      type:GETRESOLVEDPOSTS,
+                      payload:res.data
+                  })
+              
+              })
+              .catch((err)=>{
+                  console.log("err from resolved cases",err);
+                  dispatch({
+                      type:GETRESOLVEDSERROR,
+                      payload:new Date()
+                  })
+              })
+    };
+  }
+
+
+
 
 //Call Reducer
 
@@ -86,12 +117,57 @@ export function modifyPerson(data){
         data: data,
     }
 }
-export function resolvedCases(data){
-    console.log('===================from action=================');
-    console.log(data);
-    return{
-        type: RESOLVED_CASES,
-        data: data,
+export function resolvedCases(dataPost){
+
+    let data = {
+        "case": dataPost
+      };
+
+
+    return (dispatch) => {
+    
+        axios
+      .post(EndPoint + "/solvedCase",data)
+      .then(res => {
+        console.log("Res from sever");
+        console.log(res.data);
+        if (res.data == "success") {
+          Toast.show({
+            text: "Sucesfully Resolved Your Case",
+            buttonText: "ok",
+            type: 'success'
+          });
+          dispatch({
+            type: RESOLVED_CASES,
+            data: data,
+        });
+
+        } else {
+          
+        Toast.show({
+          position: "top",
+          text: "Error occoured! Try Again",
+          buttonText: "cancel",
+          type: "danger"
+        });
+
+        }
+       
+      })
+      .catch(err => {
+
+       console.log(err);
+        Toast.show({
+          position: "top",
+          text: "Error occoured! Try Again",
+          buttonText: "cancel",
+          type: "danger"
+        });
+
+
+      });
+
+       
     }
 }
 

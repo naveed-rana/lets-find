@@ -83,7 +83,7 @@ class PersonalDetail extends Component {
                       [
                         {
                         source: {
-                                uri:data.image,
+                                uri:`${EndPoint}/data/${data.status}/${data.image}`,
                             },
                         },
                     ]
@@ -93,7 +93,7 @@ class PersonalDetail extends Component {
                   <View style={styles.imagePadding}>
                     <Image
                       style={styles.imageStyle}
-                      source={{uri:data.image}}
+                      source={{uri:`${EndPoint}/data/${data.status}/${data.image}`}}
                     />
                   </View>
 
@@ -160,7 +160,7 @@ class PersonalDetail extends Component {
                 <Left>
                   <Text style={styles.ShortLocataionText}>Location</Text>
                 </Left>
-                <Button
+                {/* <Button
                   full
                   rounded
                   iconLeft
@@ -169,7 +169,7 @@ class PersonalDetail extends Component {
                 >
                   <Icon name="map" />
                   <Text uppercase={false}>Look at the map</Text>
-                </Button>
+                </Button> */}
               </View>
 
               <Card>

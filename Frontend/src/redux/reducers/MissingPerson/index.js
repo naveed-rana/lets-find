@@ -1,6 +1,6 @@
 import { ADD_PERSON } from "../../actions/missingPersonAction";
 import { MODIFY_PERSON } from "../../actions/missingPersonAction";
-import { RESOLVED_CASES,GETLATESTSTORIESERROR,GETLATESTSTORIES,GETACTIVEPOSTS,GETACTIVEPOSTSERROR } from "../../actions/missingPersonAction";
+import { RESOLVED_CASES,GETLATESTSTORIESERROR,GETLATESTSTORIES,GETACTIVEPOSTS,GETACTIVEPOSTSERROR ,GETRESOLVEDPOSTS,GETRESOLVEDSERROR} from "../../actions/missingPersonAction";
 
 import homeStories from "../../fakeArray";
 
@@ -8,6 +8,8 @@ const INITIAL_STATE = {
   homeStories: "Nill",
   homeStoriesError:'err',
   userStoriesError:'err',
+  userResolvedError:'sdfa'
+  ,
   UserPosts: [],
   ResolvedCases: []
 };
@@ -71,10 +73,25 @@ function AddReducer(state = INITIAL_STATE, action) {
       }
     }
 
+
     case GETACTIVEPOSTS:{
       return {
         ...state,
         UserPosts:action.payload.output
+      }
+    }
+    
+    case GETRESOLVEDSERROR:{
+      return {
+        ...state,
+        userResolvedError:action.payload
+      }
+    }
+
+    case GETRESOLVEDPOSTS:{
+      return {
+        ...state,
+        ResolvedCases:action.payload.output
       }
     }
 
