@@ -9,18 +9,20 @@ class notificationScreen extends Component {
     constructor(props) {
         super(props)
         this.state = {
-         appColor :'green'
+         appColor :'green',
+         userNotification:[]
         }
       }
    
    componentWillReceiveProps(newProp) {
        this.setState({
-         appColor:newProp.clr
+         appColor:newProp.clr,
+         userNotification:newProp.userNotification
        });
      }
    
      componentDidMount() {
-       this.setState({ appColor:this.props.clr });
+       this.setState({ appColor:this.props.clr,userNotification:this.props.userNotification });
      }
 
     render() {
@@ -42,19 +44,50 @@ class notificationScreen extends Component {
                 </View>
                 <ScrollView>
                 <Content>
-                    {/* <List>
+                  {this.state.userNotification.length >=1 ?
+
+this.state.userNotification.map((data, index) => {
+            
+    return (
+        <List key={index}>
                         <ListItem>
                             <Left>
-                                <Text>Simon Mignolet</Text>
+                                <Text>{data.name} {data.status} Person! Check</Text>
                             </Left>
                             <Right>
-                                <Icon name="arrow-forward" />
+                                <Icon
+                                
+                                onPress={() =>
+                                    this.props.navigation.navigate("PersonDetail", {
+                                      data: {
+                                        id: data.id,
+                                        name: data.name,
+                                        status: data.status,
+                                        post_By: data.post_By,
+                                        age: data.age,
+                                        gender: data.gender,
+                                        disability: data.disability,
+                                        description: data.description,
+                                        location: data.location,
+                                        mobile: data.mobile,
+                                        image: data.image
+                                      }
+                                    })
+                                  }
+
+                                name="arrow-forward" />
                             </Right>
                         </ListItem>
                        
-                    </List> */}
+                    </List>
+                 
+    );
+  })
+                  
+
+: 
                     
-                    <Text style={{textAlign:'center',fontWeight:'bold',marginTop:10}}>No Notification yet!</Text>
+                  <Text style={{textAlign:'center',fontWeight:'bold',marginTop:10}}>No Notification yet!</Text> }
                     
                 </Content>
                 </ScrollView>
@@ -66,7 +99,8 @@ class notificationScreen extends Component {
 const mapStateToProps = (state) =>{
   
     return {
-      clr:state.colorReducer.color
+      clr:state.colorReducer.color,
+      userNotification:state.misingPersons.userNotification
     }
   }
   

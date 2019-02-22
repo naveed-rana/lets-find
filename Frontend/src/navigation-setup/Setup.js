@@ -29,8 +29,11 @@ import SettingScreen from '../screens/SettingScreen'
 import LoginWithAzure from '../screens/azure';
 import Feedback from '../screens/FeedBack';
 
+import SplashScreen from '../screens/SplashScreen/SplashScreen';
+
 
 const HomeStack = createStackNavigator({
+  SplashScreen:SplashScreen,
   Homes: HomeScreen,
   PersonDetail:PersonelDetailScreen,
   Profile: ProfileScreen,

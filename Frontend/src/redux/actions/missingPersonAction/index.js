@@ -14,9 +14,19 @@ export const GETACTIVEPOSTSERROR = "GETACTIVEPOSTSERROR"
 
 export const GETRESOLVEDPOSTS = "GETRESOLVEDPOSTS"
 export const GETRESOLVEDSERROR = "GETRESOLVEDSERROR"
+export const NOTIFICATION = "NOTIFICATION"
 
 
 // fetch all todos from indexedDB in the form of array
+
+export function getNotifications(data) {
+
+    return {
+        type:NOTIFICATION,
+        payload:data
+    }
+    
+}
 
 export function getHomeStories() {
   return (dispatch) => {

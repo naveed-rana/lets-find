@@ -39,7 +39,7 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 # ..................Azure Solution.......
 db_file = "LetsFind.db"
 try:
-    conn = sqlite3.connect(db_file)
+    conn = sqlite3.connect(db_file, check_same_thread=False)
 except Error as e:
     print(e)
 startTime = time.time()
@@ -86,24 +86,29 @@ def getFaceId(imagePath):
             return faceId
 def sortSecond(val): 
     return val[1]
-def checkEncoding(Etype, imagePath):
-    
+def checkEncoding(Etype, imagePath, get):
     matches = []
+    toMatchFace = ""
     try:
-        toMatchFace = getFaceId("data/" + Etype + "/" + imagePath)
-    except Exception,e:
-        print(e)
+        toMatchFace = getFaceId(imagePath)
+        # if get == "no":
+        #     toMatchFace = getFaceId("data/" + Etype + "/" + imagePath)
+        # else:
+        #     toMatchFace = getFaceId(imagePath)
+
+    except:
+        print("e")
     for img in os.listdir("data/" + Etype):
         imgPath = "data/" + Etype + "/" + img
         print(imgPath)
         if img != imagePath.split("/")[-1]:
             nMatch = getFaceId(imgPath)
             result = matchFace([toMatchFace, nMatch])
-            matches.append({"imgName": img, 'result': result['isIdentical'], 'confidence': result['confidence']})
+            #matches.append({"imgName": img, 'result': result['isIdentical'], 'confidence': result['confidence']})
             matches.append((img, result['confidence']))
     print(matches)
     matches.sort(key = sortSecond, reverse = True)
-    lessRes = matches[:5]
+    lessRes = matches[:2]
     mList = []
     for m in lessRes:
         mList.append(m[0])
@@ -242,8 +247,8 @@ def getresolvedCases():
         })
      print(output)
      return jsonify({'output':output})
-    except Exception,e:
-     print str(e)
+    except:
+     print("s")
      return status
 
 #RegisterUser Working
@@ -339,36 +344,91 @@ def logoutUser():
 @app.route('/registerMissingPerson', methods=['POST'])
 @cross_origin()
 def registerMissingReq():
-    status = "not-success"
-    missingPerson = {}
+    status = {'output':[]}
+    missingPersons = {}
     if request.files['image']:
         try:
+            output = []
             image = request.files["image"]
             if request.form['status'] == 'Found':
                 image.save('data/Found/' + image.filename)
+                results = checkEncoding("Missing",'data/Found/' + image.filename,"no")
+                if type(results) is list:
+                    for index in results:
+                        output.append({
+                                'img':index
+                            })
+                    if len(output) >= 1:        
+                        query = mongo.db.missing_persons.find({"$or":output})
+                        data = []
+                        for missingPerson in query:
+                            data.append({
+                        'image':missingPerson['img'],
+                        'name':missingPerson['name'],
+                        'gender':missingPerson['gender'], 
+                        'disability':missingPerson['disability'],
+                        'description':missingPerson['description'],
+                        'status':missingPerson['status'],
+                        'age':missingPerson['age'],
+                        'post_By':missingPerson['post_By'],
+                        'mobile':missingPerson['mobile'],
+                        'location':missingPerson['location'],
+                        'createdat':missingPerson['createdat'],
+                            })
+                        print(data)
+                        status = {'output':data}
+                    else:
+                        status = {'output':[]}
                 # updateEncodings('found')
             else:
                 image.save('data/Missing/' + image.filename)
+                results = checkEncoding("Found",'data/Missing/' + image.filename,"no")
+                if type(results) is list:
+                    for index in results:
+                        output.append({
+                                'img':index
+                            })
+                    if len(output) >= 1:        
+                        query = mongo.db.missing_persons.find({"$or":output})
+                        data = []
+                        for missingPerson in query:
+                            data.append({
+                        'image':missingPerson['img'],
+                        'name':missingPerson['name'],
+                        'gender':missingPerson['gender'], 
+                        'disability':missingPerson['disability'],
+                        'description':missingPerson['description'],
+                        'status':missingPerson['status'],
+                        'age':missingPerson['age'],
+                        'post_By':missingPerson['post_By'],
+                        'mobile':missingPerson['mobile'],
+                        'location':missingPerson['location'],
+                        'createdat':missingPerson['createdat'],
+                            })
+                        print(data)
+                        status = {'output':data}
+                    else:
+                        status = {'output':[]}
                 # updateEncodings('missings')
-            missingPerson['img'] = image.filename
-            missingPerson['name'] = request.form['name']
-            missingPerson['gender'] = request.form['gender']
-            missingPerson['disability'] = request.form['disability']
-            missingPerson['description'] = request.form['description']
-            missingPerson['status'] = request.form['status']
-            missingPerson['age'] = request.form['age']
-            missingPerson['mobile'] = request.form['mobile']
-            missingPerson['post_By'] = request.form['post_By']
-            missingPerson['location'] = request.form['location'] 
-            missingPerson['createdat'] = str(date.today())  
-            task = mongo.db.missing_persons.insert(missingPerson)
-            print(task)
-            status = "success"
-            return status
+            missingPersons['img'] = image.filename
+            missingPersons['name'] = request.form['name']
+            missingPersons['gender'] = request.form['gender']
+            missingPersons['disability'] = request.form['disability']
+            missingPersons['description'] = request.form['description']
+            missingPersons['status'] = request.form['status']
+            missingPersons['age'] = request.form['age']
+            missingPersons['mobile'] = request.form['mobile']
+            missingPersons['post_By'] = request.form['post_By']
+            missingPersons['location'] = request.form['location'] 
+            missingPersons['createdat'] = str(date.today())  
+            task = mongo.db.missing_persons.insert(missingPersons)
+
+            return jsonify({'output':data})
         except:
-            return status
+            # print(e)
+            return "e"
     else:
-        return status
+        return jsonify({'output':[]})
 
 
 #search route
@@ -382,8 +442,8 @@ def searchMissingReq():
             output = []
             image = request.files["image"]
             image.save('current.jpg')
-            results = checkEncoding("Found", "current.jpg")
-            resultsMissing = checkEncoding("Missing", "current.jpg")
+            results = checkEncoding("Found", "current.jpg","yes")
+            resultsMissing = checkEncoding("Missing", "current.jpg","yes")
             if type(results) is list:
                 for index in results:
                     output.append({

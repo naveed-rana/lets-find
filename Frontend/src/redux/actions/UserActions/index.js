@@ -3,10 +3,14 @@ import EndPoint from "../../../endpoint/";
 import { Toast } from "native-base";
 
 export const GETUSER = "GETUSER";
+export const GETERR = "GETERR";
+
 export const USERLOGOUT = "USERLOGOUT";
 export const USERREGESTER = "USERREGESTER";
 export const USERLOGINERROR = 'USERLOGINERROR'
 export const USERLOGIN = 'USERLOGIN'
+
+export const AZURELOGIN = 'AZURELOGIN'
 // fetch all todos from indexedDB in the form of array
 export function getUser() {
   return dispatch => {
@@ -22,12 +26,26 @@ export function getUser() {
         });
       })
       .catch(err => {
+        
         console.log("err");
         console.log(err);
+        dispatch({
+          type: GETERR,
+          payload:"change"
+        });
       });
   };
 }
 
+
+export function azureLogin(data) {
+
+return {
+  type:AZURELOGIN,
+  payload:data
+}
+  
+}
 
 //login
 

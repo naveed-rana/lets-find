@@ -94,9 +94,6 @@ class SignUpScreen extends Component {
   };
   render() {
 
-    console.log("===email======");
-    console.log(this.validateEmail("as@gmai"));
-    
     const { loader, appColor } = this.state;
     //  console.log('props from comp',loader);
     return (

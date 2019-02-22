@@ -477,6 +477,9 @@ class SearchScreen extends Component {
           <ScrollView>
             {this.state.fakeArray.length >=1 ?
             <View>
+              
+              <Text style={{color:appColor,fontWeight:'bold',marginLeft:11}}>Top Results</Text>
+              
             {this.state.fakeArray.map((data, index) => {
               return (
                 <View key={index} style={styles.cardContainer}>

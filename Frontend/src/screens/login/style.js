@@ -2,6 +2,8 @@ import { StyleSheet} from 'react-native';
 
 export default styles = StyleSheet.create({
     loginContainer: {
+      // alignItems:'center',
+      marginTop: 30,
       justifyContent: 'center',
       flex: 1,
     },

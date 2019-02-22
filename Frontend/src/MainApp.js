@@ -27,9 +27,9 @@ class MainApp extends Component {
     this.props.getHomeStories();
     this.props.getUser();
     this.props.getStartColorFromStorage();
-    setTimeout(() => {
-      this.setState({ SplashScreens: false });
-    }, 1500);
+    // setTimeout(() => {
+    //   this.setState({ SplashScreens: false });
+    // }, 1500);
 
     this.requestPermission();
   }
@@ -50,17 +50,19 @@ class MainApp extends Component {
     }
   }
 
+  
+
 
 
   render() {
     const { SplashScreens } = this.state;
     return (
       <Container>
-        {SplashScreens ?
+        {/* {SplashScreens ?
         <SplashScreen/>
-        :
+        : */}
         <Setup />
-        }
+        {/* } */}
       </Container>
     );
   }
@@ -69,9 +71,9 @@ class MainApp extends Component {
 
 const mapStateToProps = (state) => {
   
-  console.log('state',state);
+  // console.log('state',state.userReducer.user);
 
-  return {}
+  return {user:state.userReducer.user}
 
 }
 

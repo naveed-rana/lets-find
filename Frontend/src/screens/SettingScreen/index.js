@@ -38,7 +38,6 @@ class componentName extends Component {
   componentDidMount() {
 
     appColor= this.props.clr;
-
      switch (appColor) {
        case '#34495e':
        {

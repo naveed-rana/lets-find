@@ -31,7 +31,7 @@ class Sidebar extends Component {
 
   logout = () =>{
     this.props.userLogout();
-    this.props.navigation.closeDrawer();
+    this.props.navigation.navigate("Login");
   }
    
   
@@ -62,6 +62,8 @@ class Sidebar extends Component {
           }
         </Content>
         <Content>
+        {userStatus ? 
+          <View> 
           <ListItem icon style={styles.barLinkContainer} onPress={() => this.props.navigation.navigate("Homes")}>
             <Left>
               <Button style={{ backgroundColor:appColor}}>
@@ -73,8 +75,7 @@ class Sidebar extends Component {
             </Body>
           </ListItem>
 
-          {userStatus ? 
-          <View> 
+          
           <ListItem onPress={() => this.props.navigation.navigate("Profile")} icon style={styles.barLinkContainer}>
             <Left>
               <Button style={{ backgroundColor: appColor }}>
@@ -128,10 +129,7 @@ class Sidebar extends Component {
               <Text style={{ fontSize: 15 }}>Resolved Cases</Text>
             </Body>
           </ListItem>
-           </View>:
           
-          <View>
-
           <ListItem icon style={styles.barLinkContainer} onPress={() => this.props.navigation.navigate("Search")}>
             <Left>
               <Button style={{ backgroundColor: appColor }}>
@@ -143,9 +141,7 @@ class Sidebar extends Component {
             </Body>
           </ListItem>
           
-          </View>
-        
-        }
+    
           <Text style={{ borderTopWidth: 1, height: 0, borderColor: "#bfbfbf" }} ></Text>
           <ListItem icon style={styles.barLinkContainer} onPress={() => this.props.navigation.navigate("Settings")}>
             <Left>
@@ -179,6 +175,12 @@ class Sidebar extends Component {
             </Body>
           </ListItem>
           <Text style={{ borderTopWidth: 1, height: 0, borderColor: "#bfbfbf" }} ></Text>
+
+           </View> :
+          
+          <Text style={{textAlign:'center',marginTop:20,color:appColor}}>Please Login First For Any Activity</Text>
+           
+          }
 
             {/* user login,logout */}
           {userStatus ? 

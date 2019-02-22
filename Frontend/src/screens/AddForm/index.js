@@ -20,7 +20,7 @@ import {
 import ImagePicker from "react-native-image-picker";
 import uploadimageIcon from "../../media/upload-photo.png";
 import { connect } from "react-redux";
-import { addPerson,getHomeStories } from "../../redux/actions/missingPersonAction";
+import { addPerson,getHomeStories,getNotifications } from "../../redux/actions/missingPersonAction";
 import styles from "./style";
 import FloatingLabelInput from "./floatingLabelInput";
 
@@ -200,7 +200,9 @@ class AddForm extends Component {
                 });
                 this.props.addPerson(userDatadata);
                 this.props.getHomeStories();
-                this.props.navigation.navigate('Search');
+                console.log(res.data.output);
+                this.props.getNotifications(res.data.output);
+                this.props.navigation.navigate('Homes');
             }).catch(err => {
               this.setState({loader:false});
                 console.log("ERROR", err)
@@ -450,5 +452,5 @@ const mapStateToProps = state => {
 };
 export default connect(
   mapStateToProps,
-  { addPerson,getHomeStories }
+  { addPerson,getHomeStories,getNotifications }
 )(AddForm);

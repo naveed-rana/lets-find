@@ -36,7 +36,7 @@ class LoginScreen extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({ loader: false, appColor: nextProps.clr });
     if (nextProps.loginLoader == "move") {
-      this.props.navigation.navigate("AddPerson");
+      this.props.navigation.navigate("Homes");
     }
   }
 
@@ -82,14 +82,14 @@ class LoginScreen extends Component {
     const { loader, appColor } = this.state;
     return (
       <ScrollView style={{ backgroundColor: appColor }}>
-        <View style={{paddingBottom: 0}}>
+        {/* <View style={{paddingBottom: 0}}>
           <Icon
             onPress={() => this.props.navigation.goBack()}
             style={{ marginLeft: 5, fontWeight: "bold", color: "white" }}
             type="MaterialCommunityIcons"
             name="keyboard-backspace"
           />
-        </View>
+        </View> */}
 
         <Content contentContainerStyle={styles.loginContainer}>
           <View style={styles.viewStyle}>
@@ -177,7 +177,7 @@ class LoginScreen extends Component {
           </Text>
 
           <View style={{ flexDirection: "row", justifyContent: "center" }}>
-            <View style={styles.socialIconG}>
+            {/* <View style={styles.socialIconG}>
               <Icon
                 style={{ alignSelf: "center", marginTop: 10, color: "white" }}
                 type="Entypo"
@@ -195,7 +195,7 @@ class LoginScreen extends Component {
                 type="FontAwesome5"
                 name="google-plus-square"
               />
-            </View>
+            </View> */}
             <TouchableOpacity onPress={() => this.props.navigation.navigate("azure")}>
             <View  style={styles.socialIconG}>
             <Icon  style={{alignSelf: 'center',marginTop:10,color:'white',}}  type="FontAwesome5" name="microsoft"/>

@@ -1,6 +1,6 @@
 import { ADD_PERSON } from "../../actions/missingPersonAction";
 import { MODIFY_PERSON } from "../../actions/missingPersonAction";
-import { RESOLVED_CASES,GETLATESTSTORIESERROR,GETLATESTSTORIES,GETACTIVEPOSTS,GETACTIVEPOSTSERROR ,GETRESOLVEDPOSTS,GETRESOLVEDSERROR} from "../../actions/missingPersonAction";
+import { RESOLVED_CASES,GETLATESTSTORIESERROR,GETLATESTSTORIES,GETACTIVEPOSTS,GETACTIVEPOSTSERROR ,GETRESOLVEDPOSTS,GETRESOLVEDSERROR,NOTIFICATION} from "../../actions/missingPersonAction";
 
 import homeStories from "../../fakeArray";
 
@@ -11,12 +11,21 @@ const INITIAL_STATE = {
   userResolvedError:'sdfa'
   ,
   UserPosts: [],
-  ResolvedCases: []
+  ResolvedCases: [],
+  userNotification:[],
 };
 
 function AddReducer(state = INITIAL_STATE, action) {
 
   switch (action.type) {
+
+    case NOTIFICATION:{
+      return {
+        ...state,
+        userNotification:action.payload
+      }
+    }
+
     case ADD_PERSON: {
       return {
         ...state,
