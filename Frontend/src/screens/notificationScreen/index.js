@@ -36,9 +36,12 @@ class notificationScreen extends Component {
                     />
                 </View>
                 <View style={[styles.header,{backgroundColor:appColor}]}>
-                    <Icon 
+                    {/* <Icon 
                      onPress={() => this.props.navigation.goBack()}
-                    type="AntDesign" name="arrowleft" style={{ color: "#fff",  }} />
+                    type="AntDesign" name="arrowleft" style={{ color: "#fff",  }} /> */}
+                    
+                    <Text></Text>
+                    
                     <Text style={{ color: "#fff",fontSize:22 }}>Notifications</Text>
                     <Text></Text>
                 </View>

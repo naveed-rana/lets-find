@@ -5,7 +5,8 @@ import {
   createBottomTabNavigator,
   createStackNavigator,
   createAppContainer,
-  createDrawerNavigator
+  createDrawerNavigator,
+  createSwitchNavigator
 } from 'react-navigation';
 
 
@@ -33,7 +34,7 @@ import SplashScreen from '../screens/SplashScreen/SplashScreen';
 
 
 const HomeStack = createStackNavigator({
-  SplashScreen:SplashScreen,
+ 
   Homes: HomeScreen,
   PersonDetail:PersonelDetailScreen,
   Profile: ProfileScreen,
@@ -41,15 +42,9 @@ const HomeStack = createStackNavigator({
   EditPost:EditPostScreen,
   ActiveCases:ActiveCasesScreen,
   ResolvedCases: ResolvedCasedScreen,
-  SignUp: SignUpScreen,
-  AddPerson: AddPersons,
-  Login: LoginScreen,
-  Search:SearchScreen,
-  Notifications: NotificationScreen,
   ResolvedCaseDetail: ShowResolvedDetail,
   Aboutus: AboutusScreen,
   Settings: SettingScreen,
-  azure:LoginWithAzure,
   Feedback:Feedback,
 },
 {
@@ -57,81 +52,116 @@ const HomeStack = createStackNavigator({
 }
 );
 
-// const AddStack = createStackNavigator({
-//   SignUp: SignUpScreen,
-//   AddPerson: AddPersons,
-//   Login: LoginScreen,
+const AddStack = createStackNavigator({
+  AddPerson: AddPersons,
   
-// },
-// {
-//   headerMode: 'none',
-// }
-// );
+},
+{
+  headerMode: 'none',
+}
+);
 
-// const SearchStack = createStackNavigator({
-//   Search:SearchScreen
-// },
-// {
-//   headerMode: 'none',
-// }
-// );
+const SearchStack = createStackNavigator({
+  Search:SearchScreen,
+},
+{
+  headerMode: 'none',
+}
+);
 
-// const NotificationsStack = createStackNavigator({
-//   Notifications: NotificationScreen
-// },
-// {
-//   headerMode: 'none',
-// }
-// );
+const NotificationsStack = createStackNavigator({
+  Notifications: NotificationScreen,
+},
+{
+  headerMode: 'none',
+}
+);
 
-//  const MyDrawerNavigator = createBottomTabNavigator(
-//   {
-//     Home: HomeStack,
-//     Notifications: NotificationsStack,
-//     Search:SearchStack,
-//     LetsAdd:AddStack
-//   },
-//   {
-//     defaultNavigationOptions: ({ navigation }) => ({
-//       tabBarIcon: ({ focused, horizontal, tintColor }) => {
-//         const { routeName } = navigation.state;
-//         let iconName;
-//         let clr;
-//         if (routeName === 'Home') {
-//           iconName = `home`;
-//         } else if (routeName === 'Notifications') {
-//           iconName = `notifications-outline`;
-//         }
-//         else if (routeName === 'Search') {
-//           iconName = `search`;
-//         }
-//         else if (routeName === 'LetsAdd') {
-//           iconName = `ios-person-add`;
-//         }
-//         focused ? clr = '#05CE1D': clr = "gray"; 
-//         return <Icon style={{color:`${clr}`}}  type="Ionicons" name={iconName} size={horizontal ? 20 : 25} color={tintColor} />;
-//       },
-//     }),
-//     tabBarOptions: {
+ const MyTabNavigator = createBottomTabNavigator(
+  {
+    Home: HomeStack,
+    Notifications: NotificationsStack,
+    Search:SearchStack,
+    LetsAdd:AddStack
+  },
+  {
+    defaultNavigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, horizontal, tintColor }) => {
+        const { routeName } = navigation.state;
+        let iconName;
+        let clr;
+        if (routeName === 'Home') {
+          iconName = `home`;
+        } else if (routeName === 'Notifications') {
+          iconName = `notifications-outline`;
+        }
+        else if (routeName === 'Search') {
+          iconName = `search`;
+        }
+        else if (routeName === 'LetsAdd') {
+          iconName = `ios-person-add`;
+        }
+        focused ? clr = '#05CE1D': clr = "gray"; 
+        return <Icon style={{color:`${clr}`}}  type="Ionicons" name={iconName} size={horizontal ? 20 : 25} color={tintColor} />;
+      },
+    }),
+    tabBarOptions: {
       
-//       activeTintColor: '#05CE1D',
-//       inactiveTintColor: 'gray',
-//       style:{
-//         borderTopColor: "grey",
-//         shadowColor: '#000',
-//         shadowOffset: { width: 0, height: 1 },
-//         shadowOpacity: 0.8,
-//         shadowRadius: 2,  
-//         elevation: 5,
-//       }
-//     },
-//   }
-// );
+      activeTintColor: '#05CE1D',
+      inactiveTintColor: 'gray',
+      style:{
+        borderTopColor: "grey",
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,  
+        elevation: 5,
+      }
+    },
+  }
+);
 
+
+
+
+const Splash = createStackNavigator(
+  {
+    SplashScreen:SplashScreen,
+  },
+  {
+    index: 0,
+    headerMode: "none"
+  }
+);
+
+const NonAuth = createStackNavigator(
+  {
+    Login: LoginScreen,
+    SignUp: SignUpScreen,
+    azure:LoginWithAzure,
+  
+  },
+  {
+    index: 0,
+    headerMode: "none"
+  }
+);
+
+const RootNavigator = createSwitchNavigator(
+  
+  {
+    Splash:Splash,
+    NonAuth: NonAuth,
+    Tabs: MyTabNavigator
+  },
+  {
+    initialRouteName: "Splash"
+  }
+);
 
 
 const MyDrawerNavigator = createDrawerNavigator({
-  HomeStack:HomeStack
+  RootNavigator:RootNavigator
 }, {
   contentComponent: props => <DrawerScreen {...props} />
 }

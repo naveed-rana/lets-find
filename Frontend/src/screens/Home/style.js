@@ -7,7 +7,7 @@ const { height, width } = Dimensions.get("window");
 var appColor = '#05CE1D';
 
 
-export const styles = StyleSheet.create({
+export const styles1 = StyleSheet.create({
    
   header: {
     // height: 175,

@@ -30,6 +30,7 @@ function userReducer(state = INITIAL_STATE, action) {
     case GETERR:{
       return{
         ...state,
+       
         checkLogin:action.payload
       }
     }

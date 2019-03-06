@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 
 export default styles = StyleSheet.create({
     searchContainer: {
-        // paddingTop: 20,
+        paddingTop: 20,
         paddingBottom: 10,
         height:'auto',
         borderBottomWidth:1,

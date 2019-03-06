@@ -5,7 +5,10 @@ import {
   Image,
   StatusBar,
   TouchableOpacity,
-  Share
+  Share,
+  View as RNView,
+  Platform,
+  Dimensions
 } from "react-native";
 import {
   View,
@@ -14,17 +17,20 @@ import {
   Card,
   CardItem,
   Body,
-  Button,
   Container,
-  Drawer
+  Drawer,
+  Button
 } from "native-base";
 
+import { Grid, Col } from "react-native-easy-grid";
+import Carousel from "react-native-carousel-view";
 
-import { styles } from "./style";
+import { styles1 } from "./style";
 import { connect } from "react-redux";
-import ImageView from 'react-native-image-view';
-import EndPoint from '../../endpoint';
+import ImageView from "react-native-image-view";
+import EndPoint from "../../endpoint";
 // import fakeArray from '../../redux/fakeArray';
+import styles from "./sliderCSS.js";
 
 Drawer.defaultProps.styles.mainOverlay.elevation = 0;
 
@@ -32,11 +38,12 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      appColor :'#05CE1D',
+      appColor: "#05CE1D",
       fakeArray: [
         {
           id: "1",
-          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuWelu5a4sG2AHbTAxpT7w0PXvL_EPDPt1V9g2fRwMNB80OoFNwA",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuWelu5a4sG2AHbTAxpT7w0PXvL_EPDPt1V9g2fRwMNB80OoFNwA",
           status: "Missing",
           name: "Naveed Rana",
           age: "teen",
@@ -50,74 +57,218 @@ class Home extends Component {
         }
       ],
       isImageViewVisible: false,
-      currentImage:[
+      currentImage: [
         {
-            source: {
-                uri: 'https://cdn.pixabay.com/photo/2017/08/17/10/47/paris-2650808_960_720.jpg',
-            },
-        },
-    ],
+          source: {
+            uri:
+              "https://cdn.pixabay.com/photo/2017/08/17/10/47/paris-2650808_960_720.jpg"
+          }
+        }
+      ],
       loader: true
     };
   }
 
-
-
-
   componentWillReceiveProps(newProp) {
     this.setState({
       fakeArray: newProp.missingPersons,
-      appColor:newProp.clr
+      appColor: newProp.clr
     });
   }
 
   componentDidMount() {
-    this.setState({ fakeArray: this.props.missingPersons,appColor:this.props.clr });
+    this.setState({
+      fakeArray: this.props.missingPersons,
+      appColor: this.props.clr
+    });
   }
-
 
   openDrawer = () => {
     this.props.navigation.toggleDrawer();
   };
-  
-
 
   // For loader temporary
 
   render() {
+    const deviceWidth = Dimensions.get("window").width;
     const { userStatus } = this.props;
-    const {isImageViewVisible,currentImage,appColor} = this.state;
-     let rgba = '';
-    switch (appColor) {
-      case '#05CE1D':
-      {
-       rgba = 'rgba(5, 205, 29, 0.5)';
-       break;
-     }
-     case '#34495e':
-      {
-        rgba='rgba(52, 73, 94,0.5)';
-       break;
-     }
+    const { isImageViewVisible, currentImage, appColor } = this.state;
+    // let rgba = "";
+    // switch (appColor) {
+    //   case "#05CE1D": {
+    //     rgba = "rgba(5, 205, 29, 0.5)";
+    //     break;
+    //   }
+    //   case "#34495e": {
+    //     rgba = "rgba(52, 73, 94,0.5)";
+    //     break;
+    //   }
 
-     case '#f39c12':
-      {
-        rgba='rgba(241, 196, 15,0.5)';
-       break;
-     }
-        
-      default:
-        break;
-    }
-  
+    //   case "#f39c12": {
+    //     rgba = "rgba(241, 196, 15,0.5)";
+    //     break;
+    //   }
+
+    //   default:
+    //     break;
+    // }
+
     return (
-   
       <Container>
         <View>
           <StatusBar backgroundColor={appColor} barStyle="light-content" />
         </View>
 
-        <Card style={styles.headerCardContainer}>
+        <View>
+          <Carousel
+            width={deviceWidth}
+            height={250}
+            indicatorAtBottom
+            indicatorSize={Platform.OS === "android" ? 15 : 10}
+            indicatorColor="#FFF"
+            indicatorOffset={10}
+            indicatorSize={10}
+            delay={5000}
+            loop={true}
+          >
+            <RNView>
+              <TouchableOpacity
+                activeOpacity={1}
+                onPress={() => this.props.navigation.navigate("Story")}
+                style={styles.slide}
+              >
+                <ImageBackground
+                  style={styles.newsPoster}
+                  source={require("../../media/a.jpg")}
+                >
+                  <Button
+                    transparent
+                    style={{ position: "absolute", top: 7 }}
+                    transparent
+                    onPress={() => this.openDrawer()}
+                  >
+                    <Icon name="menu" style={{ color: "#fff", fontSize: 30 }} />
+                  </Button>
+                  <Button
+                    style={{ position: "absolute", top: 10, right: 5 }}
+                    transparent
+                  >
+                    <Icon
+                      onPress={() => this.props.navigation.navigate("Search")}
+                      type="EvilIcons"
+                      active
+                      name="search"
+                      style={{ color: "#fff", fontSize: 25 }}
+                    />
+                  </Button>
+
+                  <View style={styles.swiperTextContent}>
+                    <Text
+                      numberOfLines={2}
+                      style={[
+                        styles.newsPosterHeader,
+                        { color: "#fff", fontSize: 18 }
+                      ]}
+                    >
+                      An unwavering dream to return home
+                    </Text>
+                  </View>
+                </ImageBackground>
+              </TouchableOpacity>
+            </RNView>
+            <RNView>
+              <TouchableOpacity
+                activeOpacity={1}
+                onPress={() => this.props.navigation.navigate("Story")}
+                style={styles.slide}
+              >
+                <ImageBackground
+                  style={styles.newsPoster}
+                  source={require("../../media/a1.jpg")}
+                >
+                  <Button
+                    transparent
+                    style={{ position: "absolute", top: 7 }}
+                    transparent
+                    onPress={() => this.openDrawer()}
+                  >
+                    <Icon name="menu" style={{ color: "#fff", fontSize: 30 }} />
+                  </Button>
+                  <Button
+                    style={{ position: "absolute", top: 10, right: 5 }}
+                    transparent
+                  >
+                    <Icon
+                      onPress={() => this.props.navigation.navigate("Search")}
+                      type="EvilIcons"
+                      active
+                      name="search"
+                      style={{ color: "#fff", fontSize: 25 }}
+                    />
+                  </Button>
+
+                  <View style={styles.swiperTextContent}>
+                    <Text
+                      numberOfLines={2}
+                      style={[
+                        styles.newsPosterHeader,
+                        { color: "#fff", fontSize: 18 }
+                      ]}
+                    >
+                      An unwavering dream to return home
+                    </Text>
+                  </View>
+                </ImageBackground>
+              </TouchableOpacity>
+            </RNView>
+            <RNView>
+              <TouchableOpacity
+                activeOpacity={1}
+                onPress={() => this.props.navigation.navigate("Story")}
+                style={styles.slide}
+              >
+                <ImageBackground
+                  style={styles.newsPoster}
+                  source={require("../../media/a3.jpg")}
+                >
+                  <Button
+                    transparent
+                    style={{ position: "absolute", top: 7 }}
+                    transparent
+                    onPress={() => this.openDrawer()}
+                  >
+                    <Icon name="menu" style={{ color: "#fff", fontSize: 30 }} />
+                  </Button>
+                  <Button
+                    style={{ position: "absolute", top: 10, right: 5 }}
+                    transparent
+                  >
+                    <Icon
+                      onPress={() => this.props.navigation.navigate("Search")}
+                      type="EvilIcons"
+                      active
+                      name="search"
+                      style={{ color: "#fff", fontSize: 25 }}
+                    />
+                  </Button>
+                  <View style={styles.swiperTextContent}>
+                    <Text
+                      numberOfLines={2}
+                      style={[
+                        styles.newsPosterHeader,
+                        { color: "#fff", fontSize: 18 }
+                      ]}
+                    >
+                      An unwavering dream to return home
+                    </Text>
+                  </View>
+                </ImageBackground>
+              </TouchableOpacity>
+            </RNView>
+          </Carousel>
+        </View>
+
+        {/* <Card style={styles.headerCardContainer}>
           <CardItem style={styles.headerCardItem}>
             <Body>
               <ImageBackground
@@ -146,169 +297,186 @@ class Home extends Component {
               </ImageBackground>
             </Body>
           </CardItem>
-        </Card>
+        </Card> */}
 
         {/* PLus Button Ends*/}
-        
-        <Text style={{color:appColor,fontWeight:'bold',marginLeft:11}} >Recent Stories</Text>
-        
-        {this.state.fakeArray === 'Nill' ? 
-        <Text style={{textAlign:'center',fontWeight:'bold',marginTop:30}}>No Stories Yet</Text>
-         : 
-        <ScrollView>
-          {this.state.fakeArray.map((data, index) => {
-            
-            return (
-              <View key={index} style={styles.cardContainer}>
-                <Card>
-                  <CardItem>
-                    <Body>
-                      <View style={styles.cardInnerContainer}>
-                        <View>
-                          
-                          {/* here model  */}
 
-                          <TouchableOpacity
-                            onPress={() =>
-                              this.setState({ isImageViewVisible: true,
-                                currentImage:
-                                [
-                                  {
-                                  source: {
-                                          uri:`${EndPoint}/data/${data.status}/${data.image}`,
-                                      },
-                                  },
-                              ]
-                              })
-                            }
-                          >
-                            <Image
-                              style={styles.filterImage}
-                              source={{uri:`${EndPoint}/data/${data.status}/${data.image}`}}
-                            />
-                          </TouchableOpacity>
+        <Text style={{ color: appColor, fontWeight: "bold", marginLeft: 11 }}>
+          Recent Stories
+        </Text>
 
+        {this.state.fakeArray === "Nill" ? (
+          <Text
+            style={{ textAlign: "center", fontWeight: "bold", marginTop: 30 }}
+          >
+            No Stories Yet
+          </Text>
+        ) : (
+          <ScrollView>
+            {this.state.fakeArray.map((data, index) => {
+              return (
+                <View key={index} style={styles1.cardContainer}>
+                  <Card>
+                    <CardItem>
+                      <Body>
+                        <View style={styles1.cardInnerContainer}>
+                          <View>
+                            {/* here model  */}
 
-                          
-                        </View>
-                        <View style={styles.textContainer}>
-                          <TouchableOpacity
-                            style={{ width: "100%" }}
-                            onPress={() =>
-                              this.props.navigation.navigate("PersonDetail", {
-                                data: {
-                                  id: data.id,
-                                  name: data.name,
-                                  status: data.status,
-                                  post_By: data.post_By,
-                                  age: data.age,
-                                  gender: data.gender,
-                                  disability: data.disability,
-                                  description: data.description,
-                                  location: data.location,
-                                  mobile: data.mobile,
-                                  image: data.image
-                                }
-                              })
-                            }
-                          >
-                            <View style={styles.cardHeader}>
-                              <Text>{data.name}</Text>
-
-                              <Text style={{color:appColor}}>
-                                {data.status}
-                              </Text>
-                            </View>
-
-                            <View>
-                              <Text style={styles.nameText}>
-                              Posted By {data.post_By}
-                              </Text>
-                            </View>
-
-                            <View
-                              style={{
-                                flexDirection: "row",
-                                paddingTop: 5
-                              }}
-                            >
-                              <Icon
-                                style={{ marginLeft: -5 }}
-                                type="EvilIcons"
-                                name="location"
-                              />
-                              <Text style={{ fontSize: 13 }}>
-                                {data.location}
-                              </Text> 
-                              
-                              <Icon  style={{fontSize: 14,marginLeft:6,marginTop:1,marginRight:2, }} name="md-time" type="Ionicons"/>
-                              
-                              <Text style={{ fontSize: 12 }}>{data.createdat}</Text>
-                              
-                              
-                            </View>
-
-                            <View style={styles.cardHeader}>
-                              <Text
-                                style={styles.readMore}
-                                onPress={() =>
-                                  this.props.navigation.navigate(
-                                    "PersonDetail",
+                            <TouchableOpacity
+                              onPress={() =>
+                                this.setState({
+                                  isImageViewVisible: true,
+                                  currentImage: [
                                     {
-                                      data: {
-                                        id: data.id,
-                                        name: data.name,
-                                        status: data.status,
-                                        post_By: data.post_By,
-                                        age: data.age,
-                                        gender: data.gender,
-                                        disability: data.disability,
-                                        description: data.description,
-                                        location: data.location,
-                                        mobile: data.mobile,
-                                        image: data.image
+                                      source: {
+                                        uri: `${EndPoint}/data/${data.status}/${
+                                          data.image
+                                        }`
                                       }
                                     }
-                                  )
-                                }
-                              >
-                                Read More
-                              </Text>
-
-                              <Icon
-                                onPress={() => {
-                                  Share.share({
-                                    message: `*Missing Person Alert* \n Name: *${
-                                      data.name
-                                    }* \n Age: *${data.age}* \n Gender: *${
-                                      data.gender
-                                    }* \n Disability: *${
-                                      data.disability
-                                    }* \n Location: *${
-                                      data.location
-                                    }* \n Contact No.: *${data.mobile}*`,
-                                    url:
-                                      "http://img.gemejo.com/product/8c/099/cf53b3a6008136ef0882197d5f5.jpg",
-                                    title: "Wow, did you see that?"
-                                  });
+                                  ]
+                                })
+                              }
+                            >
+                              <Image
+                                style={styles1.filterImage}
+                                source={{
+                                  uri: `${EndPoint}/data/${data.status}/${
+                                    data.image
+                                  }`
                                 }}
-                                style={styles.shareIcon}
-                                type="AntDesign"
-                                name="sharealt"
                               />
-                            </View>
-                          </TouchableOpacity>
-                        </View>
-                      </View>
-                    </Body>
-                  </CardItem>
-                </Card>
-              </View>
-            );
-          })}
-        </ScrollView> }
+                            </TouchableOpacity>
+                          </View>
+                          <View style={styles1.textContainer}>
+                            <TouchableOpacity
+                              style={{ width: "100%" }}
+                              onPress={() =>
+                                this.props.navigation.navigate("PersonDetail", {
+                                  data: {
+                                    id: data.id,
+                                    name: data.name,
+                                    status: data.status,
+                                    post_By: data.post_By,
+                                    age: data.age,
+                                    gender: data.gender,
+                                    disability: data.disability,
+                                    description: data.description,
+                                    location: data.location,
+                                    mobile: data.mobile,
+                                    image: data.image
+                                  }
+                                })
+                              }
+                            >
+                              <View style={styles1.cardHeader}>
+                                <Text>{data.name}</Text>
 
-        {userStatus ? (
+                                <Text style={{ color: appColor }}>
+                                  {data.status}
+                                </Text>
+                              </View>
+
+                              <View>
+                                <Text style={styles1.nameText}>
+                                  Posted By {data.post_By}
+                                </Text>
+                              </View>
+
+                              <View
+                                style={{
+                                  flexDirection: "row",
+                                  paddingTop: 5
+                                }}
+                              >
+                                <Icon
+                                  style={{ marginLeft: -5 }}
+                                  type="EvilIcons"
+                                  name="location"
+                                />
+                                <Text style={{ fontSize: 13 }}>
+                                  {data.location}
+                                </Text>
+
+                                <Icon
+                                  style={{
+                                    fontSize: 14,
+                                    marginLeft: 6,
+                                    marginTop: 1,
+                                    marginRight: 2
+                                  }}
+                                  name="md-time"
+                                  type="Ionicons"
+                                />
+
+                                <Text style={{ fontSize: 12 }}>
+                                  {data.createdat}
+                                </Text>
+                              </View>
+
+                              <View style={styles1.cardHeader}>
+                                <Text
+                                  style={styles1.readMore}
+                                  onPress={() =>
+                                    this.props.navigation.navigate(
+                                      "PersonDetail",
+                                      {
+                                        data: {
+                                          id: data.id,
+                                          name: data.name,
+                                          status: data.status,
+                                          post_By: data.post_By,
+                                          age: data.age,
+                                          gender: data.gender,
+                                          disability: data.disability,
+                                          description: data.description,
+                                          location: data.location,
+                                          mobile: data.mobile,
+                                          image: data.image
+                                        }
+                                      }
+                                    )
+                                  }
+                                >
+                                  Read More
+                                </Text>
+
+                                <Icon
+                                  onPress={() => {
+                                    Share.share({
+                                      message: `*Missing Person Alert* \n Name: *${
+                                        data.name
+                                      }* \n Age: *${data.age}* \n Gender: *${
+                                        data.gender
+                                      }* \n Disability: *${
+                                        data.disability
+                                      }* \n Location: *${
+                                        data.location
+                                      }* \n Contact No.: *${data.mobile}*`,
+                                      url:
+                                        "http://img.gemejo.com/product/8c/099/cf53b3a6008136ef0882197d5f5.jpg",
+                                      title: "Wow, did you see that?"
+                                    });
+                                  }}
+                                  style={styles1.shareIcon}
+                                  type="AntDesign"
+                                  name="sharealt"
+                                />
+                              </View>
+                            </TouchableOpacity>
+                          </View>
+                        </View>
+                      </Body>
+                    </CardItem>
+                  </Card>
+                </View>
+              );
+            })}
+          </ScrollView>
+        )}
+
+        {/* {userStatus ? (
           <TouchableOpacity
             style={[styles.addNewButton,{backgroundColor:appColor,shadowColor:appColor}]}
             onPress={() => this.props.navigation.navigate("AddPerson")}
@@ -332,12 +500,12 @@ class Home extends Component {
               color="white"
             />
           </TouchableOpacity>
-        )}
+        )} */}
 
-         <ImageView
+        <ImageView
           images={currentImage}
           imageIndex={0}
-          onClose={() => this.setState({isImageViewVisible: false})}
+          onClose={() => this.setState({ isImageViewVisible: false })}
           isVisible={isImageViewVisible}
         />
       </Container>
@@ -350,7 +518,7 @@ const mapStateToProps = state => {
   return {
     userStatus: state.userReducer.userStatus,
     missingPersons: state.misingPersons.homeStories,
-    clr:state.colorReducer.color
+    clr: state.colorReducer.color
   };
 };
 

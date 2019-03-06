@@ -36,7 +36,7 @@ class LoginScreen extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({ loader: false, appColor: nextProps.clr });
     if (nextProps.loginLoader == "move") {
-      this.props.navigation.navigate("Homes");
+      this.props.navigation.navigate("Tabs");
     }
   }
 
@@ -64,6 +64,7 @@ class LoginScreen extends Component {
       });
     } else {
       this.setState({ loader: true });
+      
       let data = {
         user: {
           email: this.state.email,

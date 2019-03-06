@@ -269,14 +269,14 @@ class SearchScreen extends Component {
           <StatusBar backgroundColor={appColor} barStyle="light-content" />
         </View>
 
-        <View style={{backgroundColor: appColor,}}>
+        {/* <View style={{backgroundColor: appColor,}}>
           <Icon
             onPress={() => this.props.navigation.goBack()}
             style={{marginLeft: 5, fontWeight:'bold',color:'white'}}
             type="MaterialCommunityIcons"
             name="keyboard-backspace"
           />
-          </View>
+          </View> */}
 
         <View style={[styles.searchContainer,{backgroundColor: appColor}]}>
           <Item style={styles.itemStyle1}>

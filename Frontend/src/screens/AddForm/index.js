@@ -230,12 +230,15 @@ class AddForm extends Component {
       <Container>
         <StatusBar backgroundColor={appColor} barStyle="light-content" />
         <View style={[styles.header,{ backgroundColor: appColor}]}>
-          <Icon
+          {/* <Icon
             onPress={() => navigation.goBack()}
             style={styles.headerIcon}
             type="MaterialCommunityIcons"
             name="keyboard-backspace"
-          />
+          /> */}
+           
+           <Text></Text>
+           
 
           <Text style={styles.heading}>Report a Person</Text>
          

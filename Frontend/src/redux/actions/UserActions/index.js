@@ -88,8 +88,7 @@ export function getStartUserLogin(data) {
 
         console.log("err");
         console.log(err);
-        
-
+  
         Toast.show({
           position: "top",
           text: "Error occoured! Try Again",

@@ -1,40 +1,49 @@
 import React, { Component } from 'react';
-import { View,Image,StatusBar,StyleSheet} from 'react-native';
+import { View,ImageBackground,StatusBar,StyleSheet} from 'react-native';
+import {Spinner} from 'native-base';
 import { connect } from 'react-redux';
+import { getUser } from '../../redux/actions/UserActions';
 
 
 class SplashScreen extends Component {
 
-  componentDidMount = () => {
-    if(this.props.checkLogin == "change"){
-      if(this.props.checkLogin.userStatus){
-        this.props.navigation.navigate("Homes")
+  constructor(props) {
+    super(props)
+    this.state = {
+      loader:true
     }
-    else{
-      this.props.navigation.navigate("Login")
-    }
-    }
-  };
+  }
   
 
+  componentDidMount = () => {
+    this.props.getUser();
+  };
+  
   componentWillReceiveProps(newProp) {
     console.log('cwrps',newProp);
     if(newProp.checkLogin == "change"){
-      if(newProp.userStatus){
-        this.props.navigation.navigate("Homes")
+
+      if(newProp.user.name){
+        this.props.navigation.navigate("Tabs")
       }
       else{
-        this.props.navigation.navigate("Login")
+        this.props.navigation.navigate("NonAuth")
       }
-    }
-    
-   }
 
+    }
+   }
   render() {
     return (
       <View style={styles.imageContainer}>
       <StatusBar backgroundColor="#05CE1D" barStyle="light-content" />
-      <Image style={styles.image} source={require('../../media/splashScreen.png')} />
+      <ImageBackground style={styles.image} source={require('../../media/splashScreen.png')} >
+      
+       
+       <Spinner color="white" style={{position: 'absolute', bottom:'20%',textAlign:'center',left:'50%'}}  />
+
+      
+       
+      </ImageBackground>
     </View>
     );
   }
@@ -56,10 +65,10 @@ const mapStateToProps = (state) => {
   console.log('state checkLogin',state.userReducer.checkLogin);
 
   return {
-    userStatus:state.userReducer.userStatus,
+    user:state.userReducer.user,
     checkLogin:state.userReducer.checkLogin
   }
 
 }
 
-export default connect(mapStateToProps,null)(SplashScreen);
+export default connect(mapStateToProps,{getUser})(SplashScreen);
