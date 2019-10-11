@@ -27,7 +27,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 #Database connection
 app.config['MONGO_DBNAME'] = 'letsfind'
-app.config['MONGO_URI'] = 'mongodb://NaveedRana:naveed1214@ds117423.mlab.com:17423/letsfind'
+app.config['MONGO_URI'] = 'mongodb://NaveedRana:naveed1214@ds117423.mlab.com:17423/letsfind?retryWrites=false'
 mongo = PyMongo(app)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
@@ -46,9 +46,9 @@ startTime = time.time()
 
 cur = conn.cursor()
 
-key = '27bf9fa5f3c04f34b463006bb757ab67'
+key = '2a99ad87cbee4edeb9746f52735332a6'
 CF.Key.set(key)
-base_url = 'https://australiaeast.api.cognitive.microsoft.com/face/v1.0'
+base_url = 'https://letsfind.cognitiveservices.azure.com/face/v1.0'
 CF.BaseUrl.set(base_url)
 
 def matchFace(imgIds):
@@ -180,7 +180,7 @@ def solvedCase():
         data = data["case"]
         for key in data:
             case[key] = data[key]
-        task = mongo.db.resolved_cases.insert(case)
+        task = mongo.db.resolved_cases.insert_one(case)
         markResolved(case['currentStatus'],case['image'])
         result = mongo.db.missing_persons.delete_one({'img': case['image']})
         status = "success"
@@ -262,7 +262,7 @@ def registerUser():
         data = data["user"]
         for key in data:
             user[key] = data[key]
-        task = mongo.db.tbl_users.insert(user)
+        task = mongo.db.tbl_users.insert_one(user)
         print(task)
         userRegister = "success"
         return userRegister
@@ -281,7 +281,7 @@ def updateUser():
         data = data["user"]
         for key in data:
             user[key] = data[key]
-        task = mongo.db.tbl_users.insert(user)
+        task = mongo.db.tbl_users.insert_one(user)
         print(task)
         userUpdate = "success"
         return userUpdate
@@ -421,7 +421,7 @@ def registerMissingReq():
             missingPersons['post_By'] = request.form['post_By']
             missingPersons['location'] = request.form['location'] 
             missingPersons['createdat'] = str(date.today())  
-            task = mongo.db.missing_persons.insert(missingPersons)
+            task = mongo.db.missing_persons.insert_one(missingPersons)
 
             return jsonify({'output':data})
         except:
@@ -524,4 +524,4 @@ def searchByName():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0',port='2020', debug=True)
+    app.run(host='0.0.0.0',port='80', debug=True)
