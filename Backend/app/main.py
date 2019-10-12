@@ -371,6 +371,7 @@ def registerMissingReq():
                         'status':missingPerson['status'],
                         'age':missingPerson['age'],
                         'post_By':missingPerson['post_By'],
+			'userId':missingPerson['userId'],
                         'mobile':missingPerson['mobile'],
                         'location':missingPerson['location'],
                         'createdat':missingPerson['createdat'],
@@ -487,7 +488,7 @@ def searchMissingReq():
 def getPostsData():
     try:
         userId = request.get_json(silent=True)["userId"]
-        totalPosts = mongo.db.missing_persons.find({"post_By": userId})
+        totalPosts = mongo.db.missing_persons.find({"userId": userId})
         total = totalPosts.count()
         missing = found = 0
         for post in totalPosts:
@@ -548,7 +549,5 @@ def searchByName():
         return status
 
 
-
 if __name__ == "__main__":
-    app.run(host='0.0.0.0',port='5000', debug=False)
-    # app.run(host='0.0.0.0',port='80', debug=True)
+    app.run(host='0.0.0.0',port='80', debug=True)
