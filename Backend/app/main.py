@@ -481,6 +481,32 @@ def searchMissingReq():
         return status
 
 
+#get posts data
+@app.route('/getpostsdata', methods=['POST'])
+@cross_origin()
+def getPostsData():
+    try:
+        userId = request.get_json(silent=True)["userId"]
+        totalPosts = mongo.db.missing_persons.find({"post_By": userId})
+        total = totalPosts.count()
+        missing = found = 0
+        for post in totalPosts:
+            if post["status"] == "Found":
+                found += 1
+            elif post["status"] == "Missing":
+                missing += 1
+        return {
+            "type": "success",
+            "total": total,
+            "missing": missing,
+            "found": found
+        }
+    except:
+        return {
+            "type": "error"
+        }
+
+
 
 
 #searchbyfilters
@@ -524,4 +550,5 @@ def searchByName():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0',port='80', debug=True)
+    app.run(host='0.0.0.0',port='5000', debug=False)
+    # app.run(host='0.0.0.0',port='80', debug=True)
