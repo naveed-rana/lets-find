@@ -103,7 +103,7 @@ const mapStateToProps = (state) =>{
   
     return {
       clr:state.colorReducer.color,
-      userNotification:state.misingPersons.userNotification
+      userNotification:state.missingPersons.userNotification
     }
   }
   

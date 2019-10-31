@@ -346,7 +346,7 @@ class SearchScreen extends Component {
 
 const mapStateToProps = state => {
   return {
-    missingPersons: state.misingPersons.UserPosts,
+    missingPersons: state.missingPersons.UserPosts,
     clr:state.colorReducer.color,
     cell:state.userReducer.user.cell,
   };

@@ -108,7 +108,7 @@ componentWillReceiveProps(newProp) {
   
   
   componentWillUnmount() {
-    this.props.getHomeStories();
+    // this.props.getHomeStories();
   }
   
 
@@ -302,9 +302,9 @@ componentWillReceiveProps(newProp) {
 
 const mapStateToProps = state => {
   return {
-    ResolvedCases: state.misingPersons.ResolvedCases,
+    ResolvedCases: state.missingPersons.ResolvedCases,
     user:state.userReducer.user,
-    userResolvedError:state.misingPersons.userResolvedError,
+    userResolvedError:state.missingPersons.userResolvedError,
     clr:state.colorReducer.color
   };
 };

@@ -1,5 +1,3 @@
-
-
 from flask import Flask, render_template, redirect, request, url_for, jsonify, session, json, session
 from flask_pymongo import PyMongo
 from flask_cors import CORS, cross_origin
@@ -169,7 +167,7 @@ def gethomeStories():
     #  print str(e)
      return status
 
-#Get Active Cases
+#Get Solved Cases
 @app.route('/solvedCase', methods=['POST'])
 @cross_origin()
 def solvedCase():
@@ -188,8 +186,8 @@ def solvedCase():
     except:
      return status
 
-
-#Get home stories
+ 
+#Get Active Stories
 @app.route('/activeStories', methods=['GET'])
 @cross_origin()
 def activeStories():
@@ -363,18 +361,18 @@ def registerMissingReq():
                         data = []
                         for missingPerson in query:
                             data.append({
-                        'image':missingPerson['img'],
-                        'name':missingPerson['name'],
-                        'gender':missingPerson['gender'], 
-                        'disability':missingPerson['disability'],
-                        'description':missingPerson['description'],
-                        'status':missingPerson['status'],
-                        'age':missingPerson['age'],
-                        'post_By':missingPerson['post_By'],
-			'userId':missingPerson['userId'],
-                        'mobile':missingPerson['mobile'],
-                        'location':missingPerson['location'],
-                        'createdat':missingPerson['createdat'],
+                                'image':missingPerson['img'],
+                                'name':missingPerson['name'],
+                                'gender':missingPerson['gender'], 
+                                'disability':missingPerson['disability'],
+                                'description':missingPerson['description'],
+                                'status':missingPerson['status'],
+                                'age':missingPerson['age'],
+                                'post_By':missingPerson['post_By'],
+                                'userId':missingPerson['userId'],
+                                'mobile':missingPerson['mobile'],
+                                'location':missingPerson['location'],
+                                'createdat':missingPerson['createdat'],
                             })
                         print(data)
                         status = {'output':data}
@@ -394,17 +392,17 @@ def registerMissingReq():
                         data = []
                         for missingPerson in query:
                             data.append({
-                        'image':missingPerson['img'],
-                        'name':missingPerson['name'],
-                        'gender':missingPerson['gender'], 
-                        'disability':missingPerson['disability'],
-                        'description':missingPerson['description'],
-                        'status':missingPerson['status'],
-                        'age':missingPerson['age'],
-                        'post_By':missingPerson['post_By'],
-                        'mobile':missingPerson['mobile'],
-                        'location':missingPerson['location'],
-                        'createdat':missingPerson['createdat'],
+                                'image':missingPerson['img'],
+                                'name':missingPerson['name'],
+                                'gender':missingPerson['gender'], 
+                                'disability':missingPerson['disability'],
+                                'description':missingPerson['description'],
+                                'status':missingPerson['status'],
+                                'age':missingPerson['age'],
+                                'post_By':missingPerson['post_By'],
+                                'mobile':missingPerson['mobile'],
+                                'location':missingPerson['location'],
+                                'createdat':missingPerson['createdat'],
                             })
                         print(data)
                         status = {'output':data}
@@ -423,13 +421,19 @@ def registerMissingReq():
             missingPersons['location'] = request.form['location'] 
             missingPersons['createdat'] = str(date.today())  
             task = mongo.db.missing_persons.insert_one(missingPersons)
-
-            return jsonify({'output':data})
-        except:
-            # print(e)
-            return "e"
+            return jsonify({
+                'type': 'success',
+                'output': data
+            })
+        except Exception as e:
+            print("Exception: ", e)
+            return jsonify({
+                'type': 'error'
+            })
     else:
-        return jsonify({'output':[]})
+        return jsonify({
+            'type': 'error'
+        })
 
 
 #search route
@@ -550,4 +554,4 @@ def searchByName():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0',port='5000', debug=True)
+    app.run(host='0.0.0.0',port='5000', debug=False)

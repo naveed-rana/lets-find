@@ -1,112 +1,150 @@
-import { ADD_PERSON } from "../../actions/missingPersonAction";
-import { MODIFY_PERSON } from "../../actions/missingPersonAction";
-import { RESOLVED_CASES,GETLATESTSTORIESERROR,GETLATESTSTORIES,GETACTIVEPOSTS,GETACTIVEPOSTSERROR ,GETRESOLVEDPOSTS,GETRESOLVEDSERROR,NOTIFICATION} from "../../actions/missingPersonAction";
-
-import homeStories from "../../fakeArray";
+import { ADD_PERSON } from "../../actions/missingPersonAction"
+import { MODIFY_PERSON } from "../../actions/missingPersonAction"
+import {
+  RESOLVED_CASES,
+  GETLATESTSTORIESERROR,
+  GETLATESTSTORIES,
+  GETACTIVEPOSTS,
+  GETACTIVEPOSTSERROR,
+  GETRESOLVEDPOSTS,
+  GETRESOLVEDSERROR,
+  NOTIFICATION,
+  REGISTER_MISSING_PERSON,
+  REGISTER_MISSING_PERSON_ERR,
+  RESET_REGISTER_MISSING_PERSON_STATUS
+} from "../../actions/missingPersonAction"
 
 const INITIAL_STATE = {
-  homeStories: "Nill",
-  homeStoriesError:'err',
-  userStoriesError:'err',
-  userResolvedError:'sdfa'
-  ,
+  homeStories: [],
   UserPosts: [],
   ResolvedCases: [],
-  userNotification:[],
-};
+  userNotification: [],
+  loader: new Date(),
+  homeStoriesError: "err",
+  userStoriesError: "err",
+  userResolvedError: "sdfa",
+  registerMissingPersonStatus: "not done"
+}
 
 function AddReducer(state = INITIAL_STATE, action) {
-
   switch (action.type) {
+    case REGISTER_MISSING_PERSON: {
 
-    case NOTIFICATION:{
+  
+    let newArr = state.homeStories
+    newArr.push(action.payload[0])
+
       return {
         ...state,
-        userNotification:action.payload
+        loader: new Date(),
+        registerMissingPersonStatus: "done",
+        homeStories: newArr
+      }
+    }
+
+    case REGISTER_MISSING_PERSON_ERR: {
+      return {
+        ...state,
+        loader: new Date(),
+        registerMissingPersonStatus: "error"
+      }
+    }
+
+    case RESET_REGISTER_MISSING_PERSON_STATUS: {
+      return {
+        ...state,
+        loader: new Date(),
+        registerMissingPersonStatus: "not done"
+      }
+    }
+
+    case NOTIFICATION: {
+      return {
+        ...state,
+        userNotification: action.payload
       }
     }
 
     case ADD_PERSON: {
+      let newArr = state.UserPosts
+      newArr.concat([action.data])
       return {
         ...state,
-        UserPosts: state.UserPosts.concat([action.data])
-      };
-    }
-    case MODIFY_PERSON: {
-      let updateState = state.UserPosts;
-      let id = action.data.id;
-      console.log("id" + id);
-      
-      let newList = updateState.filter(item => item.id != id);
-      newList.unshift(action.data);
+        loader: new Date(),
+        UserPosts: newArr
      
+      }
+    }
 
+    case MODIFY_PERSON: {
+      let updateState = state.UserPosts
+      let id = action.data.id
+      console.log("id" + id)
+      let newList = updateState.filter(item => item.id != id)
+      newList.unshift(action.data)
       return {
         ...state,
         UserPosts: newList
-      };
+      }
     }
 
-    case RESOLVED_CASES:{
-      let updateState = state.UserPosts;
-      let id = action.data.id;
-      console.log("id" + id);
-      
-      let newList = updateState.filter(item => item.id != id);
-      
-      return{
+    case RESOLVED_CASES: {
+      let updateState = state.UserPosts
+      let id = action.data.id
+      console.log("id" + id)
+      let newList = updateState.filter(item => item.id != id)
+      return {
         ...state,
         UserPosts: newList,
         ResolvedCases: state.ResolvedCases.concat([action.data])
-
       }
     }
 
-    case GETLATESTSTORIESERROR:{
+    case GETLATESTSTORIESERROR: {
       return {
         ...state,
-        homeStoriesError:action.payload
+        homeStoriesError: action.payload
       }
     }
 
-    case GETLATESTSTORIES:{
+    case GETLATESTSTORIES: {
       return {
         ...state,
-        homeStories:action.payload.output
-      }
-    }
-    case GETACTIVEPOSTSERROR:{
-      return {
-        ...state,
-        userStoriesError:action.payload
+        homeStories: action.payload.output
       }
     }
 
-
-    case GETACTIVEPOSTS:{
+    case GETACTIVEPOSTSERROR: {
       return {
         ...state,
-        UserPosts:action.payload.output
-      }
-    }
-    
-    case GETRESOLVEDSERROR:{
-      return {
-        ...state,
-        userResolvedError:action.payload
+        userStoriesError: action.payload
       }
     }
 
-    case GETRESOLVEDPOSTS:{
+    case GETACTIVEPOSTS: {
       return {
         ...state,
-        ResolvedCases:action.payload.output
+        UserPosts: action.payload.output
+      }
+    }
+
+    case GETRESOLVEDSERROR: {
+      return {
+        ...state,
+        userResolvedError: action.payload
+      }
+    }
+
+    case GETRESOLVEDPOSTS: {
+      return {
+        ...state,
+        ResolvedCases: action.payload.output
       }
     }
 
     default:
-      return state;
+      return state
   }
 }
 
-export default AddReducer;
+export default AddReducer

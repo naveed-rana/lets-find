@@ -8,6 +8,9 @@ export const ADD_PERSON = 'ADD_PERSON';
 export const MODIFY_PERSON = "MODIFY_PERSON"
 export const RESOLVED_CASES = "RESOLVED_CASES"
 
+export const REGISTER_MISSING_PERSON = "REGISTER_MISSING_PERSON";
+export const REGISTER_MISSING_PERSON_ERR = "REGISTER_MISSING_PERSON_ERR";
+export const RESET_REGISTER_MISSING_PERSON_STATUS = "RESET_REGISTER_MISSING_PERSON_STATUS";
 
 export const GETACTIVEPOSTS = "GETACTIVEPOSTS"
 export const GETACTIVEPOSTSERROR = "GETACTIVEPOSTSERROR"
@@ -26,6 +29,57 @@ export function getNotifications(data) {
         payload:data
     }
     
+}
+
+export function registerMissingPerson(data) {
+    console.log("Action Data: ", data);
+    return (dispatch) => {
+        axios.post(`${EndPoint}/registerMissingPerson`, data, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+        }).then(res => {
+            console.log("Action Response: ", res.data);
+            if (res.data.type == 'success') {
+                dispatch({
+                    type: REGISTER_MISSING_PERSON,
+                    payload: res.data.output
+                })
+            } else {
+                dispatch({
+                    type: REGISTER_MISSING_PERSON_ERR
+                })
+            }
+            // console.log("The Response", res.data);
+            // Toast.show({
+            // text: "Successfully Uploaded",
+            // type: "success",
+            // duration: 3000
+            // });
+            // this.props.addPerson(userDatadata);
+            // // this.props.getHomeStories();
+            // console.log(res.data.output);
+            // this.props.getNotifications(res.data.output);
+            // this.props.navigation.navigate('Homes');
+        }).catch(err => {
+            dispatch({
+                type: REGISTER_MISSING_PERSON_ERR
+            })
+            // this.setState({loader:false});
+            // console.log("ERROR", err);
+            // Toast.show({
+            //     text: "Error Occoured",
+            //     type: "error",
+            //     duration: 3000
+            // });
+        });
+    }
+}
+
+export function resetRegisterMissingPersonStatus() {
+    return {
+        type: RESET_REGISTER_MISSING_PERSON_STATUS
+    }
 }
 
 export function getHomeStories() {
