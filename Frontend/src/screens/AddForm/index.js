@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { StatusBar } from "react-native";
-import EndPoint from '../../endpoint';
-import axios from "axios";
 import {
   View,
   Text,
@@ -20,7 +18,13 @@ import {
 import ImagePicker from "react-native-image-picker";
 import uploadimageIcon from "../../media/upload-photo.png";
 import { connect } from "react-redux";
-import { addPerson,getHomeStories,getNotifications } from "../../redux/actions/missingPersonAction";
+import { 
+  addPerson,
+  getHomeStories,
+  getNotifications,
+  registerMissingPerson,
+  resetRegisterMissingPersonStatus
+} from "../../redux/actions/missingPersonAction";
 import styles from "./style";
 import FloatingLabelInput from "./floatingLabelInput";
 
@@ -57,9 +61,38 @@ class AddForm extends Component {
   }
   
   componentWillReceiveProps(nextProps) {
-    this.setState({appColor:nextProps.clr});
-    
-}
+    if(nextProps.registerMissingPersonStatus == "done") {
+      Toast.show({
+        text: "Successfully Uploaded",
+        type: "success",
+        duration: 3000
+      });
+      this.props.addPerson({
+        name: this.state.name,
+        gender: this.state.gender,
+        disability: this.state.disability,
+        location: this.state.location,
+        description: this.state.description,
+        status: this.state.status,
+        age: this.state.age,
+        image: this.state.image,
+        id: Math.random() + 1
+      });
+      this.props.resetRegisterMissingPersonStatus();
+      this.props.navigation.navigate('Homes');
+    } else if(nextProps.registerMissingPersonStatus == "error") {
+      Toast.show({
+        text: "Error Occurred",
+        type: "error",
+        duration: 3000
+      });
+      this.setState({
+        loader: false
+      });
+      this.props.resetRegisterMissingPersonStatus();
+    }
+    this.setState({appColor:nextProps.clr});   
+  }
 
   uploadImage = () => {
     ImagePicker.showImagePicker(options, response => {
@@ -72,7 +105,6 @@ class AddForm extends Component {
       } else if (response.customButton) {
         console.log("User tapped custom button: ", response.customButton);
       } else {
-
         this.setState({
           image: response.uri
         });
@@ -120,19 +152,37 @@ class AddForm extends Component {
   }
 
   onSubmit = () => {
-    const userDatadata = {
-      name: this.state.name,
-      gender: this.state.gender,
-      disability: this.state.disability,
-      location: this.state.location,
-      description: this.state.description,
-      status: this.state.status,
-      age: this.state.age,
-      image: this.state.image,
-      id: Math.random() + 1
-    };
+    // const userDatadata = {
+    //   name: this.state.name,
+    //   gender: this.state.gender,
+    //   disability: this.state.disability,
+    //   location: this.state.location,
+    //   description: this.state.description,
+    //   status: this.state.status,
+    //   age: this.state.age,
+    //   image: this.state.image,
+    //   id: Math.random() + 1
+    // };
 
-    if (this.state.age == "" || this.state.age == "Select an age group") {
+    if (this.state.name == "" && this.state.status == "Missing") {
+      Toast.show({
+        text: "Enter person's name",
+        type: "warning",
+        duration: 3000
+      });
+    } else if (this.state.location == "") {
+      Toast.show({
+        text: "Enter the location",
+        type: "warning",
+        duration: 3000
+      });
+    } else if (this.state.description == "") {
+      Toast.show({
+        text: "Enter the description",
+        type: "warning",
+        duration: 3000
+      });
+    } else if (this.state.age == "" || this.state.age == "Select an age group") {
       Toast.show({
         text: "Select an age group",
         type: "warning",
@@ -144,37 +194,26 @@ class AddForm extends Component {
         type: "warning",
         duration: 3000
       });
-    } else if (this.state.disability == "Select a Disability if any") {
+    } else if (this.state.disability == "Select disability if any") {
       Toast.show({
         text: "Select a Disability",
         type: "warning",
         duration: 3000
       });
-    } else if (this.state.location == "") {
-      Toast.show({
-        text: "Select the Location",
-        type: "warning",
-        duration: 3000
-      });
-    } 
-    else if (this.state.image == uploadimageIcon) {
+    } else if (this.state.image == uploadimageIcon) {
       Toast.show({
         text: "Image is mendatory",
         type: "warning",
         duration: 3000
       });
-    } 
-    else {
+    } else {
       this.setState({ loader: true });
-      
-
       const data = new FormData();
         data.append('image', {
             uri: this.state.image,
             type: 'image/jpeg',
             name: `${this.state.location}_${this.state.age}_${new Date().getTime()}.jpg`,
         });
-
         data.append('name',`${this.state.name}`);
         data.append('gender',`${this.state.gender}`);
         data.append('disability',`${this.state.disability}`);
@@ -184,35 +223,33 @@ class AddForm extends Component {
         data.append('age',`${this.state.age}`);
         data.append('post_By',`${this.props.user.name}`);
         data.append('mobile',`${this.props.user.cell}`);
-
-        axios.post(`${EndPoint}/registerMissingPerson`, data, {
-            headers: {
-
-                'Content-Type': 'multipart/form-data',
-            },
-        })
-            .then(res => {
-                console.log("The Response", res.data);
-                Toast.show({
-                  text: "Successfully Uploaded",
-                  type: "success",
-                  duration: 3000
-                });
-                this.props.addPerson(userDatadata);
-                this.props.getHomeStories();
-                console.log(res.data.output);
-                this.props.getNotifications(res.data.output);
-                this.props.navigation.navigate('Homes');
-            }).catch(err => {
-              this.setState({loader:false});
-                console.log("ERROR", err)
-                Toast.show({
-                  text: "Error Occoured",
-                  type: "error",
-                  duration: 3000
-                });
-            });
-
+        console.log("Component Data: ", data);
+        this.props.registerMissingPerson(data);
+    //     axios.post(`${EndPoint}/registerMissingPerson`, data, {
+    //       headers: {
+    //         'Content-Type': 'multipart/form-data',
+    //       },
+    //     }).then(res => {
+    //         console.log("The Response", res.data);
+    //         Toast.show({
+    //           text: "Successfully Uploaded",
+    //           type: "success",
+    //           duration: 3000
+    //         });
+    //         this.props.addPerson(userDatadata);
+    //         // this.props.getHomeStories();
+    //         console.log(res.data.output);
+    //         this.props.getNotifications(res.data.output);
+    //         this.props.navigation.navigate('Homes');
+    //       }).catch(err => {
+    //         this.setState({loader:false});
+    //           console.log("ERROR", err)
+    //           Toast.show({
+    //             text: "Error Occoured",
+    //             type: "error",
+    //             duration: 3000
+    //           });
+    //       });
     }
   };
 
@@ -353,7 +390,10 @@ class AddForm extends Component {
                 <Picker.Item label="16 to 20" value="16 to 20" />
                 <Picker.Item label="21 to 25" value="21 to 25" />
                 <Picker.Item label="26 to 30" value="26 to 30" />
-                <Picker.Item label="30 to Greater" value="30 to Greater" />
+                <Picker.Item label="31 to 35" value="31 to 35" />
+                <Picker.Item label="36 to 40" value="36 to 40" />
+                <Picker.Item label="41 to 45" value="41 to 45" />
+                <Picker.Item label="46 or older" value="46 or older" />
               </Picker>
             </Item>
           </View>
@@ -381,8 +421,8 @@ class AddForm extends Component {
                 onValueChange={this.DisabilityHandler.bind(this)}
               >
                 <Picker.Item
-                  label="Select a Disability if any"
-                  value="Select a Disability if any"
+                  label="Select disability if any"
+                  value="Select disability if any"
                 />
                 <Picker.Item
                   label="Mentally Disable"
@@ -448,12 +488,21 @@ class AddForm extends Component {
 
 const mapStateToProps = state => {
   return {
+    loader: state.missingPersons.loader,
     userStatus: state.userReducer.userStatus,
-    clr:state.colorReducer.color,
-    user:state.userReducer.user
+    clr: state.colorReducer.color,
+    user: state.userReducer.user,
+    registerMissingPersonStatus: state.missingPersons.registerMissingPersonStatus,
   };
 };
+
 export default connect(
   mapStateToProps,
-  { addPerson,getHomeStories,getNotifications }
+  { 
+    addPerson,
+    getHomeStories,
+    getNotifications,
+    registerMissingPerson,
+    resetRegisterMissingPersonStatus
+  }
 )(AddForm);

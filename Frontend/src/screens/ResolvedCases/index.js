@@ -108,7 +108,7 @@ componentWillReceiveProps(newProp) {
   
   
   componentWillUnmount() {
-    this.props.getHomeStories();
+    // this.props.getHomeStories();
   }
   
 

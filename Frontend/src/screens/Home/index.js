@@ -29,7 +29,6 @@ import { styles1 } from "./style";
 import { connect } from "react-redux";
 import ImageView from "react-native-image-view";
 import EndPoint from "../../endpoint";
-// import fakeArray from '../../redux/fakeArray';
 import styles from "./sliderCSS.js";
 
 Drawer.defaultProps.styles.mainOverlay.elevation = 0;
@@ -39,46 +38,20 @@ class Home extends Component {
     super(props);
     this.state = {
       appColor: "#05CE1D",
-      fakeArray: [
-        {
-          id: "1",
-          image:
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuWelu5a4sG2AHbTAxpT7w0PXvL_EPDPt1V9g2fRwMNB80OoFNwA",
-          status: "Missing",
-          name: "Naveed Rana",
-          age: "teen",
-          gender: "male",
-          location: "Faisalabad",
-          description:
-            "Lorem Ipsum is also known as: Greeked text, blind text, placeholder text, dummy content, filler text, lipsum, and mock-content.",
-          disability: "mental",
-          mobile: "+92 303 4766669",
-          post_By: "Asif"
-        }
-      ],
-      isImageViewVisible: false,
-      currentImage: [
-        {
-          source: {
-            uri:
-              "https://cdn.pixabay.com/photo/2017/08/17/10/47/paris-2650808_960_720.jpg"
-          }
-        }
-      ],
+      missingPersons: [],
       loader: true
     };
   }
 
-  componentWillReceiveProps(newProp) {
+  componentWillReceiveProps(nextProps) {
     this.setState({
-      fakeArray: newProp.missingPersons,
-      appColor: newProp.clr
+      missingPersons: nextProps.missingPersons,
+      loader: false
     });
   }
 
   componentDidMount() {
     this.setState({
-      fakeArray: this.props.missingPersons,
       appColor: this.props.clr
     });
   }
@@ -305,176 +278,188 @@ class Home extends Component {
           Recent Stories
         </Text>
 
-        {this.state.fakeArray === "Nill" ? (
-          <Text
-            style={{ textAlign: "center", fontWeight: "bold", marginTop: 30 }}
-          >
-            No Stories Yet
-          </Text>
-        ) : (
-          <ScrollView>
-            {this.state.fakeArray.map((data, index) => {
-              return (
-                <View key={index} style={styles1.cardContainer}>
-                  <Card>
-                    <CardItem>
-                      <Body>
-                        <View style={styles1.cardInnerContainer}>
-                          <View>
-                            {/* here model  */}
-
-                            <TouchableOpacity
-                              onPress={() =>
-                                this.setState({
-                                  isImageViewVisible: true,
-                                  currentImage: [
-                                    {
-                                      source: {
-                                        uri: `${EndPoint}/data/${data.status}/${
-                                          data.image
-                                        }`
-                                      }
-                                    }
-                                  ]
-                                })
-                              }
-                            >
-                              <Image
-                                style={styles1.filterImage}
-                                source={{
-                                  uri: `${EndPoint}/data/${data.status}/${
-                                    data.image
-                                  }`
-                                }}
-                              />
-                            </TouchableOpacity>
-                          </View>
-                          <View style={styles1.textContainer}>
-                            <TouchableOpacity
-                              style={{ width: "100%" }}
-                              onPress={() =>
-                                this.props.navigation.navigate("PersonDetail", {
-                                  data: {
-                                    id: data.id,
-                                    name: data.name,
-                                    status: data.status,
-                                    post_By: data.post_By,
-                                    age: data.age,
-                                    gender: data.gender,
-                                    disability: data.disability,
-                                    description: data.description,
-                                    location: data.location,
-                                    mobile: data.mobile,
-                                    image: data.image
-                                  }
-                                })
-                              }
-                            >
-                              <View style={styles1.cardHeader}>
-                                <Text>{data.name}</Text>
-
-                                <Text style={{ color: appColor }}>
-                                  {data.status}
-                                </Text>
-                              </View>
-
+        {
+          this.state.loader
+          ? (
+            <Text
+              style={{ textAlign: "center", fontWeight: "bold", marginTop: 30 }}
+            >
+              Loading...
+            </Text>
+          ) : (
+            this.state.missingPersons.length == 0 
+            ? (
+              <Text
+                style={{ textAlign: "center", fontWeight: "bold", marginTop: 30 }}
+              >
+                No Stories Yet
+              </Text>
+            ) : (
+              <ScrollView>
+                {this.state.missingPersons.map((data, index) => {
+                  return (
+                    <View key={index} style={styles1.cardContainer}>
+                      <Card>
+                        <CardItem>
+                          <Body>
+                            <View style={styles1.cardInnerContainer}>
                               <View>
-                                <Text style={styles1.nameText}>
-                                  Posted By {data.post_By}
-                                </Text>
-                              </View>
-
-                              <View
-                                style={{
-                                  flexDirection: "row",
-                                  paddingTop: 5
-                                }}
-                              >
-                                <Icon
-                                  style={{ marginLeft: -5 }}
-                                  type="EvilIcons"
-                                  name="location"
-                                />
-                                <Text style={{ fontSize: 13 }}>
-                                  {data.location}
-                                </Text>
-
-                                <Icon
-                                  style={{
-                                    fontSize: 14,
-                                    marginLeft: 6,
-                                    marginTop: 1,
-                                    marginRight: 2
-                                  }}
-                                  name="md-time"
-                                  type="Ionicons"
-                                />
-
-                                <Text style={{ fontSize: 12 }}>
-                                  {data.createdat}
-                                </Text>
-                              </View>
-
-                              <View style={styles1.cardHeader}>
-                                <Text
-                                  style={styles1.readMore}
+                                {/* here model  */}
+  
+                                <TouchableOpacity
                                   onPress={() =>
-                                    this.props.navigation.navigate(
-                                      "PersonDetail",
-                                      {
-                                        data: {
-                                          id: data.id,
-                                          name: data.name,
-                                          status: data.status,
-                                          post_By: data.post_By,
-                                          age: data.age,
-                                          gender: data.gender,
-                                          disability: data.disability,
-                                          description: data.description,
-                                          location: data.location,
-                                          mobile: data.mobile,
-                                          image: data.image
+                                    this.setState({
+                                      isImageViewVisible: true,
+                                      currentImage: [
+                                        {
+                                          source: {
+                                            uri: `${EndPoint}/data/${data.status}/${
+                                              data.image
+                                            }`
+                                          }
                                         }
-                                      }
-                                    )
+                                      ]
+                                    })
                                   }
                                 >
-                                  Read More
-                                </Text>
-
-                                <Icon
-                                  onPress={() => {
-                                    Share.share({
-                                      message: `*Missing Person Alert* \n Name: *${
-                                        data.name
-                                      }* \n Age: *${data.age}* \n Gender: *${
-                                        data.gender
-                                      }* \n Disability: *${
-                                        data.disability
-                                      }* \n Location: *${
-                                        data.location
-                                      }* \n Contact No.: *${data.mobile}*`,
-                                      url:
-                                        "http://img.gemejo.com/product/8c/099/cf53b3a6008136ef0882197d5f5.jpg",
-                                      title: "Wow, did you see that?"
-                                    });
-                                  }}
-                                  style={styles1.shareIcon}
-                                  type="AntDesign"
-                                  name="sharealt"
-                                />
+                                  <Image
+                                    style={styles1.filterImage}
+                                    source={{
+                                      uri: `${EndPoint}/data/${data.status}/${
+                                        data.image
+                                      }`
+                                    }}
+                                  />
+                                </TouchableOpacity>
                               </View>
-                            </TouchableOpacity>
-                          </View>
-                        </View>
-                      </Body>
-                    </CardItem>
-                  </Card>
-                </View>
-              );
-            })}
-          </ScrollView>
-        )}
+                              <View style={styles1.textContainer}>
+                                <TouchableOpacity
+                                  style={{ width: "100%" }}
+                                  onPress={() =>
+                                    this.props.navigation.navigate("PersonDetail", {
+                                      data: {
+                                        id: data.id,
+                                        name: data.name,
+                                        status: data.status,
+                                        post_By: data.post_By,
+                                        age: data.age,
+                                        gender: data.gender,
+                                        disability: data.disability,
+                                        description: data.description,
+                                        location: data.location,
+                                        mobile: data.mobile,
+                                        image: data.image
+                                      }
+                                    })
+                                  }
+                                >
+                                  <View style={styles1.cardHeader}>
+                                    <Text>{data.name}</Text>
+  
+                                    <Text style={{ color: appColor }}>
+                                      {data.status}
+                                    </Text>
+                                  </View>
+  
+                                  <View>
+                                    <Text style={styles1.nameText}>
+                                      Posted by {data.post_By}
+                                    </Text>
+                                  </View>
+  
+                                  <View
+                                    style={{
+                                      flexDirection: "row",
+                                      paddingTop: 5
+                                    }}
+                                  >
+                                    <Icon
+                                      style={{ marginLeft: -5 }}
+                                      type="EvilIcons"
+                                      name="location"
+                                    />
+                                    <Text style={{ fontSize: 13 }}>
+                                      {data.location}
+                                    </Text>
+  
+                                    <Icon
+                                      style={{
+                                        fontSize: 14,
+                                        marginLeft: 6,
+                                        marginTop: 1,
+                                        marginRight: 2
+                                      }}
+                                      name="md-time"
+                                      type="Ionicons"
+                                    />
+  
+                                    <Text style={{ fontSize: 12 }}>
+                                      {data.createdat}
+                                    </Text>
+                                  </View>
+  
+                                  <View style={styles1.cardHeader}>
+                                    <Text
+                                      style={styles1.readMore}
+                                      onPress={() =>
+                                        this.props.navigation.navigate(
+                                          "PersonDetail",
+                                          {
+                                            data: {
+                                              id: data.id,
+                                              name: data.name,
+                                              status: data.status,
+                                              post_By: data.post_By,
+                                              age: data.age,
+                                              gender: data.gender,
+                                              disability: data.disability,
+                                              description: data.description,
+                                              location: data.location,
+                                              mobile: data.mobile,
+                                              image: data.image
+                                            }
+                                          }
+                                        )
+                                      }
+                                    >
+                                      Read More
+                                    </Text>
+  
+                                    <Icon
+                                      onPress={() => {
+                                        Share.share({
+                                          message: `*Missing Person Alert* \n Name: *${
+                                            data.name
+                                          }* \n Age: *${data.age}* \n Gender: *${
+                                            data.gender
+                                          }* \n Disability: *${
+                                            data.disability
+                                          }* \n Location: *${
+                                            data.location
+                                          }* \n Contact No.: *${data.mobile}*`,
+                                          url:
+                                            "http://img.gemejo.com/product/8c/099/cf53b3a6008136ef0882197d5f5.jpg",
+                                          title: "Wow, did you see that?"
+                                        });
+                                      }}
+                                      style={styles1.shareIcon}
+                                      type="AntDesign"
+                                      name="sharealt"
+                                    />
+                                  </View>
+                                </TouchableOpacity>
+                              </View>
+                            </View>
+                          </Body>
+                        </CardItem>
+                      </Card>
+                    </View>
+                  );
+                })}
+              </ScrollView>
+            )
+          )
+        }
 
         {/* {userStatus ? (
           <TouchableOpacity
@@ -517,7 +502,8 @@ class Home extends Component {
 const mapStateToProps = state => {
   return {
     userStatus: state.userReducer.userStatus,
-    missingPersons: state.misingPersons.homeStories,
+    missingPersons: state.missingPersons.homeStories,
+    loader: state.missingPersons.loader,
     clr: state.colorReducer.color
   };
 };
