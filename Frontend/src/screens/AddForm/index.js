@@ -201,7 +201,7 @@ class AddForm extends Component {
                 this.props.addPerson(userDatadata);
                 this.props.getHomeStories();
                 console.log(res.data.output);
-                this.props.getNotifications(res.data.output);
+                //this.props.getNotifications(res.data.output);
                 this.props.navigation.navigate('Homes');
             }).catch(err => {
               this.setState({loader:false});
