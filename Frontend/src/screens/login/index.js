@@ -110,7 +110,7 @@ class LoginScreen extends Component {
                 style={styles.inputStyle}
                 active
                 name="mail"
-                type="Foundation"
+          
               />
               <Input
                 name="email"
@@ -128,7 +128,7 @@ class LoginScreen extends Component {
                 style={styles.inputStyle}
                 active
                 name="eye"
-                type="Foundation"
+          
               />
               <Input
                 name="password"
