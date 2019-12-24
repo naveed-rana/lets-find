@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import axios from "axios";
+import React, {Component} from 'react';
+import axios from 'axios';
 import {
   Image,
   StatusBar,
   ScrollView,
   TouchableOpacity,
   Modal,
-  Share
-} from "react-native";
+  Share,
+} from 'react-native';
 import {
   View,
   Text,
@@ -22,200 +22,188 @@ import {
   Form,
   Button,
   Toast,
-  Spinner
-} from "native-base";
-import ImagePicker from "react-native-image-picker";
-import styles from "./style";
+  Spinner,
+} from 'native-base';
+import ImagePicker from 'react-native-image-picker';
+import styles from './style';
 import EndPoint from '../../endpoint';
-import { connect } from "react-redux";
-import { search } from "../../redux/actions/SearchAction";
+import {connect} from 'react-redux';
+import {search} from '../../redux/actions/SearchAction';
 import ImageView from 'react-native-image-view';
 
 const options = {
-  title: "Select Option",
+  title: 'Select Option',
   storageOptions: {
     skipBackup: true,
-    path: "images"
-  }
+    path: 'images',
+  },
 };
 class SearchScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       show: false,
-      postShow:false,
-      selectedStatus: "",
-      selectedDisability: "",
-      selectedGender: "",
-      selectedAgeGroup: "",
-      filterLocation: "",
-      image: "",
-      searchName: "",
+      postShow: false,
+      selectedStatus: '',
+      selectedDisability: '',
+      selectedGender: '',
+      selectedAgeGroup: '',
+      filterLocation: '',
+      image: '',
+      searchName: '',
       loader: false,
-      onlineURL:false,
-      appColor :'#05CE1D',
+      onlineURL: false,
+      appColor: '#05CE1D',
       fakeArray: [],
       isImageViewVisible: false,
-      currentImage:[
+      currentImage: [
         {
-            source: {
-                uri: 'https://cdn.pixabay.com/photo/2017/08/17/10/47/paris-2650808_960_720.jpg',
-            },
+          source: {
+            uri:
+              'https://cdn.pixabay.com/photo/2017/08/17/10/47/paris-2650808_960_720.jpg',
+          },
         },
-    ]
+      ],
     };
   }
   uploadImage = () => {
-
     ImagePicker.showImagePicker(options, response => {
-      console.log("Response = ", response);
+      console.log('Response = ', response);
 
       if (response.didCancel) {
-        console.log("User cancelled image picker");
+        console.log('User cancelled image picker');
       } else if (response.error) {
-        console.log("ImagePicker Error: ", response.error);
+        console.log('ImagePicker Error: ', response.error);
       } else if (response.customButton) {
-        console.log("User tapped custom button: ", response.customButton);
+        console.log('User tapped custom button: ', response.customButton);
       } else {
-        const source = { uri: response.uri };
+        const source = {uri: response.uri};
 
         this.setState({
-          image: source
+          image: source,
         });
       }
     });
-
-
   };
- 
+
   componentWillReceiveProps(newProp) {
     this.setState({
-      appColor:newProp.clr
+      appColor: newProp.clr,
     });
   }
   componentDidMount() {
-    this.setState({ appColor:this.props.clr });
+    this.setState({appColor: this.props.clr});
   }
 
-  onSubmit = () => {
-  
-  };
+  onSubmit = () => {};
   onStatusChange(value) {
     this.setState({
-      selectedStatus: value
+      selectedStatus: value,
     });
   }
   onDisabilityChange(value) {
     this.setState({
-      selectedDisability: value
+      selectedDisability: value,
     });
   }
   onGenderChange(value) {
     this.setState({
-      selectedGender: value
+      selectedGender: value,
     });
   }
   onAgeGroupChange(value) {
     this.setState({
-      selectedAgeGroup: value
+      selectedAgeGroup: value,
     });
   }
   toggleFilter = () => {
-    const { show } = this.state;
+    const {show} = this.state;
     this.setState(preState => {
       return {
-        show: !preState.show
+        show: !preState.show,
       };
     });
   };
 
   SearchHandler = () => {
-
     const image = this.state.image;
-    if (image == "") {
+    if (image == '') {
       Toast.show({
-        text: "Please Select an image to search",
-        type: "warning",
-        duration: 3000
+        text: 'Please Select an image to search',
+        type: 'warning',
+        duration: 3000,
       });
     } else {
       this.props.search(image);
       this.setState({
-        loader: true
+        loader: true,
       });
 
       const data = new FormData();
       data.append('image', {
-          uri: this.state.image.uri,
-          type: 'image/jpeg',
-          name: `${new Date().getTime()}.jpg`,
+        uri: this.state.image.uri,
+        type: 'image/jpeg',
+        name: `${new Date().getTime()}.jpg`,
       });
 
       this.setState({
-        loader: true
+        loader: true,
       });
 
-
-      axios.post(`${EndPoint}/searchbyimage`, data, {
+      axios
+        .post(`${EndPoint}/searchbyimage`, data, {
           headers: {
-
-              'Content-Type': 'multipart/form-data',
+            'Content-Type': 'multipart/form-data',
           },
-      })
-          .then(res => {
-             
-              console.log("The Response search by image",res.data.output);
-              if(res.data.output == undefined){
-                this.setState({
-                  fakeArray: [],
-                  loader: false,
-                  postShow:true
-                })
-              }
-              else{
-              this.setState({
-                fakeArray: res.data.output,
-                loader: false,
-                postShow:true
-              });}
-               
-                }).catch(err => {
-            this.setState({loader:false});
-              console.log("ERROR", err)
-          });
-
+        })
+        .then(res => {
+          console.log('The Response search by image', res.data.output);
+          if (res.data.output == undefined) {
+            this.setState({
+              fakeArray: [],
+              loader: false,
+              postShow: true,
+            });
+          } else {
+            this.setState({
+              fakeArray: res.data.output,
+              loader: false,
+              postShow: true,
+            });
+          }
+        })
+        .catch(err => {
+          this.setState({loader: false});
+          console.log('ERROR', err);
+        });
     }
-
-   
-
-         }
-  
+  };
 
   filterHandler = () => {
     if (
-      this.state.selectedStatus == "Status" ||
-      this.state.selectedDisability == "Disability" ||
-      this.state.selectedGender == "Gender" ||
-      this.state.selectedAgeGroup == "Age Group"
+      this.state.selectedStatus == 'Status' ||
+      this.state.selectedDisability == 'Disability' ||
+      this.state.selectedGender == 'Gender' ||
+      this.state.selectedAgeGroup == 'Age Group'
     ) {
       this.setState({
-        selectedStatus: "",
-        selectedDisability: "",
-        selectedGender: "",
-        selectedAgeGroup: ""
+        selectedStatus: '',
+        selectedDisability: '',
+        selectedGender: '',
+        selectedAgeGroup: '',
       });
     } else if (
-      this.state.selectedStatus == "" &&
-      this.state.selectedDisability == "" &&
-      this.state.selectedGender == "" &&
-      this.state.selectedAgeGroup == "" &&
-      this.state.filterLocation == "" &&
-      this.state.searchName == ""
+      this.state.selectedStatus == '' &&
+      this.state.selectedDisability == '' &&
+      this.state.selectedGender == '' &&
+      this.state.selectedAgeGroup == '' &&
+      this.state.filterLocation == '' &&
+      this.state.searchName == ''
     ) {
       Toast.show({
-        text: "Select atleast one field",
-        type: "warning",
-        duration: 3000
+        text: 'Select atleast one field',
+        type: 'warning',
+        duration: 3000,
       });
     } else {
       var data = {
@@ -224,45 +212,44 @@ class SearchScreen extends Component {
         disability: this.state.selectedDisability,
         gender: this.state.selectedGender,
         age: this.state.selectedAgeGroup,
-        location: this.state.filterLocation
+        location: this.state.filterLocation,
       };
-      
 
       this.setState({
-        loader: true
+        loader: true,
       });
-        
 
-      let data = {"filters":{
-        name: this.state.searchName,
-        status: this.state.selectedStatus,
-        disability: this.state.selectedDisability,
-        gender: this.state.selectedGender,
-        age: this.state.selectedAgeGroup,
-        location: this.state.filterLocation
-      }}
+      let datas = {
+        filters: {
+          name: this.state.searchName,
+          status: this.state.selectedStatus,
+          disability: this.state.selectedDisability,
+          gender: this.state.selectedGender,
+          age: this.state.selectedAgeGroup,
+          location: this.state.filterLocation,
+        },
+      };
 
-  
-        axios.post(EndPoint+'/searchbyfilters',data)
-        .then((res)=>{
-          
-          this.setState({fakeArray:res.data.output,postShow:true,loader: false });
-            
-            
+      axios
+        .post(EndPoint + '/searchbyfilters', datas)
+        .then(res => {
+          this.setState({
+            fakeArray: res.data.output,
+            postShow: true,
+            loader: false,
+          });
         })
-        .catch((err)=>{
-          this.setState({ loader: false });
-            console.log("err");
-            console.log(err);
-        })
-
-
+        .catch(err => {
+          this.setState({loader: false});
+          console.log('err');
+          console.log(err);
+        });
     }
   };
 
   render() {
     const {userStatus} = this.props;
-    const {isImageViewVisible,currentImage,appColor} = this.state;
+    const {isImageViewVisible, currentImage, appColor} = this.state;
     return (
       <Container>
         <View>
@@ -278,12 +265,11 @@ class SearchScreen extends Component {
           />
           </View> */}
 
-        <View style={[styles.searchContainer,{backgroundColor: appColor}]}>
+        <View style={[styles.searchContainer, {backgroundColor: appColor}]}>
           <Item style={styles.itemStyle1}>
             <TouchableOpacity
               style={styles.searchInput}
-              onPress={this.uploadImage}
-            >
+              onPress={this.uploadImage}>
               <Input
                 placeholder="Search By Image"
                 editable={false}
@@ -292,21 +278,19 @@ class SearchScreen extends Component {
 
               <TouchableOpacity
                 style={styles.cameraIconBtn}
-                onPress={this.SearchHandler}
-              >
-              <Icon style={styles.camIcon} type="Entypo" name="camera" />
+                onPress={this.SearchHandler}>
+                <Icon style={styles.camIcon} type="Entypo" name="camera" />
               </TouchableOpacity>
             </TouchableOpacity>
           </Item>
           <TouchableOpacity
             style={styles.filterContainer}
-            onPress={this.toggleFilter}
-          >  
-            
-            <Icon style={{color:'white'}} name="text" type="Entypo"/>
-            
-            <Text style={{color:'white',fontWeight:'bold'}}>More Search Options</Text>
-            
+            onPress={this.toggleFilter}>
+            <Icon style={{color: 'white'}} name="text" type="Entypo" />
+
+            <Text style={{color: 'white', fontWeight: 'bold'}}>
+              More Search Options
+            </Text>
           </TouchableOpacity>
           {this.state.show ? (
             <View style={styles.filtersContainer}>
@@ -315,32 +299,42 @@ class SearchScreen extends Component {
                   <Item>
                     <Input
                       placeholder="Search by Name"
-                      style={{ color: "#fff" }}
+                      style={{color: '#fff'}}
                       placeholderTextColor="#fff"
-                      onChangeText={name => this.setState({ searchName: name.toLowerCase()
-                        .split(' ')
-                        .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-                        .join(' ') })}
+                      onChangeText={name =>
+                        this.setState({
+                          searchName: name
+                            .toLowerCase()
+                            .split(' ')
+                            .map(
+                              s => s.charAt(0).toUpperCase() + s.substring(1),
+                            )
+                            .join(' '),
+                        })
+                      }
                     />
                     <Icon
                       active
                       name="user"
                       type="EvilIcons"
-                      style={{ color: "#fff" }}
+                      style={{color: '#fff'}}
                     />
                   </Item>
 
                   <Item>
                     <Input
                       placeholder="Location"
-                      style={{ color: "#fff" }}
+                      style={{color: '#fff'}}
                       placeholderTextColor="#fff"
                       onChangeText={loaction => {
                         this.setState({
-                          filterLocation: loaction.toLowerCase()
-                          .split(' ')
-                          .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
-                          .join(' ')
+                          filterLocation: loaction
+                            .toLowerCase()
+                            .split(' ')
+                            .map(
+                              s => s.charAt(0).toUpperCase() + s.substring(1),
+                            )
+                            .join(' '),
                         });
                       }}
                     />
@@ -348,7 +342,7 @@ class SearchScreen extends Component {
                       active
                       name="search-location"
                       type="FontAwesome5"
-                      style={{ color: "#fff" }}
+                      style={{color: '#fff'}}
                     />
                   </Item>
                 </View>
@@ -359,14 +353,13 @@ class SearchScreen extends Component {
                       iosIcon={
                         <Icon
                           name="ios-arrow-down-outline"
-                          style={{ color: "#fff" }}
+                          style={{color: '#fff'}}
                         />
                       }
-                      style={{ width: "49%", color: "#fff" }}
+                      style={{width: '49%', color: '#fff'}}
                       placeholderIconColor="#fff"
                       selectedValue={this.state.selectedStatus}
-                      onValueChange={this.onStatusChange.bind(this)}
-                    >
+                      onValueChange={this.onStatusChange.bind(this)}>
                       <Picker.Item label="Status" value="Status" />
                       <Picker.Item label="Missing" value="Missing" />
                       <Picker.Item label="Found" value="Found" />
@@ -376,11 +369,10 @@ class SearchScreen extends Component {
                     <Picker
                       mode="dropdown"
                       iosIcon={<Icon name="ios-arrow-down-outline" />}
-                      style={{ width: "49%", color: "#fff" }}
+                      style={{width: '49%', color: '#fff'}}
                       placeholderIconColor="#fff"
                       selectedValue={this.state.selectedDisability}
-                      onValueChange={this.onDisabilityChange.bind(this)}
-                    >
+                      onValueChange={this.onDisabilityChange.bind(this)}>
                       <Picker.Item label="Disability" value="Disability" />
                       <Picker.Item
                         label="Mentally Disable"
@@ -415,14 +407,13 @@ class SearchScreen extends Component {
                       iosIcon={
                         <Icon
                           name="ios-arrow-down-outline"
-                          style={{ color: "#fff" }}
+                          style={{color: '#fff'}}
                         />
                       }
-                      style={{ width: "49%", color: "#fff" }}
+                      style={{width: '49%', color: '#fff'}}
                       placeholderIconColor="#fff"
                       selectedValue={this.state.selectedGender}
-                      onValueChange={this.onGenderChange.bind(this)}
-                    >
+                      onValueChange={this.onGenderChange.bind(this)}>
                       <Picker.Item label="Gender" value="Gender" />
                       <Picker.Item label="Male" value="Male" />
                       <Picker.Item label="Female" value="Female" />
@@ -432,11 +423,10 @@ class SearchScreen extends Component {
                     <Picker
                       mode="dropdown"
                       iosIcon={<Icon name="ios-arrow-down-outline" />}
-                      style={{ width: "49%", color: "#fff" }}
+                      style={{width: '49%', color: '#fff'}}
                       placeholderIconColor="#fff"
                       selectedValue={this.state.selectedAgeGroup}
-                      onValueChange={this.onAgeGroupChange.bind(this)}
-                    >
+                      onValueChange={this.onAgeGroupChange.bind(this)}>
                       <Picker.Item label="Age Group" value="Age Group" />
                       <Picker.Item label="1 to 5" value="1 to 5" />
                       <Picker.Item label="6 to 10" value="6 to 10" />
@@ -456,9 +446,8 @@ class SearchScreen extends Component {
                   bordered
                   success
                   style={styles.filterBtn}
-                  onPress={this.filterHandler}
-                >
-                  <Text style={{ color: "white" }}>Search</Text>
+                  onPress={this.filterHandler}>
+                  <Text style={{color: 'white'}}>Search</Text>
                 </Button>
               </Form>
             </View>
@@ -471,190 +460,197 @@ class SearchScreen extends Component {
           <View>
             <Spinner color={appColor} />
           </View>
-        ) : (
-          this.state.postShow ? 
-          
+        ) : this.state.postShow ? (
           <ScrollView>
-            {this.state.fakeArray.length >=1 ?
-            <View>
-              
-              <Text style={{color:appColor,fontWeight:'bold',marginLeft:11}}>Top Results</Text>
-              
-            {this.state.fakeArray.map((data, index) => {
-              return (
-                <View key={index} style={styles.cardContainer}>
-                <Card>
-                  <CardItem>
-                    <Body>
-                      <View style={styles.cardInnerContainer}>
-                        <View>
-                          <TouchableOpacity
-                          onPress={() =>
-                            this.setState({ isImageViewVisible: true,
-                              currentImage:
-                              [
-                                {
-                                source: {
-                                        uri:`${EndPoint}/data/${data.status}/${data.image}`,
-                                    },
-                                },
-                            ]
-                            })
-                          }
-                          >
-                            <Image
-                              style={styles.filterImage}
-                              source={{uri:`${EndPoint}/data/${data.status}/${data.image}`}}
-                            />
-                          </TouchableOpacity>
-                        </View>
-                        <View style={styles.textContainer}>
-                          <TouchableOpacity
-                            style={{ width: "100%" }}
-                            onPress={() =>
-                              this.props.navigation.navigate("PersonDetail", {
-                                data: {
-                                  id: data.id,
-                                  name: data.name,
-                                  status: data.status,
-                                  post_By: data.post_By,
-                                  age: data.age,
-                                  gender: data.gender,
-                                  disability: data.disability,
-                                  description: data.description,
-                                  location: data.location,
-                                  mobile: data.mobile,
-                                  image: data.image
-                                }
-                              })
-                            }
-                          >
-                            <View style={styles.cardHeader}>
-                              <Text>{data.name}</Text>
+            {this.state.fakeArray.length >= 1 ? (
+              <View>
+                <Text
+                  style={{color: appColor, fontWeight: 'bold', marginLeft: 11}}>
+                  Top Results
+                </Text>
 
-                              <Text style={{color:appColor}}>
-                                {data.status}
-                              </Text>
+                {this.state.fakeArray.map((data, index) => {
+                  return (
+                    <View key={index} style={styles.cardContainer}>
+                      <Card>
+                        <CardItem>
+                          <Body>
+                            <View style={styles.cardInnerContainer}>
+                              <View>
+                                <TouchableOpacity
+                                  onPress={() =>
+                                    this.setState({
+                                      isImageViewVisible: true,
+                                      currentImage: [
+                                        {
+                                          source: {
+                                            uri: `${EndPoint}/data/${data.status}/${data.image}`,
+                                          },
+                                        },
+                                      ],
+                                    })
+                                  }>
+                                  <Image
+                                    style={styles.filterImage}
+                                    source={{
+                                      uri: `${EndPoint}/data/${data.status}/${data.image}`,
+                                    }}
+                                  />
+                                </TouchableOpacity>
+                              </View>
+                              <View style={styles.textContainer}>
+                                <TouchableOpacity
+                                  style={{width: '100%'}}
+                                  onPress={() =>
+                                    this.props.navigation.navigate(
+                                      'PersonDetail',
+                                      {
+                                        data: {
+                                          id: data.id,
+                                          name: data.name,
+                                          status: data.status,
+                                          post_By: data.post_By,
+                                          age: data.age,
+                                          gender: data.gender,
+                                          disability: data.disability,
+                                          description: data.description,
+                                          location: data.location,
+                                          mobile: data.mobile,
+                                          image: data.image,
+                                        },
+                                      },
+                                    )
+                                  }>
+                                  <View style={styles.cardHeader}>
+                                    <Text>{data.name}</Text>
+
+                                    <Text style={{color: appColor}}>
+                                      {data.status}
+                                    </Text>
+                                  </View>
+
+                                  <View>
+                                    <Text style={styles.nameText}>
+                                      Posted By {data.post_By} @{' '}
+                                      {data.createdat}
+                                    </Text>
+                                  </View>
+
+                                  <View
+                                    style={{
+                                      flexDirection: 'row',
+                                      paddingTop: 5,
+                                    }}>
+                                    <Icon
+                                      style={{marginLeft: -5}}
+                                      type="EvilIcons"
+                                      name="location"
+                                    />
+                                    <Text style={{fontSize: 13}}>
+                                      {data.location}
+                                    </Text>
+                                  </View>
+
+                                  <View style={styles.cardHeader}>
+                                    <Text
+                                      style={styles.readMore}
+                                      onPress={() =>
+                                        this.props.navigation.navigate(
+                                          'PersonDetail',
+                                          {
+                                            data: {
+                                              id: data.id,
+                                              name: data.name,
+                                              status: data.status,
+                                              post_By: data.post_By,
+                                              age: data.age,
+                                              gender: data.gender,
+                                              disability: data.disability,
+                                              description: data.description,
+                                              location: data.location,
+                                              mobile: data.mobile,
+                                              image: data.image,
+                                            },
+                                          },
+                                        )
+                                      }>
+                                      Read More
+                                    </Text>
+
+                                    <Icon
+                                      onPress={() => {
+                                        Share.share({
+                                          message: `*Missing Person Alert* \n Name: *${data.name}* \n Age: *${data.age}* \n Gender: *${data.gender}* \n Disability: *${data.disability}* \n Location: *${data.location}* \n Contact No.: *${data.mobile}*`,
+                                          url:
+                                            'http://img.gemejo.com/product/8c/099/cf53b3a6008136ef0882197d5f5.jpg',
+                                          title: 'Wow, did you see that?',
+                                        });
+                                      }}
+                                      style={styles.shareIcon}
+                                      type="AntDesign"
+                                      name="sharealt"
+                                    />
+                                  </View>
+                                </TouchableOpacity>
+                              </View>
                             </View>
-
-                            <View>
-                              <Text style={styles.nameText}>
-                              Posted By {data.post_By} @ {data.createdat}
-                              </Text>
-                            </View>
-
-                            <View
-                              style={{
-                                flexDirection: "row",
-                                paddingTop: 5
-                              }}
-                            >
-                              <Icon
-                                style={{ marginLeft: -5 }}
-                                type="EvilIcons"
-                                name="location"
-                              />
-                              <Text style={{ fontSize: 13 }}>
-                                {data.location}
-                              </Text>
-                            </View>
-
-                            <View style={styles.cardHeader}>
-                              <Text
-                                style={styles.readMore}
-                                onPress={() =>
-                                  this.props.navigation.navigate(
-                                    "PersonDetail",
-                                    {
-                                      data: {
-                                        id: data.id,
-                                        name: data.name,
-                                        status: data.status,
-                                        post_By: data.post_By,
-                                        age: data.age,
-                                        gender: data.gender,
-                                        disability: data.disability,
-                                        description: data.description,
-                                        location: data.location,
-                                        mobile: data.mobile,
-                                        image: data.image
-                                      }
-                                    }
-                                  )
-                                }
-                              >
-                                Read More
-                              </Text>
-
-                              <Icon
-                                onPress={() => {
-                                  Share.share({
-                                    message: `*Missing Person Alert* \n Name: *${
-                                      data.name
-                                    }* \n Age: *${data.age}* \n Gender: *${
-                                      data.gender
-                                    }* \n Disability: *${
-                                      data.disability
-                                    }* \n Location: *${
-                                      data.location
-                                    }* \n Contact No.: *${data.mobile}*`,
-                                    url:
-                                      "http://img.gemejo.com/product/8c/099/cf53b3a6008136ef0882197d5f5.jpg",
-                                    title: "Wow, did you see that?"
-                                  });
-                                }}
-                                style={styles.shareIcon}
-                                type="AntDesign"
-                                name="sharealt"
-                              />
-                            </View>
-                          </TouchableOpacity>
-                          
-                        </View>
-                      </View>
-                    </Body>
-                  </CardItem>
-                </Card>
+                          </Body>
+                        </CardItem>
+                      </Card>
+                    </View>
+                  );
+                })}
               </View>
-              );
-            })}
-            </View>
-            :
-            <View><Text style={{textAlign:'center',marginTop:100}}>No Record Found Yet! Try Again</Text></View>
-          }
+            ) : (
+              <View>
+                <Text style={{textAlign: 'center', marginTop: 100}}>
+                  No Record Found Yet! Try Again
+                </Text>
+              </View>
+            )}
           </ScrollView>
-          : 
-          <Text style={{textAlign:'center',marginTop:100,paddingHorizontal:20}}>Find Your Loved once, From Above Search Area</Text>
+        ) : (
+          <Text
+            style={{
+              textAlign: 'center',
+              marginTop: 100,
+              paddingHorizontal: 20,
+            }}>
+            Find Your Loved once, From Above Search Area
+          </Text>
         )}
 
+        {userStatus ? (
+          <TouchableOpacity
+            style={[
+              styles.addNewButton,
+              {backgroundColor: appColor, shadowColor: appColor},
+            ]}
+            onPress={() => this.props.navigation.navigate('AddPerson')}>
+            <Icon
+              type="AntDesign"
+              name="plus"
+              style={{fontSize: 20, color: '#fff'}}
+              color="white"
+            />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            style={[
+              styles.addNewButton,
+              {backgroundColor: appColor, shadowColor: appColor},
+            ]}
+            onPress={() => this.props.navigation.navigate('Login')}>
+            <Icon
+              type="AntDesign"
+              name="plus"
+              style={{fontSize: 20, color: '#fff'}}
+              color="white"
+            />
+          </TouchableOpacity>
+        )}
 
-            {userStatus ?  
-              <TouchableOpacity
-                style={[styles.addNewButton,{backgroundColor: appColor,shadowColor:appColor}]}
-                onPress={() => this.props.navigation.navigate("AddPerson")}
-              >
-                <Icon
-                  type="AntDesign"
-                  name="plus"
-                  style={{ fontSize: 20, color: "#fff" }}
-                  color="white"
-                />
-              </TouchableOpacity>
-              :
-              <TouchableOpacity
-              style={[styles.addNewButton,{backgroundColor: appColor,shadowColor:appColor}]}
-                onPress={() => this.props.navigation.navigate("Login")}
-              >
-                <Icon
-                  type="AntDesign"
-                  name="plus"
-                  style={{ fontSize: 20, color: "#fff" }}
-                  color="white"
-                />
-              </TouchableOpacity>
-              }
-              
-         <ImageView
+        <ImageView
           images={currentImage}
           imageIndex={0}
           onClose={() => this.setState({isImageViewVisible: false})}
@@ -668,12 +664,9 @@ class SearchScreen extends Component {
 const mapStateToProps = state => {
   return {
     userStatus: state.userReducer.userStatus,
-    clr:state.colorReducer.color,
-    SearchStories: state.SearchReducer.SearchStories
+    clr: state.colorReducer.color,
+    SearchStories: state.SearchReducer.SearchStories,
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { search }
-)(SearchScreen);
+export default connect(mapStateToProps, {search})(SearchScreen);

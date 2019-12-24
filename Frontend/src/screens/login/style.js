@@ -64,11 +64,11 @@ export default styles = StyleSheet.create({
       marginHorizontal:10,
       color:'white'},
       socialIconG:{
-        width: 60,
-        height: 60,
-        borderRadius: 60 / 2,
+        width: 50,
+        height: 50,
+        borderRadius: 50 / 2,
         borderColor:'white',
-        borderWidth:2,
+        borderWidth:1,
         marginVertical:10,
         marginHorizontal:10,
       }

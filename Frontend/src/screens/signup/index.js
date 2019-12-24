@@ -98,14 +98,14 @@ class SignUpScreen extends Component {
     //  console.log('props from comp',loader);
     return (
       <ScrollView style={{ backgroundColor: appColor }}>
-        <View>
+        {/* <View>
           <Icon
             onPress={() => this.props.navigation.goBack()}
             style={{ marginLeft: 5, fontWeight: "bold", color: "white" }}
             type="MaterialCommunityIcons"
             name="keyboard-backspace"
           />
-        </View>
+        </View> */}
         <Content contentContainerStyle={styles.loginContainer}>
           <View style={styles.viewStyle}>
             <Image source={require("../../media/main_logo.png")} style={{width: "73%", height: 120, zIndex: 1}}/>
@@ -225,7 +225,7 @@ class SignUpScreen extends Component {
               <Button
                 full
                 rounded
-                style={{ marginVertical: 20, backgroundColor: "white" }}
+                style={{ marginVertical: 4, backgroundColor: "white" }}
                 onPress={this.onSubmit}
               >
                 <Text style={{ color: "black", fontWeight: "bold" }}>

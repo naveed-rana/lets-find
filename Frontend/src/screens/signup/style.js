@@ -4,7 +4,8 @@ export default styles = StyleSheet.create({
     loginContainer: {
       justifyContent: 'center',
       flex: 1,
-      paddingBottom: 20,
+      paddingBottom: 10,
+      paddingTop:20
     },
     inputStyle: {
       color: '#fff'
@@ -24,7 +25,7 @@ export default styles = StyleSheet.create({
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      marginVertical: 20
+      marginVertical: 10
     },
     viewAccount:
     {

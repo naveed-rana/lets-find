@@ -1,17 +1,13 @@
 import {Icon} from 'native-base';
 import React from 'react';
 
-import {
-  createBottomTabNavigator,
-  createStackNavigator,
-  createAppContainer,
-  createDrawerNavigator,
-  createSwitchNavigator
-} from 'react-navigation';
-
+import {createAppContainer, createSwitchNavigator} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
+import {createDrawerNavigator} from 'react-navigation-drawer';
 
 // import HomeScreen from "../screens/ActiveCases";
-import HomeScreen from "../screens/Home";
+import HomeScreen from '../screens/Home';
 import LoginScreen from '../screens/login';
 import ProfileScreen from '../screens/ShowProfile';
 import PersonelDetailScreen from '../screens/PersonelDetails';
@@ -25,147 +21,148 @@ import EditPostScreen from '../screens/EditPost';
 import ActiveCasesScreen from '../screens/ActiveCases';
 import ResolvedCasedScreen from '../screens/ResolvedCases';
 import ShowResolvedDetail from '../screens/ShowResolvedDetails';
-import AboutusScreen from '../screens/AboutUs'
-import SettingScreen from '../screens/SettingScreen'
+import AboutusScreen from '../screens/AboutUs';
+import SettingScreen from '../screens/SettingScreen';
 import LoginWithAzure from '../screens/azure';
 import Feedback from '../screens/FeedBack';
 
 import SplashScreen from '../screens/SplashScreen/SplashScreen';
 
-
-const HomeStack = createStackNavigator({
- 
-  Homes: HomeScreen,
-  PersonDetail:PersonelDetailScreen,
-  Profile: ProfileScreen,
-  ProfileEdit: EditProfile,
-  EditPost:EditPostScreen,
-  ActiveCases:ActiveCasesScreen,
-  ResolvedCases: ResolvedCasedScreen,
-  ResolvedCaseDetail: ShowResolvedDetail,
-  Aboutus: AboutusScreen,
-  Settings: SettingScreen,
-  Feedback:Feedback,
-},
-{
-  headerMode: 'none',
-}
+const HomeStack = createStackNavigator(
+  {
+    Homes: HomeScreen,
+    PersonDetail: PersonelDetailScreen,
+    Profile: ProfileScreen,
+    ProfileEdit: EditProfile,
+    EditPost: EditPostScreen,
+    ActiveCases: ActiveCasesScreen,
+    ResolvedCases: ResolvedCasedScreen,
+    ResolvedCaseDetail: ShowResolvedDetail,
+    Aboutus: AboutusScreen,
+    Settings: SettingScreen,
+    Feedback: Feedback,
+  },
+  {
+    headerMode: 'none',
+  },
 );
 
-const AddStack = createStackNavigator({
-  AddPerson: AddPersons,
-  
-},
-{
-  headerMode: 'none',
-}
+const AddStack = createStackNavigator(
+  {
+    AddPerson: AddPersons,
+  },
+  {
+    headerMode: 'none',
+  },
 );
 
-const SearchStack = createStackNavigator({
-  Search:SearchScreen,
-},
-{
-  headerMode: 'none',
-}
+const SearchStack = createStackNavigator(
+  {
+    Search: SearchScreen,
+  },
+  {
+    headerMode: 'none',
+  },
 );
 
-const NotificationsStack = createStackNavigator({
-  Notifications: NotificationScreen,
-},
-{
-  headerMode: 'none',
-}
+const NotificationsStack = createStackNavigator(
+  {
+    Notifications: NotificationScreen,
+  },
+  {
+    headerMode: 'none',
+  },
 );
 
- const MyTabNavigator = createBottomTabNavigator(
+const MyTabNavigator = createBottomTabNavigator(
   {
     Home: HomeStack,
     Notifications: NotificationsStack,
-    Search:SearchStack,
-    LetsAdd:AddStack
+    Search: SearchStack,
+    LetsAdd: AddStack,
   },
   {
-    defaultNavigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({ focused, horizontal, tintColor }) => {
-        const { routeName } = navigation.state;
+    defaultNavigationOptions: ({navigation}) => ({
+      tabBarIcon: ({focused, horizontal, tintColor}) => {
+        const {routeName} = navigation.state;
         let iconName;
         let clr;
         if (routeName === 'Home') {
           iconName = `home`;
         } else if (routeName === 'Notifications') {
           iconName = `notifications-outline`;
-        }
-        else if (routeName === 'Search') {
+        } else if (routeName === 'Search') {
           iconName = `search`;
-        }
-        else if (routeName === 'LetsAdd') {
+        } else if (routeName === 'LetsAdd') {
           iconName = `ios-person-add`;
         }
-        focused ? clr = '#05CE1D': clr = "gray"; 
-        return <Icon style={{color:`${clr}`}}  type="Ionicons" name={iconName} size={horizontal ? 20 : 25} color={tintColor} />;
+        focused ? (clr = '#05CE1D') : (clr = 'gray');
+        return (
+          <Icon
+            style={{color: `${clr}`}}
+            type="Ionicons"
+            name={iconName}
+            size={horizontal ? 20 : 25}
+            color={tintColor}
+          />
+        );
       },
     }),
     tabBarOptions: {
-      
       activeTintColor: '#05CE1D',
       inactiveTintColor: 'gray',
-      style:{
-        borderTopColor: "grey",
+      style: {
+        borderTopColor: 'grey',
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
+        shadowOffset: {width: 0, height: 1},
         shadowOpacity: 0.8,
-        shadowRadius: 2,  
+        shadowRadius: 2,
         elevation: 5,
-      }
+      },
     },
-  }
+  },
 );
-
-
-
 
 const Splash = createStackNavigator(
   {
-    SplashScreen:SplashScreen,
+    SplashScreen: SplashScreen,
   },
   {
     index: 0,
-    headerMode: "none"
-  }
+    headerMode: 'none',
+  },
 );
 
 const NonAuth = createStackNavigator(
   {
     Login: LoginScreen,
     SignUp: SignUpScreen,
-    azure:LoginWithAzure,
-  
+    azure: LoginWithAzure,
   },
   {
     index: 0,
-    headerMode: "none"
-  }
+    headerMode: 'none',
+  },
 );
 
 const RootNavigator = createSwitchNavigator(
-  
   {
-    Splash:Splash,
+    Splash: Splash,
     NonAuth: NonAuth,
-    Tabs: MyTabNavigator
+    Tabs: MyTabNavigator,
   },
   {
-    initialRouteName: "Splash"
-  }
+    initialRouteName: 'Splash',
+  },
 );
 
-
-const MyDrawerNavigator = createDrawerNavigator({
-  RootNavigator:RootNavigator
-}, {
-  contentComponent: props => <DrawerScreen {...props} />
-}
+const MyDrawerNavigator = createDrawerNavigator(
+  {
+    RootNavigator: RootNavigator,
+  },
+  {
+    contentComponent: props => <DrawerScreen {...props} />,
+  },
 );
 
-
-export default createAppContainer(MyDrawerNavigator)
+export default createAppContainer(MyDrawerNavigator);

@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, {Component} from 'react';
 import {getStartUserLogin} from '../../redux/actions/UserActions';
-import {  Image,ScrollView,TouchableOpacity } from "react-native";
+import {Image, ScrollView, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 
 import {
@@ -13,35 +13,31 @@ import {
   View,
   Button,
   Spinner,
-  Toast
-} from "native-base";
+  Toast,
+} from 'native-base';
 
-import styles from "./style";
+import styles from './style';
 
 class LoginScreen extends Component {
   constructor(Props) {
     super(Props);
     this.state = {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
       loader: false,
-      appColor: ""
+      appColor: '',
     };
   }
 
-
-
-
-
   componentWillReceiveProps(nextProps) {
-    this.setState({ loader: false, appColor: nextProps.clr });
-    if (nextProps.loginLoader == "move") {
-      this.props.navigation.navigate("Tabs");
+    this.setState({loader: false, appColor: nextProps.clr});
+    if (nextProps.loginLoader == 'move') {
+      this.props.navigation.navigate('Tabs');
     }
   }
 
   componentDidMount() {
-    this.setState({ appColor: this.props.clr });
+    this.setState({appColor: this.props.clr});
   }
 
   validateEmail = email => {
@@ -50,39 +46,36 @@ class LoginScreen extends Component {
   };
 
   onSubmit = () => {
-    if (this.state.email == "" || !this.validateEmail(this.state.email)) {
+    if (this.state.email == '' || !this.validateEmail(this.state.email)) {
       Toast.show({
-        text: "Please Provide a valid Email address",
-        type: "error",
-        duration: 3000
+        text: 'Please Provide a valid Email address',
+        type: 'error',
+        duration: 3000,
       });
-    } else if (this.state.password == "") {
+    } else if (this.state.password == '') {
       Toast.show({
-        text: "Please Provide a valid Password",
-        type: "error",
-        duration: 3000
+        text: 'Please Provide a valid Password',
+        type: 'error',
+        duration: 3000,
       });
     } else {
-      this.setState({ loader: true });
-      
+      this.setState({loader: true});
+
       let data = {
         user: {
           email: this.state.email,
           password: this.state.password,
-        }
+        },
       };
 
       this.props.getStartUserLogin(data);
     }
   };
 
-  
-
-
   render() {
-    const { loader, appColor } = this.state;
+    const {loader, appColor} = this.state;
     return (
-      <ScrollView style={{ backgroundColor: appColor }}>
+      <ScrollView style={{backgroundColor: appColor}}>
         {/* <View style={{paddingBottom: 0}}>
           <Icon
             onPress={() => this.props.navigation.goBack()}
@@ -94,7 +87,10 @@ class LoginScreen extends Component {
 
         <Content contentContainerStyle={styles.loginContainer}>
           <View style={styles.viewStyle}>
-            <Image source={require("../../media/main_logo.png")} style={{width: "73%", height: 120, zIndex: 1}} />
+            <Image
+              source={require('../../media/main_logo.png')}
+              style={{width: '73%', height: 120, zIndex: 1}}
+            />
             <Text style={styles.inputStyle}>Find Your Missing Person</Text>
           </View>
 
@@ -102,20 +98,24 @@ class LoginScreen extends Component {
             <Text style={styles.loginStyle}>Login</Text>
             <Text style={styles.barStyle}>|</Text>
             <Text
-              onPress={() => this.props.navigation.navigate("SignUp")}
-              style={styles.signUpStyle}
-            >
+              onPress={() => this.props.navigation.navigate('SignUp')}
+              style={styles.signUpStyle}>
               Signup
             </Text>
           </View>
 
           <Form style={styles.formStyle}>
             <Item style={styles.itemStyle} rounded>
-              <Icon style={styles.inputStyle} active name="mail" />
+              <Icon
+                style={styles.inputStyle}
+                active
+                name="mail"
+                type="Foundation"
+              />
               <Input
                 name="email"
                 onChangeText={event =>
-                  this.setState({ email: event.toLowerCase() })
+                  this.setState({email: event.toLowerCase()})
                 }
                 placeholderTextColor="#fff"
                 style={styles.inputStyle}
@@ -124,10 +124,15 @@ class LoginScreen extends Component {
             </Item>
 
             <Item style={styles.itemStyle} rounded>
-              <Icon style={styles.inputStyle} active name="eye" />
+              <Icon
+                style={styles.inputStyle}
+                active
+                name="eye"
+                type="Foundation"
+              />
               <Input
                 name="password"
-                onChangeText={event => this.setState({ password: event })}
+                onChangeText={event => this.setState({password: event})}
                 secureTextEntry={true}
                 placeholderTextColor="#fff"
                 style={styles.inputStyle}
@@ -142,9 +147,8 @@ class LoginScreen extends Component {
                 full
                 rounded
                 type="submit"
-                style={{ marginVertical: 20, backgroundColor: "white" }}
-                onPress={this.onSubmit}
-              >
+                style={{marginVertical: 20, backgroundColor: 'white'}}
+                onPress={this.onSubmit}>
                 <Spinner color="green" />
               </Button>
             ) : (
@@ -152,12 +156,9 @@ class LoginScreen extends Component {
                 full
                 rounded
                 type="submit"
-                style={{ marginVertical: 20, backgroundColor: "white" }}
-                onPress={this.onSubmit}
-              >
-                <Text style={{ color: "black", fontWeight: "bold" }}>
-                  LOGIN
-                </Text>
+                style={{marginVertical: 20, backgroundColor: 'white'}}
+                onPress={this.onSubmit}>
+                <Text style={{color: 'black', fontWeight: 'bold'}}>LOGIN</Text>
               </Button>
             )}
           </Form>
@@ -165,19 +166,17 @@ class LoginScreen extends Component {
           <View style={styles.viewAccount}>
             <Text style={styles.loginStyle}>Don't have an Account?</Text>
             <Text
-              onPress={() => this.props.navigation.navigate("SignUp")}
-              style={styles.loginStyle}
-            >
-              {" "}
+              onPress={() => this.props.navigation.navigate('SignUp')}
+              style={styles.loginStyle}>
               Signup
             </Text>
           </View>
 
-          <Text style={{ color: "#fff", textAlign: "center" }}>
+          <Text style={{color: '#fff', textAlign: 'center'}}>
             ------------ or ------------
           </Text>
 
-          <View style={{ flexDirection: "row", justifyContent: "center" }}>
+          <View style={{flexDirection: 'row', justifyContent: 'center'}}>
             {/* <View style={styles.socialIconG}>
               <Icon
                 style={{ alignSelf: "center", marginTop: 10, color: "white" }}
@@ -197,10 +196,15 @@ class LoginScreen extends Component {
                 name="google-plus-square"
               />
             </View> */}
-            <TouchableOpacity onPress={() => this.props.navigation.navigate("azure")}>
-            <View  style={styles.socialIconG}>
-            <Icon  style={{alignSelf: 'center',marginTop:10,color:'white',}}  type="FontAwesome5" name="microsoft"/>
-            </View>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('azure')}>
+              {/* <View  style={styles.socialIconG}> */}
+              <Icon
+                style={{alignSelf: 'center', marginTop: 10, color: 'white'}}
+                type="FontAwesome5"
+                name="microsoft"
+              />
+              {/* </View> */}
             </TouchableOpacity>
           </View>
         </Content>
@@ -212,11 +216,8 @@ class LoginScreen extends Component {
 const mapStateToProps = state => {
   return {
     loginLoader: state.userReducer.loginLoader,
-    clr: state.colorReducer.color
+    clr: state.colorReducer.color,
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { getStartUserLogin }
-)(LoginScreen);
+export default connect(mapStateToProps, {getStartUserLogin})(LoginScreen);
