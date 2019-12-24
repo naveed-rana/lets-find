@@ -172,11 +172,11 @@ class LoginScreen extends Component {
             </Text>
           </View>
 
-          <Text style={{color: '#fff', textAlign: 'center'}}>
+          {/* <Text style={{color: '#fff', textAlign: 'center'}}>
             ------------ or ------------
-          </Text>
+          </Text> */}
 
-          <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+          {/* <View style={{flexDirection: 'row', justifyContent: 'center'}}> */}
             {/* <View style={styles.socialIconG}>
               <Icon
                 style={{ alignSelf: "center", marginTop: 10, color: "white" }}
@@ -196,17 +196,19 @@ class LoginScreen extends Component {
                 name="google-plus-square"
               />
             </View> */}
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => this.props.navigation.navigate('azure')}>
-              {/* <View  style={styles.socialIconG}> */}
+             
               <Icon
                 style={{alignSelf: 'center', marginTop: 10, color: 'white'}}
                 type="FontAwesome5"
                 name="microsoft"
               />
-              {/* </View> */}
-            </TouchableOpacity>
-          </View>
+           
+            </TouchableOpacity> */}
+
+
+          {/* </View> */}
         </Content>
       </ScrollView>
     );
