@@ -45,14 +45,19 @@ class Home extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      missingPersons: nextProps.missingPersons,
+  static getDerivedStateFromProps(props, state) {
+    return {
+      missingPersons: props.missingPersons,
       loader: false,
-    });
+    }
   }
 
   componentDidMount() {
+    // if(this.props.missingPersons.length > 0) {
+    //   this.setState({
+    //     loader: false
+    //   })
+    // }
     this.setState({
       appColor: this.props.clr,
     });
@@ -68,6 +73,7 @@ class Home extends Component {
     console.log(
       'missing persons lists is here *****',
       this.props.missingPersons,
+      this.state.loader
     );
     const deviceWidth = Dimensions.get('window').width;
     const {userStatus} = this.props;
@@ -217,14 +223,15 @@ class Home extends Component {
 
         {this.state.loader ? (
           <Spinner style={{marginTop: 30}} color={appColor} />
-        ) : this.state.missingPersons.length == 0 ? (
+        ) : this.props.missingPersons.length == 0 ? (
           <Text
             style={{textAlign: 'center', fontWeight: 'bold', marginTop: 30}}>
             No Stories Yet
           </Text>
         ) : (
           <ScrollView>
-            {this.state.missingPersons.map((data, index) => {
+            {this.props.missingPersons.map((data, index) => {
+              console.log("Data", data)
               return (
                 <View key={index} style={styles1.cardContainer}>
                   <Card>

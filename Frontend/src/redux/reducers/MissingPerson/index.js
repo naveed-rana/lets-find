@@ -19,7 +19,7 @@ const INITIAL_STATE = {
   UserPosts: [],
   ResolvedCases: [],
   userNotification: [],
-  loader: new Date(),
+  loader: 'initial state',
   homeStoriesError: "err",
   userStoriesError: "err",
   userResolvedError: "sdfa",
@@ -103,6 +103,7 @@ function AddReducer(state = INITIAL_STATE, action) {
     case GETLATESTSTORIESERROR: {
       return {
         ...state,
+        loader: new Date(),
         homeStoriesError: action.payload
       }
     }
@@ -110,6 +111,7 @@ function AddReducer(state = INITIAL_STATE, action) {
     case GETLATESTSTORIES: {
       return {
         ...state,
+        loader: new Date(),
         homeStories: action.payload.output
       }
     }

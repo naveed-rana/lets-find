@@ -180,6 +180,7 @@ class SearchScreen extends Component {
         this.state.fakeArray.length >=1?
         <ScrollView>
           {this.state.fakeArray.map((data, index) => {
+            console.log("Fake Data", data)
             return (
               <View key={index} style={styles.cardContainer}>
                 <Card>
